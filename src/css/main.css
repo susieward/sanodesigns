@@ -1,0 +1,53 @@
+* {
+box-sizing: border-box;
+}
+
+
+/* BODY */
+
+body {
+font-family: 'Karla';
+font-size: 16px;
+line-height: 23px;
+font-weight: 300;
+color: #262626;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+font-smoothing: antialiased;
+margin: 0;
+padding: 0;
+background-color: #fff;
+}
+
+h2 {
+font-family: 'Playfair Display';
+font-weight: 400;
+font-size: 32px;
+line-height: 35px;
+margin: 0;
+color: #262626;
+    
+}
+
+a {
+text-decoration: none;
+color: #8a52a3;
+}
+
+a:hover {
+
+}
+
+.btn {
+border: 1px solid #000;
+background-color: #000;
+padding: 20px 34px;
+text-align: center;
+font-family: 'Karla';
+font-size: 18px;
+line-height: 18px;
+text-transform: uppercase;
+color: #d9d9d9;
+font-weight: 400;
+cursor: pointer;
+}
