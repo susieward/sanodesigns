@@ -38,23 +38,25 @@
           <div v-if="bracelet === true">
               <p>{{ selectedType }} lengths:</p>
                 
-            <input type="radio" id="s" value="6 inches" @change="showButton(braceletLength)" v-model="braceletLength"/>
+            <input type="radio" id="s" value="6 inches" @change="showButton" v-model="braceletLength"/>
             <label for="s">6"</label>
               
-            <input type="radio" id="m" value="7 inches" @change="showButton(braceletLength)" v-model="braceletLength"/>
+            <input type="radio" id="m" value="7 inches" @change="showButton" v-model="braceletLength"/>
             <label for="m">7"</label>
               
-            <input type="radio" id="l" value="8 inches" @change="showButton(braceletLength)" v-model="braceletLength"/>
+            <input type="radio" id="l" value="8 inches" @change="showButton" v-model="braceletLength"/>
             <label for="l">8"</label>
               
-            <input type="radio" id="xl" value="9 inches" @change="showButton(braceletLength)" v-model="braceletLength"/>
+            <input type="radio" id="xl" value="9 inches" @change="showSelector" v-model="braceletLength"/>
             <label for="xl">9"</label>
               
             <p>Length: {{ braceletLength }}</p>
           
           </div>
               
-          <button class="btn" v-if="lengthChosen === true">select your beads</button>
+          <button class="btn" v-if="lengthChosen === true" @click="openSelector(braceletLength)">select your beads</button>
+        
+
               
           </div>
           
@@ -65,7 +67,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Create',
   data () {
@@ -76,17 +77,20 @@ export default {
         lengthChosen: false,
         selectedType: '',
         necklaceLength: '',
-        braceletLength: ''
+        braceletLength: '',
+        showSelector: false 
         
     }
   },
     
-    
     methods: {
         
-        showButton: function(braceletLength){
+        openSelector: function(braceletLength){
+            this.$router.push({ name: 'beads', params: {braceletLength: this.braceletLength}});
+        },
+        
+        showButton: function(){
             this.lengthChosen = true;
-            this.braceletLength = braceletLength;
         },
         
         selectNecklace: function(){

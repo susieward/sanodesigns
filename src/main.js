@@ -14,6 +14,7 @@ import Vuex from 'vuex'
 import App from './App'
 import Home from './components/Home.vue'
 import Create from './components/Create.vue'
+import BeadSelector from './components/BeadSelector.vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
@@ -30,6 +31,11 @@ const routes = [
       name: 'Create',
       component: Create
     },
+    { path: 'beads',
+             name: 'beads',
+             component: BeadSelector,
+             props: true
+            }
   ]
 
 const router = new VueRouter({

@@ -13,6 +13,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@branu-jp/v-drag": "0.0.10",
     "@seregpie/vuedragdrop": "^18.6.21",
     "axios": "^0.18.0",
     "moment": "^2.22.2",
