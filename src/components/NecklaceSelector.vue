@@ -1,8 +1,8 @@
 <template>
-  <div class="bead-selector">
+  <div class="necklace-selector">
       
 <h2>Select {{ selectedType }} Beads</h2>
-      Length: {{ braceletLength }}
+      Length: {{ necklaceLength }}
       
       
   </div>
@@ -10,8 +10,8 @@
 
 <script>
 export default {
-  name: 'bracelet',
-    props: ['braceletLength', 'selectedType'],
+  name: 'necklace',
+    props: ['necklaceLength', 'selectedType'],
   data () {
     return {
       
@@ -24,7 +24,7 @@ export default {
 
 <style>
     
-.bead-selector {
+.necklace-selector {
     display: grid;
     align-content: flex-start;
         justify-content: center;
@@ -37,7 +37,7 @@ export default {
     
     }
     
-.bead-selector h2 {
+.necklace-selector  h2 {
     text-align: center;
     }
 
