@@ -4,6 +4,10 @@
 <h2>Select {{ selectedType }} Beads</h2>
       Length: {{ necklaceLength }}
       
+      {{ beads }}
+      
+      
+      </div>
       
   </div>
 </template>
@@ -13,11 +17,17 @@ export default {
   name: 'necklace',
     props: ['necklaceLength', 'selectedType'],
   data () {
-    return {
+    return { 
       
 
     }
-  }
+  },
+    
+    computed: {
+        beads(){
+            return this.$store.state.beads;
+        }
+    }
     
 }
 </script>

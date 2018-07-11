@@ -5,22 +5,37 @@
       <div class="start">
           <router-link to="/create" tag="button" class="btn">get started</router-link>
           </div>
+          
       </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Home',
   data () {
     return {
-
+ 
     }
-  }
+ 
+    
+    },
+    
+    computed: {
+        beads(){
+            return this.$store.state.beads;
+        }
+    }
 }
 </script>
 
 <style>
+    
+    .bead-img {
+    width: 100px;
+    object-fit: cover;
+    }
     
     .home {
     display: grid;

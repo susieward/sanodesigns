@@ -7,7 +7,7 @@
       
       <div class="header">
           <div class="header-container">
-      <h1>Sano Designs</h1>
+              <router-link to="/"><h1>Sano Designs</h1></router-link>
               </div>
       </div>
       
@@ -61,7 +61,7 @@ justify-content: flex-start;
     display: grid;
     align-content: center;
     max-width: 1050px;
-    border: 1px solid #ddd;
+   
     }
     
     .header h1 {

@@ -11,11 +11,13 @@ require('./css/main.css');
 
 import Vue from 'vue'
 import Vuex from 'vuex'
+import store from './store/index.js'
 import App from './App'
 import Home from './components/Home.vue'
 import Create from './components/Create.vue'
 import BeadSelector from './components/BeadSelector.vue'
 import NecklaceSelector from './components/NecklaceSelector.vue'
+import Catalog from './components/Catalog.vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
@@ -41,7 +43,13 @@ const routes = [
              name: 'necklace',
              component: NecklaceSelector,
              props: true
-            }
+    },
+    {
+        path: '/catalog',
+        name: 'Catalog',
+        component: Catalog
+        
+    }
   ]
 
 const router = new VueRouter({
@@ -58,5 +66,9 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
     router,
+    store,
+    created(){
+        this.$store.dispatch('loadBeads');
+    },
   render: h => h(App)
 })

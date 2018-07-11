@@ -4,7 +4,9 @@
       
       
         <div class="select-type-container" v-if="typeChosen === false">
-            <h2>Select Jewelry Type</h2>
+            
+            <h2 style="text-align: center">Select Jewelry Type</h2>
+            
             <div class="select-type">
           <div class="column" id="necklace" @click="selectNecklace">
               <p class="select-text">necklace</p>
@@ -18,9 +20,16 @@
           </div>
           
           <div class="select-length" v-if="typeChosen === true">
-              <h2>Select Length</h2>
-          <div v-if="necklace === true">
-              <p>{{ selectedType }} lengths:</p>
+              
+          <div v-if="necklace === true" class="selector">
+              
+              <div class="size-template">
+              
+              
+              </div>
+              
+              <div class="size">
+                  <h2>Select {{ selectedType }} Length</h2>
               
               <input type="radio" id="small" value="12 in"  @change="showButton" v-model="necklaceLength"/>
               <label for="small">12"</label>
@@ -31,14 +40,21 @@
               <input type="radio" id="large" value="16 in" @change="showButton" v-model="necklaceLength"/>
               <label for="large">16"</label>
               
-              <p>Length: {{ necklaceLength }}</p>
+                  <p v-show="lengthChosen === true">Your necklace length: {{ necklaceLength }}</p>
               
               <button class="btn" v-if="lengthChosen === true" @click="chooseNecklaceBeads(necklaceLength, selectedType)">select your beads</button>
-          
+              </div>
           </div>
           
-          <div v-if="bracelet === true">
-              <p>{{ selectedType }} lengths:</p>
+          <div v-if="bracelet === true" class="selector">
+              
+              <div class="size-template">
+              
+              
+              </div>
+              
+              <div class="size">
+                  <h2>Select {{ selectedType }} Length</h2>
                 
             <input type="radio" id="s" value="6 inches" @change="showButton" v-model="braceletLength"/>
             <label for="s">6"</label>
@@ -52,13 +68,13 @@
             <input type="radio" id="xl" value="9 inches" @change="showButton" v-model="braceletLength"/>
             <label for="xl">9"</label>
               
-            <p>Length: {{ braceletLength }}</p>
+            <p v-show="lengthChosen === true">Your bracelet length: {{ braceletLength }}</p>
               
            <button class="btn" v-if="lengthChosen === true" @click="chooseBraceletBeads(braceletLength, selectedType)">select your beads</button>
               
           </div>
               
-         
+              </div>
         
 
               
@@ -137,15 +153,17 @@ export default {
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
+    border: 1px solid #ddd;
     
     }
     
     .create-container h2 {
-    text-align: center;
+    
     }
     
     .select-type-container {
-        
+        display: grid;
+        grid-gap: 30px;
     }
     
     .select-type {
@@ -181,6 +199,31 @@ font-weight: 400;
     text-align: center;
     margin: auto;
     padding: 0;
+    }
+    
+    .select-length {
+    display: grid;
+    border: 1px solid #ddd;
+    
+    }
+    
+    .selector {
+    display: grid;
+    grid-template-columns: auto auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    grid-gap: 20px;
+    }
+    
+    .size-template {
+    min-height: 400px;
+    min-width: 500px;
+    border: 1px solid #ddd;
+    }
+    
+    .size {
+       min-height: 400px;
+    min-width: 500px;  
     }
 
 </style>
