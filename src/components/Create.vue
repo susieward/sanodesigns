@@ -1,5 +1,13 @@
 <template>
   <div class="create">
+      
+      <div class="buttons-container">
+          
+      <span>
+      <button class="create-btn">start over</button>
+          <button class="create-btn">save for later</button>
+          </span>
+      </div>
       <div class="create-container">
       
       
@@ -141,6 +149,13 @@ export default {
       .create {
     display: grid;
     width: 100vw;
+       min-height: 100vh;
+    }
+    
+    .buttons-container {
+    display: grid;
+        margin-right: 50px;
+        justify-content: flex-end;
     }
     
     .create-container {
@@ -156,6 +171,8 @@ export default {
     border: 1px solid #ddd;
     
     }
+    
+
     
     .create-container h2 {
     
@@ -225,5 +242,19 @@ font-weight: 400;
        min-height: 400px;
     min-width: 500px;  
     }
+    
+    .create-btn {
+border: 1px solid #000;
+background-color: #000;
+padding: 10px 14px;
+text-align: center;
+font-family: 'Karla';
+font-size: 18px;
+line-height: 18px;
+text-transform: uppercase;
+color: #d9d9d9;
+font-weight: 400;
+cursor: pointer;
+}
 
 </style>

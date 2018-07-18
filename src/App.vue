@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-      
-    <div class="banner">
-      <p>self-care through creativity</p>
-      </div>
+     
       
       <div class="header">
           <div class="header-container">
@@ -33,7 +30,7 @@ export default {
 #app {
 display: grid;
 align-content: flex-start;
-grid-template-areas: "banner banner"
+grid-template-areas:
                     "header header"
                     "content content"
                     "footer footer";
@@ -49,7 +46,7 @@ display: grid;
 align-content: center;
 width: 100vw;
 background-color: #F4F4F4;
-min-height: 100px;
+min-height: 80px;
 
 padding-left: 100px;
 margin-bottom: 20px;
@@ -66,8 +63,8 @@ justify-content: flex-start;
     
     .header h1 {
     font-family: 'Pacifico';
-    font-size: 58px;
-line-height: 64px;
+    font-size: 45px;
+line-height: 54px;
     font-weight: 400;
 color: #262626;
 margin: 0;

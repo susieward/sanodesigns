@@ -18,6 +18,9 @@ import Create from './components/Create.vue'
 import BeadSelector from './components/BeadSelector.vue'
 import NecklaceSelector from './components/NecklaceSelector.vue'
 import Catalog from './components/Catalog.vue'
+import Admin from './components/Admin.vue'
+import AdminBeads from './components/AdminBeads.vue'
+import AddBead from './components/AddBead.vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
@@ -49,6 +52,21 @@ const routes = [
         name: 'Catalog',
         component: Catalog
         
+    },
+    {
+        path: '/admin',
+        name: 'Admin',
+        component: Admin,
+        children: [
+            {
+                path: '',
+                component: AdminBeads
+            },
+            {
+                path: 'add',
+                component: AddBead
+            }
+        ]
     }
   ]
 

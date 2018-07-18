@@ -26,6 +26,20 @@ state: {
         
         setBeads: (state, {beads}) => {
             state.beads = beads;
+        },
+        
+        addBead: (state, {bead}) => {
+            state.beads.push(bead);
+        },
+        
+        editBead: (state, {bead}) =>{
+        let index = state.beads.findIndex(bead => bead._id === id);
+            state.beads.splice(index, 1, bead);
+        },
+        
+        deleteBead: (state, id) => {
+            let index = state.beads.findIndex(bead => bead._id === id);
+            state.beads.splice(index, 1);
         }
         
     }

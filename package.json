@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "@branu-jp/v-drag": "0.0.10",
+    "@dattn/dnd-grid": "0.0.14",
     "@seregpie/vuedragdrop": "^18.6.21",
     "axios": "^0.18.0",
+    "draggable-vue-directive": "^2.0.1",
     "moment": "^2.22.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
