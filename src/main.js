@@ -15,8 +15,9 @@ import store from './store/index.js'
 import App from './App'
 import Home from './components/Home.vue'
 import Create from './components/Create.vue'
-import BeadSelector from './components/BeadSelector.vue'
 import NecklaceSelector from './components/NecklaceSelector.vue'
+import Bracelet from './components/Bracelet.vue'
+import BeadSelector from './components/BeadSelector.vue'
 import Catalog from './components/Catalog.vue'
 import Admin from './components/Admin.vue'
 import AdminBeads from './components/AdminBeads.vue'
@@ -39,7 +40,7 @@ const routes = [
     },
     { path: '/bracelet',
              name: 'bracelet',
-             component: BeadSelector,
+             component: Bracelet,
              props: true
             },
     { path: '/necklace',
