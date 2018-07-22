@@ -1,15 +1,15 @@
 <template>
   <div class="create">
       
-      <div class="buttons-container">
+     
+      <div class="create-container">
+       <div class="buttons-container">
           
       <span>
-      <button class="create-btn">start over</button>
+      <router-link to="/" tag="button" class="create-btn">start over</router-link>
           <button class="create-btn">save for later</button>
           </span>
       </div>
-      <div class="create-container">
-      
       
         <div class="select-type-container" v-if="typeChosen === false">
             
@@ -28,16 +28,16 @@
           </div>
           
           <div class="select-length" v-if="typeChosen === true">
-              
+              <h2 style="text-align: center">Select {{ selectedType }} Length</h2>
           <div v-if="necklace === true" class="selector">
-              
+               
               <div class="size-template">
               
               
               </div>
               
               <div class="size">
-                  <h2>Select {{ selectedType }} Length</h2>
+                 
               
               <input type="radio" id="small" value="12 in"  @change="showButton" v-model="necklaceLength"/>
               <label for="small">12"</label>
@@ -52,6 +52,7 @@
               
               <button class="btn" v-if="lengthChosen === true" @click="chooseNecklaceBeads(necklaceLength, selectedType)">select your beads</button>
               </div>
+             
           </div>
           
           <div v-if="bracelet === true" class="selector">
@@ -62,7 +63,7 @@
               </div>
               
               <div class="size">
-                  <h2>Select {{ selectedType }} Length</h2>
+            
                 
             <input type="radio" id="s" value="6 inches" @change="showButton" v-model="braceletLength"/>
             <label for="s">6"</label>
@@ -150,21 +151,22 @@ export default {
     display: grid;
     width: 100vw;
        min-height: 100vh;
+           border: 1px solid #ddd;
     }
     
     .buttons-container {
     display: grid;
-        margin-right: 50px;
+        margin-right: 20px;
+        margin-top: 20px;
         justify-content: flex-end;
     }
     
     .create-container {
     display: grid;
     align-content: flex-start;
-        justify-content: center;
+    
     grid-gap: 30px;
-   margin-left: 100px;
-    margin-right: 100px;
+  
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
@@ -181,15 +183,18 @@ export default {
     .select-type-container {
         display: grid;
         grid-gap: 30px;
+        border: 1px solid #ddd;
+        justify-content: center;
     }
     
     .select-type {
     display: grid;
-        justify-content: center;
+     max-width: 700px;
     grid-template-columns: auto auto;
-    max-width: 700px;
+    
     grid-gap: 20px;
     padding: 10px;
+         border: 1px solid #ddd;
     }
     
     .column {

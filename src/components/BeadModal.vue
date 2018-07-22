@@ -5,13 +5,13 @@
          <div class="modal-container">
              
              <div class="modal-header">
-             <span></span>
+             
                  <div class="close-container">
                  <span class="close" @click="$emit('close')">x</span>
                  </div>
              </div>
              
-    <div class="bead-modal-container" v-if="showEditor === false">
+    <div class="bead-modal-container" v-if="showEditor === false && deleteClick === false">
         
     <div class="modal-bead-img-container">
     <img class="modal-bead-img" :src="bead.image"/>
@@ -32,7 +32,7 @@
              </div>
              
       
-    <div class="bead-editor" v-if="showEditor === true">
+    <div class="bead-editor" v-if="showEditor === true && deleteClick === false">
         
     <div class="modal-bead-img-container">
     <img class="modal-bead-img" :src="bead.image"/>
@@ -58,12 +58,23 @@
         
              </div>
              
+             <div class="confirm-delete" v-if="deleteClick === true">
+                 <span>Are you sure you want to delete this item?<br>You can't undo this action.</span>
+             
+                
+              </div>
+             
      <div class="modal-btns">
-        <button class="btn-small-gray" @click="openEditor(bead)" v-if="showEditor === false">edit</button>
-        <button class="btn-small-gray" v-if="showEditor === false" @click="deleteBead(bead._id)">delete</button>
+        <button class="btn-small-gray" @click="openEditor(bead)" v-if="showEditor === false && deleteClick === false">edit</button>
+        <button class="btn-small-gray" v-if="showEditor === false && deleteClick === false" @click="showDelete">delete</button>
          
-         <button class="btn-small-gray" @click="closeEditor" v-if="showEditor === true">close editor</button>
-         <button class="btn-small-gray" v-if="showEditor === true" @click="editBead(bead)">save changes</button>
+         <button class="btn-small-gray" @click="closeEditor" v-if="showEditor === true && deleteClick === false">close editor</button>
+         <button class="btn-small-gray" v-if="showEditor === true && deleteClick === false" @click="editBead(bead)">save changes</button>
+         
+         
+                    <button class="btn-small" @click="deleteBead(bead._id)" v-if="showEditor === false && deleteClick === true">yes, delete</button>
+         
+         <button class="btn-small-gray" @click="hideDelete" v-if="showEditor === false && deleteClick === true">no, cancel</button> 
         
              </div>
           </div>
@@ -81,6 +92,7 @@ data(){
     return {
         
         showEditor: false,
+        deleteClick: false,
         error: '',
         beadEdit: {
             stone: '',
@@ -112,6 +124,15 @@ created(){
     },
     
     methods: {
+        
+        showDelete: function(){
+            this.deleteClick = true
+            
+        },
+        
+        hideDelete: function(){
+            this.deleteClick = false;
+        },
         
         openEditor: function (bead){
             this.showEditor = true;
@@ -222,7 +243,7 @@ box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     
     .modal-header {
     display: grid;
-    grid-template-columns: auto auto;
+  
     
     }
     
@@ -346,6 +367,22 @@ box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     margin-top: auto;
     margin-bottom: auto;
     }
+    
+    .confirm-delete {
+    display: grid;
+justify-content: center;
+        align-items: center;
+       font-size: 18px;
+        line-height: 24px;
+        padding: 100px;
+        min-height: 350px;
+        text-align: center;
+        color: red;
+    }
+        .confirm-delete span {
+            padding: 20px;
+        }
+    
     
     .zoomer {
   position: relative;

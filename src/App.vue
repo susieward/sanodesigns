@@ -2,12 +2,6 @@
   <div id="app">
      
       
-      <div class="header">
-          <div class="header-container">
-              <router-link to="/"><h1>Sano Designs</h1></router-link>
-              </div>
-      </div>
-      
       <div class="content">
       <router-view></router-view>
       </div>
@@ -31,7 +25,6 @@ export default {
 display: grid;
 align-content: flex-start;
 grid-template-areas:
-                    "header header"
                     "content content"
                     "footer footer";
 min-height: 100vh;

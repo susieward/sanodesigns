@@ -3,24 +3,8 @@
     
      <div class="search-container">
               <p>Type to search for all properties:</p>
-                <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, 10 mm, smooth, etc"/>
-         <p>Or, filter by: </p>
-             
-             <span><span><input type="checkbox" id="stone" v-model="selectedProps" value="stone"> <label for="stone">stone</label></span>
-         
-         <span><input type="checkbox" id="size" v-model="selectedProps" value="size"> <label for="size">size</label></span>
-         
-         <span><input type="checkbox" id="cut" v-model="selectedProps" value="cut"> <label for="cut">cut</label></span>
-         
-         <span><input type="checkbox" id="colore" v-model="selectedProps" value="color"> <label for="color">color</label></span>
-         
-         <span><input type="checkbox" id="shape" v-model="selectedProps" value="shape"> <label for="shape">shape</label></span>
-         
-         <span><input type="checkbox" id="price" v-model="selectedProps" value="price"> <label for="price">price</label></span>
-         </span>
-         
-         {{ selectedProps }}
-              </div>
+                <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, $0.35, etc"/>
+    </div>
     
  <div class="admin-beads-container">
     

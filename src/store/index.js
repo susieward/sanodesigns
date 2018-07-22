@@ -41,9 +41,7 @@ state: {
             let index = state.beads.findIndex(bead => bead._id === id);
             state.beads.splice(index, 1);
         }
-        
     }
-    
 })
 
 const filter = (array, key, value) => array.filter(item => item[key] === value);

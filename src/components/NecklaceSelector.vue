@@ -3,22 +3,21 @@
        <div class="buttons-container">
           
       <span>
-      <button class="create-btn">start over</button>
+      <router-link to="/" tag="button" class="create-btn">start over</router-link>
           <button class="create-btn">save for later</button>
           </span>
       </div>
-      <div class="necklace-selector-container">
-      <div class="necklace-template">
-              
-              
-              </div> 
       
+      
+      <div class="necklace-selector-container">
+      
+      <h2>Select {{ selectedType }} Beads</h2>
       
       <div class="select-beads">
-          <h2>Select {{ selectedType }} Beads</h2>
           
-        
-      Length: {{ necklaceLength }}
+          
+     
+          
           
           <div class="selected-container">
           
@@ -27,7 +26,7 @@
               <div class="draggable-with-handler" v-draggable="draggableWithHandler">
                   
                  <div class="handler" ref="handler">
-                    I am Handler
+                    +
                 </div>
                   
               <div class="bead-container-selected">
@@ -39,37 +38,41 @@
           
           </div>
           
-           <div class="search-container">
+           
+          <div class="beads-and-search">
+              <div class="search-container">
+              <p>Search all beads:</p>
+                <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, $0.35, etc"/>
+               
               
-                <input type="text" class="searchbar" v-model="search"/>
-                
-               <div v-for="result in results">{{ result }}</div>
-              
-              </div>
-          
-      <div class="beads-container-selector">
+        
+    </div>
          
+      <div class="beads-container-selector">
           
           <div v-for="bead in filteredList">
               
           <div class="bead-container">
               <img class="bead-img-small" :src="bead.image"/>
           </div>
-              <p>{{ bead.stone }}<br>
-                 {{ bead.size }}<br> 
-                  {{ bead.cut }}<br>
-                  {{ bead.color }}<br>
-                  {{ bead.shape }}<br>
-                  {{ bead.price }}
+              <div class="admin-bead-details">
+              <span class="admin-prop-name">Stone:</span> <span>{{ bead.stone }}</span> 
+                  <span class="admin-prop-name">Size:</span> <span>{{ bead.size }}</span> 
+                  <span class="admin-prop-name">Cut:</span> <span>{{ bead.cut }}</span> 
+                  <span class="admin-prop-name">Color:</span> <span>{{ bead.color }}</span> 
+                  <span class="admin-prop-name">Shape:</span> <span>{{ bead.shape }}</span> 
+                  <span class="admin-prop-name">Price:</span> <span>{{ bead.price }}</span> 
               
               
               
               
-              </p>
+              </div>
             <input type="checkbox" v-model="selectedBeads" v-bind:value="bead">
           
           </div> 
           </div>
+          </div>
+          
       </div>
      
       </div>
@@ -84,8 +87,14 @@ export default {
   data () {
     return { 
         search: '',
-        searchProps: ['stone', 'size', 'cut', 'color', 'shape', 'price'],
+        searchProps: ['stone', 'size', 'cut', 'color', 'shape', 'price'], 
         selectedBeads: [],
+        
+                selectedStone: undefined,
+             selectedSize: undefined,
+            selectedColor: undefined,
+            selectedShape: undefined,
+        selectedProps: [],
         draggableValue: {
             handle: undefined
         }
@@ -97,23 +106,132 @@ export default {
         },
     
     computed: {
+        
+
         beads(){
             return this.$store.state.beads;
         },
         
-        filteredList: function(){
-            var lowSearch = this.search.toLowerCase();
+        beadShapes () {
+           var nonSorted = [...new Set(this.beads.map(b => b.shape))];
             
-            return this.beads.filter(bead => {
-                return this.searchProps.some( key =>
-                                              
-            String(bead[key]).toLowerCase().includes(lowSearch)
-                );
+            var sorted = nonSorted.sort(function(a, b){
+                if (a < b) return -1;
+                else if (a > b) return 1;
+                return 0;
             });
-        }
+            return sorted;
+            },
+        
+        beadStones () {
+            var nonSorted = [...new Set(this.beads.map(b => b.stone))];
+            
+            var sorted = nonSorted.sort(function(a, b){
+                if (a < b) return -1;
+                else if (a > b) return 1;
+                return 0;
+            });
+            return sorted;
+            },
+        
+        beadSizes () {
+            var nonSorted = [...new Set(this.beads.map(b => b.size))];
+            
+            var sorted = nonSorted.sort(function(a, b){
+                return a-b;
+            });
+            return sorted;
+            },
+        beadColors () {
+            var nonSorted = [...new Set(this.beads.map(b => b.color))];
+            
+            var sorted = nonSorted.sort(function(a, b){
+                if (a < b) return -1;
+                else if (a > b) return 1;
+                return 0;
+            });
+            return sorted;
+            },
+        
+        beadPrices () {
+            var nonSorted = [...new Set(this.beads.map(b => b.price))];
+            
+            var sorted = nonSorted.sort(function(a, b){
+                return a-b;
+            });
+            return sorted;
+            },
+        
+        beadCuts () {
+            var nonSorted = [...new Set(this.beads.map(b => b.cut))];
+            
+            var sorted = nonSorted.sort(function(a, b){
+                if (a < b) return -1;
+                else if (a > b) return 1;
+                return 0;
+            });
+            return sorted;
+            },
+        
+        allPropValues: function(){
+            
+            return [].concat(this.beadShapes, this.beadStones, this.beadSizes, this.beadColors, this.beadPrices, this.beadCuts);
+        },
+        
+    filteredList: function(){
+        var lowSearch = this.search.toLowerCase();
+        var allPropValues = this.allPropValues;
+        
+        var selectedFilters = [this.selectedStone || this.selectedSize || this.selectedCut || this.selectedColor || this.selectedShape || this.selectedPrice];
+        
+           if(!this.selectedProps.length){
+        
+        return this.beads.filter(bead => {
+            return this.searchProps.some( key =>
+                                              
+        String(bead[key]).toLowerCase().includes(lowSearch)
+       );
+        });
+           }
+    }
     },
     
     methods: {
+        
+           reset: function(){
+            this.selectedFilters = [];
+            this.selectedProps = [];
+        },
+        addSelectedStone: function(){
+          
+            this.selectedProps.push('stone');
+            
+        },
+        addSelectedSize: function(){
+      
+            this.selectedProp('size');
+            
+        },
+        addSelectedCut: function(){
+           
+            this.selectedProps.push('cut');
+            
+        },
+        addSelectedColor: function(){
+          
+            this.selectedProps.push('color');
+            
+        },
+        addSelectedShape: function(){
+          
+            this.selectedProps.push('shape');
+            
+        },
+        addSelectedPrice: function(){
+         
+           this.selectedProps.push('price');
+            
+        },
         hideSelector: function(){
             this.selectorVisible = false;
         },
@@ -122,7 +240,7 @@ export default {
             this.selectorVisible = true;
         }
         
-    },
+    }, 
     
     
      filters: {
@@ -144,6 +262,12 @@ export default {
 
 <style>
     
+    
+    .beads-and-search {
+    display: grid;
+        grid-template-rows: auto auto;
+    }
+    
 .necklace-selector {
     display: grid;
     width: 100vw;
@@ -157,7 +281,7 @@ export default {
     
        .necklace-selector-container {
     display: grid;
-    grid-template-columns: auto auto;
+  justify-content: center;
     border: 1px solid #ddd;
     padding: 10px;
     grid-gap: 20px;
@@ -173,22 +297,28 @@ export default {
     }
     
     .select-beads {
+    display: grid;
+    grid-template-columns: auto auto;
     min-height: 400px;
-    min-width: 500px;  
+    min-width: 500px; 
+    border: 1px solid #ddd;
     }
 
     .beads-container-selector {
     display: grid;
+        margin: auto;
     grid-template-columns: auto auto auto auto;
-        grid-gap: 20px;
+        grid-gap: 10px;
    justify-content: flex-start;
+      max-height: 500px;
+        max-width: 900px;
+        border: 1px solid #ddd;
         overflow: scroll;
-    max-height: 400px;
     }
     
     
     .bead-container {
-        width: 120px;
+        width: 100px;
        height: auto;
         border: 1px solid #ddd;
         border-radius: 50%;
@@ -202,10 +332,11 @@ export default {
      
    
     }
-    .search-container {
+   .search-container {
     display: grid;
     justify-content: center;
         align-items: center;
+         align-content: flex-start;
     padding: 30px;
     min-width: 700px;
  
@@ -213,8 +344,8 @@ export default {
     
     
     .searchbar {
-    height: 40px;
-    width: 400px;
+    height: 50px;
+    width: 500px;
     padding: 10px 12px;
     font-size: 20px;
     border: 1px solid #aaa;
@@ -237,8 +368,11 @@ export default {
     
     .selected-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    justify-content: flex-start;
+    grid-template-columns: auto auto;
+    align-content: flex-start;
+    border: 1px solid #ddd;
+  
+        min-width: 200px; 
     }
     
      .buttons-container {
@@ -260,5 +394,19 @@ color: #d9d9d9;
 font-weight: 400;
 cursor: pointer;
 }
+    
+        
+     .admin-bead-details {
+        display: grid;
+        grid-template-columns: auto auto;
+justify-content: center;
+      line-height: 20px;
+        font-size: 14px;
+    }
+    
+     .admin-prop-name {
+    margin-right: 18px;
+    }
+    
     
 </style>
