@@ -24,7 +24,7 @@
            
           <div class="beads-and-search">
               <div class="search-container">
-              <p>Search all beads:</p>
+              <p>Search by any category:</p>
                 <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, $0.35, etc"/>
                
               
@@ -245,42 +245,18 @@ export default {
     .beads-and-search {
     display: grid;
         grid-template-rows: auto auto;
+        grid-gap: 30px;
     }
-    
-.necklace-selector {
-    display: grid;
-    width: 100vw;
-
-    }
-    
-.necklace-selector  h2 {
-    text-align: center;
-    }
-    
-    
-       .necklace-selector-container {
-    display: grid;
-  justify-content: center;
-    border: 1px solid #ddd;
-    padding: 10px;
-    grid-gap: 20px;
-       
-      
-    }
-    
-    .necklace-template {
-    height: auto;
-    width: 500px;
-    border: 1px solid #ddd;
-    background-color: #f4f4f4;
-    }
+ 
+   
     
     .select-beads {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 800px;
     min-height: 400px;
-    min-width: 500px; 
-    border: 1px solid #ddd;
+    justify-content: center;
+        grid-gap: 30px;
+
     }
 
     .beads-container-selector {
@@ -288,16 +264,18 @@ export default {
         margin: auto;
     grid-template-columns: auto auto auto auto;
         grid-gap: 10px;
-   justify-content: flex-start;
-      max-height: 500px;
-        max-width: 900px;
+  
+      height: 500px;
+        width: 800px;
+       
+        padding: 10px;
         border: 1px solid #ddd;
         overflow: scroll;
     }
     
     
     .bead-container {
-        width: 100px;
+        width: 120px;
        height: auto;
         border: 1px solid #ddd;
         border-radius: 50%;
@@ -314,17 +292,17 @@ export default {
    .search-container {
     display: grid;
     justify-content: center;
-        align-items: center;
+       
          align-content: flex-start;
-    padding: 30px;
+    padding: 0px;
     min-width: 700px;
  
     }
     
     
     .searchbar {
-    height: 50px;
-    width: 500px;
+    height: 40px;
+    width: 400px;
     padding: 10px 12px;
     font-size: 20px;
     border: 1px solid #aaa;

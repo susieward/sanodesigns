@@ -10,8 +10,18 @@
       
       
       <div class="necklace-selector-container">
+<h2 v-if="selectedBeads.length">Design Your Necklace</h2>
+          <div class="design-necklace" v-if="selectedBeads.length">
           
-          <div class="selected" v-if="selectedBeads.length">
+              
+                <div class="necklace-beads">
+        <div class="beads-title">
+            <span><button class="btn-small-gray">edit</button></span>
+              
+              </div>
+              
+              
+              <div class="selected">
       <div v-for="bead in selectedBeads">
               
               <div class="draggable-with-handler" v-draggable="draggableWithHandler">
@@ -24,15 +34,27 @@
               <img class="bead-img-small-selected" :src="bead.image"/>
           </div>
               </div>
+                  </div>
           
           
               </div>
           </div>
-          
+              
+              
+          <div class="necklace-template">
+              
+              fdgdfgsdf
+              
+              
+              </div>
+              
+        
+              
+          </div>
          
       
           
-      <bead-selector @selected="setNecklaceBeads" v-if="!selectedBeads.length"></bead-selector>
+      <bead-selector :selected-type="selectedType" @selected="setNecklaceBeads" v-if="!selectedBeads.length"></bead-selector>
       </div>
   
   </div>
@@ -62,19 +84,42 @@ export default {
 </script>
 
 <style>
+    .necklace-beads {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: flex-start;
+        justify-content: center;
+        border: 1px solid #000;
+        
+    }
     
+    .beads-title {
+    display: grid;
+
+        padding: 0;
+        margin: 0;
+    }
     .selected {
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    min-height: 200px;
-    max-width: 600px;
+    grid-template-columns: auto auto;
+        align-content: flex-start;
+
+    min-height: 600px;
+  
+    border: 1px solid #ddd;
     }
     
-    .beads-and-search {
-    display: grid;
-        grid-template-rows: auto auto;
+    .design-necklace {
+        display: grid;
+        grid-template-columns: auto 900px;
+        justify-content: center;
+        grid-gap: 30px;
+    
+ 
+
     }
     
+
 .necklace-selector {
     display: grid;
     width: 100vw;
@@ -88,77 +133,23 @@ export default {
     
        .necklace-selector-container {
     display: grid;
-  justify-content: center;
-    border: 1px solid #ddd;
+  
+
     padding: 10px;
     grid-gap: 20px;
-       
-      
     }
     
     .necklace-template {
-    height: auto;
-    width: 500px;
-    border: 1px solid #ddd;
-    background-color: #f4f4f4;
-    }
-    
-    .select-beads {
-    display: grid;
-    grid-template-columns: auto auto;
-    min-height: 400px;
-    min-width: 500px; 
-    border: 1px solid #ddd;
-    }
-
-    .beads-container-selector {
-    display: grid;
-        margin: auto;
-    grid-template-columns: auto auto auto auto;
-        grid-gap: 10px;
-   justify-content: flex-start;
-      max-height: 500px;
-        max-width: 900px;
-        border: 1px solid #ddd;
-        overflow: scroll;
-    }
-    
-    
-    .bead-container {
-        width: 100px;
-       height: auto;
-        border: 1px solid #ddd;
-        border-radius: 50%;
-    }
-    
-     .bead-img-small {
-    width: 100%;
-         height: 100%;
-         margin: auto;
-  object-fit: cover;
-     
-   
-    }
-   .search-container {
-    display: grid;
-    justify-content: center;
-        align-items: center;
-         align-content: flex-start;
-    padding: 30px;
-    min-width: 700px;
  
+    min-width: 500px;
+    
+    background-color: #f4f4f4;
+
     }
     
+
     
-    .searchbar {
-    height: 50px;
-    width: 500px;
-    padding: 10px 12px;
-    font-size: 20px;
-    border: 1px solid #aaa;
-    }
-    
-     .bead-img-small-selected {
+      .bead-img-small-selected {
     width: 100%;
          height: 100%;
          margin: auto;
@@ -173,15 +164,7 @@ export default {
         border-radius: 50%;
     }
     
-    .selected-container {
-    display: grid;
-    grid-template-columns: auto auto;
-    align-content: flex-start;
-    border: 1px solid #ddd;
-  
-        min-width: 200px; 
-    }
-    
+   
      .buttons-container {
     display: grid;
         margin-right: 50px;
