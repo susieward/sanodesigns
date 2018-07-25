@@ -1,7 +1,7 @@
 <template>
   <div id="app">
      
-      
+      <div class="banner"><p>self-care through creativity</p></div>
       <div class="content">
       <router-view></router-view>
       </div>
@@ -25,6 +25,7 @@ export default {
 display: grid;
 align-content: flex-start;
 grid-template-areas:
+                    "banner banner"
                     "content content"
                     "footer footer";
 min-height: 100vh;
@@ -90,6 +91,10 @@ grid-area: content;
     
     .footer {
     grid-area: footer;
+    width: 100vw;
+    height: 300px;
+    background-color: #333333;
+    margin-top: 200px;
     }
     
 

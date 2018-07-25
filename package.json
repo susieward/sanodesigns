@@ -20,6 +20,8 @@
     "draggable-vue-directive": "^2.0.1",
     "moment": "^2.22.2",
     "vue": "^2.5.2",
+    "vue-drag-it-dude": "^1.1.1",
+    "vue-draggable-resizable": "^1.7.1",
     "vue-router": "^3.0.1",
     "vue-stripe-elements-plus": "^0.2.8",
     "vuex": "^3.0.1"

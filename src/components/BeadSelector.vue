@@ -2,22 +2,26 @@
 <div class="bead-selector">
     
 
-      <h2>Select {{ selectedType }} Beads</h2>
       <div class="select-beads">
           
- 
+         
+        
           <div class="selected-container">
-          <p>Your beads:</p>
+     
+              <h3>You've selected:</h3>
               <button class="btn-small" v-if="selectedBeads.length" @click="finishedSelection()">done</button>
               
-          <div v-for="bead in selectedBeads">
+          <div v-for="bead in selectedBeads" class="selected-bead">
               
-              <div class="bead-container-selected">
-              <img class="bead-img-small-selected" :src="bead.image"/>
+              <div class="bead-container-selector">
+              <img class="bead-img-small-selector" :src="bead.image"/>
+                  
           </div>
+              <p>{{ bead.stone }}<br>
+                  {{ bead.size }}<br>
+                  {{ bead.price }}</p>
               </div>
-              
-            
+       
           
           </div>
           
@@ -33,7 +37,7 @@
          
       <div class="beads-container-selector">
           
-          <div v-for="bead in filteredList">
+          <div v-for="bead in filteredList" class="bead" @click="select(bead)">
               
           <div class="bead-container">
               <img class="bead-img-small" :src="bead.image"/>
@@ -176,6 +180,10 @@ export default {
     
     methods: {
         
+        select: function(bead){
+            this.selectedBeads.push(bead);
+        },
+        
         finishedSelection: function(){
             
             this.$emit('selected', this.selectedBeads );
@@ -246,6 +254,7 @@ export default {
     display: grid;
         grid-template-rows: auto auto;
         grid-gap: 30px;
+        align-content: flex-start;
     }
  
    
@@ -266,7 +275,7 @@ export default {
         grid-gap: 10px;
   
       height: 500px;
-        width: 800px;
+        width: 850px;
        
         padding: 10px;
         border: 1px solid #ddd;
@@ -275,8 +284,8 @@ export default {
     
     
     .bead-container {
-        width: 120px;
-       height: auto;
+        width: 140px;
+       height: 140px;
         border: 1px solid #ddd;
         border-radius: 50%;
     }
@@ -291,9 +300,7 @@ export default {
     }
    .search-container {
     display: grid;
-    justify-content: center;
-       
-         align-content: flex-start;
+   align-content: flex-start;
     padding: 0px;
     min-width: 700px;
  
@@ -302,13 +309,13 @@ export default {
     
     .searchbar {
     height: 40px;
-    width: 400px;
+    width: 440px;
     padding: 10px 12px;
-    font-size: 20px;
+    font-size: 18px;
     border: 1px solid #aaa;
     }
     
-     .bead-img-small-selected {
+     .bead-img-small-selector {
     width: 100%;
          height: 100%;
          margin: auto;
@@ -317,7 +324,7 @@ export default {
    
     }
     
-    .bead-container-selected {
+    .bead-container-selector {
         width: 120px;
        height: auto;
         border-radius: 50%;
@@ -327,16 +334,12 @@ export default {
     display: grid;
     grid-template-columns: auto auto;
     align-content: flex-start;
-    border: 1px solid #ddd;
-  
-        min-width: 200px; 
+border: 1px solid #ddd;
+  padding: 10px;
+        min-width: 300px; 
     }
     
-     .buttons-container {
-    display: grid;
-        margin-right: 50px;
-        justify-content: flex-end;
-    }
+   
     
         .create-btn {
 border: 1px solid #000;
@@ -365,5 +368,29 @@ justify-content: center;
     margin-right: 18px;
     }
     
+    .bead {
+
+    display: grid;
+    justify-content: center;
+        grid-gap: 2px;
+        padding: 5px;
+        cursor: pointer;
+         border: 1px solid transparent;
+    }
+    
+    .bead:hover {
+        border: 1px solid #C4A8D1;
+    }
+    
+    .selected-bead {
+   
+
+    }
+    
+    .selected-bead p {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    }
     
 </style>

@@ -11,6 +11,7 @@ require('./css/main.css');
 
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 import store from './store/index.js'
 import App from './App'
 import Home from './components/Home.vue'
@@ -22,9 +23,10 @@ import Catalog from './components/Catalog.vue'
 import Admin from './components/Admin.vue'
 import AdminBeads from './components/AdminBeads.vue'
 import AddBead from './components/AddBead.vue'
-import VueRouter from 'vue-router'
+import VueDraggableResizable from 'vue-draggable-resizable'
 
 Vue.use(VueRouter)
+Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
 const routes = [
     {
