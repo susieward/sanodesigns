@@ -1,14 +1,22 @@
 <template>
   <div class="necklace-selector">
       
-      
-           
-      <div class="buttons-buttons">
+        <div class="header">
+          <div class="header-container">
+              <router-link to="/"><h1>Sano Designs</h1></router-link>
+              
+               <div class="buttons-buttons">
           <span>
       <router-link to="/" tag="button" class="create-btn">start over</router-link>
           <button class="create-btn">save for later</button>
           </span>
           </div>
+              </div>
+      </div>
+      
+      <div class="container">
+   
+    
  
       <div class="buttons-container-title"> <h2 v-if="selectedBeads.length">Design Your Necklace</h2>
            
@@ -23,13 +31,13 @@
               
                 <div class="necklace-beads">
         <div class="beads-title">
-            <span><button class="btn-small-gray">edit</button></span>
-            <p>Drag and drop your beads to position them on your necklace.</p>
             
+            <p>Drag and drop your beads to position them on your necklace.</p>
+            <span><a href="#">Edit bead selection</a></span>
               </div>
               
               
-              <div class="selected">
+             <div class="selected">
                  
       <div v-for="bead in selectedBeads" style="position: relative">
               
@@ -42,8 +50,8 @@
            
          </vue-draggable-resizable>
              
-          
-                  </div>
+                    </div>
+                 
                   
           
               </div>
@@ -52,6 +60,8 @@
               
           <div class="necklace-template">
               <div class="necklace-template-content">
+                  
+                  <img class="template-img" src="/static/mock-template-edit.png"/>
               </div>
 
               </div>
@@ -77,6 +87,7 @@
             
             <div class="notes">
             <h3>Notes:</h3>
+            <p>Any info or special instructions relevant to your design that might not be conveyed here.</p>
                 
             <textarea></textarea>
             
@@ -95,6 +106,7 @@
       <bead-selector :selected-type="selectedType" @selected="setNecklaceBeads" v-if="!selectedBeads.length"></bead-selector>
       </div>
   
+      </div>
   </div>
 </template>
 
@@ -125,6 +137,68 @@ export default {
 </script>
 
 <style>
+    
+    .necklace-selector {
+  display: grid;
+
+align-content: flex-start;
+grid-template-areas:
+                    "header header"
+                    "content content";
+min-height: 100vh;
+min-width: 100vw;
+margin: 0;
+padding: 0;
+
+    }
+    
+.necklace-selector  h2 {
+    text-align: center;
+    }
+    
+    
+    .container {
+    display: grid;
+    grid-area: content;
+  
+    max-width: 1100px;
+        justify-content: center;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    
+    .header {
+grid-area: header;
+display: grid;
+align-content: center;
+width: 100vw;
+background-color: #F4F4F4;
+min-height: 80px;
+
+padding-left: 100px;
+margin-bottom: 20px;
+
+
+}
+    
+    .header-container {
+    display: grid;
+        grid-template-columns: 1fr auto;
+        grid-gap: 500px;
+    align-content: center;
+    max-width: 1050px;
+   
+    }
+    
+    .header h1 {
+    font-family: 'Pacifico';
+    font-size: 45px;
+line-height: 54px;
+    font-weight: 400;
+color: #262626;
+margin: 0;
+    }
     
     .drag {
       color: #000;
@@ -169,9 +243,9 @@ export default {
        
     align-content: flex-start;
      
-        border: 1px solid #000;
+   
         width: 300px;
-        padding: 10px;
+   
         
     }
     
@@ -186,35 +260,25 @@ export default {
     .selected {
         display: grid;
     grid-template-columns: auto auto;
-        grid-auto-flow: row;
-        grid-template-rows: auto auto auto auto auto auto;
+    grid-auto-rows: 100px;
+    
         align-content: flex-start;
-    min-height: 400px;
+    
     border: 1px solid #ddd;
     }
     
     .design-necklace {
         display: grid;
-        grid-template-columns: auto minmax(auto, 900px);
+        grid-template-columns: auto minmax(auto, 800px);
         
-        justify-content: center;
+      
         grid-gap: 30px;
-        max-width: 1000px;
+     
     
  
 
     }
     
-
-.necklace-selector {
-    display: grid;
-    width: 100vw;
-
-    }
-    
-.necklace-selector  h2 {
-    text-align: center;
-    }
     
     
        .necklace-selector-container {
@@ -227,14 +291,19 @@ export default {
     .necklace-template {
     display: grid;
 
- 
-    min-width: 400px;
+
+   
     
-    background-color: #f4f4f4;
+ 
 
     }
     
     .necklace-template-content {
+ 
+    }
+    
+    .template-img {
+    max-height: 700px;
 
     }
     
@@ -247,7 +316,7 @@ export default {
 display: grid;
   justify-content: center;
 
-       margin-bottom: 20px;
+       margin-bottom: 30px;
         padding: 30px;
     padding-top: 20px;
         padding-bottom: 20px;
@@ -304,7 +373,7 @@ justify-content: center;
     
     .necklace-container-bottom {
     display: grid;
-  
+
    
     }
     
@@ -319,15 +388,17 @@ justify-content: center;
     
     .your-beads-list {
     padding: 30px;
-      border: 1px solid #ddd;  
+  
+        background-color: #f4f4f4;
     }
     
     .notes {
     display: grid;
-    border: 1px solid #ddd;
+ 
     min-height: 200px;
     align-content: flex-start;
     padding: 20px;
+    background-color: #f4f4f4;
     }
     
     .notes textarea {
@@ -341,7 +412,7 @@ justify-content: center;
      
         align-content: center;
     grid-gap: 30px;
-    border: 1px solid #ddd;
+    
     padding: 30px;
     }
     

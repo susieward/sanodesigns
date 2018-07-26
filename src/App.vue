@@ -2,6 +2,8 @@
   <div id="app">
      
       <div class="banner"><p>self-care through creativity</p></div>
+      
+           
       <div class="content">
       <router-view></router-view>
       </div>
