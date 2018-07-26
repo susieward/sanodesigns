@@ -18,22 +18,22 @@
    
     
  
-      <div class="buttons-container-title"> <h2 v-if="selectedBeads.length">Design Your Necklace</h2>
+      <div class="buttons-container-title"> <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Necklace</h2>
            
-           <h2 v-if="!selectedBeads.length">Select Your Beads</h2>
+           <h2 v-if="!selectedBeads.length || editingBeads === true">Select Your Beads</h2>
            
            </div>
       
       <div class="necklace-selector-container" style="position: relative">
 
-          <div class="design-necklace" v-if="selectedBeads.length">
+          <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
           
               
                 <div class="necklace-beads">
         <div class="beads-title">
             
             <p>Drag and drop your beads to position them on your necklace.</p>
-            <span><a href="#">Edit bead selection</a></span>
+            <span class="edit-beads-link" @click="openBeads(selectedBeads)">Edit bead selection</span>
               </div>
               
               
@@ -70,7 +70,7 @@
               
           </div>
           
-          <div class="necklace-container-bottom" v-if="selectedBeads.length">
+          <div class="necklace-container-bottom" v-if="selectedBeads.length && editingBeads === false">
          
        <div class="necklace-details">
               
@@ -86,8 +86,8 @@
             </div>
             
             <div class="notes">
-            <h3>Notes:</h3>
-            <p>Any info or special instructions relevant to your design that might not be conveyed here.</p>
+            <h3 style="margin-bottom: 0">Notes:</h3>
+            <p>Anything else about your design that might not be able to be conveyed here.</p>
                 
             <textarea></textarea>
             
@@ -103,7 +103,7 @@
            </div>
           </div>
           
-      <bead-selector :selected-type="selectedType" @selected="setNecklaceBeads" v-if="!selectedBeads.length"></bead-selector>
+      <bead-selector :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
       </div>
   
       </div>
@@ -116,7 +116,9 @@ import BeadSelector from './BeadSelector.vue'
 export default {
     data(){
         return {
-            selectedBeads: []
+            selectedBeads: [],
+            editingBeads: false,
+            beadsEdit: []
         }
     },
   name: 'necklace',
@@ -130,6 +132,19 @@ export default {
     methods: {
         setNecklaceBeads: function(selectedBeads){
             this.selectedBeads = selectedBeads;
+        },
+        
+        setEditedBeads: function(beadsEdit){
+            this.beadsEdit = this.selectedBeads;
+            this.editingBeads = false;
+        },
+        
+        openBeads: function(selectedBeads){
+            
+            var beadsEdit = this.selectedBeads;
+            this.editingBeads = true;
+            this.beadsEdit = beadsEdit;
+            
         }
     }
     
@@ -401,6 +416,11 @@ justify-content: center;
     background-color: #f4f4f4;
     }
     
+    .notes p {
+    padding-top: 0;
+      
+    }
+    
     .notes textarea {
     min-height: 200px;
     }
@@ -414,6 +434,11 @@ justify-content: center;
     grid-gap: 30px;
     
     padding: 30px;
+    }
+    
+    .edit-beads-link {
+    color: #8a52a3;
+    cursor: pointer;
     }
     
     

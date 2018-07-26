@@ -9,7 +9,8 @@
           <div class="selected-container">
      
               <h3>You've selected:</h3>
-              <button class="btn-small" v-if="selectedBeads.length" @click="finishedSelection()">done</button>
+              <button class="btn-small" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedSelection()">done</button>
+              <button class="btn-small" v-if="beadsEdit.length" @click="confirmSelection()">confirm</button>
               
           <div v-for="bead in selectedBeads" class="selected-bead">
               
@@ -22,7 +23,17 @@
                   {{ bead.price }}</p>
               </div>
        
-          
+          <div v-for="bead in beadsEdit" class="selected-bead">
+              <div class="bead-container-selector">
+              <img class="bead-img-small-selector" :src="bead.image"/>
+                  
+          </div>
+              <p>{{ bead.stone }}<br>
+                  {{ bead.size }}<br>
+                  {{ bead.price }}</p>
+              
+              
+              </div>
           </div>
           
            
@@ -70,7 +81,7 @@
 export default {
     name: 'BeadSelector',
     
-  props: ['necklaceLength', 'selectedType'],
+  props: ['necklaceLength', 'selectedType', 'beads-edit'],
   data () {
     return { 
         search: '',
@@ -181,12 +192,21 @@ export default {
     methods: {
         
         select: function(bead){
+            if(!this.beadsEdit.length){
             this.selectedBeads.push(bead);
+            } else {
+                this.beadsEdit.push(bead);
+            }
         },
         
         finishedSelection: function(){
             
             this.$emit('selected', this.selectedBeads );
+        },
+        
+        confirmSelection: function(){
+            
+            this.$emit('edited', this.beadsEdit );
         },
         
            reset: function(){
