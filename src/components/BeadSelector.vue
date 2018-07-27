@@ -7,14 +7,14 @@
          
         
           <div class="selected-container">
-     
-              <h3>You've selected:</h3>
-              <button class="btn-small" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedSelection()">done</button>
-              <button class="btn-small" v-if="beadsEdit.length" @click="confirmSelection()">confirm</button>
+     <h3 style="margin-bottom: 0">You've selected:</h3>
+              <div class="selected-container-content">
               
-          <div v-for="bead in selectedBeads" class="selected-bead">
+              
+          <div v-for="(bead, index) in selectedBeads" class="selected-bead">
               
               <div class="bead-container-selector">
+                  <span class="remove" @click="remove(index)">x</span>
               <img class="bead-img-small-selector" :src="bead.image"/>
                   
           </div>
@@ -23,8 +23,10 @@
                   {{ bead.price }}</p>
               </div>
        
-          <div v-for="bead in beadsEdit" class="selected-bead">
+          <div v-for="(bead, index) in beadsEdit" class="selected-bead">
+               
               <div class="bead-container-selector">
+                  <span class="remove" @click="remove(index)">x</span>
               <img class="bead-img-small-selector" :src="bead.image"/>
                   
           </div>
@@ -35,6 +37,13 @@
               
               </div>
           </div>
+               <div class="continue-btn">
+              <button class="btn-small" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedSelection()">continue</button><br>
+              <button class="btn-small" v-if="beadsEdit.length" @click="confirmSelection()">done</button>
+              </div>
+          
+          </div>
+         
           
            
           <div class="beads-and-search">
@@ -199,6 +208,14 @@ export default {
             }
         },
         
+        remove: function(index){
+            if(!this.beadsEdit.length){
+            this.selectedBeads.splice(index, 1);
+            } else {
+                this.beadsEdit.splice(index, 1);
+            }
+        },
+        
         finishedSelection: function(){
             
             this.$emit('selected', this.selectedBeads );
@@ -281,7 +298,7 @@ export default {
     
     .select-beads {
     display: grid;
-    grid-template-columns: auto 800px;
+    grid-template-columns: auto 850px;
     min-height: 400px;
     justify-content: center;
         grid-gap: 30px;
@@ -297,7 +314,7 @@ export default {
       height: 500px;
         width: 850px;
        
-        padding: 10px;
+        padding: 20px;
         border: 1px solid #ddd;
         overflow: scroll;
     }
@@ -346,17 +363,27 @@ export default {
     
     .bead-container-selector {
         width: 120px;
-       height: auto;
-        border-radius: 50%;
+       height: 120px;
+        border: 1px solid #ddd;
+  border-radius: 50%;
     }
     
     .selected-container {
+    display: grid;
+   align-content: flex-start;
+grid-gap: 15px;
+    padding: 0px;
+
+
+    }
+    
+     .selected-container-content {
     display: grid;
     grid-template-columns: auto auto;
     align-content: flex-start;
 border: 1px solid #ddd;
   padding: 10px;
-        min-width: 300px; 
+        width: 300px; 
     }
     
    
@@ -411,6 +438,21 @@ justify-content: center;
     margin: 0;
     padding: 0;
     font-size: 14px;
+    }
+    
+    .remove {
+    color: red;
+    font-size: 20px;
+    position: absolute;
+    top: 10;
+    left: 10;
+    cursor: pointer;
+    }
+    
+    .continue-btn {
+    display: grid;
+    align-content: flex-end;
+    width: 100%;
     }
     
 </style>

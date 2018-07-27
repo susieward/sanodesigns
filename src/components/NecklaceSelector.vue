@@ -33,10 +33,10 @@
         <div class="beads-title">
             
             <p>Drag and drop your beads to position them on your necklace.</p>
-            <span class="edit-beads-link" @click="openBeads(selectedBeads)">Edit bead selection</span>
+            
               </div>
               
-              
+                    
              <div class="selected">
                  
       <div v-for="bead in selectedBeads" style="position: relative">
@@ -55,6 +55,8 @@
                   
           
               </div>
+                    <button class="btn-small-gray" @click="openBeads(selectedBeads)">edit</button>
+              
           </div>
               
               
@@ -75,6 +77,7 @@
        <div class="necklace-details">
               
             <div class="your-beads-list">
+                <h3 style="margin-bottom: 0">Beads</h3> 
             <div v-for="bead in selectedBeads">
             
                 {{ bead.stone }}
@@ -257,11 +260,15 @@ margin: 0;
    
        
     align-content: flex-start;
-     
+     grid-gap: 15px;
    
         width: 300px;
    
         
+    }
+    
+    .edit-btn-container {
+    width: 100%;
     }
     
     .beads-title {
@@ -439,6 +446,18 @@ justify-content: center;
     .edit-beads-link {
     color: #8a52a3;
     cursor: pointer;
+ 
+    display: grid;
+  align-content: flex-end;
+    grid-template-rows: auto auto;
+        justify-content: flex-start;
+    }
+    
+    #left {
+    font-size: 40px;
+ 
+    margin: 0;
+    padding: 0;
     }
     
     
