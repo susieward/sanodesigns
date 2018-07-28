@@ -95,7 +95,6 @@ margin: 0;
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
-    border: 1px solid #ddd;
     }
     
     .home-container h2 {
@@ -106,7 +105,6 @@ margin: 0;
     display: grid;
     justify-content: center;
     padding: 10px;
-        border: 1px solid #ddd;
     }
 
 </style>

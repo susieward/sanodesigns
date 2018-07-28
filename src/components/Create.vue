@@ -183,7 +183,7 @@ export default {
     .select-type-container {
         display: grid;
         grid-gap: 30px;
-        border: 1px solid #ddd;
+
         justify-content: center;
     }
     
@@ -192,9 +192,9 @@ export default {
      max-width: 700px;
     grid-template-columns: auto auto;
     
-    grid-gap: 20px;
+    grid-gap: 60px;
     padding: 10px;
-         border: 1px solid #ddd;
+  
     }
     
     .column {
@@ -225,7 +225,7 @@ font-weight: 400;
     
     .select-length {
     display: grid;
-    border: 1px solid #ddd;
+
     
     }
     

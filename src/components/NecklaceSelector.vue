@@ -34,8 +34,10 @@
             
             <p>Drag and drop your beads to position them on your necklace.</p>
             
+            
               </div>
               
+                 <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
                     
              <div class="selected">
                  
@@ -55,7 +57,6 @@
                   
           
               </div>
-                    <button class="btn-small-gray" @click="openBeads(selectedBeads)">edit</button>
               
           </div>
               
@@ -77,7 +78,7 @@
        <div class="necklace-details">
               
             <div class="your-beads-list">
-                <h3 style="margin-bottom: 0">Beads</h3> 
+                <h3 style="margin-bottom: 0">Beads:</h3> 
             <div v-for="bead in selectedBeads">
             
                 {{ bead.stone }}
@@ -90,9 +91,10 @@
             
             <div class="notes">
             <h3 style="margin-bottom: 0">Notes:</h3>
-            <p>Anything else about your design that might not be able to be conveyed here.</p>
-                
-            <textarea></textarea>
+            
+                <p style="margin-bottom: 0">Anything else you'd like to add about your design.</p>
+                <p style="color: #a4a4a4; margin-top: 5px">(optional)</p>
+            <textarea v-model="notes" class="notes-textarea"></textarea>
             
             
             </div>
@@ -102,7 +104,7 @@
               </div>
               
               <div class="checkout-button-container">
-                   <button class="btn-small">save and checkout</button>
+                   <button class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads, notes)">save and checkout</button>
            </div>
           </div>
           
@@ -121,7 +123,8 @@ export default {
         return {
             selectedBeads: [],
             editingBeads: false,
-            beadsEdit: []
+            beadsEdit: [],
+                notes: ''
         }
     },
   name: 'necklace',
@@ -148,8 +151,13 @@ export default {
             this.editingBeads = true;
             this.beadsEdit = beadsEdit;
             
+        },
+        
+        goToCheckout: function(necklaceLength, selectedBeads, notes){
+            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedBeads: this.selectedBeads, notes: this.notes}});
         }
-    }
+        }
+    
     
 }
 </script>
@@ -460,5 +468,13 @@ justify-content: center;
     padding: 0;
     }
     
+    .notes-textarea {
+         font-weight: 300;
+    font-size: 16px;
+    padding: 10px 12px;
+    min-height: 150px;
+    border: 1px solid #777;
+    border-radius: 8px;
+    }
     
 </style>

@@ -1,13 +1,27 @@
 <template>
 <div class="bead-selector">
     
+      <div class="search-container">
+             
+                
+          <span><span>Search:</span> <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, $0.35, etc"/> </span>
+               
+              
+        
+    </div>
 
       <div class="select-beads">
           
          
         
           <div class="selected-container">
-     <h3 style="margin-bottom: 0">You've selected:</h3>
+              <h3 style="margin: 0; padding: 0">You've selected:</h3>
+                <div class="continue-btn">
+              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedSelection()">continue</button><br>
+              <button class="btn-small" style="width: 140px" v-if="beadsEdit.length" @click="confirmSelection()">done</button>
+              </div>
+     
+              
               <div class="selected-container-content">
               
               
@@ -37,24 +51,10 @@
               
               </div>
           </div>
-               <div class="continue-btn">
-              <button class="btn-small" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedSelection()">continue</button><br>
-              <button class="btn-small" v-if="beadsEdit.length" @click="confirmSelection()">done</button>
-              </div>
-          
+            
           </div>
          
-          
-           
-          <div class="beads-and-search">
-              <div class="search-container">
-              <p>Search by any category:</p>
-                <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, $0.35, etc"/>
-               
-              
-        
-    </div>
-         
+
       <div class="beads-container-selector">
           
           <div v-for="bead in filteredList" class="bead" @click="select(bead)">
@@ -78,7 +78,7 @@
           
           </div> 
           </div>
-          </div>
+     
           
       </div>
      
@@ -287,22 +287,47 @@ export default {
 <style>
     
     
-    .beads-and-search {
-    display: grid;
-        grid-template-rows: auto auto;
-        grid-gap: 30px;
-        align-content: flex-start;
-    }
  
+ 
+    .bead-selector {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-areas: "search search"
+                        "content content";
+    align-content: flex-start;
+    grid-gap: 20px;
+    border: 1px solid #ddd;
+    }
+    
+       .search-container {
+    grid-area: search;
+    display: grid;
+   align-content: center;
+       justify-content: center;
+    padding: 20px;
+           align-items: center;
+  border: 1px solid #ddd;
+    }
+    
+    
+    .searchbar {
+    height: 40px;
+    width: 440px;
+    padding: 10px 12px;
+    font-size: 18px;
+    border: 1px solid #aaa;
+    }
+    
    
     
     .select-beads {
+    grid-area: content;
     display: grid;
     grid-template-columns: auto 850px;
     min-height: 400px;
     justify-content: center;
-        grid-gap: 30px;
-
+        grid-gap: 20px;
+ border: 1px solid #ddd;
     }
 
     .beads-container-selector {
@@ -311,7 +336,7 @@ export default {
     grid-template-columns: auto auto auto auto;
         grid-gap: 10px;
   
-      height: 500px;
+      height: 700px;
         width: 850px;
        
         padding: 20px;
@@ -335,23 +360,7 @@ export default {
      
    
     }
-   .search-container {
-    display: grid;
-   align-content: flex-start;
-    padding: 0px;
-    min-width: 700px;
- 
-    }
-    
-    
-    .searchbar {
-    height: 40px;
-    width: 440px;
-    padding: 10px 12px;
-    font-size: 18px;
-    border: 1px solid #aaa;
-    }
-    
+
      .bead-img-small-selector {
     width: 100%;
          height: 100%;
@@ -364,7 +373,7 @@ export default {
     .bead-container-selector {
         width: 120px;
        height: 120px;
-        border: 1px solid #ddd;
+    
   border-radius: 50%;
     }
     
@@ -380,10 +389,12 @@ grid-gap: 15px;
      .selected-container-content {
     display: grid;
     grid-template-columns: auto auto;
+         grid-gap: 10px;
     align-content: flex-start;
 border: 1px solid #ddd;
   padding: 10px;
-        width: 300px; 
+        width: 275px; 
+        min-height: 500px;
     }
     
    

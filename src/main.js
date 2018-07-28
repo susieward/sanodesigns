@@ -20,6 +20,7 @@ import NecklaceSelector from './components/NecklaceSelector.vue'
 import Bracelet from './components/Bracelet.vue'
 import BeadSelector from './components/BeadSelector.vue'
 import Catalog from './components/Catalog.vue'
+import Cart from './components/Cart.vue'
 import Admin from './components/Admin.vue'
 import AdminBeads from './components/AdminBeads.vue'
 import AddBead from './components/AddBead.vue'
@@ -54,6 +55,13 @@ const routes = [
         path: '/catalog',
         name: 'Catalog',
         component: Catalog
+        
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: Cart,
+        props: true
         
     },
     {
