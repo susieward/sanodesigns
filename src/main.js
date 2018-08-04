@@ -8,6 +8,7 @@ window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 require('./css/main.css');
+require('./js/main.js');
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -51,6 +52,12 @@ const routes = [
              component: NecklaceSelector,
              props: true
     },
+    { path: '/beads',
+             name: 'BeadSelector',
+             component: BeadSelector,
+             props: true
+    },
+   
     {
         path: '/catalog',
         name: 'Catalog',

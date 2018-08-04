@@ -43,30 +43,31 @@
                  
       <div v-for="bead in selectedBeads" style="position: relative">
               
-         <vue-draggable-resizable :resizable="false" :w="100" :h="100" :drag-handle="'.drag'" style="user-select: none;"> 
+         <vue-draggable-resizable @activated="onActivated(bead)" :resizable="false" :w="100" :h="100" :drag-handle="'.drag'" style="user-select: none;"  class="dragcontainer" :style="computedStyle"> 
              <div class="drag"></div>
             
              <div class="bead-container-selected">
-              <img class="bead-img-small-selected" :src="bead.image"/>
+              <img class="bead-img-small-selected" :src="bead.image" />
              </div>
            
          </vue-draggable-resizable>
              
                     </div>
                  
-                  
+                
           
               </div>
-              
+         <p>Selected: {{ selected }}</p>
+                <button class="btn-small" @click="rotate">rotate</button> 
           </div>
               
               
           <div class="necklace-template">
               <div class="necklace-template-content">
                   
-                  <img class="template-img" src="/static/mock-template-edit.png"/>
+                  <img class="template-img" id="rotate" src="/static/mock-template-edit.png"/>
               </div>
-
+              
               </div>
               
        
@@ -83,28 +84,18 @@
             
                 {{ bead.stone }}
                 {{ bead.size }}
-                {{ bead.price }}
+                {{ formatPrice(bead.price) | usdollar }}
             
             </div>
-                <p>Beads total: $4.80</p>
-            </div>
-            
-            <div class="notes">
-            <h3 style="margin-bottom: 0">Notes:</h3>
-            
-                <p style="margin-bottom: 0">Anything else you'd like to add about your design.</p>
-                <p style="color: #a4a4a4; margin-top: 5px">(optional)</p>
-            <textarea v-model="notes" class="notes-textarea"></textarea>
-            
-            
-            </div>
+              <p>Total: {{ total | usdollar }}</p>
+           </div>
            
            
               
               </div>
               
               <div class="checkout-button-container">
-                   <button class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads, notes)">save and checkout</button>
+                   <button class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">save and checkout</button>
            </div>
           </div>
           
@@ -116,6 +107,7 @@
 </template>
 
 <script>
+ 
 import VueDraggableResizable from 'vue-draggable-resizable'
 import BeadSelector from './BeadSelector.vue'
 export default {
@@ -124,7 +116,11 @@ export default {
             selectedBeads: [],
             editingBeads: false,
             beadsEdit: [],
-                notes: ''
+            isSelected: false,
+            degrees: 0,
+            style: {},
+            selected: undefined
+         
         }
     },
   name: 'necklace',
@@ -134,6 +130,24 @@ export default {
         VueDraggableResizable
 
     },
+    
+    computed: {
+        
+        computedStyle(){
+            return this.style;
+        },
+        
+        totalBeads(){
+        return this.selectedBeads;
+        },
+        
+        total() {
+        return Object.values(this.totalBeads)
+        .reduce((acc, el) => acc + el.price, 0)
+        .toFixed(2);
+    }
+    },
+    
     
     methods: {
         setNecklaceBeads: function(selectedBeads){
@@ -153,10 +167,44 @@ export default {
             
         },
         
-        goToCheckout: function(necklaceLength, selectedBeads, notes){
-            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedBeads: this.selectedBeads, notes: this.notes}});
+        goToCheckout: function(necklaceLength, selectedBeads){
+            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedBeads: this.selectedBeads}});
+        },
+            rotate: function(){
+            
+         
+            var degrees = this.degrees += 36;
+            
+            this.style = {
+                transform: 'rotate('+degrees+'deg)'
+            }
+        },
+        
+        revert: function(){
+            var degrees = this.degrees;
+            degrees = 0;
+             this.style = {
+                transform: 'rotate('+degrees+'deg)'
+            }
+        },
+        
+        onActivated: function(bead){
+            this.selected = bead._id;
+        },
+            formatPrice: function(value){
+            return value.toFixed(2);
         }
-        }
+    
+    
+      
+  
+  },
+    
+  filters: {
+    usdollar: function(value) {
+      return `$${value}`;
+    }
+  },
     
     
 }
@@ -248,9 +296,20 @@ margin: 0;
           margin: auto;
            border: 1px solid transparent;
           border-radius: 80%;
-  
-   
-    }
+          -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+}
+    
+    
+
+
+
     
     .bead-container-selected {
        width: 130px;
@@ -334,7 +393,15 @@ margin: 0;
     
     .template-img {
     max-height: 700px;
-
+             -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+        display: block;
     }
     
   
@@ -469,6 +536,7 @@ justify-content: center;
     }
     
     .notes-textarea {
+        font-family: 'Karla';
          font-weight: 300;
     font-size: 16px;
     padding: 10px 12px;
@@ -477,4 +545,16 @@ justify-content: center;
     border-radius: 8px;
     }
     
+    .dragcontainer {
+         -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+    }
+    
+  
 </style>

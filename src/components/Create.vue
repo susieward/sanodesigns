@@ -1,15 +1,20 @@
 <template>
   <div class="create">
-      
-     
-      <div class="create-container">
-       <div class="buttons-container">
-          
-      <span>
+        <div class="header">
+          <div class="header-container">
+              <router-link to="/"><h1>Sano Designs</h1></router-link>
+              
+               <div class="buttons-buttons">
+          <span>
       <router-link to="/" tag="button" class="create-btn">start over</router-link>
           <button class="create-btn">save for later</button>
           </span>
+          </div>
+              </div>
       </div>
+     
+      <div class="create-container">
+       
       
         <div class="select-type-container" v-if="typeChosen === false">
             
@@ -149,9 +154,46 @@ export default {
     
       .create {
     display: grid;
-    width: 100vw;
-       min-height: 100vh;
-           border: 1px solid #ddd;
+          align-content: center;
+   grid-template-areas:
+                    "header header"
+                    "content content";
+min-height: 100vh;
+min-width: 100vw;
+margin: 0;
+padding: 0;
+    }
+    
+        .header {
+grid-area: header;
+display: grid;
+align-content: center;
+width: 100vw;
+background-color: #F4F4F4;
+min-height: 80px;
+
+padding-left: 100px;
+margin-bottom: 20px;
+
+
+}
+    
+    .header-container {
+    display: grid;
+        grid-template-columns: 1fr auto;
+        grid-gap: 500px;
+    align-content: center;
+    max-width: 1050px;
+   
+    }
+    
+    .header h1 {
+    font-family: 'Pacifico';
+    font-size: 45px;
+line-height: 54px;
+    font-weight: 400;
+color: #262626;
+margin: 0;
     }
     
     .buttons-container {
@@ -162,6 +204,7 @@ export default {
     }
     
     .create-container {
+    grid-area: content;
     display: grid;
     align-content: flex-start;
     
@@ -170,7 +213,7 @@ export default {
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
-    border: 1px solid #ddd;
+
     
     }
     

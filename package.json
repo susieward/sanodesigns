@@ -18,6 +18,7 @@
     "@seregpie/vuedragdrop": "^18.6.21",
     "axios": "^0.18.0",
     "draggable-vue-directive": "^2.0.1",
+    "jquery": "^3.3.1",
     "moment": "^2.22.2",
     "vue": "^2.5.2",
     "vue-drag-it-dude": "^1.1.1",
