@@ -63,9 +63,15 @@
               
               
           <div class="necklace-template">
+              <button class="btn-small" style="width: 100px" @click="copyImg(temp)">copy</button>
               <div class="necklace-template-content">
                   
-                  <img class="template-img" id="rotate" src="/static/mock-template-edit.png"/>
+                  <img id="temp" :src="designImg" @click="copyImg"/>
+                  
+                  <div class="template-copy">
+                  <img v-if="copied == true" id="template-copy-img" :src="src"/>
+                  </div>
+                
               </div>
               
               </div>
@@ -119,7 +125,9 @@ export default {
             isSelected: false,
             degrees: 0,
             style: {},
-            selected: undefined
+            selected: undefined,
+            copied: false,
+            src: ""
          
         }
     },
@@ -132,6 +140,10 @@ export default {
     },
     
     computed: {
+        
+        designImg(){
+            return this.$store.state.designImg;
+        },
         
         computedStyle(){
             return this.style;
@@ -150,6 +162,14 @@ export default {
     
     
     methods: {
+        
+        copyImg: function(temp){
+            this.copied = true;
+            this.src = temp.srcElement.src;
+            
+            
+        },
+        
         setNecklaceBeads: function(selectedBeads){
             this.selectedBeads = selectedBeads;
         },
@@ -388,22 +408,24 @@ margin: 0;
     }
     
     .necklace-template-content {
- 
+ display: grid;
+        grid-template-rows: auto auto;
     }
     
-    .template-img {
+    #temp {
     max-height: 700px;
-             -webkit-transition-duration: 0.5s;
-    -moz-transition-duration: 0.5s;
-    -o-transition-duration: 0.5s;
-    transition-duration: 0.5s;
-    -webkit-transition-property: -webkit-transform;
-    -moz-transition-property: -moz-transform;
-    -o-transition-property: -o-transform;
-    transition-property: transform;
-        display: block;
+    
     }
     
+    .template-copy {
+    max-height: 700px;
+    border: 1px solid blue;
+    min-height: 200px;
+    }
+    
+    #template-copy-img {
+    max-height: 700px;
+    }
   
 
     

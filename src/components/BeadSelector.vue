@@ -332,6 +332,10 @@ justify-content: center;
         border: 1px solid #C4A8D1;
     }
     
+    .bead:focus {
+        border: 1px solid #C4A8D1;
+    }
+    
     .selected-bead {
    
 

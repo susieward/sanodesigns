@@ -10,7 +10,8 @@ const store = new Vuex.Store({
 
 state: {
     beads: [],
-    bag: []
+    bag: [],
+    designImg: 'http://localhost:8080/static/mock-template-edit.png'
 },
     
   
