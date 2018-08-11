@@ -89,8 +89,7 @@ export default {
     return { 
         search: '',
         searchProps: ['stone', 'size', 'cut', 'color', 'shape', 'price'], 
-        selectedBeads: [],
-        beadsEdit: [],
+      
         
                 selectedStone: undefined,
              selectedSize: undefined,
@@ -107,6 +106,14 @@ export default {
 
         beads(){
             return this.$store.state.beads;
+        },
+        
+        selectedBeads(){
+            return this.$store.state.selectedBeads;
+        },
+        
+        beadsEdit(){
+            return this.$store.state.beadsEdit;
         },
         
         
@@ -128,25 +135,26 @@ export default {
         
         select: function(bead){
             if(this.beadsEdit.length){
-            this.beadsEdit.push(bead);
+            this.$store.commit('addEdited', bead);
             } else {
-                 this.selectedBeads.push(bead);
+                 this.$store.commit('addSelected', bead);
                 
             }
         },
         
-        remove: function(index){
+        remove: function(_id){
             if(this.beadsEdit.length){
-                this.beadsEdit.splice(index, 1);
+                this.$store.commit('removeEdited', _id);
            
             } else {
-                 this.selectedBeads.splice(index, 1);
+                 this.$store.commit('removeSelected', _id);
             }
         },
         
         finishedSelection: function(){
             
             this.$emit('selected', this.selectedBeads );
+           
         },
         
         confirmSelection: function(){

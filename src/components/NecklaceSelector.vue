@@ -39,40 +39,40 @@
               
                  <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
                     
-             <div class="selected">
-                 
-      <div v-for="bead in selectedBeads" style="position: relative">
               
-         <vue-draggable-resizable @activated="onActivated(bead)" :resizable="false" :w="100" :h="100" :drag-handle="'.drag'" style="user-select: none;"  class="dragcontainer" :style="computedStyle"> 
-             <div class="drag"></div>
-            
-             <div class="bead-container-selected">
-              <img class="bead-img-small-selected" :src="bead.image" />
-             </div>
-           
-         </vue-draggable-resizable>
-             
-                    </div>
-                 
-                
-          
-              </div>
          <p>Selected: {{ selected }}</p>
                 <button class="btn-small" @click="rotate">rotate</button> 
           </div>
               
               
           <div class="necklace-template">
-              <button class="btn-small" style="width: 100px" @click="copyImg(temp)">copy</button>
+              
               <div class="necklace-template-content">
                   
-                  <img id="temp" :src="designImg" @click="copyImg"/>
-                  
-                  <div class="template-copy">
-                  <img v-if="copied == true" id="template-copy-img" :src="src"/>
-                  </div>
-                
+        <img id="temp" :src="designImg"/>
+                 
+                      
+
+     
+    <VueDragResize v-for="(bead, index) in selectedBeads"
+                   :key="bead._id"
+                   :isResizable="false"
+                   :parentLimitation="true"
+                   :isDraggable="draggableState"
+                   @dragging="changePosition"
+                   >
+
+       
+              <img class="bead-img-small-selected-alt" :src="bead.image" />
+     
+
+        </VueDragResize>
+    
+   
               </div>
+              <p>{{ x }} and {{ y }}</p>
+              <span><button class="btn-small" @click="stop">stop</button> <button class="btn-small" @click="start">start</button>
+              </span>
               
               </div>
               
@@ -113,21 +113,24 @@
 </template>
 
 <script>
- 
+
+import VueDragResize from 'vue-drag-resize'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import BeadSelector from './BeadSelector.vue'
 export default {
     data(){
         return {
-            selectedBeads: [],
             editingBeads: false,
-            beadsEdit: [],
+          
             isSelected: false,
             degrees: 0,
             style: {},
             selected: undefined,
             copied: false,
-            src: ""
+            src: "",
+            x: 0,
+            y: 0,
+            draggableState: true
          
         }
     },
@@ -135,11 +138,22 @@ export default {
     props: ['necklaceLength', 'selectedType'],
     components: {
         BeadSelector,
-        VueDraggableResizable
+        VueDraggableResizable,
+        VueDragResize
 
     },
     
+    
+    
     computed: {
+        
+        selectedBeads(){
+            return this.$store.state.selectedBeads;
+        },
+        
+        beadsEdit(){
+            return this.$store.state.beadsEdit;
+        },
         
         designImg(){
             return this.$store.state.designImg;
@@ -147,6 +161,10 @@ export default {
         
         computedStyle(){
             return this.style;
+        },
+        
+        beadTop(){
+            return this.bead._id.x
         },
         
         totalBeads(){
@@ -163,6 +181,27 @@ export default {
     
     methods: {
         
+        stop: function(){
+        this.draggableState = false;
+        },
+        
+        start: function(){
+            this.draggableState = true;
+        },
+        
+        getTop: function(_id, x){
+           return this.bead._id.x;
+        },
+        
+        getLeft: function(_id, y){
+            return this.bead._id.y;
+        },
+        
+        changePosition: function(x, y) {
+               this.x = x
+            this.y = y
+            },
+        
         copyImg: function(temp){
             this.copied = true;
             this.src = temp.srcElement.src;
@@ -171,11 +210,14 @@ export default {
         },
         
         setNecklaceBeads: function(selectedBeads){
-            this.selectedBeads = selectedBeads;
+            
+            this.$store.commit('setNecklaceBeads', selectedBeads);
+           
+    
         },
         
         setEditedBeads: function(beadsEdit){
-            this.beadsEdit = this.selectedBeads;
+            this.$store.commit('setEditedBeads', beadsEdit);
             this.editingBeads = false;
         },
         
@@ -395,12 +437,15 @@ margin: 0;
     padding: 10px;
     grid-gap: 20px;
            justify-content: center;
+            position: relative;
+      
+           
     }
     
     .necklace-template {
     display: grid;
-
-
+border: 1px solid #222;
+ position: relative;
    
     
  
@@ -409,11 +454,16 @@ margin: 0;
     
     .necklace-template-content {
  display: grid;
-        grid-template-rows: auto auto;
+        
+        border: 1px solid #222;
+        position: relative;
+        height: 600px;
     }
     
     #temp {
     max-height: 700px;
+        border: 1px solid #ddd;
+   position: relative;
     
     }
     
@@ -576,6 +626,27 @@ justify-content: center;
     -moz-transition-property: -moz-transform;
     -o-transition-property: -o-transform;
     transition-property: transform;
+    }
+    
+      .selected-alt {
+        display: grid;
+    grid-template-columns: 100px 100px 100px 100px;
+    grid-auto-rows: 100px;
+    
+        align-content: flex-start;
+    position: relative;
+    border: 1px solid #ddd;
+        top: 30;
+         height: 300px;
+    }
+    
+        .bead-img-small-selected-alt {
+    width: 100%;
+         height: 100%;
+  object-fit: cover;
+          margin: auto;
+          cursor: pointer;
+            position: absolute;
     }
     
   
