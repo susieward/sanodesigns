@@ -17,7 +17,7 @@
     <div class="cart-container">
         <h2 style="text-align: center">Cart</h2>
     
-    <p>Length: {{ necklaceLength }}</p>    
+    <p>Length: {{ necklaceLength || braceletLength }}</p>    
         
         <div class="cart-details">
         
@@ -68,7 +68,7 @@ data(){
 },
 name: 'Cart',
 
-props: ['necklaceLength', 'selectedBeads'],
+props: ['necklaceLength', 'braceletLength', 'selectedBeads'],
     
 components: {
     Checkout

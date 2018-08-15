@@ -15,6 +15,20 @@
      
       <div class="create-container">
        
+          <div class="breadcrumbs" v-if="typeChosen === false">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> type</span>
+          
+          </div>
+          
+          <div class="breadcrumbs" v-if="typeChosen === true && lengthChosen === false">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">type</span><span class="right-arrow">&rsaquo;</span>length</span>
+          
+          </div>
+          
+          <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === false">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back">type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span>material</span>
+          
+          </div>
       
         <div class="select-type-container" v-if="typeChosen === false">
             
@@ -32,75 +46,48 @@
           
           </div>
           
-          <div class="select-length" v-if="typeChosen === true">
-              <h2 style="text-align: center">Select {{ selectedType }} Length</h2>
-          <div v-if="necklace === true" class="selector">
-               
-              <div class="size-template">
+          <div class="select-details" v-if="typeChosen === true">
               
+              <p>Length: {{ necklaceLength }}</p>
+              <p>Material: {{ selectedMaterial.type }}</p>
+              <p>Color: {{ selectedMaterial.color }}</p>
               
-              </div>
+              <div class="headers">
+             <h2 style="text-align: center" v-if="lengthChosen === false">Select {{ selectedType }} Length</h2>
               
-              <div class="size">
-                 
-              
-              <input type="radio" id="small" value="12 in"  @change="showButton" v-model="necklaceLength"/>
-              <label for="small">12"</label>
-              
-              <input type="radio" id="medium" value="14 in" @change="showButton" v-model="necklaceLength"/>
-              <label for="medium">14"</label>
-              
-              <input type="radio" id="large" value="16 in" @change="showButton" v-model="necklaceLength"/>
-              <label for="large">16"</label>
-              
-                  <p v-show="lengthChosen === true">Your necklace length: {{ necklaceLength }}</p>
-              
-              <button class="btn" v-if="lengthChosen === true" @click="chooseNecklaceBeads(necklaceLength, selectedType)">select your beads</button>
+              <h2 style="text-align: center" v-if="lengthChosen === true && materialChosen === false">Select {{ selectedType }} Material</h2>
               </div>
              
-          </div>
           
-          <div v-if="bracelet === true" class="selector">
-              
-              <div class="size-template">
               
               
-              </div>
-              
-              <div class="size">
+            <length v-if="typeChosen === true && lengthChosen === false" :selected-type="selected-type" @nlength="getNecklaceLength" @blength="getBraceletLength"></length>
+                  
+            <materials v-if="lengthChosen === true && materialChosen === false " @material="getMaterial"></materials>
             
-                
-            <input type="radio" id="s" value="6 inches" @change="showButton" v-model="braceletLength"/>
-            <label for="s">6"</label>
+                  
+               <button class="btn" v-if="lengthChosen === true && materialChosen === true" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
               
-            <input type="radio" id="m" value="7 inches" @change="showButton" v-model="braceletLength"/>
-            <label for="m">7"</label>
+             
+          
+          
+          
+                  
+            
               
-            <input type="radio" id="l" value="8 inches" @change="showButton" v-model="braceletLength"/>
-            <label for="l">8"</label>
-              
-            <input type="radio" id="xl" value="9 inches" @change="showButton" v-model="braceletLength"/>
-            <label for="xl">9"</label>
-              
-            <p v-show="lengthChosen === true">Your bracelet length: {{ braceletLength }}</p>
-              
-           <button class="btn" v-if="lengthChosen === true" @click="chooseBraceletBeads(braceletLength, selectedType)">select your beads</button>
-              
+           <button class="btn" v-if="lengthChosen === true && materialChosen === true" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">select your beads</button>
+              </div>
           </div>
               
               </div>
         
 
-              
-          </div>
           
-          
-      
-      </div>
-  </div>
 </template>
 
 <script>
+import Length from './Length.vue'
+import Materials from './Materials.vue'
 export default {
   name: 'Create',
   data () {
@@ -112,10 +99,26 @@ export default {
         selectedType: '',
         necklaceLength: '',
         braceletLength: '',
-        showSelector: false 
+        materialChosen: false,
+        materials: ['chain', 'wire', 'stretch cord'],
+        selectedMaterial: {
+            type: '',
+            color: ''
+        }        
+            
+            
+            
+            
+            
+        }
         
-    }
+
   },
+    
+    components: {
+        Length,
+        Materials
+    },
     
     methods: {
         
@@ -127,10 +130,23 @@ export default {
             this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedType: this.selectedType}});
         },
         
-        showButton: function(){
-            this.lengthChosen = true;
+        backToType: function(){
+            this.typeChosen = false;
+            this.selectedType = '';
+            this.lengthChosen= false;
+            this.necklaceLength = '';
+            this.braceletLength = ''
         },
         
+        backToLength: function(){
+            this.lengthChosen = false
+            this.necklaceLength = '';
+            this.braceletLength = ''
+        },
+        
+        // so weird I never use comments in vue files
+        
+       
         selectNecklace: function(){
             this.necklace = true;
             this.bracelet = false;
@@ -144,6 +160,23 @@ export default {
             this.necklace = false;
             this.typeChosen = true;
             this.selectedType = 'Bracelet';
+        },
+        
+      
+        
+        getNecklaceLength: function(necklaceLength){
+            this.necklaceLength = necklaceLength;
+            this.lengthChosen = true;
+        },
+        
+        getBraceletLength: function(braceletLength){
+            this.braceletLength = braceletLength;
+            this.lengthChosen = true;
+        },
+        
+        getMaterial: function(selectedMaterial){
+            this.selectedMaterial = selectedMaterial;
+            this.materialChosen = true;
         }
     }
 }
@@ -164,16 +197,54 @@ margin: 0;
 padding: 0;
     }
     
+        
         .header {
 grid-area: header;
 display: grid;
 align-content: center;
 width: 100vw;
 background-color: #F4F4F4;
-min-height: 80px;
+height: 103px;
+justify-content: center;
+  margin-bottom: 34px;
 
-padding-left: 100px;
-margin-bottom: 20px;
+}
+    
+    .header-container {
+    display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 0px;
+    align-content: center;
+    width: 1050px;
+       border: 1px solid red;
+   
+    }
+    
+    .header h1 {
+    font-family: 'Pacifico';
+    font-size: 58px;
+line-height: 64px;
+    font-weight: 400;
+color: #262626;
+margin: 0;
+    }
+    
+    
+/* header media queries */
+    
+    
+    @media screen and (max-width: 1200px){
+    
+        .header {
+grid-area: header;
+display: grid;
+align-content: center;
+width: 100vw;
+background-color: #F4F4F4;
+height: 92px;
+justify-content: center;
+
+
 
 
 }
@@ -181,26 +252,31 @@ margin-bottom: 20px;
     .header-container {
     display: grid;
         grid-template-columns: 1fr auto;
-        grid-gap: 500px;
+        grid-gap: 50px;
     align-content: center;
-    max-width: 1050px;
+    width: 900px;
    
     }
     
     .header h1 {
     font-family: 'Pacifico';
-    font-size: 45px;
-line-height: 54px;
+    font-size: 48px;
+line-height: 53px;
     font-weight: 400;
 color: #262626;
 margin: 0;
     }
+
+}
+
     
     .buttons-container {
     display: grid;
         margin-right: 20px;
         margin-top: 20px;
+        align-content: center;
         justify-content: flex-end;
+     
     }
     
     .create-container {
@@ -217,7 +293,24 @@ margin: 0;
     
     }
     
+    .buttons-container-title {
+display: grid;
+  justify-content: center;
 
+       margin-bottom: 30px;
+        padding: 30px;
+    padding-top: 20px;
+        padding-bottom: 20px;
+  border: 1px solid blue;
+    }
+
+  .buttons-buttons {
+    display: grid;
+         border: 1px solid blue;
+      justify-content: flex-end;
+      align-content: center;
+        padding: 0;
+    }
     
     .create-container h2 {
     
@@ -266,29 +359,61 @@ font-weight: 400;
     padding: 0;
     }
     
-    .select-length {
+    .select-details {
     display: grid;
-
+justify-content: center;
     
     }
     
     .selector {
     display: grid;
     grid-template-columns: auto auto;
-    border: 1px solid #ddd;
+
     padding: 10px;
     grid-gap: 20px;
     }
     
-    .size-template {
-    min-height: 400px;
-    min-width: 500px;
+    .size-template-necklace {
+    height: 500px;
+    width: 500px;
     border: 1px solid #ddd;
+    }
+    
+    .necklace-length-img {
+    height: 100%;
+    width: 100%;
+    }
+    
+    .size-template-bracelet {
+    height: 460px;
+    width: 460px;
+    border: 1px solid #ddd;
+    }
+    
+    .bracelet-size-img {
+    height: 100%;
+        width: 100%;
     }
     
     .size {
        min-height: 400px;
-    min-width: 500px;  
+        width: 400px;
+  
+    }
+    
+    .radio-buttons-container {
+    display: grid;
+    grid-template-rows: repeat(6, auto);
+    }
+    
+    .radio-buttons-bracelet {
+    display: grid;
+    grid-template-rows: repeat(6, auto);
+    }
+    
+    .necklace-material-radios {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
     }
     
     .create-btn {
@@ -304,5 +429,38 @@ color: #d9d9d9;
 font-weight: 400;
 cursor: pointer;
 }
+    
+    .back {
+ 
+    cursor: pointer;
+   color: #ad81c0;
+        
+    }
+    
+    .right-arrow {
 
+        font-size: 20px;
+        color: #444;
+        margin-right: 8px;
+        margin-left: 8px;
+
+    }
+    
+    .breadcrumbs {
+    display: grid;
+    font-size: 14px;
+        line-height: 20px;
+    text-transform: uppercase;
+    color: #474747;
+        text-align: center;
+          margin-bottom: 15px;
+        padding: 5px;
+    }
+    
+    
+    .headers {
+    margin-bottom: 20px;
+    }
+    
+  
 </style>

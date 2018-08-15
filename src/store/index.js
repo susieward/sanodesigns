@@ -12,7 +12,7 @@ state: {
     beads: [],
     selectedBeads: [],
     beadsEdit: [],
-    designImg: 'http://localhost:8080/static/mock-template-edit.png'
+
 },
     
   
@@ -45,31 +45,15 @@ state: {
             state.beads.splice(index, 1);
         },
         
-        setNecklaceBeads: (state, {selectedBeads}) => {
-            state.selectedBeads = selectedBeads;
+        changeLeft: (state, payload) => {
+            state.beads[payload.id].left = payload.left;
         },
         
-         setEditedBeads: (state, {beadsEdit}) => {
-            state.selectedBeads = beadsEdit;
-        },
-        
-        addSelected: (state, bead) => {
-            state.selectedBeads.push(bead);
-        },
-        
-        removeSelected: (state, id) => {
-            let index = state.selectedBeads.findIndex(bead => bead._id === id);
-            state.selectedBeads.splice(index, 1);
-        },
-        
-        addEdited: (state, bead) => {
-            state.beadsEdit.push(bead);
-        },
-        
-        removeEdited: (state, id) => {
-            let index = state.beadsEdit.findIndex(bead => bead._id === id);
-            state.beadsEdit.splice(index, 1);
+        changeTop: (state, payload) => {
+            state.beads[payload.id].top = payload.top;
         }
+        
+      
     }
 })
 

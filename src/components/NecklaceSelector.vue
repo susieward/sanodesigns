@@ -49,10 +49,8 @@
               
               <div class="necklace-template-content">
                   
-        <img id="temp" :src="designImg"/>
+        <img id="temp" src="/static/mock-template-edit.png"/>
                  
-                      
-
      
     <VueDragResize v-for="(bead, index) in selectedBeads"
                    :key="bead._id"
@@ -60,6 +58,7 @@
                    :parentLimitation="true"
                    :isDraggable="draggableState"
                    @dragging="changePosition"
+                   
                    >
 
        
@@ -70,7 +69,8 @@
     
    
               </div>
-              <p>{{ x }} and {{ y }}</p>
+          
+              <p>{{ top }} and {{ left }}</p>
               <span><button class="btn-small" @click="stop">stop</button> <button class="btn-small" @click="start">start</button>
               </span>
               
@@ -115,22 +115,20 @@
 <script>
 
 import VueDragResize from 'vue-drag-resize'
-import VueDraggableResizable from 'vue-draggable-resizable'
 import BeadSelector from './BeadSelector.vue'
 export default {
     data(){
         return {
             editingBeads: false,
-          
+            beadsEdit: [],
+            selectedBeads: [],
             isSelected: false,
             degrees: 0,
             style: {},
             selected: undefined,
-            copied: false,
-            src: "",
-            x: 0,
-            y: 0,
-            draggableState: true
+            draggableState: true,
+            top: 0,
+            left: 0
          
         }
     },
@@ -138,35 +136,20 @@ export default {
     props: ['necklaceLength', 'selectedType'],
     components: {
         BeadSelector,
-        VueDraggableResizable,
         VueDragResize
 
     },
-    
+  
     
     
     computed: {
         
-        selectedBeads(){
-            return this.$store.state.selectedBeads;
-        },
-        
-        beadsEdit(){
-            return this.$store.state.beadsEdit;
-        },
-        
-        designImg(){
-            return this.$store.state.designImg;
-        },
-        
+       
         computedStyle(){
             return this.style;
         },
         
-        beadTop(){
-            return this.bead._id.x
-        },
-        
+
         totalBeads(){
         return this.selectedBeads;
         },
@@ -189,17 +172,11 @@ export default {
             this.draggableState = true;
         },
         
-        getTop: function(_id, x){
-           return this.bead._id.x;
-        },
         
-        getLeft: function(_id, y){
-            return this.bead._id.y;
-        },
-        
-        changePosition: function(x, y) {
-               this.x = x
-            this.y = y
+        changePosition: function(top, left){
+            this.top = top;
+            this.left = left;
+ 
             },
         
         copyImg: function(temp){
@@ -211,13 +188,13 @@ export default {
         
         setNecklaceBeads: function(selectedBeads){
             
-            this.$store.commit('setNecklaceBeads', selectedBeads);
+            this.selectedBeads = selectedBeads;
            
     
         },
         
         setEditedBeads: function(beadsEdit){
-            this.$store.commit('setEditedBeads', beadsEdit);
+            this.selectedBeads = beadsEdit;
             this.editingBeads = false;
         },
         
@@ -303,38 +280,7 @@ padding: 0;
         margin-left: auto;
     }
     
-    
-    .header {
-grid-area: header;
-display: grid;
-align-content: center;
-width: 100vw;
-background-color: #F4F4F4;
-min-height: 80px;
-
-padding-left: 100px;
-margin-bottom: 20px;
-
-
-}
-    
-    .header-container {
-    display: grid;
-        grid-template-columns: 1fr auto;
-        grid-gap: 500px;
-    align-content: center;
-    max-width: 1050px;
-   
-    }
-    
-    .header h1 {
-    font-family: 'Pacifico';
-    font-size: 45px;
-line-height: 54px;
-    font-weight: 400;
-color: #262626;
-margin: 0;
-    }
+  
     
     .drag {
       color: #000;
@@ -478,26 +424,7 @@ border: 1px solid #222;
     }
   
 
-    
-   
-    
-    .buttons-container-title {
-display: grid;
-  justify-content: center;
 
-       margin-bottom: 30px;
-        padding: 30px;
-    padding-top: 20px;
-        padding-bottom: 20px;
-  
-    }
-    
-    .buttons-buttons {
-    display: grid;
-        justify-content: flex-end;
-        padding-top: 5px;
-    }
-    
     
     
         .create-btn {

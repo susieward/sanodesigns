@@ -23,20 +23,16 @@ import Bracelet from './components/Bracelet.vue'
 import BeadSelector from './components/BeadSelector.vue'
 import Catalog from './components/Catalog.vue'
 import Cart from './components/Cart.vue'
-import CanvasComponent from './components/CanvasComponent.vue'
-import KonvaTest from './components/KonvaTest.vue'
-import InteractComponent from './components/InteractComponent.vue'
 import NewDraggable from './components/NewDraggable.vue'
 import Admin from './components/Admin.vue'
 import AdminBeads from './components/AdminBeads.vue'
 import AddBead from './components/AddBead.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
-import VueKonva from 'vue-konva'
 import VueDragResize from 'vue-drag-resize'
+import Beizer from './components/Beizer.vue'
 
 Vue.component('vue-drag-resize', VueDragResize)
 
-Vue.use(VueKonva)
 Vue.use(VueRouter)
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
@@ -53,25 +49,14 @@ const routes = [
       component: Create
     },
     {
-      path: '/canvas',
-      name: 'CanvasComponent',
-      component: CanvasComponent
-    },
-    
-     {
-      path: '/konva',
-      name: 'KonvaTest',
-      component: KonvaTest
-    },
-    {
-      path: '/interact',
-      name: 'InteractComponent',
-      component: InteractComponent
-    },
-    {
       path: '/draggable',
       name: 'NewDraggable',
       component: NewDraggable
+    },
+    {
+        path: '/beizer',
+        name: 'Beizer',
+        component: Beizer
     },
 
     { path: '/bracelet',
