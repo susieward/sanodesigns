@@ -98,6 +98,9 @@ data(){
          selectedCord: function(){
             
             this.selectedMaterial.type = 'cord';
+             this.selectedMaterial.color = 'clear';
+             this.colorChosen = true;
+             this.$emit('material', this.selectedMaterial)
             
         },
         
@@ -156,6 +159,7 @@ data(){
         .necklace-material-radios {
     display: grid;
     grid-template-rows: repeat(3, auto);
+    grid-gap: 20px;
     }
 
 

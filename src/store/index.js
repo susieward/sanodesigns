@@ -54,6 +54,18 @@ state: {
         }
         
       
+    },
+    
+    getters: {
+        
+        opalBeads: state => {
+            return state.beads.filter(bead => bead.stone === 'Opalite');
+        },
+        
+        opalBeadsImgs: (state, getters) => {
+            return getters.opalBeads.map(bead => bead.image);
+        }
+        
     }
 })
 

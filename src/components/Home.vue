@@ -55,36 +55,58 @@ margin: 0;
 padding: 0;
     }
     
-    .header {
+          
+        .header {
 grid-area: header;
 display: grid;
 align-content: center;
 width: 100vw;
 background-color: #F4F4F4;
-min-height: 80px;
+height: 103px;
+  margin-bottom: 34px;
 
-padding-left: 100px;
-margin-bottom: 20px;
-justify-content: flex-start;
 
 }
     
     .header-container {
     display: grid;
+    grid-template-areas: "title buttons";
+     
+        grid-gap: 10px;
     align-content: center;
-    max-width: 1050px;
+    width: 1050px;
+  
+        padding: 0px;
    
+    }
+    
+    .title {
+    grid-area: title;
+    display: grid;
+  
+    justify-content: flex-start;
+    align-content: center;
+        width: 500px;
     }
     
     .header h1 {
     font-family: 'Pacifico';
-    font-size: 45px;
-line-height: 54px;
+    font-size: 58px;
+line-height: 64px;
     font-weight: 400;
 color: #262626;
 margin: 0;
     }
     
+    .buttons-buttons {
+    grid-area: buttons;
+    display: grid;
+   grid-gap: 20px;
+      justify-content: flex-end;
+      align-content: center;
+        padding: 0;
+  
+    }
     .home-container {
     grid-area: content;
     display: grid;

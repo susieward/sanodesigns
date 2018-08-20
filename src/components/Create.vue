@@ -2,7 +2,10 @@
   <div class="create">
         <div class="header">
           <div class="header-container">
+              
+              <div class="title">
               <router-link to="/"><h1>Sano Designs</h1></router-link>
+              </div>
               
                <div class="buttons-buttons">
           <span>
@@ -16,17 +19,22 @@
       <div class="create-container">
        
           <div class="breadcrumbs" v-if="typeChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> type</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span>jewelry type</span>
           
           </div>
           
           <div class="breadcrumbs" v-if="typeChosen === true && lengthChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">type</span><span class="right-arrow">&rsaquo;</span>length</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span>length</span>
           
           </div>
           
           <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back">type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span>material</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span>material</span>
+          
+          </div>
+          
+          <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === true">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span><span class="back">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
           
           </div>
       
@@ -48,14 +56,12 @@
           
           <div class="select-details" v-if="typeChosen === true">
               
-              <p>Length: {{ necklaceLength }}</p>
-              <p>Material: {{ selectedMaterial.type }}</p>
-              <p>Color: {{ selectedMaterial.color }}</p>
-              
               <div class="headers">
              <h2 style="text-align: center" v-if="lengthChosen === false">Select {{ selectedType }} Length</h2>
               
               <h2 style="text-align: center" v-if="lengthChosen === true && materialChosen === false">Select {{ selectedType }} Material</h2>
+                  
+                  <h2 style="text-align: center" v-if="lengthChosen === true && materialChosen === true">Your {{ selectedType }} Details</h2>
               </div>
              
           
@@ -63,26 +69,33 @@
               
             <length v-if="typeChosen === true && lengthChosen === false" :selected-type="selected-type" @nlength="getNecklaceLength" @blength="getBraceletLength"></length>
                   
+              
             <materials v-if="lengthChosen === true && materialChosen === false " @material="getMaterial"></materials>
             
-                  
-               <button class="btn" v-if="lengthChosen === true && materialChosen === true" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
               
-             
+              
+             <div v-if="lengthChosen === true && materialChosen === true && selectedType === 'Necklace'">
+              <p><strong>Length:</strong> {{ necklaceLength }}</p>
+              <p><strong>Material:</strong> {{ selectedMaterial.type }}</p>
+              <p><strong>Color:</strong> {{ selectedMaterial.color }}</p>
+              
+               <button class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
+              
+              </div>
           
           
           
                   
-            
+            <div v-if="lengthChosen === true && materialChosen === true && selectedType === 'Bracelet'">
               
-           <button class="btn" v-if="lengthChosen === true && materialChosen === true" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">select your beads</button>
+           <button class="btn" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">select your beads</button>
+              </div>
+              
+              
               </div>
           </div>
               
-              </div>
-        
-
-          
+</div>
 </template>
 
 <script>
@@ -126,8 +139,8 @@ export default {
             this.$router.push({ name: 'bracelet', params: {braceletLength: this.braceletLength, selectedType: this.selectedType}});
         },
         
-         chooseNecklaceBeads: function(necklaceLength, selectedType){
-            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedType: this.selectedType}});
+         chooseNecklaceBeads: function(necklaceLength, selectedMaterial){
+            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial}});
         },
         
         backToType: function(){
@@ -205,19 +218,30 @@ align-content: center;
 width: 100vw;
 background-color: #F4F4F4;
 height: 103px;
-justify-content: center;
   margin-bottom: 34px;
+
 
 }
     
     .header-container {
     display: grid;
-        grid-template-columns: auto auto;
-        grid-gap: 0px;
+    grid-template-areas: "title buttons";
+     
+        grid-gap: 10px;
     align-content: center;
     width: 1050px;
-       border: 1px solid red;
+  
+        padding: 0px;
    
+    }
+    
+    .title {
+    grid-area: title;
+    display: grid;
+  
+    justify-content: flex-start;
+    align-content: center;
+        width: 500px;
     }
     
     .header h1 {
@@ -227,6 +251,16 @@ line-height: 64px;
     font-weight: 400;
 color: #262626;
 margin: 0;
+    }
+    
+    .buttons-buttons {
+    grid-area: buttons;
+    display: grid;
+   grid-gap: 20px;
+      justify-content: flex-end;
+      align-content: center;
+        padding: 0;
+  
     }
     
     
@@ -301,17 +335,10 @@ display: grid;
         padding: 30px;
     padding-top: 20px;
         padding-bottom: 20px;
-  border: 1px solid blue;
+
     }
 
-  .buttons-buttons {
-    display: grid;
-         border: 1px solid blue;
-      justify-content: flex-end;
-      align-content: center;
-        padding: 0;
-    }
-    
+  
     .create-container h2 {
     
     }
@@ -435,6 +462,10 @@ cursor: pointer;
     cursor: pointer;
    color: #ad81c0;
         
+    }
+    
+    .back:hover {
+        color: #8a52a3;
     }
     
     .right-arrow {

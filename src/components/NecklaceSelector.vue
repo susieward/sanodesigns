@@ -18,11 +18,11 @@
    
     
  
-      <div class="buttons-container-title"> <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Necklace</h2>
+      <div class="buttons-container-title-necklace"> <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Necklace</h2>
            
            <h2 v-if="!selectedBeads.length || editingBeads === true">Select Your Beads</h2>
-           
            </div>
+          
       
       <div class="necklace-selector-container" style="position: relative">
 
@@ -48,9 +48,10 @@
           <div class="necklace-template">
               
               <div class="necklace-template-content">
-                  
-        <img id="temp" src="/static/mock-template-edit.png"/>
-                 
+              
+                  <div class="svg-container">
+        <canvas ref="canvas"></canvas>
+         </div>          
      
     <VueDragResize v-for="(bead, index) in selectedBeads"
                    :key="bead._id"
@@ -96,7 +97,7 @@
               <p>Total: {{ total | usdollar }}</p>
            </div>
            
-           
+           <div class="selected-details"><p>Length: {{ necklaceLength }}</p> <p>Material: {{ selectedMaterial.type }}</p> <p>Color: {{ selectedMaterial.color }}</p></div>
               
               </div>
               
@@ -113,7 +114,7 @@
 </template>
 
 <script>
-
+import CanvasComponent from './CanvasComponent.vue'
 import VueDragResize from 'vue-drag-resize'
 import BeadSelector from './BeadSelector.vue'
 export default {
@@ -133,13 +134,15 @@ export default {
         }
     },
   name: 'necklace',
-    props: ['necklaceLength', 'selectedType'],
+    props: ['necklaceLength', 'selectedMaterial'],
     components: {
         BeadSelector,
-        VueDragResize
+        VueDragResize,
+        CanvasComponent
 
     },
-  
+    
+ 
     
     
     computed: {
@@ -163,6 +166,16 @@ export default {
     
     
     methods: {
+        
+        loadCanvasTemplate: function(){
+            
+            var canvas = this.$refs.canvas;
+            var ctx = canvas.getContext("2d");
+          
+            ctx.beginPath();
+            ctx.arc(95,50,40,0,2*Math.PI);
+            ctx.stroke();
+        },
         
         stop: function(){
         this.draggableState = false;
@@ -280,6 +293,17 @@ padding: 0;
         margin-left: auto;
     }
     
+    
+       .buttons-container-title-necklace {
+display: grid;
+  justify-content: center;
+
+       margin-bottom: 20px;
+        padding: 30px;
+    padding-top: 20px;
+        padding-bottom: 10px;
+
+    }
   
     
     .drag {
@@ -390,9 +414,9 @@ padding: 0;
     
     .necklace-template {
     display: grid;
-border: 1px solid #222;
+border: 1px solid #eee;
  position: relative;
-   
+   padding: 5px;
     
  
 
@@ -401,7 +425,7 @@ border: 1px solid #222;
     .necklace-template-content {
  display: grid;
         
-        border: 1px solid #222;
+        border: 1px solid #eee;
         position: relative;
         height: 600px;
     }
@@ -576,5 +600,39 @@ justify-content: center;
             position: absolute;
     }
     
+     .svg-container {
+    display: grid;
+    width: auto;
+    height: auto;
+
+         position: relative;
+         border: 1px solid red;
+    }
+    
+    svg {
+    border: 1px solid #eee;
+        margin: auto;
+       
+        
+    }
+    
+    .ellipse-class {
+
+    }
+    
+    .selected-details {
+    display: grid;
+grid-template-columns: auto auto auto;
+        justify-content: center;
+        grid-gap: 15px;
+    text-align: center;
+        margin-bottom: 30px;
+
+    }
+    
+    .selected-details p {
+    margin: 0;
+    padding: 0;
+    }
   
 </style>

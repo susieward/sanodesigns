@@ -1,16 +1,17 @@
 <template>
 <div class="canvas-component">
+    <div class="canvas-content">
     
-   <canvas style="border: 1px solid blue" id="canvas" ref="canvas">
+   <canvas style="border: 1px solid blue" ref="canvas" width="400" @mousedown="handleMouseDown" @mouseup="handleMouseUp" @mousemove="handleMouseMove" height="300">
   
     </canvas>
-    
-    
-    <canvas ref="selected"></canvas>
-     
-<img ref="canvasImage"/>
-                
+  
+        
+        {{ opalBeadsImgs }}
+ 
 
+                
+    </div>
     
     </div>
 
@@ -20,7 +21,11 @@
 export default {
 data(){
     return {
-        loadedBeads: []
+       isDragging: false,
+        canMouseX: null,
+        canMouseY: null,
+        img: ''
+        
     }
 },
 name: 'CanvasComponent',
@@ -33,72 +38,113 @@ name: 'CanvasComponent',
             return this.$store.state.beads;
         },
         
-        canvasBeads: function(){
-            return this.beads.filter(bead => bead.stone === 'Opalite' );
-        },
-            
-        canvasBeadImages: function(){
-            return this.canvasBeads.map(bead => bead.image);
-            
+        opalBeadsImgs(){
+            return this.$store.getters.opalBeadsImgs;
         }
 
     },
     
-    methods: {
-        
-        loadBackground: function(){
-        var canvas = this.$refs.canvas;
-         var ctx = canvas.getContext("2d");
-
-        canvas.width = 903;
-        canvas.height = 657;
-
-
-        var background = new Image();
-        background.src = "http://localhost:8080/static/mock-template-edit.png";
-
-            // Make sure the image is loaded first otherwise nothing will draw.
-            background.onload = function(){
-            ctx.drawImage(background,0,0);   
-            }
-        },
-        
-           loadBeads: function(canvasBeadImages){
-            
-            var beads = this.canvasBeadsImages;
-            
-            var canvas = this.$refs.selected;
+      mounted: function(){
+         
+          var canvas = this.$refs.canvas;
             var ctx = canvas.getContext("2d");
-            
-            for (var i = 0; i < beads.length; i++){
-               var bead = new Image();
+
+           this.img = new Image()
+          this.img.src = 'http://localhost:3000/photos/20180708_174019.png'
+          this.img.onload = function(){
+             ctx.drawImage(this, 0, 0, 100, 100)
+         };
           
-                
-                bead.onload = function(){
-                    ctx.drawImage(bead, 0,0)
-                }
+         
+          
+      },
+    
+        methods: {
+       
+    handleMouseDown: function(e){
+        
+        var canvas = this.$refs.canvas;
+        var ctx = canvas.getContext("2d");
+        var offsetX = canvas.offsetLeft;
+        var offsetY = canvas.offsetTop;
+        var canvasWidth = canvas.width;
+        var canvasHeight = canvas.height;
+        
+        
+     this.canMouseX = parseInt(e.clientX - offsetX);
+      this.canMouseY = parseInt(e.clientY - offsetY);
+      // set the drag flag
+      this.isDragging = true;
+    },
+
+    handleMouseUp: function(e){
+        
+       var canvas = this.$refs.canvas;
+        var ctx = canvas.getContext("2d");
+        var offsetX = canvas.offsetLeft;
+        var offsetY = canvas.offsetTop;
+        var canvasWidth = canvas.width;
+        var canvasHeight = canvas.height;
+        
+        
+     this.canMouseX = parseInt(e.clientX - offsetX);
+      this.canMouseY = parseInt(e.clientY - offsetY);
+      // clear the drag flag
+      this.isDragging = false;
+    },
+        
+        handleMouseMove: function(e){
+            
+            var canvas = this.$refs.canvas;
+        var ctx = canvas.getContext("2d");
+        var offsetX = canvas.offsetLeft;
+        var offsetY = canvas.offsetTop;
+        var canvasWidth = canvas.width;
+        var canvasHeight = canvas.height;
+       
+        
+        
+     this.canMouseX = parseInt(e.clientX - offsetX);
+      this.canMouseY = parseInt(e.clientY - offsetY);
+            
+            if(this.isDragging){
+                ctx.clearRect(0,0, canvasWidth, canvasHeight);
+                ctx.drawImage(this.img, this.canMouseX - 90, this.canMouseY - 140, 100, 100);
             }
+            
         }
+        
+    
+
+    }
+    
+    
+   
+
+}
+        
    
         
         
-    },
-    
-    mounted: function(){
-        
-        this.loadBackground();
-        this.loadBeads();
 
    
-    
-}
-}
+
+
+
 
 </script>
 <style>
     .canvas-component {
     display: grid;
-    border: 1px solid #444;
+    min-height: 100vh;
+    padding: 30px;
+    position: relative;
+    }
+    
+    .canvas-content {
+    display: grid;
+    border: 1px solid #eee;
+    position: relative;
     }
     
         
