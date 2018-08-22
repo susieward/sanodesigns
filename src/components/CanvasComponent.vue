@@ -38,6 +38,7 @@ name: 'CanvasComponent',
             return this.$store.state.beads;
         },
         
+        
         opalBeadsImgs(){
             return this.$store.getters.opalBeadsImgs;
         }

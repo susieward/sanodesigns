@@ -51,10 +51,35 @@ state: {
         
         changeTop: (state, payload) => {
             state.beads[payload.id].top = payload.top;
-        }
+        },
         
+         START_MOVE: (state, { targetId })=> {
+    state.targets.forEach(target => {
+      if (target.id === targetId) {
+        target.isDragging = true;
+      }
+    });
+  },
       
-    },
+  STOP_MOVE: (state, { targetId }) =>{
+    state.targets.forEach(target => {
+      if (target.id === targetId) {
+        target.isDragging = false;
+      }
+    })
+                          
+  },
+                          
+  MOVE: (state, { targetId, position }) => {
+    state.targets.forEach(target => {
+      if (target.id === targetId) {
+        target.x = position.x;
+        target.y = position.y;
+      }
+    })
+  }
+
+},
     
     getters: {
         

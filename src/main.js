@@ -29,6 +29,7 @@ import AddBead from './components/AddBead.vue'
 import VueDraggableResizable from 'vue-draggable-resizable'
 import VueDragResize from 'vue-drag-resize'
 import CanvasComponent from './components/CanvasComponent.vue'
+import DragAndSave from './components/DragAndSave.vue'
 
 Vue.component('vue-drag-resize', VueDragResize)
 
@@ -55,6 +56,11 @@ const routes = [
         path: '/canvas',
         name: 'CanvasComponent',
         component: CanvasComponent
+    },
+    {
+        path: '/drag',
+        name: 'DragAndSave',
+        component: DragAndSave
     },
 
     { path: '/bracelet',
