@@ -15,27 +15,26 @@
     
     
     <div class="cart-container">
-        <h2 style="text-align: center">Cart</h2>
-    
-    <p>Length: {{ necklaceLength || braceletLength }}</p>    
+        <h2 style="text-align: center; margin-bottom: 15px;">Cart</h2>
         
         <div class="cart-details">
         
     <div class="cart-beads">
         
         <h3>Beads:</h3>
-        <div v-for="bead in selectedBeads" class="cart-bead">
+            <div v-for="bead in selectedBeads">
             
-            <div class="bead-container-selector">
-        <img class="bead-img-small-selector" :src="bead.image"/>
+                {{ bead.stone }}
+                {{ bead.size }}
+                {{ formatPrice(bead.price) | usdollar }}
+            
             </div>
-            <div class="bead-cart-details">
-            <p>
-                {{ formatPrice(bead.price) | usdollar }} x 3</p>
-            </div>
+              <p>Total: {{ formatPrice(totalBeadsPrice) | usdollar }}</p>
+           
         
         </div>
-        </div>
+      
+       
         
         <div class="cart-notes">
          <h3 style="margin-bottom: 0">Notes:</h3>
@@ -48,6 +47,23 @@
         
         
     
+        </div>
+        
+        <div class="cart-totals">
+            <span class="total-text">Beads total:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
+            
+                <span class="total-text">{{ formatLength(necklaceLength) }} length ({{ selectedMaterial.type }}):</span> <span>{{ formatPrice(totalMaterialPrice) | usdollar }} </span>
+            <span class="total-text">Flat labor fee:</span> {{ formatPrice(laborFee) | usdollar }}<span></span>
+            
+        
+        
+        
+        </div>
+        
+        <div class="main-total">
+        
+            <span class="main-total-text">Total:</span> <span class="main-total-price">{{ formatPrice(totalPrice) | usdollar }}</span>
+        
         </div>
     
     <checkout></checkout>
@@ -68,15 +84,50 @@ data(){
 },
 name: 'Cart',
 
-props: ['necklaceLength', 'braceletLength', 'selectedBeads'],
+props: ['necklaceLength', 'braceletLength', 'selectedBeads', 'selectedMaterial'],
     
 components: {
     Checkout
 },
     
+    computed: {
+        
+        totalBeadsPrice() {
+        
+        return Object.values(this.selectedBeads)
+        .reduce((acc, el) => acc + el.price, 0);
+    
+        },
+        
+        beadQuantity(){
+            
+        },
+        
+        laborFee(){
+            return 12.00
+        },
+        
+        totalMaterialPrice: function(selectedMaterial, selectedLength){
+            return this.selectedMaterial.price * this.necklaceLength;
+        },
+        
+        totalPrice: function(totalBeadsPrice, totalMaterialPrice, laborFee){
+            return this.totalBeadsPrice + this.totalMaterialPrice + this.laborFee;
+            
+        }
+    },
+    
     methods: {
             formatPrice: function(value){
             return value.toFixed(2);
+        },
+        
+          formatLength: function(value){
+            return value + '' + ' cm'
+        },
+        
+         formatMaterialPrice: function(value){
+            return value.toFixed(2) + '' + ' per cm'
         }
     },
     
@@ -143,17 +194,15 @@ margin: 0;
 .cart-container {
 grid-area: content;
 display: grid;
-border: 1px solid #ddd;
-width: 975px;
+width: 1000px;
     padding: 30px;
-
         margin-right: auto;
         margin-left: auto;
 }
     
      .cart-beads {
-    padding: 20px;
- 
+    padding: 30px;
+     background-color: #f4f4f4;
     }
     
           .bead-img-small-selector {
@@ -186,7 +235,6 @@ width: 975px;
     min-height: 200px;
     align-content: flex-start;
     padding: 20px;
-    background-color: #f4f4f4;
     }
     
     .cart-notes p {
@@ -197,7 +245,8 @@ width: 975px;
     .cart-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 30px;
+    margin-top: 30px;
     }
     
     .notes-textarea {
@@ -208,6 +257,46 @@ width: 975px;
     min-height: 150px;
     border: 1px solid #777;
     border-radius: 8px;
+    }
+    
+    .cart-totals {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(5, 1fr);
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+        justify-content: center;
+    
+    }
+    
+    .total-text {
+    margin-right: 40px;
+    }
+    
+    .main-total {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 1fr;
+    max-width: 600px;
+    margin: auto;
+justify-content: center;
+        margin-bottom: 30px;
+
+    }
+    
+    .main-total-text {
+    margin-right: 30px;
+    font-family: 'Playfair Display';
+font-weight: 400;
+font-size: 24px;
+line-height: 30px;
+    }
+    
+    .main-total-price {
+    font-size: 24px;
+    line-height: 34px;
+
     }
     
  

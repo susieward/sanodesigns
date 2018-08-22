@@ -68,7 +68,8 @@ data(){
         materialChosen: false,
         selectedMaterial: {
             type: '',
-            color: ''
+            color: '',
+            price: undefined
         },
         colorChosen: false,
         selectedColor: ''
@@ -86,12 +87,14 @@ data(){
         selectedChain: function(){
             
             this.selectedMaterial.type = 'chain';
+             this.selectedMaterial.price = 0.20;
             
         },
         
          selectedWire: function(){
             
             this.selectedMaterial.type = 'wire';
+             this.selectedMaterial.price = 0.10;
             
         },
         
@@ -99,6 +102,7 @@ data(){
             
             this.selectedMaterial.type = 'cord';
              this.selectedMaterial.color = 'clear';
+             this.selectedMaterial.price = 0.05;
              this.colorChosen = true;
              this.$emit('material', this.selectedMaterial)
             

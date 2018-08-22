@@ -220,7 +220,7 @@ export default {
         },
         
         goToCheckout: function(necklaceLength, selectedBeads){
-            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedBeads: this.selectedBeads}});
+            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedBeads: this.selectedBeads}});
         },
             rotate: function(){
             

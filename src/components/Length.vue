@@ -23,22 +23,22 @@
                       
               <div class="radio-buttons-container">
                   
-              <span><input type="radio" id="small" value="40 cm"  @change="showButton" v-model="necklaceLength"/>
+              <span><input type="radio" id="small" value="40"  @change="showButton" v-model="necklaceLength"/>
               <label for="40-cm">40 cm</label></span>
               
-              <span><input type="radio" id="small" value="42 cm"  @change="showButton" v-model="necklaceLength"/>
+              <span><input type="radio" id="small" value="42"  @change="showButton" v-model="necklaceLength"/>
                   <label for="42-cm">42 cm</label></span>
               
-              <span><input type="radio" id="small" value="45 cm"  @change="showButton" v-model="necklaceLength"/>
+              <span><input type="radio" id="small" value="45"  @change="showButton" v-model="necklaceLength"/>
                   <label for="45-cm">45 cm</label></span>
                   
-                  <span><input type="radio" id="small" value="50 cm"  @change="showButton" v-model="necklaceLength"/>
+                  <span><input type="radio" id="small" value="50"  @change="showButton" v-model="necklaceLength"/>
                       <label for="50-cm">50 cm</label></span>
                   
-                  <span><input type="radio" id="small" value="60 cm"  @change="showButton" v-model="necklaceLength"/>
+                  <span><input type="radio" id="small" value="60"  @change="showButton" v-model="necklaceLength"/>
                       <label for="60-cm">60 cm</label></span>
                   
-                  <span><input type="radio" id="small" value="80 cm"  @change="showButton" v-model="necklaceLength"/>
+                  <span><input type="radio" id="small" value="80"  @change="showButton" v-model="necklaceLength"/>
                       <label for="80-cm">80 cm</label></span>
                   
                   </div>
@@ -96,8 +96,8 @@ export default {
 data(){
     return {
         lengthChosen: false,
-        necklaceLength: '',
-        braceletLength: ''
+        necklaceLength: undefined,
+        braceletLength: undefined
     }
 },
 name: 'Length',

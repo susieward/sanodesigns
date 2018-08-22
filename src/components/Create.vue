@@ -75,7 +75,7 @@
               
               
              <div v-if="lengthChosen === true && materialChosen === true && selectedType === 'Necklace'">
-              <p><strong>Length:</strong> {{ necklaceLength }}</p>
+              <p><strong>Length:</strong> {{ formatLength(necklaceLength) }} x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}</p>
               <p><strong>Material:</strong> {{ selectedMaterial.type }}</p>
               <p><strong>Color:</strong> {{ selectedMaterial.color }}</p>
               
@@ -116,7 +116,8 @@ export default {
         materials: ['chain', 'wire', 'stretch cord'],
         selectedMaterial: {
             type: '',
-            color: ''
+            color: '',
+            price: undefined
         }        
             
             
@@ -190,8 +191,27 @@ export default {
         getMaterial: function(selectedMaterial){
             this.selectedMaterial = selectedMaterial;
             this.materialChosen = true;
+        },
+        
+        formatPrice: function(value){
+            return value.toFixed(2);
+        },
+        
+        formatLength: function(value){
+            return value + '' + ' cm'
+        },
+        
+        formatMaterialPrice: function(value){
+            return value.toFixed(2) + '' + ' per cm'
         }
+    },
+    
+    filters: {
+        usdollar: function(value) {
+      return `$${value}`;
     }
+    }
+    
 }
 </script>
 
