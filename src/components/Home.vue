@@ -55,8 +55,7 @@ margin: 0;
 padding: 0;
     }
     
-          
-        .header {
+  .header {
 grid-area: header;
 display: grid;
 align-content: center;
@@ -107,18 +106,83 @@ margin: 0;
         padding: 0;
   
     }
+    
+    
+/* header media queries */
+    
+    
+    @media screen and (max-width: 1200px){
+    
+        .header {
+grid-area: header;
+display: grid;
+align-content: center;
+width: 100vw;
+background-color: #F4F4F4;
+height: 92px;
+justify-content: center;
+
+
+
+
+}
+    
+    .header-container {
+    display: grid;
+        grid-template-columns: 1fr auto;
+        grid-gap: 50px;
+    align-content: center;
+    width: 900px;
+   
+    }
+    
+    .header h1 {
+    font-family: 'Pacifico';
+    font-size: 48px;
+line-height: 53px;
+    font-weight: 400;
+color: #262626;
+margin: 0;
+    }
+
+}
+
+    
+    .buttons-container {
+    display: grid;
+        margin-right: 20px;
+        margin-top: 20px;
+        align-content: center;
+        justify-content: flex-end;
+     
+    }
+    
     .home-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
+    
     grid-gap: 30px;
-   margin-left: 100px;
-    margin-right: 100px;
+  
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
+
+    
     }
     
+    .buttons-container-title {
+display: grid;
+  justify-content: center;
+
+       margin-bottom: 30px;
+        padding: 30px;
+    padding-top: 20px;
+        padding-bottom: 20px;
+
+    }
+
+
     .home-container h2 {
     text-align: center;
     }
