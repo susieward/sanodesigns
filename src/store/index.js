@@ -53,28 +53,33 @@ state: {
             state.beads[payload.id].top = payload.top;
         },
         
-         START_MOVE: (state, { targetId })=> {
-    state.targets.forEach(target => {
-      if (target.id === targetId) {
-        target.isDragging = true;
+        
+        addDragProp: state => {
+            state.beads = { ...state.beads, isDragging: false}
+        },
+        
+         START_MOVE: (state, { beadId })=> {
+    state.beads.forEach(bead => {
+      if (bead._id === beadId) {
+        bead.isDragging = true;
       }
     });
   },
       
-  STOP_MOVE: (state, { targetId }) =>{
-    state.targets.forEach(target => {
-      if (target.id === targetId) {
-        target.isDragging = false;
+  STOP_MOVE: (state, { beadId }) =>{
+    state.beads.forEach(bead => {
+      if (bead._id === beadId) {
+        bead.isDragging = false;
       }
     })
                           
   },
                           
-  MOVE: (state, { targetId, position }) => {
-    state.targets.forEach(target => {
-      if (target.id === targetId) {
-        target.x = position.x;
-        target.y = position.y;
+  MOVE: (state, { beadId, position }) => {
+    state.beads.forEach(bead => {
+      if (bead._id === beadId) {
+        bead.x = position.x;
+        bead.y = position.y;
       }
     })
   }

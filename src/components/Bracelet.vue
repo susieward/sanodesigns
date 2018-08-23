@@ -93,7 +93,7 @@
               <p>Total: {{ total | usdollar }}</p>
            </div>
            
-           
+           <div class="selected-details"><p>Length: {{ braceletLength }}</p> <p>Material: {{ selectedMaterial.type }}</p> <p>Color: {{ selectedMaterial.color }}</p></div>
               
               </div>
               
@@ -102,7 +102,7 @@
            </div>
           </div>
           
-      <bead-selector :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setBraceletBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
+      <bead-selector :necklace="necklace" :bracelet="bracelet" :beads-edit="beadsEdit"  @selected="setBraceletBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
       </div>
           
       </div>
@@ -115,7 +115,7 @@ import VueDragResize from 'vue-drag-resize'
 import BeadSelector from './BeadSelector.vue'
 export default {
   name: 'bracelet',
-    props: ['braceletLength', 'selectedType'],
+    props: ['braceletLength', 'selectedMaterial', 'necklace', 'bracelet'],
   data () {
     return {
         editingBeads: false,
@@ -184,7 +184,7 @@ export default {
         },
         
          goToCheckout: function(braceletLength, selectedBeads){
-            this.$router.push({ name: 'Cart', params: {braceletLength: this.braceletLength, selectedBeads: this.selectedBeads}});
+            this.$router.push({ name: 'Cart', params: {braceletLength: this.braceletLength, selectedBeads: this.selectedBeads, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
         },
         
          formatPrice: function(value){

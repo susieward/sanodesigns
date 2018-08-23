@@ -1,10 +1,9 @@
 <template>
 <div class="length">
  
-    
-  <div class="selector">
+     <div v-if="necklace === true" class="selector">
               
-              
+   
               
            
                
@@ -22,6 +21,7 @@
                   <div v-if="lengthChosen === false">
                       
               <div class="radio-buttons-container">
+                  
                   
               <span><input type="radio" id="small" value="40"  @change="showButton" v-model="necklaceLength"/>
               <label for="40-cm">40 cm</label></span>
@@ -48,12 +48,12 @@
       
                  
              
-          </div>
 
+         </div>
     </div>
     
     
-    <div v-if="selectedType === 'Bracelet'" class="selector">
+    <div v-if="bracelet === true" class="selector">
               
               <div class="size-template-bracelet">
               
@@ -65,22 +65,22 @@
             
                <div class="radio-buttons-bracelet">
                    
-                   <span><input type="radio" id="s" value="XS - 14 cm" @change="showLength" v-model="braceletLength"/>
+                   <span><input type="radio" id="s" value="14" @change="sendBraceletLength" v-model="braceletLength"/>
                    <label for="xs">XS - 14 cm</label></span>
                    
-            <span><input type="radio" id="s" value="6 inches" @change="showButton" v-model="braceletLength"/>
+            <span><input type="radio" id="s" value="15" @change="sendBraceletLength" v-model="braceletLength"/>
                    <label for="s">S - 15 cm</label></span>
               
-            <span><input type="radio" id="m" value="M - 16 cm" @change="showButton" v-model="braceletLength"/>
+            <span><input type="radio" id="m" value="16" @change="sendBraceletLength" v-model="braceletLength"/>
                 <label for="m">M - 16 cm</label></span>
               
-            <span><input type="radio" id="l" value="L - 17 cm" @change="showButton" v-model="braceletLength"/>
+            <span><input type="radio" id="l" value="17" @change="sendBraceletLength" v-model="braceletLength"/>
                 <label for="l">L - 17 cm</label></span>
               
-            <span><input type="radio" id="xl" value="XL - 18 cm" @change="showButton" v-model="braceletLength"/>
+            <span><input type="radio" id="xl" value="18" @change="showButton" v-model="braceletLength"/>
                 <label for="xl">XL - 18 cm</label></span>
                    
-                   <span><input type="radio" id="xxl" value="XXL - 19 cm" @change="showButton" v-model="braceletLength"/>
+                   <span><input type="radio" id="xxl" value="19" @change="showButton" v-model="braceletLength"/>
                 <label for="xxl">XXL - 19 cm</label></span>
                   </div>
               
@@ -102,12 +102,17 @@ data(){
 },
 name: 'Length',
     
-props: ['selectedType'],
+props: ['necklace', 'bracelet'],
     
     methods: {
          showButton: function(){
             this.lengthChosen = true;
              this.$emit('nlength', this.necklaceLength);
+        },
+        
+        sendBraceletLength: function(){
+            this.lengthChosen = true;
+            this.$emit('blength', this.braceletLength);
         }
     }
 }

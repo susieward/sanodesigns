@@ -67,14 +67,14 @@
           
               
               
-            <length v-if="typeChosen === true && lengthChosen === false" :selected-type="selected-type" @nlength="getNecklaceLength" @blength="getBraceletLength"></length>
+            <length v-if="typeChosen === true && lengthChosen === false" :necklace="necklace" :bracelet="bracelet" @nlength="getNecklaceLength" @blength="getBraceletLength"></length>
                   
               
-            <materials v-if="lengthChosen === true && materialChosen === false " @material="getMaterial"></materials>
+            <materials v-if="lengthChosen === true && materialChosen === false " :necklace="necklace" :bracelet="bracelet" @material="getMaterial"></materials>
             
               
               
-             <div v-if="lengthChosen === true && materialChosen === true && selectedType === 'Necklace'">
+             <div v-if="lengthChosen === true && materialChosen === true && necklace === true">
               <p><strong>Length:</strong> {{ formatLength(necklaceLength) }} x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}</p>
               <p><strong>Material:</strong> {{ selectedMaterial.type }}</p>
               <p><strong>Color:</strong> {{ selectedMaterial.color }}</p>
@@ -86,7 +86,11 @@
           
           
                   
-            <div v-if="lengthChosen === true && materialChosen === true && selectedType === 'Bracelet'">
+            <div v-if="lengthChosen === true && materialChosen === true && bracelet === true">
+                
+                 <p><strong>Length:</strong> {{ formatLength(braceletLength) }}</p>
+              <p><strong>Material:</strong> {{ selectedMaterial.type }} ({{ formatMaterialPrice(selectedMaterial.price) | usdollar }})</p>
+              <p><strong>Color:</strong> {{ selectedMaterial.color }}</p>
               
            <button class="btn" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">select your beads</button>
               </div>
@@ -137,11 +141,11 @@ export default {
     methods: {
         
        chooseBraceletBeads: function(braceletLength, selectedType){
-            this.$router.push({ name: 'bracelet', params: {braceletLength: this.braceletLength, selectedType: this.selectedType}});
+            this.$router.push({ name: 'bracelet', params: {braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
         },
         
          chooseNecklaceBeads: function(necklaceLength, selectedMaterial){
-            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial}});
+            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial,  necklace: this.necklace, bracelet: this.bracelet}});
         },
         
         backToType: function(){

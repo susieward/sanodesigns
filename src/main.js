@@ -30,6 +30,10 @@ import VueDraggableResizable from 'vue-draggable-resizable'
 import VueDragResize from 'vue-drag-resize'
 import CanvasComponent from './components/CanvasComponent.vue'
 import DragAndSave from './components/DragAndSave.vue'
+import KonvaComponent from './components/KonvaComponent.vue'
+import VueKonva from 'vue-konva'
+
+Vue.use(VueKonva)
 
 Vue.component('vue-drag-resize', VueDragResize)
 
@@ -61,6 +65,11 @@ const routes = [
         path: '/drag',
         name: 'DragAndSave',
         component: DragAndSave
+    },
+    {
+        path: '/konva',
+        name: 'KonvaComponent',
+        component: KonvaComponent
     },
 
     { path: '/bracelet',

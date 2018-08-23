@@ -7,13 +7,19 @@
          
         
           <div class="selected-container">
-              <div class="continue-btn">
-              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedSelection()">continue</button><br>
-              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmSelection()">save changes</button>
-              </div>
+            
+             
               <h3 style="margin: 0; padding: 0">You've selected:</h3>
               
-                
+                 <div v-if="necklace === true" class="continue-btn">
+              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedNecklaceSelection()">continue</button><br>
+              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmNecklaceSelection()">save changes</button>
+              </div>
+              
+              <div v-if="bracelet === true" class="continue-btn">
+              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedBraceletSelection()">continue</button><br>
+              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmBraceletSelection()">save changes</button>
+              </div>
              
      
               
@@ -68,7 +74,7 @@
               
               
               </div>
-            <input type="checkbox" v-model="selectedBeads" v-bind:value="bead">
+          
           
           </div> 
           </div>
@@ -84,7 +90,7 @@
 export default {
     name: 'BeadSelector',
     
-  props: ['necklaceLength', 'selectedType', 'beadsEdit'],
+  props: ['necklaceLength', 'necklace', 'bracelet', 'beadsEdit'],
   data () {
     return { 
         search: '',
@@ -144,13 +150,22 @@ export default {
             }
          },
         
-        finishedSelection: function(){
+        finishedNecklaceSelection: function(){
             
             this.$emit('selected', this.selectedBeads );
            
         },
+            
+            finishedBraceletSelection: function(){
+                 this.$emit('selected', this.selectedBeads );
+            },
         
-        confirmSelection: function(){
+        confirmNecklaceSelection: function(){
+            
+            this.$emit('edited', this.beadsEdit );
+        },
+            
+            confirmBraceletSelection: function(){
             
             this.$emit('edited', this.beadsEdit );
         },
@@ -283,7 +298,7 @@ grid-gap: 15px;
     display: grid;
     grid-template-columns: auto auto;
          grid-gap: 10px;
-    align-content: flex-start;
+ justify-content: center;
 border: 1px solid #ddd;
   padding: 10px;
         width: 275px; 
@@ -349,12 +364,16 @@ justify-content: center;
     }
     
     .remove {
-    color: red;
-    font-size: 20px;
+    color: #bebebe;
+    font-size: 18px;
     position: absolute;
     top: 10;
     left: 10;
     cursor: pointer;
+    }
+    
+    .remove:hover {
+    color: #555;
     }
     
     .continue-btn {

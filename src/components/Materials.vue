@@ -2,7 +2,7 @@
 <div class="materials">
     
    
-  <div class="selector">
+  <div v-if="necklace === true" class="selector">
               
 
               
@@ -27,11 +27,11 @@
                       
                 
          
-                <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'chain'" @change="setChainColor">
+                <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Chain'" @change="setChainColor">
                     <option disabled value="">Select color</option>
-                    <option value="gold">Gold</option>
-                    <option value="silver">Silver</option>
-                    <option value="copper">Copper</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Copper">Copper</option>
                 </select>
                 
               
@@ -39,16 +39,16 @@
                   <label for="wire">Wire - $0.10 per cm</label></span>
                       
                       
-                    <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'wire'" @change="setWireColor">
+                    <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
                     <option disabled value="">Select color</option>
-                    <option value="gold">Gold</option>
-                    <option value="silver">Silver</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
                     </select>
               
               <span><input type="radio" id="cord" value="cord"  @change="selectedCord" v-model="selectedMaterial.type"/>
                   <label for="cord">Stretch cord - $0.05 per cm</label></span>
                       
-                      <p v-if="selectedMaterial.type === 'cord'">Color: clear</p>
+                      <p v-if="selectedMaterial.type === 'Stretch cord'">Color: clear</p>
                       
                      
                      </div>
@@ -56,6 +56,61 @@
            
                   
                <button class="btn" v-if="lengthChosen === true && materialChosen === true && colorChosen === true" @click="chooseNecklaceBeads(necklaceLength, selectedType)">select your beads</button>
+    
+
+    </div>
+    
+       
+   
+  <div v-if="bracelet === true" class="selector">
+              
+
+              
+           
+                <div class="size-template-bracelet">
+              
+                  <img class="bracelet-size-img" src="/static/bracelet-size-guide.png"/>
+              
+              </div>
+                   
+                 
+             <div class="size">
+        <div class="necklace-material-radios">
+                     
+       <span><input type="radio" id="chain" value="chain"  @change="selectedChain" v-model="selectedMaterial.type"/>
+              <label for="chain">Chain - $0.20 per cm</label></span>
+                      
+                
+         
+                <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Chain'" @change="setChainColor">
+                    <option disabled value="">Select color</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Copper">Copper</option>
+                </select>
+                
+              
+              <span><input type="radio" id="wire" value="wire"  @change="selectedWire" v-model="selectedMaterial.type"/>
+                  <label for="wire">Wire - $0.10 per cm</label></span>
+                      
+                      
+                    <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
+                    <option disabled value="">Select color</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                    </select>
+              
+              <span><input type="radio" id="cord" value="cord"  @change="selectedCord" v-model="selectedMaterial.type"/>
+                  <label for="cord">Stretch cord - $0.05 per cm</label></span>
+                      
+                      <p v-if="selectedMaterial.type === 'Stretch cord'">Color: clear</p>
+                      
+                     
+                     </div>
+      </div>
+           
+                  
+               <button class="btn" v-if="lengthChosen === true && materialChosen === true && colorChosen === true" @click="chooseBraceletBeads(braceletLength, selectedType)">select your beads</button>
     
 
     </div>
@@ -78,6 +133,8 @@ data(){
 },
     name: 'Materials',
     
+    props: ['necklace', 'bracelet'],
+    
     
     methods: {
          yes: function(){
@@ -86,21 +143,21 @@ data(){
         
         selectedChain: function(){
             
-            this.selectedMaterial.type = 'chain';
+            this.selectedMaterial.type = 'Chain';
              this.selectedMaterial.price = 0.20;
             
         },
         
          selectedWire: function(){
             
-            this.selectedMaterial.type = 'wire';
+            this.selectedMaterial.type = 'Wire';
              this.selectedMaterial.price = 0.10;
             
         },
         
          selectedCord: function(){
             
-            this.selectedMaterial.type = 'cord';
+            this.selectedMaterial.type = 'Stretch cord';
              this.selectedMaterial.color = 'clear';
              this.selectedMaterial.price = 0.05;
              this.colorChosen = true;

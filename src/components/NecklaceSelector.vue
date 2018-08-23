@@ -106,7 +106,7 @@
            </div>
           </div>
           
-      <bead-selector :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
+      <bead-selector :necklace="necklace" :bracelet="bracelet" :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
       </div>
   
       </div>
@@ -134,7 +134,7 @@ export default {
         }
     },
   name: 'necklace',
-    props: ['necklaceLength', 'selectedMaterial'],
+    props: ['necklaceLength', 'selectedMaterial', 'necklace', 'bracelet'],
     components: {
         BeadSelector,
         VueDragResize,
@@ -220,7 +220,7 @@ export default {
         },
         
         goToCheckout: function(necklaceLength, selectedBeads){
-            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedBeads: this.selectedBeads}});
+            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet}});
         },
             rotate: function(){
             
