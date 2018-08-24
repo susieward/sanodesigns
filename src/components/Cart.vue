@@ -51,11 +51,11 @@
         
         <div class="cart-totals">
             
-            <span class="total-text">Beads total:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
+            <span class="total-text">Beads:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
             
-                <span class="total-text" v-if="necklace === true">{{ formatLength(necklaceLength) }} length x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span><span class="total-text" v-if="bracelet === true">{{ formatLength(braceletLength) }} length x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span> <span>{{ formatPrice(totalMaterialPrice) | usdollar }} </span>
-            <span>({{ selectedMaterial.type }}, {{ selectedMaterial.color }})</span> <span></span> 
-            <span class="total-text">Flat labor fee:</span> {{ formatPrice(laborFee) | usdollar }}<span></span>
+                <span class="total-text" v-if="necklace === true">{{ formatLength(necklaceLength) }} length x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span><span class="total-text" v-if="bracelet === true">{{ formatLength(braceletLength) }} length <span class="multiply">x</span> {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span> <span class="total-price">{{ formatPrice(totalMaterialPrice) | usdollar }} </span>
+             
+            <span class="total-text">Flat labor fee:</span> <span class="total-price">{{ formatPrice(laborFee) | usdollar }}</span>
             
         
         
@@ -255,13 +255,22 @@ width: 1050px;
     padding: 30px;
         align-content: center;
         justify-content: center;
-       
+    
     
     
     }
     
     .total-text {
     margin-right: 40px;
+    font-size: 16px;
+        margin-bottom: 10px;
+        line-height: 24px;
+    }
+    
+    .total-price {
+       font-size: 16px;
+        margin-bottom: 10px;
+        line-height: 24px; 
     }
     
     .main-total {
@@ -290,6 +299,12 @@ line-height: 30px;
 
     }
     
+    .multiply {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    line-height: 24px;
+    }
  
 
 </style>

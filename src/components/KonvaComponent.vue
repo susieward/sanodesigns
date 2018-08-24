@@ -2,8 +2,16 @@
 <div class="konva-component">
     <div class="konva-component-container">
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown" @mouseup="handleMouseUp" @mousemove="handleMouseMove" width="600" height="400"></canvas>
-
-
+        
+<p>{{ imgArray }}</p>
+        
+        <div v-for="img in imgArray">
+        
+        
+        {{ img.src }}
+        
+        </div>
+  
     </div>
     </div>
 </template>
@@ -24,7 +32,9 @@ data(){
         down: false
       },
         isDragging: false,
-        images: []
+        startX: 0,
+        startY: 0,
+        imgArray: []
         
     }
 },
@@ -41,21 +51,23 @@ components: {
        
         var c = this.$refs.canvas;
          var ctx = c.getContext("2d");
-      
+     var imgArray = this.imgArray;
         
         
         
         this.opalBeadsImgs.forEach(function(v){
             var img = new Image();
+            
+            
             img.src = v;
             img.setatX = Math.floor( Math.random() * 306 );
-                img.setatY = Math.floor( Math.random() * 100 );
-             img.onload = function(){
+            img.setatY = Math.floor( Math.random() * 100 );
+            imgArray.push(img);
+         
             
-            ctx.drawImage(img, img.setatX, img.setatY, 100, 100);
-            
-        };
         });
+        
+     
   
         
     },
@@ -91,6 +103,9 @@ components: {
        
          
           handleMouseDown: function (event) {
+              
+            
+              
             this.mouse.down = true;
             this.isDragging = true;
               
