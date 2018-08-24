@@ -3,6 +3,10 @@
     <div class="konva-component-container">
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown" @mouseup="handleMouseUp" @mousemove="handleMouseMove" width="600" height="400"></canvas>
         
+        
+        <p>{{ mouse.current }}</p>
+        <p>startX : {{ startX }}</p>
+        <p>startY: {{ startY }}</p>
 <p>{{ imgArray }}</p>
         
         <div v-for="img in imgArray">
@@ -31,7 +35,6 @@ data(){
         },
         down: false
       },
-        isDragging: false,
         startX: 0,
         startY: 0,
         imgArray: []
@@ -60,6 +63,7 @@ components: {
             
             
             img.src = v;
+            img.isDragging = false;
             img.setatX = Math.floor( Math.random() * 306 );
             img.setatY = Math.floor( Math.random() * 100 );
             imgArray.push(img);
@@ -111,46 +115,89 @@ components: {
          
           handleMouseDown: function (event) {
               
-            
-              
-            this.mouse.down = true;
-            this.isDragging = true;
+               var c = this.$refs.canvas;
+                var offsetX = c.offsetLeft;
+                var offsetY = c.offsetTop;
+                var imgArray = this.imgArray;
               
             this.mouse.current = {
             x: event.clientX,
             y: event.clientY
-                }
+            }
               
-
-        },
+              var mouseX = parseInt(this.mouse.current.x - offsetX);
+              var mouseY = parseInt(this.mouse.current.y - offsetY);
+        
+              
+              imgArray.forEach(function(v){
+                  
+                  if (mouseX >= (this.currentMouse.x - 100/2) &&
+                     mouseX <= (this.currentMouse.x + 100/2) ){
+                 
+                    v.isDragging = true;
+              
+                  
+               }
+            })
+              
+              this.startX = mouseX;
+              this.startY = mouseY;
+          },
          
               
          handleMouseUp: function () {
-                this.mouse.down = false;
-             this.isDragging = false;
+             
+                
+            var imgArray = this.imgArray;
+              
+             imgArray.forEach(function(v){
+                  
+                      v.isDragging = false;
+                 
+                  
+               })
+            
+             
+         
         },
          
         handleMouseMove: function (event) {
 
+            var c = this.$refs.canvas;
+            var ctx = c.getContext("2d");
+            var imgArray = this.imgArray;
+            var startX = this.startX;
+            var startY = this.startY;
+            
             this.mouse.current = {
             x: event.clientX,
             y: event.clientY
              }
-      
-            if (this.isDragging ) {
-            var c = this.$refs.canvas;
-
-            var ctx = c.getContext("2d");
-   
-          
+            
+            var distX = parseInt(this.currentMouse.x - startX);
+            var distY = parseInt(this.currentMouse.y - startY);
+            
+            
                 ctx.clearRect(0,0, 600, 400);
-                ctx.drawImage(this.img, this.currentMouse.x - 40, this.currentMouse.y - 40, 100, 100);
+                imgArray.forEach(function(v){
+                    
+                
+                    
+                    v.setatX = distX;
+                    v.setatY = distY;
+                    
+                
+                ctx.drawImage(v, v.setatX, v.setatY, 100, 100)
+                    
+                })
+                    
             }
-      
-    }
-     }
+          }
+         }
     
-}
+
+    
+
 
 </script>
 <style>
