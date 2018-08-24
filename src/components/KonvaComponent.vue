@@ -67,6 +67,13 @@ components: {
             
         });
         
+        if (imgArray.length){
+            imgArray.forEach(function(v){
+                ctx.drawImage(v, v.setatX, v.setatY, 100, 100);
+            })
+  
+        }
+        
      
   
         
