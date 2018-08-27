@@ -49,8 +49,8 @@
               
               <div class="necklace-template-content">
               
-                  <div class="svg-container">
-        <canvas ref="canvas"></canvas>
+           
+        <konva-component></konva-component>
          </div>          
      
     <VueDragResize v-for="(bead, index) in selectedBeads"
@@ -69,11 +69,7 @@
         </VueDragResize>
     
    
-              </div>
           
-              <p>{{ top }} and {{ left }}</p>
-              <span><button class="btn-small" @click="stop">stop</button> <button class="btn-small" @click="start">start</button>
-              </span>
               
               </div>
               
@@ -115,6 +111,7 @@
 
 <script>
 import CanvasComponent from './CanvasComponent.vue'
+import KonvaComponent from './KonvaComponent.vue'
 import VueDragResize from 'vue-drag-resize'
 import BeadSelector from './BeadSelector.vue'
 export default {
@@ -130,7 +127,6 @@ export default {
             draggableState: true,
             top: 0,
             left: 0
-         
         }
     },
   name: 'necklace',
@@ -138,12 +134,12 @@ export default {
     components: {
         BeadSelector,
         VueDragResize,
-        CanvasComponent
+        CanvasComponent,
+        KonvaComponent
 
     },
     
- 
-    
+
     
     computed: {
         
@@ -166,17 +162,7 @@ export default {
     
     
     methods: {
-        
-        loadCanvasTemplate: function(){
-            
-            var canvas = this.$refs.canvas;
-            var ctx = canvas.getContext("2d");
-          
-            ctx.beginPath();
-            ctx.arc(95,50,40,0,2*Math.PI);
-            ctx.stroke();
-        },
-        
+     
         stop: function(){
         this.draggableState = false;
         },

@@ -94,7 +94,7 @@
                   <label for="wire">Wire - $0.10 per cm</label></span>
                       
                       
-                    <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
+                    <select v-model="selectedMaterial.color" class="colorselect" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
                     <option disabled value="">Select color</option>
                     <option value="Gold">Gold</option>
                     <option value="Silver">Silver</option>
@@ -221,6 +221,10 @@ data(){
     display: grid;
     grid-template-rows: repeat(3, auto);
     grid-gap: 20px;
+    }
+    
+    .selectcolor {
+   width: 50%;
     }
 
 

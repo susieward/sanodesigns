@@ -2,12 +2,16 @@
 <div class="canvas-component">
     <div class="canvas-content">
     
-   <canvas style="border: 1px solid blue" ref="canvas" width="400" @mousedown="handleMouseDown" @mouseup="handleMouseUp" @mousemove="handleMouseMove" height="300">
+   <canvas id="canvas" style="border: 1px solid blue" ref="canvas" width="400" @mousedown="handleMouseDown" @mouseup="handleMouseUp" @mousemove="handleMouseMove" height="300">
   
     </canvas>
   
-        
-        {{ opalBeadsImgs }}
+        <span style="width: 50px">
+        <button class="btn-small" @click="save()">save</button>
+        </span>
+        Img:
+        <img :src="imgUrl">
+            {{ opalBeadsImgs }}
  
 
                 
@@ -24,7 +28,9 @@ data(){
        isDragging: false,
         canMouseX: null,
         canMouseY: null,
-        img: ''
+        img: '',
+        designImg: '',
+        imgUrl: ''
         
     }
 },
@@ -49,6 +55,7 @@ name: 'CanvasComponent',
          
           var canvas = this.$refs.canvas;
             var ctx = canvas.getContext("2d");
+       
 
            this.img = new Image()
           this.img.src = 'http://localhost:3000/photos/20180708_174019.png'
@@ -61,6 +68,19 @@ name: 'CanvasComponent',
       },
     
         methods: {
+            
+            
+        save: function(){
+            
+            var canvas = this.$refs.canvas;
+            var dataURL = canvas.toDataURL('image/png');
+            
+           var img = new Image();
+            img.src = dataURL;
+            document.body.appendChild(img);
+           
+            
+        },
        
     handleMouseDown: function(e){
         

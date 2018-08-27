@@ -9,6 +9,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 require('./css/main.css');
 require('./js/main.js');
+require('webpack-jquery-ui/draggable');
+require('webpack-jquery-ui/droppable');
 const interact = require('interactjs');
 
 import Vue from 'vue'
