@@ -24,12 +24,18 @@
            </div>
           
       
-      <div class="necklace-selector-container" style="position: relative">
+      <div class="necklace-selector-container">
 
           <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
-          
+     <div class="necklace-template">
               
-                <div class="necklace-beads">
+              <div class="necklace-template-content">
+              
+           
+        <konva-component :selected-beads="selectedBeads"></konva-component>
+         </div>          
+      </div>
+                       <div class="necklace-beads">
         <div class="beads-title">
             
             <p>Drag and drop your beads to position them on your necklace.</p>
@@ -42,40 +48,8 @@
               
          <p>Selected: {{ selected }}</p>
                 <button class="btn-small" @click="rotate">rotate</button> 
-          </div>
-              
-              
-          <div class="necklace-template">
-              
-              <div class="necklace-template-content">
-              
-           
-        <konva-component></konva-component>
-         </div>          
-     
-    <VueDragResize v-for="(bead, index) in selectedBeads"
-                   :key="bead._id"
-                   :isResizable="false"
-                   :parentLimitation="true"
-                   :isDraggable="draggableState"
-                   @dragging="changePosition"
-                   
-                   >
-
-       
-              <img class="bead-img-small-selected-alt" :src="bead.image" />
-     
-
-        </VueDragResize>
-    
-   
-          
-              
-              </div>
-              
-       
-              
-          </div>
+          </div> 
+        </div>
           
           <div class="necklace-container-bottom" v-if="selectedBeads.length && editingBeads === false">
          
@@ -110,7 +84,6 @@
 </template>
 
 <script>
-import CanvasComponent from './CanvasComponent.vue'
 import KonvaComponent from './KonvaComponent.vue'
 import VueDragResize from 'vue-drag-resize'
 import BeadSelector from './BeadSelector.vue'
@@ -134,7 +107,6 @@ export default {
     components: {
         BeadSelector,
         VueDragResize,
-        CanvasComponent,
         KonvaComponent
 
     },
@@ -376,7 +348,7 @@ display: grid;
     
     .design-necklace {
         display: grid;
-        grid-template-columns: auto minmax(auto, 800px);
+        grid-template-columns: minmax(auto, 800px) auto;
         
       
         grid-gap: 30px;
@@ -393,7 +365,6 @@ display: grid;
     padding: 10px;
     grid-gap: 20px;
            justify-content: center;
-            position: relative;
       
            
     }
@@ -412,7 +383,7 @@ border: 1px solid #eee;
  display: grid;
         
         border: 1px solid #eee;
-        position: relative;
+
         height: 600px;
     }
     
@@ -591,7 +562,7 @@ justify-content: center;
     width: auto;
     height: auto;
 
-         position: relative;
+ 
          border: 1px solid red;
     }
     

@@ -130,7 +130,8 @@ export default {
     }
     },
     
-        methods: {
+    
+    methods: {
         
         select: function(bead){
             if(this.beadsEdit.length){
