@@ -372,8 +372,7 @@ display: grid;
     .necklace-template {
     display: grid;
 border: 1px solid #eee;
- position: relative;
-   padding: 5px;
+   padding: 0px;
     
  
 
@@ -384,13 +383,12 @@ border: 1px solid #eee;
         
         border: 1px solid #eee;
 
-        height: 600px;
     }
     
     #temp {
     max-height: 700px;
         border: 1px solid #ddd;
-   position: relative;
+
     
     }
     
@@ -542,7 +540,7 @@ justify-content: center;
     grid-auto-rows: 100px;
     
         align-content: flex-start;
-    position: relative;
+
     border: 1px solid #ddd;
         top: 30;
          height: 300px;

@@ -6,7 +6,7 @@
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="500"></canvas>
 
     <br>
-        <button class="btn-small" @click="save()" width="50px">save design</button>  
+        <button class="btn-small" @click="save($event)" width="50px">save design</button>  
 
 
            <p>mouse.current: {{ mouse.current }}<br>
@@ -159,8 +159,8 @@ mounted: function(){
         
               
                  this.mouse.current = {
-                 x: event.pageX,
-                y: event.pageY
+                 x: event.clientX,
+                y: event.clientY
                 }
               
                 this.mouse.down = true;
@@ -198,14 +198,15 @@ mounted: function(){
             var imgArray = this.imgArray;
              
               this.mouse.current = {
-                 x: event.pageX,
-                y: event.pageY
+                 x: event.clientX,
+                y: event.clientY
                 }
-             
     
             this.mouse.down = false;
             this.mouseX = this.mouse.current.x - offsetX;
             this.mouseY = this.mouse.current.y - offsetY;
+             
+       
              
              imgArray.forEach((el) => {
                   
@@ -225,8 +226,8 @@ mounted: function(){
             var imgArray = this.imgArray;
              
               this.mouse.current = {
-                 x: event.pageX,
-                y: event.pageY
+                 x: event.clientX,
+                y: event.clientY
                 }
              
             this.mouseX = this.mouse.current.x - offsetX;
@@ -253,9 +254,9 @@ mounted: function(){
              var canvasHeight = 500;
          
           
-             this.mouse.current = {
-                 x: event.pageX,
-                y: event.pageY
+            this.mouse.current = {
+                 x: event.clientX,
+                y: event.clientY
                 }
              
             this.mouseX = this.mouse.current.x - offsetX;
