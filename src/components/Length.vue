@@ -163,12 +163,14 @@ justify-content: center;
     }
     
     .size-template-necklace {
-    height: 500px;
-    width: 500px;
+    
+    height: 375px;
+    width: 375px;
     border: 1px solid #ddd;
     }
     
     .necklace-length-img {
+ 
     height: 100%;
     width: 100%;
     }

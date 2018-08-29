@@ -186,7 +186,6 @@ mounted: function(){
             })
               
           },
-         
               
          handleMouseUp: function (event) {
          
@@ -278,8 +277,11 @@ mounted: function(){
                  
                  
                 if(el.isDragging){
+                    
+                    el.imgX = this.mouseX;
+                    el.imgY = this.mouseY;
                  
-                ctx.drawImage(el, this.mouseX - 50, this.mouseY - 50, el.width, el.height)
+                ctx.drawImage(el, el.imgX - 50, el.imgY - 50, el.width, el.height)
                     
                 } else {
                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height)
