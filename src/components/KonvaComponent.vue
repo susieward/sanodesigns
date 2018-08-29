@@ -6,7 +6,8 @@
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="500"></canvas>
 
     <br>
-        <button class="btn-small" @click="save($event)" width="50px">save design</button>  
+        <button class="btn-small" @click="save($event)" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px">rotate</button>
+        
 
 
            <p>mouse.current: {{ mouse.current }}<br>
@@ -64,6 +65,7 @@ mounted: function(){
    var c = this.$refs.canvas;
     var ctx = c.getContext("2d");
 
+    this.drawNecklaceTemplate();
     
     if(this.selectedBeads.length){
         
@@ -103,6 +105,23 @@ mounted: function(){
       },
     
      methods: {
+         
+            
+            drawNecklaceTemplate: function(){
+                var c = this.$refs.canvas;
+                var ctx = c.getContext("2d");
+                var canvasWidth = 800;
+                var canvasHeight = 500;
+                var centerX = canvasWidth / 2;
+                var centerY = canvasHeight / 2;
+                var radius = 200;
+                
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                ctx.stroke();
+
+
+            },
         
             
             setCanvasBeads: function(){
@@ -110,7 +129,8 @@ mounted: function(){
                 var c = this.$refs.canvas;
                 var ctx = c.getContext("2d");
                 var imgArray = this.imgArray;
-        
+                
+    
                 this.selectedBeadsImgs.forEach((beadImg, i) =>{
                 var img = new Image();
                 beadImg = this.selectedBeadsImgs[i];
@@ -137,6 +157,26 @@ mounted: function(){
   
             }
         },
+         
+            resetBeads: function(){
+             
+                var c = this.$refs.canvas;
+              var rect = c.getBoundingClientRect();
+                var offsetX = rect.left;
+                var offsetY = rect.top;
+                var imgArray = this.imgArray;
+                 var canvasWidth = 800;
+                var canvasHeight = 500;
+                
+                 this.mouse.current = {
+                 x: event.clientX,
+                y: event.clientY
+                }
+                
+                 ctx.clearRect(0,0, canvasWidth, canvasHeight);
+            
+                    
+                },
          
              save: function(event){
             
@@ -267,7 +307,8 @@ mounted: function(){
             if(this.mouse.down){
               
            ctx.clearRect(0,0, canvasWidth, canvasHeight);
-                
+            this.drawNecklaceTemplate();
+               
              imgArray.forEach((el) => {
           
                 if(el.isDragging){
@@ -288,8 +329,9 @@ mounted: function(){
              
            
             }
-          }
+          
 
+     }
 }
 
     

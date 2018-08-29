@@ -44,10 +44,9 @@
               </div>
               
                  <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
-                    
-              
+                           
          <p>Selected: {{ selected }}</p>
-                <button class="btn-small" @click="rotate">rotate</button> 
+                
           </div> 
         </div>
           
@@ -85,7 +84,6 @@
 
 <script>
 import KonvaComponent from './KonvaComponent.vue'
-import VueDragResize from 'vue-drag-resize'
 import BeadSelector from './BeadSelector.vue'
 export default {
     data(){
@@ -106,7 +104,6 @@ export default {
     props: ['necklaceLength', 'selectedMaterial', 'necklace', 'bracelet'],
     components: {
         BeadSelector,
-        VueDragResize,
         KonvaComponent
 
     },
@@ -134,14 +131,9 @@ export default {
     
     
     methods: {
-     
-        stop: function(){
-        this.draggableState = false;
-        },
         
-        start: function(){
-            this.draggableState = true;
-        },
+        
+    
         
         
         changePosition: function(top, left){
@@ -371,7 +363,7 @@ display: grid;
     
     .necklace-template {
     display: grid;
-border: 1px solid #eee;
+
    padding: 0px;
     
  
@@ -381,7 +373,7 @@ border: 1px solid #eee;
     .necklace-template-content {
  display: grid;
         
-        border: 1px solid #eee;
+
 
     }
     
