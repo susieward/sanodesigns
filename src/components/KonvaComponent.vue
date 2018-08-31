@@ -1,15 +1,15 @@
 <template>
 <div class="konva-component">
     <div class="konva-component-container">
-        
+        {{ necklaceLength }}
 
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="500"></canvas>
 
     <br>
-        <button class="btn-small" @click="save($event)" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px">rotate</button>
+        <button class="btn-small" @click="print" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px">rotate</button>
         
 
-
+<div class="canvas-info">
            <p>mouse.current: {{ mouse.current }}<br>
             
         startX: {{ startX }} startY: {{ startY }}<br>
@@ -18,9 +18,13 @@
         </p>
                
 <p>{{ imgArray }}</p>
-        <img v-if="saved === true" id="cimg" :src="imgurl">
+    </div>
+        
+        <div>
+            <p>Image:</p>
+          <img id="myImg" src="">
     
-      
+        </div>
   
     </div>
     </div>
@@ -48,8 +52,7 @@ data(){
         dragY: 0,
         imgArray: [],
         imgArrayNum: 0,
-        imgurl: '',
-        saved: false,
+        saved: false
 
         
     }
@@ -57,7 +60,7 @@ data(){
 
 name: 'KonvaComponent',
     
-    props: ['selectedBeads'],
+    props: ['selectedBeads', 'necklaceLength', 'braceletLength', 'necklace', 'bracelet'],
 
 
 mounted: function(){
@@ -65,7 +68,10 @@ mounted: function(){
    var c = this.$refs.canvas;
     var ctx = c.getContext("2d");
 
+    
+    if(this.necklace === true){
     this.drawNecklaceTemplate();
+    }
     
     if(this.selectedBeads.length){
         
@@ -106,15 +112,165 @@ mounted: function(){
     
      methods: {
          
+         
+            print: function(){
+                var c = this.$refs.canvas;
+                var ctx = c.getContext("2d");
+                
+                var imgTag = document.getElementById('myImg');
+                var dataURL = c.toDataURL();
+                imgTag.src = dataURL;
+    
+            
+        },
             
             drawNecklaceTemplate: function(){
+                var c = this.$refs.canvas;
+                var ctx = c.getContext("2d");
+                
+                // 40 cm -- choker
+                
+                if(this.necklaceLength === '40'){
+                    var radius = 175;
+                    var canvasWidth = 800;
+                    var canvasHeight = 500;
+                    var centerX = canvasWidth / 2;
+                    var centerY = canvasHeight / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+           
+                }
+                
+                // 42 cm -- lil necklace
+                
+                if(this.necklaceLength === '42'){
+                    var radius = 100;
+                    var canvasWidth = 800;
+                    var canvasHeight = 500;
+                    var centerX = 0;
+                    var centerY = 0;
+            
+                    ctx.save();
+                    ctx.translate(canvasWidth / 2, canvasHeight / 2);
+                    ctx.scale(1.6, 2);
+             
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.restore();
+                }
+                
+                // 45 cm -- regular short necklace
+                
+                if(this.necklaceLength === '45'){
+                    var radius = 100;
+                    var canvasWidth = 800;
+                    var canvasHeight = 500;
+                    var centerX = 0;
+                    var centerY = 0;
+            
+                    ctx.save();
+                    ctx.translate(canvasWidth / 2, canvasHeight / 2);
+                    ctx.scale(1.8, 2.2);
+             
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.restore();
+         
+                }
+                
+                // 50 cm -- regular longer necklace
+                
+                if(this.necklaceLength === '50'){
+                    var radius = 120;
+                    var canvasWidth = 800;
+                    var canvasHeight = 500;
+                    var centerX = 0;
+                    var centerY = 0;
+            
+                    ctx.save();
+                    ctx.translate(canvasWidth / 2, canvasHeight / 2);
+                    ctx.scale(1.7, 2.5);
+             
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.restore();
+    
+                }
+                
+                // 60 cm -- pendant
+                
+                if(this.necklaceLength === '60'){
+                    var radius = 350;
+                    var canvasWidth = 800;
+                    var canvasHeight = 500;
+                    var centerX = 0;
+                    var centerY = 0;
+            
+                    ctx.save();
+                    ctx.translate(canvasWidth / 2, canvasHeight / 2);
+                    ctx.scale(1, 2);
+             
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.restore();
+         
+                }
+                
+                // 80 cm -- really long pendant
+                
+                if(this.necklaceLength === '80'){
+                    var radius = 400;
+                    var canvasWidth = 800;
+                    var canvasHeight = 500;
+                    var centerX = 0;
+                    var centerY = 0;
+            
+                    ctx.save();
+                    ctx.translate(canvasWidth / 2, canvasHeight / 2);
+                    ctx.scale(1, 2);
+             
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.restore();
+      
+                }
+                
+                 ctx.stroke();
+
+            },
+         
+           drawBraceletTemplate: function(){
                 var c = this.$refs.canvas;
                 var ctx = c.getContext("2d");
                 var canvasWidth = 800;
                 var canvasHeight = 500;
                 var centerX = canvasWidth / 2;
                 var centerY = canvasHeight / 2;
+                
+                if(this.necklaceLength === '40'){
                 var radius = 200;
+                }
+                
+                if(this.necklaceLength === '42'){
+                var radius = 250;
+                }
+                
+                if(this.necklaceLength === '45'){
+                var radius = 280;
+                }
+                
+                if(this.necklaceLength === '50'){
+                var radius = 300;
+                }
+                
+                if(this.necklaceLength === '60'){
+                var radius = 350;
+                }
+                
+                if(this.necklaceLength === '80'){
+                var radius = 400;
+                }
                 
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -178,15 +334,6 @@ mounted: function(){
                     
                 },
          
-             save: function(event){
-            
-                var canvas = document.getElementById('canvas');
-    
-                this.imgurl = canvas.toDataURL();
-                this.saved = true;
-    
-            
-        },
          
           handleMouseDown: function (event) {
            
@@ -372,6 +519,11 @@ mounted: function(){
     
     #cimg {
         border: 1px solid red;
+        
+    }
+    
+    .canvas-info {
+    display: none;
     }
    
 

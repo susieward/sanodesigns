@@ -32,7 +32,7 @@
               <div class="necklace-template-content">
               
            
-        <konva-component :selected-beads="selectedBeads"></konva-component>
+        <konva-component :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet"></konva-component>
          </div>          
       </div>
                        <div class="necklace-beads">
@@ -40,17 +40,19 @@
             
             <p>Drag and drop your beads to position them on your necklace.</p>
             
-            
-              </div>
+            </div>
               
                  <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
-                           
-         <p>Selected: {{ selected }}</p>
+                    
+       
+         <p>Length: {{ formatLength(necklaceLength) }}<br>
+             Material: {{ selectedMaterial.type }}<br>
+             Color: {{ selectedMaterial.color }}</p>
                 
           </div> 
         </div>
           
-          <div class="necklace-container-bottom" v-if="selectedBeads.length && editingBeads === false">
+                 <div class="necklace-container-bottom" v-if="selectedBeads.length && editingBeads === false">
          
        <div class="necklace-details">
               
@@ -133,7 +135,9 @@ export default {
     methods: {
         
         
-    
+      formatLength: function(value){
+            return value + '' + ' cm'
+        },
         
         
         changePosition: function(top, left){

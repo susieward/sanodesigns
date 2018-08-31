@@ -224,7 +224,7 @@ export default {
     
       .create {
     display: grid;
-          align-content: center;
+          align-content: flex-start;
    grid-template-areas:
                     "header header"
                     "content content";

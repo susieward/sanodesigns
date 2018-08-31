@@ -71,7 +71,7 @@ name: 'Checkout'
 
 .checkout {
 display: grid;
-      border: 1px solid #eee;
+   
     width: 700px;
     margin: auto;
     justify-content: center;
