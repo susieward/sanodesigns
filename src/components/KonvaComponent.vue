@@ -67,16 +67,21 @@ mounted: function(){
    var c = this.$refs.canvas;
     var ctx = c.getContext("2d");
 
+
     
    if(this.necklace === true){
        
     this.drawNecklaceTemplate();
     
    }
-    
-        if(this.selectedBeads.length){
-        
-        this.setCanvasBeads();
+      
+    var img = new Image();
+    img.src = '/static/photos/20180708_164320.png';
+    img.height = 100;
+    img.width = 100;
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+        ctx.drawImage(img, 0,0, img.width, img.height);
     }
 
     
