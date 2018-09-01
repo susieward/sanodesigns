@@ -3,7 +3,7 @@
     <div class="konva-component-container">
         {{ necklaceLength }}
 
-    <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="500"></canvas>
+    <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="700"></canvas>
 
     <br>
         <button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px">rotate</button>
@@ -74,15 +74,11 @@ mounted: function(){
     this.drawNecklaceTemplate();
     
    }
-      
-    var img = new Image();
-    img.src = '/static/photos/20180708_164320.png';
-    img.height = 100;
-    img.width = 100;
-    img.crossOrigin = 'Anonymous';
-    img.onload = function(){
-        ctx.drawImage(img, 0,0, img.width, img.height);
-    }
+            if(this.selectedBeads.length){
+        
+        this.setCanvasBeads();
+    }  
+
 
     
 },
@@ -114,6 +110,14 @@ mounted: function(){
         
             imagesDragging(){
                 return this.imgArray.filter(el => el.isDragging);
+            },
+        
+            canvasWidth(){
+                
+            },
+        
+            canvasHeight(){
+                
             }
       },
     
@@ -142,7 +146,7 @@ mounted: function(){
                 if(this.necklaceLength === '40'){
                     var radius = 175;
                     var canvasWidth = 800;
-                    var canvasHeight = 500;
+                    var canvasHeight = 600;
                     var centerX = canvasWidth / 2;
                     var centerY = canvasHeight / 2;
                     
@@ -156,7 +160,7 @@ mounted: function(){
                 if(this.necklaceLength === '42'){
                     var radius = 100;
                     var canvasWidth = 800;
-                    var canvasHeight = 500;
+                    var canvasHeight = 600;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -174,13 +178,13 @@ mounted: function(){
                 if(this.necklaceLength === '45'){
                     var radius = 100;
                     var canvasWidth = 800;
-                    var canvasHeight = 500;
+                    var canvasHeight = 700;
                     var centerX = 0;
                     var centerY = 0;
             
                     ctx.save();
                     ctx.translate(canvasWidth / 2, canvasHeight / 2);
-                    ctx.scale(1.8, 2.2);
+                    ctx.scale(2.3, 2.9);
              
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -188,18 +192,18 @@ mounted: function(){
          
                 }
                 
-                // 50 cm -- regular longer necklace
+                // 50 cm -- regular long necklace
                 
                 if(this.necklaceLength === '50'){
-                    var radius = 120;
+                    var radius = 100;
                     var canvasWidth = 800;
-                    var canvasHeight = 500;
+                    var canvasHeight = 700;
                     var centerX = 0;
                     var centerY = 0;
             
                     ctx.save();
                     ctx.translate(canvasWidth / 2, canvasHeight / 2);
-                    ctx.scale(1.7, 2.5);
+                    ctx.scale(2.4, 3.1);
              
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -210,15 +214,15 @@ mounted: function(){
                 // 60 cm -- pendant
                 
                 if(this.necklaceLength === '60'){
-                    var radius = 350;
+                    var radius = 120;
                     var canvasWidth = 800;
-                    var canvasHeight = 500;
+                    var canvasHeight = 700;
                     var centerX = 0;
                     var centerY = 0;
             
                     ctx.save();
                     ctx.translate(canvasWidth / 2, canvasHeight / 2);
-                    ctx.scale(1, 2);
+                    ctx.scale(2, 3.1);
              
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -229,9 +233,9 @@ mounted: function(){
                 // 80 cm -- really long pendant
                 
                 if(this.necklaceLength === '80'){
-                    var radius = 400;
+                    var radius = 100;
                     var canvasWidth = 800;
-                    var canvasHeight = 500;
+                    var canvasHeight = 550;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -331,7 +335,7 @@ mounted: function(){
                 var offsetY = rect.top;
                 var imgArray = this.imgArray;
                  var canvasWidth = 800;
-                var canvasHeight = 500;
+                var canvasHeight = 700;
                 
                  this.mouse.current = {
                  x: event.clientX,
@@ -446,7 +450,7 @@ mounted: function(){
             var offsetY = rect.top;
             var imgArray = this.imgArray;
              var canvasWidth = 800;
-             var canvasHeight = 500;
+             var canvasHeight = 700;
          
           
             this.mouse.current = {

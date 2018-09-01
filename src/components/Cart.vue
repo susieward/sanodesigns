@@ -16,7 +16,7 @@
     
     <div class="cart-container">
         <h2 style="text-align: center; margin-bottom: 15px;">Cart</h2>
-        
+        <img :src="dataURL"/>
         <div class="cart-details">
         
     <div class="cart-beads">
@@ -86,7 +86,7 @@ data(){
 },
 name: 'Cart',
 
-props: ['necklaceLength', 'braceletLength', 'selectedBeads', 'selectedMaterial', 'necklace', 'bracelet'],
+props: ['necklaceLength', 'braceletLength', 'selectedBeads', 'selectedMaterial', 'necklace', 'bracelet', 'dataURL'],
     
 components: {
     Checkout
