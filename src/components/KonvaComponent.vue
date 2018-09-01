@@ -308,8 +308,8 @@ mounted: function(){
                 img.width = 100;
                 img.height = 100;
                 img.isDragging = false;
-                img.imgX = i * 100;
-                img.imgY = i * 10;
+                img.imgX = 0;
+                img.imgY = i * 80;
                 imgArray.push(img);
          
             
