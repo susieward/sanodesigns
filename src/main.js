@@ -33,9 +33,7 @@ import VueDragResize from 'vue-drag-resize'
 import CanvasComponent from './components/CanvasComponent.vue'
 import DragAndSave from './components/DragAndSave.vue'
 import KonvaComponent from './components/KonvaComponent.vue'
-import VueKonva from 'vue-konva'
 
-Vue.use(VueKonva)
 
 Vue.component('vue-drag-resize', VueDragResize)
 

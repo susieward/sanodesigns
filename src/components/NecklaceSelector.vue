@@ -32,7 +32,9 @@
               <div class="necklace-template-content">
               
            
-        <konva-component :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet"></konva-component>
+        <konva-component :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas"></konva-component>
+                  <p>Image:</p>
+                  <img :src="dataURL">
          </div>          
       </div>
                        <div class="necklace-beads">
@@ -99,7 +101,8 @@ export default {
             selected: undefined,
             draggableState: true,
             top: 0,
-            left: 0
+            left: 0,
+            dataURL: ''
         }
     },
   name: 'necklace',
@@ -134,6 +137,11 @@ export default {
     
     methods: {
         
+        
+        saveCanvas: function(dataURL){
+                this.dataURL = dataURL;
+            
+        },
         
       formatLength: function(value){
             return value + '' + ' cm'

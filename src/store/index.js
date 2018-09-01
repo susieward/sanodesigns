@@ -19,7 +19,7 @@ state: {
     actions: {
         
          loadBeads: function ({commit}) {
-      axios.get('http://localhost:3000/beads').then((response) => {
+      axios.get('https://sanodesigns-server.herokuapp.com/beads').then((response) => {
         commit('setBeads', { beads: response.data})
         })
         }

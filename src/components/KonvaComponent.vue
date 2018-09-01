@@ -6,7 +6,7 @@
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="500"></canvas>
 
     <br>
-        <button class="btn-small" @click="print" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px">rotate</button>
+        <button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px">rotate</button>
         
 
 <div class="canvas-info">
@@ -21,8 +21,7 @@
     </div>
         
         <div>
-            <p>Image:</p>
-          <img id="myImg" src="">
+       
     
         </div>
   
@@ -30,6 +29,7 @@
     </div>
 </template>
 <script>
+
 export default {
 data(){
     return {
@@ -51,8 +51,7 @@ data(){
         dragX: 0,
         dragY: 0,
         imgArray: [],
-        imgArrayNum: 0,
-        saved: false
+        imgArrayNum: 0
 
         
     }
@@ -69,14 +68,17 @@ mounted: function(){
     var ctx = c.getContext("2d");
 
     
-    if(this.necklace === true){
+   if(this.necklace === true){
+       
     this.drawNecklaceTemplate();
-    }
     
-    if(this.selectedBeads.length){
+   }
+    
+        if(this.selectedBeads.length){
         
         this.setCanvasBeads();
     }
+
     
 },
         
@@ -114,21 +116,23 @@ mounted: function(){
          
          
             print: function(){
-                var c = this.$refs.canvas;
-                var ctx = c.getContext("2d");
+     
+                var canvas = document.getElementById('canvas');
+                var dataURL = canvas.toDataURL();
+                this.$emit('save', dataURL);
                 
-                var imgTag = document.getElementById('myImg');
-                var dataURL = c.toDataURL();
-                imgTag.src = dataURL;
-    
-            
-        },
+               
+                
+                
+            },
+                
+
             
             drawNecklaceTemplate: function(){
                 var c = this.$refs.canvas;
                 var ctx = c.getContext("2d");
                 
-                // 40 cm -- choker
+                 // 40 cm -- choker
                 
                 if(this.necklaceLength === '40'){
                     var radius = 175;
