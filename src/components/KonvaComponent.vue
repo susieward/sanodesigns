@@ -52,7 +52,6 @@ data(){
         dragY: 0,
         imgArray: [],
         imgArrayNum: 0
-
         
     }
 },
@@ -529,12 +528,6 @@ mounted: function(){
     -o-transition-property: -o-transform;
     transition-property: transform;
 }
-    
-    #cimg {
-        border: 1px solid red;
-        
-    }
-    
     .canvas-info {
     display: none;
     }

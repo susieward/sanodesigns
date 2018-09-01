@@ -374,8 +374,8 @@ display: grid;
     }
     
     .necklace-template {
-    display: grid;
 
+height: auto;
    padding: 0px;
     
  
@@ -384,7 +384,7 @@ display: grid;
     
     .necklace-template-content {
  display: grid;
-        
+        height: auto;
 
 
     }
