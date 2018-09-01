@@ -1,12 +1,12 @@
 <template>
 <div class="konva-component">
     <div class="konva-component-container">
-        {{ necklaceLength }}
+        Length: {{ necklaceLength }} Selected bead: {{ selectedBead.id }} selected bead imgX: {{ selectedBead.imgX }} selected bead imgY: {{ selectedBead.imgY }}
 
-    <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="700"></canvas>
+    <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="600"></canvas>
 
     <br>
-        <button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px">rotate</button>
+        <button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotateBead">rotate</button>
         
 
 <div class="canvas-info">
@@ -51,7 +51,9 @@ data(){
         dragX: 0,
         dragY: 0,
         imgArray: [],
-        imgArrayNum: 0
+        imgArrayNum: 0,
+        selectedBead: '',
+        angleInDegrees: 0
         
     }
 },
@@ -177,7 +179,7 @@ mounted: function(){
                 if(this.necklaceLength === '45'){
                     var radius = 100;
                     var canvasWidth = 800;
-                    var canvasHeight = 700;
+                    var canvasHeight = 600;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -196,7 +198,7 @@ mounted: function(){
                 if(this.necklaceLength === '50'){
                     var radius = 100;
                     var canvasWidth = 800;
-                    var canvasHeight = 700;
+                    var canvasHeight = 600;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -215,7 +217,7 @@ mounted: function(){
                 if(this.necklaceLength === '60'){
                     var radius = 120;
                     var canvasWidth = 800;
-                    var canvasHeight = 700;
+                    var canvasHeight = 600;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -234,7 +236,7 @@ mounted: function(){
                 if(this.necklaceLength === '80'){
                     var radius = 100;
                     var canvasWidth = 800;
-                    var canvasHeight = 550;
+                    var canvasHeight = 600;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -299,23 +301,24 @@ mounted: function(){
                 var imgArray = this.imgArray;
                 
     
-                this.selectedBeadsImgs.forEach((beadImg, i) =>{
+                this.selectedBeads.forEach((bead, i) =>{
                 var img = new Image();
-                beadImg = this.selectedBeadsImgs[i];
+                bead = this.selectedBeads[i];
               
             
-                img.src = beadImg;
-                img.width = 100;
-                img.height = 100;
+                img.src = bead.image;
+                img.width = 120;
+                img.height = 120;
                 img.isDragging = false;
                 img.imgX = 0;
                 img.imgY = i * 80;
+                img.id = bead._id;
                 imgArray.push(img);
          
             
                 });
         
-                if (imgArray.length === this.selectedBeadsImgs.length){
+                if (imgArray.length === this.selectedBeads.length){
                 imgArray.forEach((el) =>{
              
                 el.onload = function(){
@@ -334,7 +337,7 @@ mounted: function(){
                 var offsetY = rect.top;
                 var imgArray = this.imgArray;
                  var canvasWidth = 800;
-                var canvasHeight = 700;
+                var canvasHeight = 600;
                 
                  this.mouse.current = {
                  x: event.clientX,
@@ -374,13 +377,15 @@ mounted: function(){
               
               // loop through imgs, check if mouse position is over     any of them, if yes set dragging on that img to true
             
-              imgArray.some((el) => {
+              imgArray.forEach((el) => {
              
                   
                    if (this.startX >= el.imgX && this.startX <= el.imgX + el.width && this.startY >= el.imgY && this.startY <= el.imgY + el.height){
                 
                   el.isDragging = true;
+                this.selectedBead = el;
                   }
+                  
 
             })
               
@@ -449,7 +454,7 @@ mounted: function(){
             var offsetY = rect.top;
             var imgArray = this.imgArray;
              var canvasWidth = 800;
-             var canvasHeight = 700;
+             var canvasHeight = 600;
          
           
             this.mouse.current = {
@@ -465,15 +470,15 @@ mounted: function(){
              
             if(this.mouse.down){
               
-           ctx.clearRect(0,0, canvasWidth, canvasHeight);
-            this.drawNecklaceTemplate();
+                ctx.clearRect(0,0, canvasWidth, canvasHeight);
+                this.drawNecklaceTemplate();
                
              imgArray.forEach((el) => {
           
                 if(el.isDragging){
                     
-                    el.imgX = this.mouseX - 50;
-                    el.imgY = this.mouseY - 50;
+                    el.imgX = this.mouseX - 60;
+                    el.imgY = this.mouseY - 60;
                 
                 }
                  
@@ -487,7 +492,47 @@ mounted: function(){
             }
              
            
-            }
+        },
+         
+     
+         
+         rotateBead: function(){
+             
+            var to_radians = Math.PI/180;
+             
+            var c = this.$refs.canvas;
+            var ctx = c.getContext("2d");
+            var rect = c.getBoundingClientRect();
+            var offsetX = rect.left;
+            var offsetY = rect.top;
+            var imgArray = this.imgArray;
+            var canvasWidth = 800;
+            var canvasHeight = 600;
+             
+             var selectedBead = this.selectedBead;
+             
+
+             var clockwise = this.angleInDegrees += 30;
+            
+            ctx.clearRect(0,0, canvasWidth, canvasHeight);
+            this.drawNecklaceTemplate();
+             
+            ctx.save();
+            ctx.translate(selectedBead.imgX, selectedBead.imgY);
+            ctx.translate(selectedBead.width/2, selectedBead.height/2)
+             
+             
+             
+            ctx.rotate(clockwise * to_radians)
+             
+             var x = -(selectedBead.width/2);
+             var y = -(selectedBead.height/2)
+        
+             ctx.drawImage(selectedBead, x, y, selectedBead.width, selectedBead.height);
+             
+             ctx.restore();
+             
+          }
           
 
      }

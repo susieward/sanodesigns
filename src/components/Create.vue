@@ -29,12 +29,12 @@
           </div>
           
           <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span>material</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span>material</span>
           
           </div>
           
           <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === true">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span><span class="back">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
           
           </div>
       
@@ -160,6 +160,12 @@ export default {
             this.lengthChosen = false
             this.necklaceLength = '';
             this.braceletLength = ''
+        },
+        
+        backToMaterial: function(){
+            this.lengthChosen = true;
+            this.materialChosen = false;
+            this.selectedMaterial = {}
         },
         
         // so weird I never use comments in vue files
