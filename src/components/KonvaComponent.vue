@@ -2,11 +2,14 @@
 <div class="konva-component">
     <div class="konva-component-container">
          Length: {{ necklaceLength }} Selected bead: {{ selectedBead.id }} selected bead imgX: {{ selectedBead.imgX }} selected bead imgY: {{ selectedBead.imgY }}
-
+        <p>{{ selectedBead }}</p>
+        
+<span><button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button></span>
+        
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="600"></canvas>
 
     <br>
-        <button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button>
+   
         
 
 <div class="canvas-info">
@@ -298,6 +301,7 @@ mounted: function(){
                 img.width = 120;
                 img.height = 120;
                 img.isDragging = false;
+                img.isSelected = false;
                 img.imgX = 0;
                 img.imgY = i * 80;
                 img.id = bead._id;
@@ -371,7 +375,7 @@ mounted: function(){
                    if (this.startX >= el.imgX && this.startX <= el.imgX + el.width && this.startY >= el.imgY && this.startY <= el.imgY + el.height){
                 
                   el.isDragging = true;
-                this.selectedBead = el;
+               el.isSelected = true;
     
                   }
                  
@@ -495,8 +499,15 @@ mounted: function(){
             var imgArray = this.imgArray;
             var canvasWidth = 800;
             var canvasHeight = 600;
+            var selected = ''
             
              var clockwise = this.angleInDegrees += 30;
+             
+             imgArray.forEach((el) => {
+                 if(el.isSelected === true){
+                     selected = el;
+                 }
+             })
              
             
             ctx.clearRect(0,0, canvasWidth, canvasHeight);
@@ -504,32 +515,36 @@ mounted: function(){
              
             ctx.save();
              
-             ctx.translate(this.selectedBead.imgX, this.selectedBead.imgY);
+             ctx.translate(selected.imgX, selected.imgY);
              
-            ctx.translate(this.selectedBead.width/2, this.selectedBead.height/2);
+            ctx.translate(selected.width/2, selected.height/2);
              
             ctx.rotate(clockwise * to_radians);
+            
+            ctx.drawImage(selected, -(selected.width/2), -(selected.height/2), selected.width, selected.height);
              
-            ctx.drawImage(this.selectedBead, -(this.selectedBead.width/2), -(this.selectedBead.height/2), this.selectedBead.width, this.selectedBead.height);
                  
             ctx.restore();
              
              imgArray.forEach((el) => {
                  
-                 if(this.selectedBead !== el){
-                 
-                 ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height)
+                 if(selected !== el){
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height)
                  }
                  
-             }) 
+             })
              
-          }        
+            }   
+          } 
+             
+                
           
 
      }
           
 
-     }
+     
 
 
     
