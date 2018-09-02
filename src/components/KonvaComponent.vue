@@ -1,12 +1,12 @@
 <template>
 <div class="konva-component">
     <div class="konva-component-container">
-        Length: {{ necklaceLength }} Selected bead: {{ selectedBead.id }} selected bead imgX: {{ selectedBead.imgX }} selected bead imgY: {{ selectedBead.imgY }}
+         Length: {{ necklaceLength }} Selected bead: {{ selectedBead.id }} selected bead imgX: {{ selectedBead.imgX }} selected bead imgY: {{ selectedBead.imgY }}
 
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="600"></canvas>
 
     <br>
-        <button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotateBead">rotate</button>
+        <button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button>
         
 
 <div class="canvas-info">
@@ -55,6 +55,7 @@ data(){
         selectedBead: '',
         angleInDegrees: 0
         
+        
     }
 },
 
@@ -84,10 +85,7 @@ mounted: function(){
     
 },
         
-     
- 
-    
-    computed: {
+   computed: {
         
         currentMouse: function () {
                 var c = this.$refs.canvas;
@@ -107,19 +105,9 @@ mounted: function(){
         
             selectedBeadsImgs(){
                 return this.selectedBeads.map(bead => bead.image);
-            },
-        
-            imagesDragging(){
-                return this.imgArray.filter(el => el.isDragging);
-            },
-        
-            canvasWidth(){
-                
-            },
-        
-            canvasHeight(){
-                
             }
+        
+     
       },
     
      methods: {
@@ -384,9 +372,9 @@ mounted: function(){
                 
                   el.isDragging = true;
                 this.selectedBead = el;
+    
                   }
-                  
-
+                 
             })
               
           },
@@ -494,9 +482,8 @@ mounted: function(){
            
         },
          
-     
-         
-         rotateBead: function(){
+                
+         rotate: function(){
              
             var to_radians = Math.PI/180;
              
@@ -508,35 +495,42 @@ mounted: function(){
             var imgArray = this.imgArray;
             var canvasWidth = 800;
             var canvasHeight = 600;
-             
-             var selectedBead = this.selectedBead;
-             
-
+            
              var clockwise = this.angleInDegrees += 30;
+             
             
             ctx.clearRect(0,0, canvasWidth, canvasHeight);
             this.drawNecklaceTemplate();
              
             ctx.save();
-            ctx.translate(selectedBead.imgX, selectedBead.imgY);
-            ctx.translate(selectedBead.width/2, selectedBead.height/2)
              
+             ctx.translate(this.selectedBead.imgX, this.selectedBead.imgY);
              
+            ctx.translate(this.selectedBead.width/2, this.selectedBead.height/2);
              
-            ctx.rotate(clockwise * to_radians)
+            ctx.rotate(clockwise * to_radians);
              
-             var x = -(selectedBead.width/2);
-             var y = -(selectedBead.height/2)
-        
-             ctx.drawImage(selectedBead, x, y, selectedBead.width, selectedBead.height);
+            ctx.drawImage(this.selectedBead, -(this.selectedBead.width/2), -(this.selectedBead.height/2), this.selectedBead.width, this.selectedBead.height);
+                 
+            ctx.restore();
              
-             ctx.restore();
+             imgArray.forEach((el) => {
+                 
+                 if(this.selectedBead !== el){
+                 
+                 ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height)
+                 }
+                 
+             }) 
              
-          }
+          }        
           
 
      }
-}
+          
+
+     }
+
 
     
 
