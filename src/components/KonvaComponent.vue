@@ -1,8 +1,12 @@
 <template>
 <div class="konva-component">
     <div class="konva-component-container">
+        
+        <div class="selected-info">
+        <p>{{ clockwise }}</p>
          Length: {{ necklaceLength }} Selected bead: {{ selectedBead.id }} selected bead imgX: {{ selectedBead.imgX }} selected bead imgY: {{ selectedBead.imgY }}
         <p>{{ selectedBead }}</p>
+        </div>
         
 <span><button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button></span>
         
@@ -56,7 +60,10 @@ data(){
         imgArray: [],
         imgArrayNum: 0,
         selectedBead: '',
-        angleInDegrees: 0
+        angleInDegrees: 0,
+        originX: 0,
+        originY: 0,
+        clockwise: ''
         
         
     }
@@ -375,7 +382,8 @@ mounted: function(){
                    if (this.startX >= el.imgX && this.startX <= el.imgX + el.width && this.startY >= el.imgY && this.startY <= el.imgY + el.height){
                 
                   el.isDragging = true;
-               el.isSelected = true;
+               this.selectedBead = el;
+  
     
                   }
                  
@@ -406,6 +414,7 @@ mounted: function(){
              imgArray.forEach((el) => {
                   
                  el.isDragging = false;
+            
                  
                 })
          },
@@ -433,6 +442,7 @@ mounted: function(){
              imgArray.forEach((el) =>{
                  
                  el.isDragging = false;
+       
             })
          },
          
@@ -462,6 +472,7 @@ mounted: function(){
              
             if(this.mouse.down){
               
+                
                 ctx.clearRect(0,0, canvasWidth, canvasHeight);
                 this.drawNecklaceTemplate();
                
@@ -487,6 +498,7 @@ mounted: function(){
         },
          
                 
+                   
          rotate: function(){
              
             var to_radians = Math.PI/180;
@@ -499,44 +511,57 @@ mounted: function(){
             var imgArray = this.imgArray;
             var canvasWidth = 800;
             var canvasHeight = 600;
-            var selected = ''
+             var cx = canvasWidth / 2;
+             var cy = canvasHeight / 2;
+             var clockwise = this.clockwise;
+             
+             
+             var selected = this.selectedBead;
             
-             var clockwise = this.angleInDegrees += 30;
+             clockwise = this.angleInDegrees += 30;
              
              imgArray.forEach((el) => {
-                 if(el.isSelected === true){
-                     selected = el;
+                 if(el === selected){
+                     this.originX = el.imgX;
+                     this.originY = el.imgY;
+                     
                  }
              })
-             
             
             ctx.clearRect(0,0, canvasWidth, canvasHeight);
             this.drawNecklaceTemplate();
              
+              imgArray.forEach((el) => {
+                if(el !== selected){
+                    ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                }
+            })
+             
             ctx.save();
              
-             ctx.translate(selected.imgX, selected.imgY);
+            ctx.translate(this.originX, this.originY);
+             ctx.translate(60, 60)
              
-            ctx.translate(selected.width/2, selected.height/2);
+              ctx.rotate(clockwise * to_radians);
              
-            ctx.rotate(clockwise * to_radians);
-            
-            ctx.drawImage(selected, -(selected.width/2), -(selected.height/2), selected.width, selected.height);
-             
-                 
-            ctx.restore();
-             
+             ctx.translate(-60, -60);
+             ctx.translate(-this.originX, -this.originY);
+    
              imgArray.forEach((el) => {
-                 
-                 if(selected !== el){
+                
+                 if(el === selected){
                      
-                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height)
+                    ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height); 
                  }
                  
              })
              
-            }   
-          } 
+              
+                 
+            ctx.restore();
+              
+            }
+       } 
              
                 
           
@@ -584,6 +609,10 @@ mounted: function(){
 }
     .canvas-info {
     display: none;
+    }
+    
+    .selected-info {
+        display: none;
     }
    
 

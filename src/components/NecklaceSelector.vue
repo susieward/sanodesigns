@@ -375,7 +375,7 @@ display: grid;
     
     .necklace-template {
 
-height: auto;
+min-height: 700px;
    padding: 0px;
     
  
