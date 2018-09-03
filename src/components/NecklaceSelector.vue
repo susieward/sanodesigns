@@ -27,7 +27,7 @@
       <div class="necklace-selector-container">
 
           <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
-     <div class="necklace-template" style="border: 1px solid red">
+     <div class="necklace-template">
               
               <div class="necklace-template-content">
               
@@ -383,10 +383,9 @@ min-height: 700px;
     }
     
     .necklace-template-content {
- display: grid;
+
         min-height: 700px;
-        height: auto;
-        border: 1px solid blue;
+   
 
 
     }
