@@ -16,10 +16,10 @@
     
     <div class="cart-container">
         <h2 style="text-align: center; margin-bottom: 15px;">Cart</h2>
-        <img :src="dataURL"/>
-        <div class="cart-details">
         
-    <div class="cart-beads">
+        <div class="design-and-beads">
+        
+        <div class="cart-beads">
         
         <h3>Beads:</h3>
             <div v-for="bead in selectedBeads">
@@ -33,7 +33,16 @@
            
         
         </div>
-      
+            
+             <div class="design-img-container">
+        <img :src="dataURL" class="design-img"/>
+        </div>
+            
+        </div>
+        
+        <div class="cart-details">
+        
+    
        
         
         <div class="cart-notes">
@@ -306,5 +315,26 @@ line-height: 30px;
     line-height: 24px;
     }
  
+    .design-and-beads {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+           grid-gap: 40px;
+        margin-top: 30px;
+    }
+    
+    .design-img-container {
+
+        height: 350px;
+        width: auto;
+        
+    }
+    
+    .design-img {
+                padding: 10px;
+    height: 100%;
+        width: 100%;
+        border: 1px solid #eee;
+        object-fit: scale-down;
+    }
 
 </style>

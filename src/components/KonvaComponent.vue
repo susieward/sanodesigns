@@ -8,13 +8,13 @@
         <p>{{ selectedBead }}</p>
         </div>
         
-<span><button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button></span>
+
         
     <canvas id="canvas" ref="canvas" style="border: 1px solid #ddd;" @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" width="800" height="600"></canvas>
 
     <br>
    
-        
+        <span><button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button></span>
 
 <div class="canvas-info">
            <p>mouse.current: {{ mouse.current }}<br>
@@ -83,10 +83,16 @@ mounted: function(){
     
    if(this.necklace === true){
        
-    this.drawNecklaceTemplate();
-    
+        this.drawNecklaceTemplate();
    }
-            if(this.selectedBeads.length){
+    
+    if(this.necklace === false){
+        
+        this.drawBraceletTemplate();
+        
+    }
+    
+    if(this.selectedBeads.length){
         
         this.setCanvasBeads();
     }  
@@ -255,37 +261,75 @@ mounted: function(){
            drawBraceletTemplate: function(){
                 var c = this.$refs.canvas;
                 var ctx = c.getContext("2d");
-                var canvasWidth = 800;
-                var canvasHeight = 500;
-                var centerX = canvasWidth / 2;
-                var centerY = canvasHeight / 2;
                 
-                if(this.necklaceLength === '40'){
-                var radius = 200;
+                
+                if(this.braceletLength === '14'){
+                  var radius = 175;
+                    var canvasWidth = 800;
+                    var canvasHeight = 600;
+                    var centerX = canvasWidth / 2;
+                    var centerY = canvasHeight / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                 }
                 
-                if(this.necklaceLength === '42'){
-                var radius = 250;
+                if(this.braceletLength === '15'){
+                 var radius = 175;
+                    var canvasWidth = 800;
+                    var canvasHeight = 600;
+                    var centerX = canvasWidth / 2;
+                    var centerY = canvasHeight / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                 }
                 
-                if(this.necklaceLength === '45'){
-                var radius = 280;
+                if(this.braceletLength === '16'){
+                 var radius = 175;
+                    var canvasWidth = 800;
+                    var canvasHeight = 600;
+                    var centerX = canvasWidth / 2;
+                    var centerY = canvasHeight / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                 }
                 
-                if(this.necklaceLength === '50'){
-                var radius = 300;
+                if(this.braceletLength === '17'){
+                 var radius = 175;
+                    var canvasWidth = 800;
+                    var canvasHeight = 600;
+                    var centerX = canvasWidth / 2;
+                    var centerY = canvasHeight / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                 }
                 
-                if(this.necklaceLength === '60'){
-                var radius = 350;
+                if(this.braceletLength === '18'){
+                 var radius = 175;
+                    var canvasWidth = 800;
+                    var canvasHeight = 600;
+                    var centerX = canvasWidth / 2;
+                    var centerY = canvasHeight / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                 }
                 
-                if(this.necklaceLength === '80'){
-                var radius = 400;
+                if(this.braceletLength === '19'){
+                 var radius = 175;
+                    var canvasWidth = 800;
+                    var canvasHeight = 600;
+                    var centerX = canvasWidth / 2;
+                    var centerY = canvasHeight / 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                 }
                 
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                
                 ctx.stroke();
 
 
@@ -305,8 +349,8 @@ mounted: function(){
               
             
                 img.src = bead.image;
-                img.width = 120;
-                img.height = 120;
+                img.width = 110;
+                img.height = 110;
                 img.isDragging = false;
                 img.isSelected = false;
                 img.imgX = 0;
@@ -480,8 +524,8 @@ mounted: function(){
           
                 if(el.isDragging){
                     
-                    el.imgX = this.mouseX - 60;
-                    el.imgY = this.mouseY - 60;
+                    el.imgX = this.mouseX - 55;
+                    el.imgY = this.mouseY - 55;
                 
                 }
                  

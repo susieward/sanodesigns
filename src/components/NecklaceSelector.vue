@@ -33,23 +33,19 @@
               
            
         <konva-component :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas"></konva-component>
-                  <p>Image:</p>
-                  <img :src="dataURL">
+                  
          </div>          
       </div>
                        <div class="necklace-beads">
         <div class="beads-title">
             
-            <p>Drag and drop your beads to position them on your necklace.</p>
+            <p>Drag your beads to position them on your necklace.</p>
+            <p>To rotate a bead, click on it first and then click the "rotate" button.</p>
             
             </div>
               
                  <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
                     
-       
-         <p>Length: {{ formatLength(necklaceLength) }}<br>
-             Material: {{ selectedMaterial.type }}<br>
-             Color: {{ selectedMaterial.color }}</p>
                 
           </div> 
         </div>
@@ -75,7 +71,7 @@
               </div>
               
               <div class="checkout-button-container">
-                   <button class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">save and checkout</button>
+                   <button class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">continue to checkout</button>
            </div>
           </div>
           

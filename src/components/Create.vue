@@ -140,7 +140,7 @@ export default {
     
     methods: {
         
-       chooseBraceletBeads: function(braceletLength, selectedType){
+       chooseBraceletBeads: function(braceletLength, selectedMaterial){
             this.$router.push({ name: 'bracelet', params: {braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
         },
         
