@@ -190,8 +190,8 @@ data(){
     }
     
      .size-template-necklace {
-    height: 375px;
-    width: 375px;
+    height: 425px;
+    width: 425px;
     border: 1px solid #ddd;
     }
     
@@ -202,8 +202,8 @@ data(){
     }
     
     .size-template-bracelet {
-    height: 460px;
-    width: 460px;
+    height: 440px;
+    width: 440px;
     border: 1px solid #ddd;
     }
     
