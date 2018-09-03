@@ -384,14 +384,16 @@ min-height: 700px;
     
     .necklace-template-content {
  display: grid;
+        min-height: 700px;
         height: auto;
+        border: 1px solid blue;
 
 
     }
     
     #temp {
     max-height: 700px;
-        border: 1px solid #ddd;
+
 
     
     }
