@@ -224,6 +224,31 @@ padding: 0;
     text-align: center;
     }
     
+          .header {
+grid-area: header;
+display: grid;
+align-content: center;
+width: 100vw;
+background-color: #F4F4F4;
+justify-content: center;
+height: 103px;
+  margin-bottom: 34px;
+
+
+}
+
+   .header-container {
+    display: grid;
+    grid-template-areas: "title buttons";
+        grid-gap: 10px;
+    align-content: center;
+    width: 1060px;
+
+        padding-bottom: 2px;
+
+   
+    }
+    
     
     .container {
     display: grid;
