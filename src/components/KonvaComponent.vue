@@ -14,7 +14,7 @@
 
     <br>
    
-        <span><button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button></span>
+        <div class="canvas-buttons"><button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button></div>
 <p v-if="designSaved === true" style="color: #8a52a3">Saved!</p>
 <div class="canvas-info">
            <p>mouse.current: {{ mouse.current }}<br>
@@ -662,5 +662,9 @@ mounted: function(){
         display: none;
     }
    
+    .canvas-buttons {
+
+    margin-top: 5px;
+    }
 
 </style>

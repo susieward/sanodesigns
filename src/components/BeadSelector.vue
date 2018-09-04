@@ -15,7 +15,7 @@
               <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmNecklaceSelection()">save changes</button>
               </div>
               
-              <div v-if="bracelet === true" class="continue-btn">
+              <div v-if="necklace === false" class="continue-btn">
               <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedBraceletSelection()">continue</button><br>
               <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmBraceletSelection()">save changes</button>
               </div>

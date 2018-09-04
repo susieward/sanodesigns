@@ -125,6 +125,7 @@ export default {
         selectedType: '',
         necklaceLength: '',
         braceletLength: '',
+        braceletSize: '',
         materialChosen: false,
         materials: ['chain', 'wire', 'stretch cord'],
         selectedMaterial: {
@@ -150,7 +151,7 @@ export default {
     methods: {
         
        chooseBraceletBeads: function(braceletLength, selectedMaterial){
-            this.$router.push({ name: 'bracelet', params: {braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
+            this.$router.push({ name: 'bracelet', params: {braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
         },
         
          chooseNecklaceBeads: function(necklaceLength, selectedMaterial){
@@ -205,6 +206,30 @@ export default {
         getBraceletLength: function(braceletLength){
             this.braceletLength = braceletLength;
             this.lengthChosen = true;
+            
+            if(this.braceletLength === '14'){
+                this.braceletSize = 'XS';
+            }
+            
+            if(this.braceletLength === '15'){
+                this.braceletSize = 'S';
+            }
+            
+            if(this.braceletLength === '16'){
+                this.braceletSize = 'M';
+            }
+            
+            if(this.braceletLength === '17'){
+                this.braceletSize = 'L';
+            }
+            
+            if(this.braceletLength === '18'){
+                this.braceletSize = 'XL';
+            }
+            
+            if(this.braceletLength === '19'){
+                this.braceletSize = 'XXL';
+            }
         },
         
         getMaterial: function(selectedMaterial){

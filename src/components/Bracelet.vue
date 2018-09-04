@@ -22,7 +22,7 @@
            
            </div>
    
-      <div class="necklace-selector-container" style="position: relative">
+      <div class="necklace-selector-container">
 
           <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
                
@@ -32,32 +32,33 @@
                   
        
             <konva-component :selected-beads="selectedBeads" :necklace-length="necklaceLength" :bracelet-length="braceletLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas"></konva-component>
-                  <p>Image:</p>
-                  <img :src="dataURL">     
-     
    
     
    
               </div>
-          
-            
-              
-              </div>
+           </div>
               
               
-                <div class="necklace-beads">
+                             <div class="necklace-beads">
         <div class="beads-title">
+            <p>Drag your beads to position them on your necklace.</p>
+            <span style="font-size: 12px; line-height: normal; color: #8a8a8a; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
-            <p>Drag and drop your beads to position them on your bracelet.</p>
-            
-            
-              </div>
+            </div>
               
                  <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
-                    
-              
-         
-          </div>
+                           
+ <div style="margin-top: 40px">
+              <h3>Details:</h3>
+                            <div class="necklace-dtails">
+                   <span class="necklace-dtail-text">Size:</span> <span>{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
+                   <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
+                   <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
+                 </div>
+            
+                
+          </div> 
+        </div>
               
          
        
@@ -66,30 +67,32 @@
           
           <div class="necklace-container-bottom" v-if="selectedBeads.length && editingBeads === false">
          
-       <div class="necklace-details">
+        <div class="necklace-details">
               
             <div class="your-beads-list">
-                <h3 style="margin-bottom: 0">Beads:</h3> 
+                <h3>Beads:</h3> 
             <div v-for="bead in selectedBeads">
             
-                {{ bead.stone }}
-                {{ bead.size }}
-                {{ formatPrice(bead.price) | usdollar }}
+                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }})</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
             
             </div>
               <p>Total: {{ total | usdollar }}</p>
            </div>
-           
-           <div class="selected-details"><p>Length: {{ formatLength(braceletLength) }}</p> <p>Material: {{ selectedMaterial.type }}</p> <p>Color: {{ selectedMaterial.color }}</p></div>
+          
+  
+          
+           </div>
               
-              </div>
-              
-              <div class="checkout-button-container">
-                   <button class="btn-small" @click="goToCheckout(braceletLength, selectedBeads)">save and checkout</button>
+             <div class="checkout-button-container">
+                  
+                  <div style="display: grid; justify-content: flex-end; align-self: flex-end;">
+                  <p v-if="clickSave === false" style="margin-bottom: 20px; text-align: right;">Please click "save design" before checking out.</p>
+                   <button style="width: 270px; margin-left: auto" class="btn-small" @click="goToCheckout(braceletLength, selectedBeads)">continue to checkout</button>
+                  </div>
            </div>
           </div>
           
-      <bead-selector :necklace="necklace" :bracelet="bracelet" :bracelet-length="braceletLength" :beads-edit="beadsEdit"  @selected="setBraceletBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
+      <bead-selector :necklace="necklace" :bracelet="bracelet" :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setBraceletBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
       </div>
           
       </div>
@@ -102,7 +105,7 @@ import KonvaComponent from './KonvaComponent.vue'
 import BeadSelector from './BeadSelector.vue'
 export default {
   name: 'bracelet',
-    props: ['braceletLength', 'selectedMaterial', 'necklace', 'bracelet'],
+    props: ['braceletLength', 'braceletSize', 'selectedMaterial', 'necklace', 'bracelet'],
   data () {
     return {
         editingBeads: false,
@@ -111,7 +114,8 @@ export default {
         draggableState: true,
             top: 0,
             left: 0,
-            dataURL: ''
+            dataURL: '',
+            clickSave: false
 
     }
   },
@@ -139,22 +143,17 @@ export default {
          
         saveCanvas: function(dataURL){
                 this.dataURL = dataURL;
+                this.clickSave = true;
             
         },
         
-          formatLength: function(value){
+      formatLength: function(value){
             return value + '' + ' cm'
         },
         
-        
-         stop: function(){
-        this.draggableState = false;
+           formatBeadSize: function(value){
+            return value + '' + ' mm'
         },
-        
-        start: function(){
-            this.draggableState = true;
-        },
-        
         
         changePosition: function(top, left){
             this.top = top;
@@ -266,7 +265,6 @@ height: 103px;
     grid-gap: 20px;
            justify-content: center;
 
-      
            
     }
     
@@ -347,7 +345,7 @@ height: 103px;
         display: grid;
         grid-template-columns: auto minmax(auto, 800px);
         
-      
+   
         grid-gap: 30px;
      
     
@@ -356,7 +354,7 @@ height: 103px;
     }
     
      .necklace-container-bottom {
-    display: grid;
+
 
    
     }
@@ -365,7 +363,7 @@ height: 103px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 25px;
- 
+
         align-content: center;
 
     }
@@ -397,6 +395,40 @@ height: 103px;
             position: absolute;
     }
     
+     .necklace-dtails {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(3, 1fr);
+    justify-content: flex-start;
+        align-content: center;
+
     
+    
+    
+    }
+    
+    .necklace-dtail-text {
+    margin-right: 30px;
+    font-size: 16px;
+        margin-bottom: 5px;
+        line-height: 24px;
+    }
+    
+     .checkout-button-container {
+    display: grid;
+    justify-content: flex-end;
+    align-content: center;
+    grid-gap: 30px;
+    padding: 30px;
+    }
+    
+       .necklace-template {
+
+min-height: 700px;
+   padding: 0px;
+    
+ 
+
+    }
 
 </style>
