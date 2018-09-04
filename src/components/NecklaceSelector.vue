@@ -38,10 +38,7 @@
       </div>
                        <div class="necklace-beads">
         <div class="beads-title">
-            
-            <p>Drag your beads to position them on your necklace.</p>
-            <p>To rotate a bead, click on it first and then click the "rotate" button.</p>
-            
+             <p>Drag your beads to position them on your necklace.</p>
             </div>
               
                  <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
@@ -75,7 +72,7 @@
            </div>
           </div>
           
-      <bead-selector :necklace="necklace" :bracelet="bracelet" :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
+      <bead-selector :necklace="necklace" :necklace-length="necklaceLength" :bracelet="bracelet" :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
       </div>
   
       </div>

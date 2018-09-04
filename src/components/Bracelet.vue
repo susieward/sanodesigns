@@ -89,7 +89,7 @@
            </div>
           </div>
           
-      <bead-selector :necklace="necklace" :bracelet="bracelet" :beads-edit="beadsEdit"  @selected="setBraceletBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
+      <bead-selector :necklace="necklace" :bracelet="bracelet" :bracelet-length="braceletLength" :beads-edit="beadsEdit"  @selected="setBraceletBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
       </div>
           
       </div>

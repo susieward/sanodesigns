@@ -8,10 +8,9 @@
         
           <div class="selected-container">
             
-             
               <h3 style="margin: 0; padding: 0">You've selected:</h3>
               
-                 <div v-if="necklace === true" class="continue-btn">
+               <div v-if="necklace === true" class="continue-btn">
               <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedNecklaceSelection()">continue</button><br>
               <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmNecklaceSelection()">save changes</button>
               </div>
@@ -64,7 +63,7 @@
           </div>
               <div class="admin-bead-details">
               <span class="admin-prop-name">Stone:</span> <span>{{ bead.stone }}</span> 
-                  <span class="admin-prop-name">Size:</span> <span>{{ bead.size }}</span> 
+                  <span class="admin-prop-name">Size:</span> <span>{{ formatBeadSize(bead.size) }}</span> 
                   <span class="admin-prop-name">Cut:</span> <span>{{ bead.cut }}</span> 
                   <span class="admin-prop-name">Color:</span> <span>{{ bead.color }}</span> 
                   <span class="admin-prop-name">Shape:</span> <span>{{ bead.shape }}</span> 
@@ -90,7 +89,7 @@
 export default {
     name: 'BeadSelector',
     
-  props: ['necklaceLength', 'necklace', 'bracelet', 'beadsEdit'],
+  props: ['necklaceLength', 'braceletLength', 'necklace', 'bracelet', 'beadsEdit'],
   data () {
     return { 
         search: '',
@@ -102,6 +101,8 @@ export default {
             selectedColor: undefined,
             selectedShape: undefined,
         selectedProps: [],
+        displayMessage: false,
+        message: ''
       
     }
   },
@@ -114,7 +115,28 @@ export default {
             return this.$store.state.beads;
         },
         
+        totalBeadsLength() {
         
+        return Object.values(this.selectedBeads)
+        .reduce((acc, el) => acc + el.size, 0);
+    
+        },
+        
+        maximumLength(){
+            
+            if(this.necklace === true){
+                
+                return this.necklaceLength * 10;
+                
+            }
+            
+            if(this.necklace === false){
+                
+                return this.braceletLength * 10;
+            }
+        },
+        
+    
         
     filteredList: function(){
         var lowSearch = this.search.toLowerCase();
@@ -132,6 +154,18 @@ export default {
     
     
     methods: {
+        
+        tooManyBeads: function(){
+            
+            
+            
+            if(this.totalBeadsLength > this.maximumLength){
+                
+             this.displayMessage = true;
+                this.message = 'You have reached the maximum amount of beads for your selected length!'
+            }
+            
+        },
         
         select: function(bead){
             if(this.beadsEdit.length){
@@ -173,7 +207,11 @@ export default {
             
         formatPrice: function(value){
             return value.toFixed(2);
-        }
+        },
+        
+           formatBeadSize: function(value){
+            return value + '' + ' mm'
+        },
     },
     
     
