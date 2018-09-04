@@ -73,8 +73,8 @@ height: 103px;
     grid-template-areas: "title buttons";
         grid-gap: 10px;
     align-content: center;
-    width: 1050px;
-  border: 1px solid #444;
+    width: 1065px;
+
         padding: 0px;
 
    

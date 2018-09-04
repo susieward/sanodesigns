@@ -1,7 +1,7 @@
 <template>
   <div id="app">
      
-      <div class="banner"><p>self-care through creativity</p></div>
+      <div class="banner"><div class="banner-container"><p>self-care through creativity</p></div></div>
       
            
       <div class="content">
@@ -42,13 +42,21 @@ padding: 0;
 grid-area: banner;
  display: grid;
 align-content: center;
-justify-content: flex-start;
+justify-content: center;
 margin: 0;
 width: 100vw;
 background-color: #333;
 height: 50px;
-padding-left: 100px;
 }
+    
+    .banner-container {
+    display: grid;
+    align-content: center;
+    justify-content: flex-start;
+margin: 0;
+padding: 0;
+    width: 1065px;
+    }
     
     .banner p {
       font-family: 'Karla';
