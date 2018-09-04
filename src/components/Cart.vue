@@ -25,17 +25,13 @@
             
             
               <div class="cart-beads">
-        
-        <h3>Beads:</h3>
+          <h3>Beads:</h3> 
             <div v-for="bead in selectedBeads">
             
-                {{ bead.stone }}
-                {{ bead.size }}
-                {{ formatPrice(bead.price) | usdollar }}
+                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }})</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
             
             </div>
               <p>Total: {{ formatPrice(totalBeadsPrice) | usdollar }}</p>
-           
         
         </div>
             
@@ -62,7 +58,7 @@
             
             <div class="cart-totals">
             
-            <span class="total-text">Beads:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
+            <span class="total-text">Beads total:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
 
                 <span class="total-text" v-if="necklace === true">{{ formatLength(necklaceLength) }} length x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span><span class="total-text" v-if="bracelet === true">{{ formatLength(braceletLength) }} length <span class="multiply">x</span> {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span> <span class="total-price">{{ formatPrice(totalMaterialPrice) | usdollar }} </span>
              
@@ -143,6 +139,10 @@ components: {
         
           formatLength: function(value){
             return value + '' + ' cm'
+        },
+        
+              formatBeadSize: function(value){
+            return value + '' + ' mm'
         },
         
          formatMaterialPrice: function(value){
@@ -373,5 +373,7 @@ line-height: 30px;
         border: 1px solid #ddd;
             margin: auto;
     }
+    
+   
 
 </style>

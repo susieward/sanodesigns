@@ -38,43 +38,59 @@
       </div>
                        <div class="necklace-beads">
         <div class="beads-title">
-             <p>Drag your beads to position them on your necklace.</p>
+            <p>Drag your beads to position them on your necklace.</p>
+            <span style="font-size: 12px; line-height: normal; color: #8a8a8a; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
+            
             </div>
               
                  <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
-                    
+                           
+ <div style="margin-top: 40px">
+              <h3>Details:</h3>
+                            <div class="necklace-dtails">
+                   <span class="necklace-dtail-text">Length:</span> <span>{{ formatLength(necklaceLength) }}</span>
+                   <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
+                   <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
+                 </div>
+            
                 
           </div> 
         </div>
           
-                 <div class="necklace-container-bottom" v-if="selectedBeads.length && editingBeads === false">
+         
+                
+          </div>
+       
+          
+                  <div class="necklace-container-bottom" v-if="selectedBeads.length && editingBeads === false">
          
        <div class="necklace-details">
               
             <div class="your-beads-list">
-                <h3 style="margin-bottom: 0">Beads:</h3> 
+                <h3>Beads:</h3> 
             <div v-for="bead in selectedBeads">
             
-                {{ bead.stone }}
-                {{ bead.size }}
-                {{ formatPrice(bead.price) | usdollar }}
+                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }})</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
             
             </div>
               <p>Total: {{ total | usdollar }}</p>
            </div>
-           
-           <div class="selected-details"><p>Length: {{ formatLength(necklaceLength) }}</p> <p>Material: {{ selectedMaterial.type }}</p> <p>Color: {{ selectedMaterial.color }}</p></div>
-              
-              </div>
-              
-              <div class="checkout-button-container">
-                   <button class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">continue to checkout</button>
-           </div>
-          </div>
           
-      <bead-selector :necklace="necklace" :necklace-length="necklaceLength" :bracelet="bracelet" :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
-      </div>
   
+          
+           </div>
+            
+               
+              <div class="checkout-button-container">
+                  <p style="margin-bottom: 0">Please click "save design" before checking out.</p>
+                   <button style="max-width: 270px" class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">continue to checkout</button>
+           </div>
+            
+          </div>
+      <bead-selector :necklace="necklace" :necklace-length="necklaceLength" :bracelet="bracelet" :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
+   
+  
+          </div>
       </div>
   </div>
 </template>
@@ -138,6 +154,10 @@ export default {
         
       formatLength: function(value){
             return value + '' + ' cm'
+        },
+        
+           formatBeadSize: function(value){
+            return value + '' + ' mm'
         },
         
         
@@ -470,23 +490,22 @@ justify-content: center;
     }
     
     .necklace-container-bottom {
-    display: grid;
 
-   
-    }
+
+}
     
     .necklace-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 25px;
- 
+
         align-content: center;
 
     }
     
     .your-beads-list {
     padding: 30px;
-  
+
         background-color: #f4f4f4;
     }
     
@@ -511,7 +530,7 @@ justify-content: center;
     .checkout-button-container {
     display: grid;
     justify-content: flex-end;
-  
+
      
         align-content: center;
     grid-gap: 30px;
@@ -545,71 +564,31 @@ justify-content: center;
     border: 1px solid #777;
     border-radius: 8px;
     }
-    
-    .dragcontainer {
-         -webkit-transition-duration: 0.5s;
-    -moz-transition-duration: 0.5s;
-    -o-transition-duration: 0.5s;
-    transition-duration: 0.5s;
-    -webkit-transition-property: -webkit-transform;
-    -moz-transition-property: -moz-transform;
-    -o-transition-property: -o-transform;
-    transition-property: transform;
-    }
-    
-      .selected-alt {
-        display: grid;
-    grid-template-columns: 100px 100px 100px 100px;
-    grid-auto-rows: 100px;
-    
-        align-content: flex-start;
-
-    border: 1px solid #ddd;
-        top: 30;
-         height: 300px;
-    }
-    
-        .bead-img-small-selected-alt {
-    width: 100%;
-         height: 100%;
-  object-fit: cover;
-          margin: auto;
-          cursor: pointer;
-            position: absolute;
-    }
-    
-     .svg-container {
-    display: grid;
-    width: auto;
-    height: auto;
-
- 
-         border: 1px solid red;
-    }
-    
-    svg {
-    border: 1px solid #eee;
-        margin: auto;
-       
-        
-    }
-    
-    .ellipse-class {
-
-    }
-    
-    .selected-details {
-
-
-
-
-        margin-bottom: 30px;
-
-    }
+  
     
     .selected-details p {
     margin: 0;
     padding: 0;
+    }
+    
+    
+     .necklace-dtails {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(3, 1fr);
+    justify-content: flex-start;
+        align-content: center;
+
+    
+    
+    
+    }
+    
+    .necklace-dtail-text {
+    margin-right: 30px;
+    font-size: 16px;
+        margin-bottom: 5px;
+        line-height: 24px;
     }
   
 </style>
