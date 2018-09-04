@@ -384,10 +384,10 @@ display: grid;
     
     .select-type {
     display: grid;
-     max-width: 700px;
+
     grid-template-columns: auto auto;
-    
-    grid-gap: 60px;
+ 
+    grid-gap: 40px;
     padding: 10px;
   
     }
@@ -396,8 +396,8 @@ display: grid;
     display: grid;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     background-color: #F4F4F4;
     transition: transform .3s;
     cursor: pointer;
