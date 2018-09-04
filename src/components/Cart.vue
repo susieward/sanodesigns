@@ -55,7 +55,7 @@
         
         </div>
 
-            
+            <div class="totals-container">
             <div class="cart-totals">
             
             <span class="total-text">Beads total:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
@@ -74,7 +74,7 @@
             <span class="main-total-text">Total:</span> <span class="main-total-price">{{ formatPrice(totalPrice) | usdollar }}</span>
         
         </div>
-    
+        </div>
     <checkout></checkout>
         
     </div>
@@ -267,29 +267,35 @@ width: 1050px;
     padding: 10px 12px;
     min-height: 150px;
     border: 1px solid #ddd;
+         border-radius: 0;
     margin: 0;
   
     }
 
     .cart-details {
     display: grid;
-  
-  
-    margin-top: 30px;
+  margin-top: 30px;
     margin-bottom: 30px;
     }
     
-   
+    .totals-container {
+        display: grid;
+      
+        max-width: 600px;
+        margin: auto;
+    padding: 30px;
+        align-content: center;
+    }
     
     .cart-totals {
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(3, 1fr);
     max-width: 600px;
-    margin: auto;
-    padding: 30px;
+    
         align-content: center;
         justify-content: center;
+        
     
     
     
@@ -315,7 +321,7 @@ width: 1050px;
     max-width: 600px;
     margin: auto;
 justify-content: center;
-        margin-bottom: 30px;
+ 
         
 
     }

@@ -137,6 +137,7 @@ mounted: function(){
                 this.$emit('save', dataURL);
                 
                 this.designSaved = true;
+                
                
                 
                 

@@ -84,7 +84,7 @@
               <div class="checkout-button-container">
                   
                   <div style="display: grid; justify-content: flex-end; align-self: flex-end;">
-                  <p style="margin-bottom: 20px; text-align: right;">Please click "save design" before checking out.</p>
+                  <p v-if="clickSave === false" style="margin-bottom: 20px; text-align: right;">Please click "save design" before checking out.</p>
                    <button style="width: 270px; margin-left: auto" class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">continue to checkout</button>
                   </div>
            </div>
@@ -114,7 +114,8 @@ export default {
             draggableState: true,
             top: 0,
             left: 0,
-            dataURL: ''
+            dataURL: '',
+            clickSave: false
         }
     },
   name: 'necklace',
@@ -152,6 +153,7 @@ export default {
         
         saveCanvas: function(dataURL){
                 this.dataURL = dataURL;
+                this.clickSave = true;
             
         },
         

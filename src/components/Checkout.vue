@@ -89,10 +89,12 @@ display: grid;
     .payment {
     display: grid;
 
-        border: 1px solid #eee;
-        border-radius: 6px;
+       background-color: #fafafa;
+          box-shadow: 0 7px 14px 0 rgba(49, 49, 93, 0.10), 0 3px 6px 0 rgba(0, 0, 0, 0.08);
         padding: 30px;
         width: 650px;
+         border: 1px solid #fff;
+        border-radius: 6px;  
 
     }
     
