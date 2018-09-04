@@ -171,7 +171,7 @@ mounted: function(){
             
                     ctx.save();
                     ctx.translate(canvasWidth / 2, canvasHeight / 2);
-                    ctx.scale(1.6, 2);
+                    ctx.scale(1.6, 2.6);
              
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -189,7 +189,7 @@ mounted: function(){
             
                     ctx.save();
                     ctx.translate(canvasWidth / 2, canvasHeight / 2);
-                    ctx.scale(2.3, 2.9);
+                    ctx.scale(1.8, 2.2);
              
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -208,7 +208,7 @@ mounted: function(){
             
                     ctx.save();
                     ctx.translate(canvasWidth / 2, canvasHeight / 2);
-                    ctx.scale(2.4, 3.1);
+                    ctx.scale(1.9, 2.5);
              
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -219,7 +219,7 @@ mounted: function(){
                 // 60 cm -- pendant
                 
                 if(this.necklaceLength === '60'){
-                    var radius = 120;
+                    var radius = 100;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
                     var centerX = 0;
@@ -227,7 +227,7 @@ mounted: function(){
             
                     ctx.save();
                     ctx.translate(canvasWidth / 2, canvasHeight / 2);
-                    ctx.scale(2, 3.1);
+                    ctx.scale(2, 2.8);
              
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -238,7 +238,7 @@ mounted: function(){
                 // 80 cm -- really long pendant
                 
                 if(this.necklaceLength === '80'){
-                    var radius = 100;
+                    var radius = 150;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
                     var centerX = 0;
