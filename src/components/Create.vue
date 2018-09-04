@@ -24,17 +24,17 @@
           </div>
           
           <div class="breadcrumbs" v-if="typeChosen === true && lengthChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span>length</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span>sizing</span>
           
           </div>
           
           <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span>material</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span>material</span>
           
           </div>
           
           <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === true">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">length</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
           
           </div>
       
@@ -57,7 +57,7 @@
           <div class="select-details" v-if="typeChosen === true">
               
               <div class="headers">
-             <h2 style="text-align: center" v-if="lengthChosen === false">Select {{ selectedType }} Length</h2>
+             <h2 style="text-align: center" v-if="lengthChosen === false">Select {{ selectedType }} <span v-if="necklace === true">Length</span><span v-if="bracelet === true">Size</span></h2>
               
               <h2 style="text-align: center" v-if="lengthChosen === true && materialChosen === false">Select {{ selectedType }} Material</h2>
                   
@@ -94,7 +94,7 @@
                 
 
                  <div class="confirm-dtails">
-                   <span class="dtail-text"><strong>Length:</strong></span> <span>{{ formatLength(braceletLength) }}</span>
+                   <span class="dtail-text"><strong>Size:</strong></span> <span>{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
                    <span class="dtail-text"><strong>Material:</strong></span> <span>{{ selectedMaterial.type }}</span>
                    <span class="dtail-text"><strong>Color:</strong></span> <span>{{ selectedMaterial.color }}</span>
                  </div>

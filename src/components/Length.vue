@@ -77,10 +77,10 @@
             <span><input type="radio" id="l" value="17" @change="sendBraceletLength" v-model="braceletLength"/>
                 <label for="l">L - 17 cm</label></span>
               
-            <span><input type="radio" id="xl" value="18" @change="showButton" v-model="braceletLength"/>
+            <span><input type="radio" id="xl" value="18" @change="sendBraceletLength" v-model="braceletLength"/>
                 <label for="xl">XL - 18 cm</label></span>
                    
-                   <span><input type="radio" id="xxl" value="19" @change="showButton" v-model="braceletLength"/>
+                   <span><input type="radio" id="xxl" value="19" @change="sendBraceletLength" v-model="braceletLength"/>
                 <label for="xxl">XXL - 19 cm</label></span>
                   </div>
               

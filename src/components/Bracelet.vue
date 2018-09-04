@@ -182,7 +182,7 @@ export default {
         },
         
          goToCheckout: function(braceletLength, selectedBeads){
-            this.$router.push({ name: 'Cart', params: {braceletLength: this.braceletLength, selectedBeads: this.selectedBeads, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
+            this.$router.push({ name: 'Cart', params: {braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedBeads: this.selectedBeads, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
         },
         
          formatPrice: function(value){
