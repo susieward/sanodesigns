@@ -23,8 +23,27 @@
         <img :src="dataURL" class="design-img"/>
         </div>
             
+                <div class="necklace-dtails-container">
+              <h3>Details:</h3>
+                            <div class="necklace-dtails">
+                   <span class="necklace-dtail-text">Length:</span> <span>{{ formatLength(necklaceLength) }}</span>
+                   <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
+                   <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
+                 </div>
             
-              <div class="cart-beads">
+                
+          </div> 
+            
+      
+            
+         
+            
+        </div>
+        
+ 
+        <div class="cart-details">
+        
+                 <div class="cart-beads">
           <h3>Beads:</h3> 
             <div v-for="bead in selectedBeads">
             
@@ -34,14 +53,6 @@
               <p>Total: {{ formatPrice(totalBeadsPrice) | usdollar }}</p>
         
         </div>
-            
-         
-            
-        </div>
-        
- 
-        <div class="cart-details">
-        
         
            <div class="cart-notes">
          <h3 style="margin-bottom: 0">Notes:</h3>
@@ -213,6 +224,7 @@ width: 1050px;
     
      .cart-beads {
     padding: 30px;
+         padding-bottom: 20px;
      background-color: #f4f4f4;
    
          min-height: 300px;
@@ -274,8 +286,40 @@ width: 1050px;
 
     .cart-details {
     display: grid;
+        grid-template-columns: 1fr 1fr;
   margin-top: 30px;
     margin-bottom: 30px;
+        grid-gap: 40px;
+    }
+    
+    .necklace-dtails-container {
+            display: grid;
+ 
+ 
+  width: 450px;
+    align-content: flex-start;
+    padding-top: 0px;
+        padding: 30px;
+    
+    }
+    
+     .necklace-dtails {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(3, 1fr);
+    justify-content: flex-start;
+        align-content: center;
+
+    
+    
+    
+    }
+    
+    .necklace-dtail-text {
+    margin-right: 30px;
+    font-size: 16px;
+        margin-bottom: 5px;
+        line-height: 24px;
     }
     
     .totals-container {
@@ -305,6 +349,7 @@ width: 1050px;
     margin-right: 40px;
     font-size: 16px;
         margin-bottom: 10px;
+  
         line-height: 24px;
     }
     
