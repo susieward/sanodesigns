@@ -36,35 +36,7 @@ margin: 0;
 padding: 0;
 }
     
-.header {
-grid-area: header;
-display: grid;
-align-content: center;
-width: 100vw;
-background-color: #F4F4F4;
-min-height: 80px;
 
-padding-left: 100px;
-margin-bottom: 20px;
-justify-content: flex-start;
-
-}
-    
-    .header-container {
-    display: grid;
-    align-content: center;
-    max-width: 1050px;
-   
-    }
-    
-    .header h1 {
-    font-family: 'Pacifico';
-    font-size: 45px;
-line-height: 54px;
-    font-weight: 400;
-color: #262626;
-margin: 0;
-    }
 
 .banner {
 grid-area: banner;

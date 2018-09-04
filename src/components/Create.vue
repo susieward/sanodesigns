@@ -253,15 +253,14 @@ height: 103px;
 
 }
     
-    .header-container {
+   .header-container {
     display: grid;
     grid-template-areas: "title buttons";
-     
         grid-gap: 10px;
     align-content: center;
     width: 1050px;
-  
         padding: 0px;
+
    
     }
     
