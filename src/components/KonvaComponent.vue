@@ -87,7 +87,7 @@ mounted: function(){
         this.drawNecklaceTemplate();
    }
     
-    if(this.necklace === false){
+    if(this.bracelet === true){
         
         this.drawBraceletTemplate();
         
@@ -267,7 +267,7 @@ mounted: function(){
                 
                 
                 if(this.braceletLength === '14'){
-                  var radius = 175;
+                  var radius = 140;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
                     var centerX = canvasWidth / 2;
@@ -278,7 +278,7 @@ mounted: function(){
                 }
                 
                 if(this.braceletLength === '15'){
-                 var radius = 175;
+                 var radius = 150;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
                     var centerX = canvasWidth / 2;
@@ -289,7 +289,7 @@ mounted: function(){
                 }
                 
                 if(this.braceletLength === '16'){
-                 var radius = 175;
+                 var radius = 160;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
                     var centerX = canvasWidth / 2;
@@ -300,7 +300,7 @@ mounted: function(){
                 }
                 
                 if(this.braceletLength === '17'){
-                 var radius = 175;
+                 var radius = 170;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
                     var centerX = canvasWidth / 2;
@@ -311,7 +311,7 @@ mounted: function(){
                 }
                 
                 if(this.braceletLength === '18'){
-                 var radius = 175;
+                 var radius = 180;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
                     var centerX = canvasWidth / 2;
@@ -322,7 +322,7 @@ mounted: function(){
                 }
                 
                 if(this.braceletLength === '19'){
-                 var radius = 175;
+                 var radius = 190;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
                     var centerX = canvasWidth / 2;
