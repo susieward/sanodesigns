@@ -80,7 +80,7 @@
               <p>Total: {{ total | usdollar }}</p>
            </div>
            
-           <div class="selected-details"><p>Length: {{ braceletLength }}</p> <p>Material: {{ selectedMaterial.type }}</p> <p>Color: {{ selectedMaterial.color }}</p></div>
+           <div class="selected-details"><p>Length: {{ formatLength(braceletLength) }}</p> <p>Material: {{ selectedMaterial.type }}</p> <p>Color: {{ selectedMaterial.color }}</p></div>
               
               </div>
               
@@ -110,7 +110,8 @@ export default {
             selectedBeads: [],
         draggableState: true,
             top: 0,
-            left: 0
+            left: 0,
+            dataURL: ''
 
     }
   },
@@ -134,6 +135,17 @@ export default {
     },
     
     methods: {
+        
+         
+        saveCanvas: function(dataURL){
+                this.dataURL = dataURL;
+            
+        },
+        
+          formatLength: function(value){
+            return value + '' + ' cm'
+        },
+        
         
          stop: function(){
         this.draggableState = false;
@@ -171,7 +183,7 @@ export default {
         },
         
          goToCheckout: function(braceletLength, selectedBeads){
-            this.$router.push({ name: 'Cart', params: {braceletLength: this.braceletLength, selectedBeads: this.selectedBeads, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
+            this.$router.push({ name: 'Cart', params: {braceletLength: this.braceletLength, selectedBeads: this.selectedBeads, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
         },
         
          formatPrice: function(value){

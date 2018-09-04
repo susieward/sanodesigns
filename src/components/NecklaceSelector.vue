@@ -66,7 +66,7 @@
               <p>Total: {{ total | usdollar }}</p>
            </div>
            
-           <div class="selected-details"><p>Length: {{ necklaceLength }}</p> <p>Material: {{ selectedMaterial.type }}</p> <p>Color: {{ selectedMaterial.color }}</p></div>
+           <div class="selected-details"><p>Length: {{ formatLength(necklaceLength) }}</p> <p>Material: {{ selectedMaterial.type }}</p> <p>Color: {{ selectedMaterial.color }}</p></div>
               
               </div>
               
@@ -577,11 +577,10 @@ justify-content: center;
     }
     
     .selected-details {
-    display: grid;
-grid-template-columns: auto auto auto;
-        justify-content: center;
-        grid-gap: 15px;
-    text-align: center;
+
+
+
+
         margin-bottom: 30px;
 
     }
