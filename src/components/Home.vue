@@ -73,9 +73,9 @@ height: 103px;
     grid-template-areas: "title buttons";
         grid-gap: 10px;
     align-content: center;
-    width: 1065px;
+    width: 1060px;
 
-        padding: 0px;
+        padding-bottom: 2px;
 
    
     }

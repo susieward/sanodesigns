@@ -55,7 +55,7 @@ height: 50px;
     justify-content: flex-start;
 margin: 0;
 padding: 0;
-    width: 1065px;
+    width: 1060px;
     }
     
     .banner p {
