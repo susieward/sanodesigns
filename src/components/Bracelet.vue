@@ -42,7 +42,7 @@
                              <div class="necklace-beads">
         <div class="beads-title">
             <p>Drag your beads to position them on your necklace.</p>
-            <span style="font-size: 12px; line-height: normal; color: #8a8a8a; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
+            <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
             </div>
               
