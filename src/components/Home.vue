@@ -74,8 +74,10 @@ height: 103px;
         grid-gap: 10px;
     align-content: center;
     width: 1050px;
-  
+  border: 1px solid #444;
         padding: 0px;
+        margin-right: auto;
+        margin-left: auto;
    
     }
     
