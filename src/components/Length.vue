@@ -122,20 +122,7 @@ props: ['necklace', 'bracelet'],
 </script>
 <style>
  
-    .column {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 200px;
-    background-color: #F4F4F4;
-    transition: transform .3s;
-    cursor: pointer;
-    }
     
-    .column:hover {
-    transform: scale(1.05);
-    }
     
     .select-text {
     font-size: 22px;
@@ -159,13 +146,13 @@ justify-content: center;
     grid-template-columns: auto auto;
 
     padding: 10px;
-    grid-gap: 20px;
+    grid-gap: 40px;
     }
     
     .size-template-necklace {
     
-    height: 425px;
-    width: 425px;
+    height: 400px;
+    width: 400px;
     border: 1px solid #ddd;
     }
     

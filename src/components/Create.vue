@@ -75,12 +75,16 @@
               
               
              <div v-if="lengthChosen === true && materialChosen === true && necklace === true">
-              <p><strong>Length:</strong> {{ formatLength(necklaceLength) }} x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}</p>
-              <p><strong>Material:</strong> {{ selectedMaterial.type }}</p>
-              <p><strong>Color:</strong> {{ selectedMaterial.color }}</p>
-              
+                 
+               <div class="confirm-dtails">
+                   <span class="dtail-text"><strong>Length:</strong></span> <span>{{ formatLength(necklaceLength) }}</span>
+                   <span class="dtail-text"><strong>Material:</strong></span> <span>{{ selectedMaterial.type }}</span>
+                   <span class="dtail-text"><strong>Color:</strong></span> <span>{{ selectedMaterial.color }}</span>
+                 </div>
+         
+                <div style="display: grid; justify-content: center; margin-top: 10px">
                <button class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
-              
+                 </div>
               </div>
           
           
@@ -88,11 +92,16 @@
                   
             <div v-if="lengthChosen === true && materialChosen === true && bracelet === true">
                 
-                 <p><strong>Length:</strong> {{ formatLength(braceletLength) }}</p>
-              <p><strong>Material:</strong> {{ selectedMaterial.type }} ({{ formatMaterialPrice(selectedMaterial.price) | usdollar }})</p>
-              <p><strong>Color:</strong> {{ selectedMaterial.color }}</p>
+
+                 <div class="confirm-dtails">
+                   <span class="dtail-text"><strong>Length:</strong></span> <span>{{ formatLength(braceletLength) }}</span>
+                   <span class="dtail-text"><strong>Material:</strong></span> <span>{{ selectedMaterial.type }}</span>
+                   <span class="dtail-text"><strong>Color:</strong></span> <span>{{ selectedMaterial.color }}</span>
+                 </div>
               
+                <div style="display: grid; justify-content: center; margin-top: 10px">
            <button class="btn" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">select your beads</button>
+                </div>
               </div>
               
               
@@ -522,7 +531,43 @@ cursor: pointer;
     
     
     .headers {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    }
+    
+    .confirm-details {
+        display: grid;
+        justify-content: center;
+    }
+    
+    .dtails {
+       display: grid;
+        justify-content: center;
+
+ 
+    }
+    
+    
+    
+     .confirm-dtails {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(3, 1fr);
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+         padding-top: 5px;
+        align-content: center;
+        justify-content: center;
+    
+    
+    
+    }
+    
+    .dtail-text {
+    margin-right: 60px;
+    font-size: 16px;
+        margin-bottom: 10px;
+        line-height: 24px;
     }
     
   

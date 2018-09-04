@@ -186,12 +186,12 @@ data(){
     grid-template-columns: auto auto;
 
     padding: 10px;
-    grid-gap: 20px;
+    grid-gap: 40px;
     }
     
      .size-template-necklace {
-    height: 425px;
-    width: 425px;
+    height: 400px;
+    width: 400px;
     border: 1px solid #ddd;
     }
     
