@@ -15,7 +15,7 @@
     <br>
    
         <span><button class="btn-small" @click="print()" width="50px">save design</button>  <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button></span>
-
+<p v-if="designSaved === true" style="color: #8a52a3">Saved!</p>
 <div class="canvas-info">
            <p>mouse.current: {{ mouse.current }}<br>
             
@@ -63,7 +63,8 @@ data(){
         angleInDegrees: 0,
         originX: 0,
         originY: 0,
-        clockwise: ''
+        clockwise: '',
+        designSaved: false
         
         
     }
@@ -135,6 +136,7 @@ mounted: function(){
                 var dataURL = canvas.toDataURL();
                 this.$emit('save', dataURL);
                 
+                this.designSaved = true;
                
                 
                 

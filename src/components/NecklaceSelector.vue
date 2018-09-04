@@ -82,8 +82,11 @@
             
                
               <div class="checkout-button-container">
-                  <p style="margin-bottom: 0">Please click "save design" before checking out.</p>
-                   <button style="max-width: 270px" class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">continue to checkout</button>
+                  
+                  <div style="display: grid; justify-content: flex-end; align-self: flex-end;">
+                  <p style="margin-bottom: 20px; text-align: right;">Please click "save design" before checking out.</p>
+                   <button style="width: 270px; margin-left: auto" class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">continue to checkout</button>
+                  </div>
            </div>
             
           </div>
@@ -530,11 +533,8 @@ justify-content: center;
     .checkout-button-container {
     display: grid;
     justify-content: flex-end;
-
-     
-        align-content: center;
+    align-content: center;
     grid-gap: 30px;
-    
     padding: 30px;
     }
     
