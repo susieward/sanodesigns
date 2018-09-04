@@ -19,7 +19,12 @@
         
         <div class="design-and-beads">
         
-        <div class="cart-beads">
+       <div class="design-img-container">
+        <img :src="dataURL" class="design-img"/>
+        </div>
+            
+            
+              <div class="cart-beads">
         
         <h3>Beads:</h3>
             <div v-for="bead in selectedBeads">
@@ -34,18 +39,15 @@
         
         </div>
             
-             <div class="design-img-container">
-        <img :src="dataURL" class="design-img"/>
-        </div>
+         
             
         </div>
         
+ 
         <div class="cart-details">
         
-    
-       
         
-        <div class="cart-notes">
+           <div class="cart-notes">
          <h3 style="margin-bottom: 0">Notes:</h3>
             
                 <p style="margin-bottom: 0">Anything else you'd like to add about your design.</p>
@@ -55,13 +57,13 @@
         
         
         
-    
         </div>
-        
-        <div class="cart-totals">
+
+            
+            <div class="cart-totals">
             
             <span class="total-text">Beads:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
-            
+
                 <span class="total-text" v-if="necklace === true">{{ formatLength(necklaceLength) }} length x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span><span class="total-text" v-if="bracelet === true">{{ formatLength(braceletLength) }} length <span class="multiply">x</span> {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span> <span class="total-price">{{ formatPrice(totalMaterialPrice) | usdollar }} </span>
              
             <span class="total-text">Flat labor fee:</span> <span class="total-price">{{ formatPrice(laborFee) | usdollar }}</span>
@@ -192,6 +194,7 @@ width: 1050px;
      background-color: #f4f4f4;
    
          min-height: 300px;
+    
     }
     
           .bead-img-small-selector {
@@ -222,6 +225,7 @@ width: 1050px;
       display: grid;
  
     height: 300px;
+  width: 450px;
     align-content: flex-start;
     padding-top: 20px;
    
@@ -247,8 +251,8 @@ width: 1050px;
 
     .cart-details {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 40px;
+  
+  
     margin-top: 30px;
     margin-bottom: 30px;
     }
@@ -335,6 +339,17 @@ line-height: 30px;
         width: 100%;
         border: 1px solid #eee;
         object-fit: scale-down;
+    }
+    
+    .bead-prices-cart {
+        display: grid;
+  justify-content: center;
+        align-content: center;
+        grid-template-columns: auto auto;
+
+   width: 300px;
+        border: 1px solid #ddd;
+            margin: auto;
     }
 
 </style>
