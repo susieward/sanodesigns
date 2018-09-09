@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV === 'production') {
-    window.endpoint = 'http://localhost:3000';
+    window.endpoint = 'https://sanodesigns-server.herokuapp.com';
 } else {
     window.endpoint = 'http://localhost:3000';
 }
@@ -28,13 +28,8 @@ import Cart from './components/Cart.vue'
 import Admin from './components/Admin.vue'
 import AdminBeads from './components/AdminBeads.vue'
 import AddBead from './components/AddBead.vue'
-import VueDraggableResizable from 'vue-draggable-resizable'
-import VueDragResize from 'vue-drag-resize'
-
-
 
 Vue.use(VueRouter)
-Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
 const routes = [
     {

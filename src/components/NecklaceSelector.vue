@@ -7,7 +7,7 @@
               
                <div class="buttons-buttons">
           <span>
-      <router-link to="/" tag="button" class="create-btn">start over</router-link>
+      <button class="create-btn" @click="deleteLocalStorage">start over</button>
           <button class="create-btn">save for later</button>
           </span>
           </div>
@@ -18,7 +18,10 @@
    
     
  
-      <div class="buttons-container-title-necklace"> <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Necklace</h2>
+      <div class="buttons-container-title-necklace"> 
+  
+          
+          <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Necklace</h2>
            
            <h2 v-if="!selectedBeads.length || editingBeads === true">Select Your Beads</h2>
            </div>
@@ -32,7 +35,7 @@
               <div class="necklace-template-content">
               
            
-        <konva-component :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas"></konva-component>
+        <canvas-component ref="canvasRef" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas"></canvas-component>
                   
          </div>          
       </div>
@@ -99,7 +102,7 @@
 </template>
 
 <script>
-import KonvaComponent from './KonvaComponent.vue'
+import CanvasComponent from './CanvasComponent.vue'
 import BeadSelector from './BeadSelector.vue'
 export default {
     data(){
@@ -107,6 +110,7 @@ export default {
             editingBeads: false,
             beadsEdit: [],
             selectedBeads: [],
+            editedBeads: [],
             isSelected: false,
             degrees: 0,
             style: {},
@@ -122,7 +126,7 @@ export default {
     props: ['necklaceLength', 'selectedMaterial', 'necklace', 'bracelet'],
     components: {
         BeadSelector,
-        KonvaComponent
+        CanvasComponent
 
     },
     
@@ -137,18 +141,27 @@ export default {
         
 
         totalBeads(){
-        return this.selectedBeads;
+            return this.selectedBeads;
         },
         
         total() {
-        return Object.values(this.totalBeads)
-        .reduce((acc, el) => acc + el.price, 0)
-        .toFixed(2);
-    }
+            return Object.values(this.totalBeads)
+            .reduce((acc, el) => acc + el.price, 0)
+            .toFixed(2);
+        },
+        
+        localBeads(){
+            return this.$store.state.localBeads;
+        }
     },
     
     
     methods: {
+        
+        deleteLocalStorage: function(){
+            this.$store.commit('deleteLocalBeads');
+            this.$router.push('/');
+        },
         
         
         saveCanvas: function(dataURL){
@@ -166,33 +179,27 @@ export default {
         },
         
         
-        changePosition: function(top, left){
-            this.top = top;
-            this.left = left;
- 
-            },
-        
-        copyImg: function(temp){
-            this.copied = true;
-            this.src = temp.srcElement.src;
-            
-            
-        },
-        
         setNecklaceBeads: function(selectedBeads){
+            
             
             this.selectedBeads = selectedBeads;
            
     
         },
         
+         
         setEditedBeads: function(beadsEdit){
+           
+       
+          
             this.selectedBeads = beadsEdit;
+            
             this.editingBeads = false;
+       
         },
         
         openBeads: function(selectedBeads){
-            
+            this.$refs.canvasRef.saveBeadPositions();
             var beadsEdit = this.selectedBeads;
             this.editingBeads = true;
             this.beadsEdit = beadsEdit;

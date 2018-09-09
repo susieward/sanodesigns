@@ -31,7 +31,7 @@
               <div class="necklace-template-content">
                   
        
-            <konva-component :selected-beads="selectedBeads" :necklace-length="necklaceLength" :bracelet-length="braceletLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas"></konva-component>
+            <canvas-component :selected-beads="selectedBeads" :necklace-length="necklaceLength" :bracelet-length="braceletLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas"></canvas-component>
    
     
    
@@ -101,7 +101,7 @@
 
 <script>
     
-import KonvaComponent from './KonvaComponent.vue'
+import CanvasComponent from './CanvasComponent.vue'
 import BeadSelector from './BeadSelector.vue'
 export default {
   name: 'bracelet',
@@ -122,7 +122,7 @@ export default {
     
     components: {
         BeadSelector,
-        KonvaComponent
+        CanvasComponent
     },
     
     computed: {

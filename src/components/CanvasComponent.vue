@@ -1,12 +1,21 @@
 <template>
-<div class="konva-component">
-    <div class="konva-component-container">
-        
+<div class="canvas-component">
+    <div class="canvas-component-container">
+
         <div class="selected-info">
+             LOCALBEADS: {{ localBeads }}
         <p>{{ clockwise }}</p>
          Length: {{ necklaceLength }} Selected bead: {{ selectedBead.id }} selected bead imgX: {{ selectedBead.imgX }} selected bead imgY: {{ selectedBead.imgY }}
         <p>{{ selectedBead }}</p>
+                         <div v-for="img in imgArray">
+        <p>x pos: {{ img.imgX }} y pos: {{ img.imgY }}<br>
+            id: {{ img.id }}
+            </p>
+        
+        
         </div>
+        </div>
+
         
 
         
@@ -64,13 +73,14 @@ data(){
         originX: 0,
         originY: 0,
         clockwise: '',
-        designSaved: false
-        
+        designSaved: false,
+        drawn: false,
+        localBeads: []
         
     }
 },
 
-name: 'KonvaComponent',
+name: 'CanvasComponent',
     
     props: ['selectedBeads', 'necklaceLength', 'braceletLength', 'necklace', 'bracelet'],
 
@@ -79,6 +89,8 @@ mounted: function(){
  
    var c = this.$refs.canvas;
     var ctx = c.getContext("2d");
+    
+    this.localBeads = this.$store.state.localBeads;
 
 
     
@@ -93,13 +105,14 @@ mounted: function(){
         
     }
     
-    if(this.selectedBeads.length){
-        
-        this.setCanvasBeads();
-    }  
-
 
     
+    if(this.selectedBeads.length){
+    
+        this.setCanvasBeads();
+
+    }
+   
 },
         
    computed: {
@@ -123,11 +136,36 @@ mounted: function(){
             selectedBeadsImgs(){
                 return this.selectedBeads.map(bead => bead.image);
             }
+       
+       
+        
         
      
       },
     
      methods: {
+         
+            
+        saveBeadPositions: function(){
+                var c = this.$refs.canvas;
+                var ctx = c.getContext("2d");
+                var imgArray = this.imgArray;
+            
+            
+                this.$store.commit('setLocalBeads', {localBeads: imgArray});
+            
+                
+            },
+         
+         restoreBeadPositions: function(){
+            var c = this.$refs.canvas;
+            var ctx = c.getContext("2d");
+             
+             
+            
+             
+             
+         },
          
          
             print: function(){
@@ -138,13 +176,122 @@ mounted: function(){
                 
                 this.designSaved = true;
                 
+           },
+         
+            setCanvasBeads: function(){
+                
+                var c = this.$refs.canvas;
+                var ctx = c.getContext("2d");
+                var canvasWidth = 800;
+                var canvasHeight = 600;
+                var imgArray = this.imgArray;
+                var localBeads = this.localBeads;
+              
+                this.selectedBeads.forEach((bead, i) =>{
+                var img = new Image();
+                bead = this.selectedBeads[i];
+              
+            
+                img.src = bead.image;
+                img.width = 110;
+                img.height = 110;
+                img.isDragging = false;
+                img.isSelected = false;
+                img.imgX = 0;
+                img.imgY = i * 80;
+                img.id = i;
+                imgArray.push(img);
+         
+            
+                });
+        
+                if (imgArray.length === this.selectedBeads.length){
+                imgArray.forEach((el) =>{
+             
+                el.onload = function(){
+                    
+                 
+                ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                    
+                }
+                })
+  
+            }
+                
+                if(localBeads.length){
+                    
+                    this.drawLocalBeads();
+                }
+            
+                
+        },
+         
+            
+            drawLocalBeads: function(){
+                
+                var c = this.$refs.canvas;
+                var ctx = c.getContext("2d");
+                var rect = c.getBoundingClientRect();
+                var imgArray = this.imgArray;
+                var canvasWidth = 800;
+                var canvasHeight = 600;
+                
+                var localBeads = this.localBeads;
+                
+                
+                if(localBeads.length){
+                
+                    ctx.clearRect(0,0, canvasWidth, canvasHeight);
+                        if(this.necklace === true){
+                            this.drawNecklaceTemplate();
+                        }
+                    
+                    if(imgArray.length !== localBeads.length){
+                        
+                        imgArray.forEach((el, i) => {
+                            
+                        var savedX = localBeads[i].imgX;
+                        var savedY = localBeads[i].imgY;
+                        var beadId = localBeads[i].id;
+                            
+                         if(el.id === beadId){
+                             
+                             el.imgX = savedX;
+                             el.imgY = savedY;
+                             
+                         }
+                        
+                        ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height); 
+                            
+                        })
+                        
+                         this.$store.commit('setLocalBeads', {localBeads: imgArray});
+                        
+                    }
                
                 
-                
-            },
-                
+               if(imgArray.length === localBeads.length){
+                    
+                    imgArray.forEach((el, i) => {
+                        
+                        var savedX = localBeads[i].imgX;
+                        var savedY = localBeads[i].imgY;
 
-            
+                        
+                        el.imgX = savedX;
+                        el.imgY = savedY;
+                        
+                        ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height); 
+                    
+                    })
+                    
+                     
+                }
+                    
+                }
+            },
+         
+                
             drawNecklaceTemplate: function(){
                 var c = this.$refs.canvas;
                 var ctx = c.getContext("2d");
@@ -174,7 +321,7 @@ mounted: function(){
             
                     ctx.save();
                     ctx.translate(canvasWidth / 2, canvasHeight / 2);
-                    ctx.scale(1.6, 2.6);
+                    ctx.scale(1.6, 2);
              
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -339,49 +486,15 @@ mounted: function(){
             },
         
             
-            setCanvasBeads: function(){
-                
-                var c = this.$refs.canvas;
-                var ctx = c.getContext("2d");
-                var imgArray = this.imgArray;
-                
-    
-                this.selectedBeads.forEach((bead, i) =>{
-                var img = new Image();
-                bead = this.selectedBeads[i];
-              
-            
-                img.src = bead.image;
-                img.width = 110;
-                img.height = 110;
-                img.isDragging = false;
-                img.isSelected = false;
-                img.imgX = 0;
-                img.imgY = i * 80;
-                img.id = bead._id;
-                imgArray.push(img);
-         
-            
-                });
-        
-                if (imgArray.length === this.selectedBeads.length){
-                imgArray.forEach((el) =>{
-             
-                el.onload = function(){
-                ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
-                }
-                })
-  
-            }
-        },
+
          
             resetBeads: function(){
              
                 var c = this.$refs.canvas;
+                var ctx = c.getContext('2d');
               var rect = c.getBoundingClientRect();
                 var offsetX = rect.left;
                 var offsetY = rect.top;
-                var imgArray = this.imgArray;
                  var canvasWidth = 800;
                 var canvasHeight = 600;
                 
@@ -391,6 +504,7 @@ mounted: function(){
                 }
                 
                  ctx.clearRect(0,0, canvasWidth, canvasHeight);
+                this.imgArray
             
                     
                 },
@@ -625,13 +739,13 @@ mounted: function(){
 </script>
 <style>
 
-    .konva-component {
+    .canvas-component {
     display: grid;
     justify-content: center;
 
     }
     
-    .konva-component-container{
+    .canvas-component-container{
 
     
 

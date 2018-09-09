@@ -96,10 +96,10 @@ export default {
         searchProps: ['stone', 'size', 'cut', 'color', 'shape', 'price'], 
         beadsEdit: [],
         selectedBeads: [],
-                selectedStone: undefined,
-             selectedSize: undefined,
-            selectedColor: undefined,
-            selectedShape: undefined,
+        selectedStone: undefined,
+        selectedSize: undefined,
+        selectedColor: undefined,
+        selectedShape: undefined,
         selectedProps: [],
         displayMessage: false,
         message: ''
@@ -202,7 +202,7 @@ export default {
             
             confirmBraceletSelection: function(){
             
-            this.$emit('edited', this.beadsEdit );
+            this.$emit('edited', this.beadsEdit);
         },
             
         formatPrice: function(value){

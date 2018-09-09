@@ -12,6 +12,7 @@ state: {
     beads: [],
     selectedBeads: [],
     beadsEdit: [],
+    localBeads: localStorage.getItem('beads-key') || []
 
 },
     
@@ -45,46 +46,29 @@ state: {
             state.beads.splice(index, 1);
         },
         
-        changeLeft: (state, payload) => {
-            state.beads[payload.id].left = payload.left;
+        setLocalBeads: (state, {localBeads}) => {
+            localStorage.setItem('beads-key', localBeads);
+            
+            state.localBeads = localBeads;
         },
         
-        changeTop: (state, payload) => {
-            state.beads[payload.id].top = payload.top;
+        deleteLocalBeads: (state) => {
+            
+            localStorage.removeItem('beads-key');
+            state.localBeads = [];
+            
         },
         
+        updateLocalBeads: (state, {beadsEdit}) => {
+            localStorage.setItem('beads-key', beadsEdit);
+            state.localBeads = beadsEdit;
+            
+        }
         
-        addDragProp: state => {
-            state.beads = { ...state.beads, isDragging: false}
-        },
         
-         START_MOVE: (state, { beadId })=> {
-    state.beads.forEach(bead => {
-      if (bead._id === beadId) {
-        bead.isDragging = true;
-      }
-    });
-  },
-      
-  STOP_MOVE: (state, { beadId }) =>{
-    state.beads.forEach(bead => {
-      if (bead._id === beadId) {
-        bead.isDragging = false;
-      }
-    })
-                          
-  },
-                          
-  MOVE: (state, { beadId, position }) => {
-    state.beads.forEach(bead => {
-      if (bead._id === beadId) {
-        bead.x = position.x;
-        bead.y = position.y;
-      }
-    })
-  }
-
-},
+    },
+        
+    
     
     getters: {
         
