@@ -30,7 +30,7 @@
               <div class="bead-container-selector">
                   <span class="remove" @click="remove(index)">x</span>
               <img class="bead-img-small-selector" :src="bead.image"/>
-                  <span>{{ bead.id }}</span>
+             
                   
           </div>
              
@@ -41,7 +41,7 @@
               <div class="bead-container-selector">
                   <span class="remove" @click="remove(index)">x</span>
               <img class="bead-img-small-selector" :src="bead.image"/>
-                  <span>{{ bead.id }}</span>
+               
           </div>
             
               
