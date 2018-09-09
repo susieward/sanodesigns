@@ -1,19 +1,30 @@
 <template>
 <div class="canvas-component">
     <div class="canvas-component-container">
-
+        
+       
         <div class="selected-info">
-             LOCALBEADS: {{ localBeads }}
-        <p>{{ clockwise }}</p>
-         Length: {{ necklaceLength }} Selected bead: {{ selectedBead.id }} selected bead imgX: {{ selectedBead.imgX }} selected bead imgY: {{ selectedBead.imgY }}
-        <p>{{ selectedBead }}</p>
-                         <div v-for="img in imgArray">
+            
+             <p>{{ localIds }}</p>
+       
+        
+        x: <span v-for="bead in localBeads">{{ bead.imgX }}, </span><br>
+            y: <span v-for="bead in localBeads">{{ bead.imgY }}, </span>
+       
+     
+                            <div v-for="img in imgArray">
         <p>x pos: {{ img.imgX }} y pos: {{ img.imgY }}<br>
             id: {{ img.id }}
             </p>
         
         
         </div>
+        
+            
+        <p>{{ clockwise }}</p>
+         Length: {{ necklaceLength }} Selected bead: {{ selectedBead.id }} selected bead imgX: {{ selectedBead.imgX }} selected bead imgY: {{ selectedBead.imgY }}
+        <p>{{ selectedBead }}</p>
+     
         </div>
 
         
@@ -135,7 +146,14 @@ mounted: function(){
         
             selectedBeadsImgs(){
                 return this.selectedBeads.map(bead => bead.image);
-            }
+            },
+       
+       localIds(){
+           
+           if(this.localBeads.length){
+           return this.localBeads.map(bead => bead.id);
+           }
+       }
        
        
         
@@ -145,6 +163,17 @@ mounted: function(){
     
      methods: {
          
+         
+         generateId: function(){
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < 5; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                return text;
+
+         },
             
         saveBeadPositions: function(){
                 var c = this.$refs.canvas;
@@ -161,10 +190,7 @@ mounted: function(){
             var c = this.$refs.canvas;
             var ctx = c.getContext("2d");
              
-             
-            
-             
-             
+              
          },
          
          
@@ -199,7 +225,7 @@ mounted: function(){
                 img.isSelected = false;
                 img.imgX = 0;
                 img.imgY = i * 80;
-                img.id = i;
+                img.id = bead.id;
                 imgArray.push(img);
          
             
@@ -240,55 +266,35 @@ mounted: function(){
                 
                 
                 if(localBeads.length){
-                
+                 
                     ctx.clearRect(0,0, canvasWidth, canvasHeight);
                         if(this.necklace === true){
                             this.drawNecklaceTemplate();
                         }
-                    
-                    if(imgArray.length !== localBeads.length){
-                        
-                        imgArray.forEach((el, i) => {
+                 
+                    imgArray.forEach((el) => {
                             
-                        var savedX = localBeads[i].imgX;
-                        var savedY = localBeads[i].imgY;
-                        var beadId = localBeads[i].id;
-                            
-                         if(el.id === beadId){
+                      if(this.localIds.includes(el.id)){
                              
+                        var localBead = localBeads.find(bead => bead.id === el.id)
+                             
+                        var savedX = localBead.imgX;
+                        var savedY = localBead.imgY;
+                           
                              el.imgX = savedX;
                              el.imgY = savedY;
                              
-                         }
-                        
+                         } 
+                           
                         ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height); 
                             
                         })
                         
-                         this.$store.commit('setLocalBeads', {localBeads: imgArray});
-                        
-                    }
-               
-                
-               if(imgArray.length === localBeads.length){
-                    
-                    imgArray.forEach((el, i) => {
-                        
-                        var savedX = localBeads[i].imgX;
-                        var savedY = localBeads[i].imgY;
 
                         
-                        el.imgX = savedX;
-                        el.imgY = savedY;
-                        
-                        ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height); 
+                    }
                     
-                    })
-                    
-                     
-                }
-                    
-                }
+                
             },
          
                 

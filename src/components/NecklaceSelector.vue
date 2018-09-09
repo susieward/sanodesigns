@@ -19,8 +19,7 @@
     
  
       <div class="buttons-container-title-necklace"> 
-  
-          
+
           <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Necklace</h2>
            
            <h2 v-if="!selectedBeads.length || editingBeads === true">Select Your Beads</h2>
@@ -158,6 +157,9 @@ export default {
     
     methods: {
         
+      
+        
+        
         deleteLocalStorage: function(){
             this.$store.commit('deleteLocalBeads');
             this.$router.push('/');
@@ -181,19 +183,14 @@ export default {
         
         setNecklaceBeads: function(selectedBeads){
             
-            
             this.selectedBeads = selectedBeads;
-           
-    
+        
         },
         
          
         setEditedBeads: function(beadsEdit){
            
-       
-          
             this.selectedBeads = beadsEdit;
-            
             this.editingBeads = false;
        
         },

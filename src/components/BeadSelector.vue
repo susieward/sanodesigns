@@ -30,6 +30,7 @@
               <div class="bead-container-selector">
                   <span class="remove" @click="remove(index)">x</span>
               <img class="bead-img-small-selector" :src="bead.image"/>
+                  <span>{{ bead.id }}</span>
                   
           </div>
              
@@ -40,7 +41,7 @@
               <div class="bead-container-selector">
                   <span class="remove" @click="remove(index)">x</span>
               <img class="bead-img-small-selector" :src="bead.image"/>
-                  
+                  <span>{{ bead.id }}</span>
           </div>
             
               
@@ -56,7 +57,7 @@
 
       <div class="beads-container-selector">
                
-          <div v-for="bead in filteredList" class="bead" @click="select(bead)" v-bind:key="bead._id">
+          <div v-for="(bead, index) in filteredList" class="bead" @click="select(bead)" v-bind:key="bead._id">
               
           <div class="bead-container">
               <img class="bead-img-small" :src="bead.image"/>
@@ -156,9 +157,6 @@ export default {
     methods: {
         
         tooManyBeads: function(){
-            
-            
-            
             if(this.totalBeadsLength > this.maximumLength){
                 
              this.displayMessage = true;
@@ -169,10 +167,22 @@ export default {
         
         select: function(bead){
             if(this.beadsEdit.length){
-            this.beadsEdit.push(bead)
-            } else {
-                 this.selectedBeads.push(bead);
                 
+                var beadCopy = Object.assign({}, bead);
+                let number = Date.now() + Math.random().toString().slice(18);
+                
+                beadCopy.id = number;
+     
+            this.beadsEdit.push(beadCopy)
+            } else {
+                
+                
+                var beadCopy = Object.assign({}, bead);
+                let number = Date.now() + Math.random().toString().slice(18);
+                
+                beadCopy.id = number;
+         
+                 this.selectedBeads.push(beadCopy);
             }
         },
         
@@ -186,7 +196,6 @@ export default {
          },
         
         finishedNecklaceSelection: function(){
-            
             this.$emit('selected', this.selectedBeads );
            
         },
