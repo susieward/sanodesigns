@@ -86,7 +86,6 @@
               <div class="checkout-button-container">
                   
                   <div style="display: grid; justify-content: flex-end; align-self: flex-end;">
-                  <p v-if="clickSave === false" style="margin-bottom: 20px; text-align: right;">Please click "save design" before checking out.</p>
                    <button style="width: 270px; margin-left: auto" class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">continue to checkout</button>
                   </div>
            </div>
@@ -204,7 +203,12 @@ export default {
         },
         
         goToCheckout: function(necklaceLength, selectedBeads){
+            this.$refs.canvasRef.saveBeadPositions();
+            this.$refs.canvasRef.print();
+            if(this.clickSave === true){
+            
             this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
+            }
         },
             rotate: function(){
             

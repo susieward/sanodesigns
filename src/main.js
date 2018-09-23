@@ -28,6 +28,9 @@ import Cart from './components/Cart.vue'
 import Admin from './components/Admin.vue'
 import AdminBeads from './components/AdminBeads.vue'
 import AddBead from './components/AddBead.vue'
+import VueSession from 'vue-session'
+
+Vue.use(VueSession)
 
 Vue.use(VueRouter)
 

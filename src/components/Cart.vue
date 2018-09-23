@@ -16,11 +16,11 @@
     
     <div class="cart-container">
         <h2 style="text-align: center; margin-bottom: 15px;">Cart</h2>
-        
+        {{ localBeads }}
         <div class="design-and-beads">
         
        <div class="design-img-container">
-        <img :src="dataURL" class="design-img"/>
+        <img :src="dataURL" class="design-img" @click="backToCanvas"/>
         </div>
             
             
@@ -103,6 +103,10 @@ components: {
     
     computed: {
         
+          localBeads(){
+            return this.$store.state.localBeads;
+        },
+        
         totalBeadsPrice() {
         
         return Object.values(this.selectedBeads)
@@ -149,6 +153,11 @@ components: {
         
          formatMaterialPrice: function(value){
             return value.toFixed(2) + '' + ' per cm'
+        },
+        
+        backToCanvas: function(){
+            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet}});
+            
         }
     },
     
