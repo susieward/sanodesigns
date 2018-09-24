@@ -192,17 +192,11 @@ name: 'CanvasComponent',
                 img.src = bead.image;
                 img.width = 120;
                 img.height = 120;
-                img.id = bead.id;
+                img.id = bead._id;
                 img.imgX = 0;
                 img.imgY = i * 80;
                 
                 img.onload = function(){
-                    
-                    var ocanvas = document.createElement('canvas');
-                    var octx = ocanvas.getContext('2d');
-                    ocanvas.width = this.width;
-                    ocanvas.height = this.height;
-                    octx.drawImage(this, 0, 0);
                 selectedArray.push(img);
                 
             }

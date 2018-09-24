@@ -177,12 +177,13 @@ export default {
             } else {
                 
                 
-                var beadCopy = Object.assign({}, bead);
-                let number = Date.now() + Math.random().toString().slice(18);
+                var addedBead = this.selectedBeads.find(selectedBead => selectedBead._id === bead._id);
                 
-                beadCopy.id = number;
-         
-                 this.selectedBeads.push(beadCopy);
+                if(this.selectedBeads.includes(addedBead)){
+                    return
+                } else {
+                 this.selectedBeads.push(bead);
+                }
             }
         },
         
