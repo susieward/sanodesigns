@@ -230,11 +230,23 @@ name: 'CanvasComponent',
     /* if a bead has an id that doesn't appear in the selectedArray of beads, each occurrence of that bead is deleted from the image array */
                         
     /* beads whose ids appear in the selectedArray's ids are drawn */
+                 imgArray.forEach((el) => {
                         
-                        imgArray.forEach((el) => {
-                            
+                    if(el.isRotated){
+                        ctx.save();
+                        m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                        m.rotate(el.rotationAngle);
+                        m.translate(-el.width/2, -el.height/2);
+                        m.translate(-el.imgX, -el.imgY);
+                        m.applyToContext(ctx);
+                        ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                        m.reset();
+                        ctx.restore();
+                        return;
+                        
+                    }
                          
-                               ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                           ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
                           });
        
    
