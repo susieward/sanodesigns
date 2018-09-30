@@ -310,7 +310,7 @@ name: 'CanvasComponent',
              
              if(!this.selectedBead){
                  
-                 return
+                 return;
              } else {
                 
                  var beadId = this.selectedBead.canvasId;
@@ -333,6 +333,21 @@ name: 'CanvasComponent',
              
                 imgArray.forEach((el) => {
                      
+                    if(el.isRotated){
+                           ctx.save();
+                         
+                    m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                     m.rotate(el.rotationAngle);
+                     m.translate(-el.width/2, -el.height/2);
+                    m.translate(-el.imgX, -el.imgY);
+                     m.applyToContext(ctx);
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                     m.reset();
+                     ctx.restore();
+                     return;
+                        
+                    }
                      ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
                 })
              
