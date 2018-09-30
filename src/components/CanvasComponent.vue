@@ -2,7 +2,6 @@
 <div class="canvas-component">
     <div class="canvas-component-container">
 
-      
       <span v-for="img in selectedArray">
        
         <img :src="img.src" :height="img.height" :width="img.width" class="dragBead dragMe" :id="img.id" @click="copyImg(img)">
@@ -844,7 +843,7 @@ name: 'CanvasComponent',
           
                 var selectedId = this.selectedBead.canvasId;
                 
-                var dragBead = imgArray.find(bead => bead.canvasId === selectedId);
+                var selected = imgArray.find(bead => bead.canvasId === selectedId);
                     
                     
                 var centeredX = this.mouseX - 60;
@@ -860,7 +859,7 @@ name: 'CanvasComponent',
                 
                 
                 
-                if(el.canvasId === selectedId && el.isDragging && !el.isRotated){
+                if(el === selected && el.isDragging && !el.isRotated){
             
                     
                     el.imgX = roundedX;
@@ -869,7 +868,7 @@ name: 'CanvasComponent',
           
                 }
                 
-                 if(el.canvasId === selectedId && el.isDragging && el.isRotated){
+                 if(el === selected && el.isDragging && el.isRotated){
                      
                      el.imgX = roundedX;
                      el.imgY = roundedY;
@@ -890,7 +889,7 @@ name: 'CanvasComponent',
                         
                     }
                 
-                if(el.canvasId !== selectedId && !el.isDragging && el.isRotated){
+                if(el !== selected && !el.isDragging && el.isRotated){
                   ctx.save();
                          
                     m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
@@ -907,7 +906,7 @@ name: 'CanvasComponent',
                     
                 }
                 
-                if(el.canvasId !== selectedId && !el.isDragging && !el.isRotated){
+                if(el !== selected && !el.isDragging && !el.isRotated){
                 
               ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
                 }
@@ -936,8 +935,9 @@ name: 'CanvasComponent',
              var newRotation;
     
    
+             var selectedId = this.selectedBead.canvasId;
              
-             var selected = this.selectedBead;
+             var selected = imgArray.find(bead => bead.canvasId === selectedId);
             
            
                 var clockwise = selected.rotationAmount += 30;
@@ -1005,13 +1005,6 @@ name: 'CanvasComponent',
              
              m.reset();
             ctx.restore();
-           
-                  this.getRotatedCoordinates(selected);
-           
-          
-            
-                 
-
            
             },
          

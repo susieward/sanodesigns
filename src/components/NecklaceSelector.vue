@@ -30,6 +30,7 @@
 
           <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
      <div class="necklace-template">
+         
               
               <div class="necklace-template-content">
               
@@ -46,20 +47,20 @@
             
             </div>
               
-                 <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
+               <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
+                             <button class="btn-small-gray" style="width: 100px" @click="deleteBead">delete</button>
+         <button class="btn-small-gray" style="width: 100px" @click="rotateBead">rotate</button>
                         
  <div style="margin-top: 40px">
+      
+     
               <h3>Details:</h3>
                             <div class="necklace-dtails">
                    <span class="necklace-dtail-text">Length:</span> <span>{{ formatLength(necklaceLength) }}</span>
                    <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
                    <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
                  </div>
-            
-     <div class="bead-options" v-if="beadSelected === true">
-                <button class="btn-small-gray" style="width: 100px" @click="deleteBead">delete</button><br><br>
-         <button class="btn-small-gray" style="width: 100px" @click="rotateBead">rotate</button>
-     </div>
+   
           </div> 
         </div>
           
