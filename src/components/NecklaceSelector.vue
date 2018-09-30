@@ -34,19 +34,20 @@
               <div class="necklace-template-content">
               
            
-        <canvas-component ref="canvasRef" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas"></canvas-component>
+        <canvas-component ref="canvasRef" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions"></canvas-component>
                   
          </div>          
       </div>
                        <div class="necklace-beads">
         <div class="beads-title">
-            <p>Drag your beads to position them on your necklace.</p>
+            <p>Click a bead once to copy it, then click anywhere in the template box to paste. (You may do this multiple times to copy the same bead).</p>
+            <p>Once you've pasted your beads to the template, drag to position them on your necklace.</p>
             <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
             </div>
               
                  <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
-                           
+                        
  <div style="margin-top: 40px">
               <h3>Details:</h3>
                             <div class="necklace-dtails">
@@ -55,7 +56,10 @@
                    <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
                  </div>
             
-                
+     <div class="bead-options" v-if="beadSelected === true">
+                <button class="btn-small-gray" style="width: 100px" @click="deleteBead">delete</button><br><br>
+         <button class="btn-small-gray" style="width: 100px" @click="rotateBead">rotate</button>
+     </div>
           </div> 
         </div>
           
@@ -117,7 +121,9 @@ export default {
             top: 0,
             left: 0,
             dataURL: '',
-            clickSave: false
+            clickSave: false,
+            beadSelected: false,
+            selectedBead: ''
         }
     },
   name: 'necklace',
@@ -156,8 +162,15 @@ export default {
     
     methods: {
         
-      
-        
+                 
+        rotateBead: function(){
+            
+         
+                this.$refs.canvasRef.rotate();
+            
+          
+            
+        },
         
         deleteLocalStorage: function(){
             this.$store.commit('deleteLocalBeads');
@@ -210,23 +223,25 @@ export default {
             this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
             }
         },
-            rotate: function(){
+        
+        showOptions: function(selectedBead){
             
-         
-            var degrees = this.degrees += 36;
+            this.beadSelected = true;
+            this.selectedBead = selectedBead;
             
-            this.style = {
-                transform: 'rotate('+degrees+'deg)'
-            }
+            
+            
         },
         
-        revert: function(){
-            var degrees = this.degrees;
-            degrees = 0;
-             this.style = {
-                transform: 'rotate('+degrees+'deg)'
-            }
+        deleteBead: function(){
+            
+        this.$refs.canvasRef.deleteBead();
+        this.selectedBead = '';
+            this.beadSelected = false;
+            
         },
+        
+        
         
         onActivated: function(bead){
             this.selected = bead._id;

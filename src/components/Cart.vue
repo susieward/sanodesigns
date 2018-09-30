@@ -16,7 +16,7 @@
     
     <div class="cart-container">
         <h2 style="text-align: center; margin-bottom: 15px;">Cart</h2>
-        {{ localBeads }}
+    
         <div class="design-and-beads">
         
        <div class="design-img-container">

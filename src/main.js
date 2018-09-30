@@ -13,6 +13,8 @@ require('webpack-jquery-ui/draggable');
 require('webpack-jquery-ui/droppable');
 const interact = require('interactjs');
 
+
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'

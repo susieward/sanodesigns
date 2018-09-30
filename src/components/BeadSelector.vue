@@ -168,12 +168,14 @@ export default {
         select: function(bead){
             if(this.beadsEdit.length){
                 
-                var beadCopy = Object.assign({}, bead);
-                let number = Date.now() + Math.random().toString().slice(18);
+              var addedBead = this.beadsEdit.find(selectedBead => selectedBead._id === bead._id);
                 
-                beadCopy.id = number;
+                if(this.beadsEdit.includes(addedBead)){
+                    return
+                } else {
      
-            this.beadsEdit.push(beadCopy)
+                    this.beadsEdit.push(bead)
+                }
             } else {
                 
                 

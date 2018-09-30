@@ -7,15 +7,16 @@
        
         <img :src="img.src" :height="img.height" :width="img.width" class="dragBead dragMe" :id="img.id" @click="copyImg(img)">
         </span>
-   
+      
+        
         <div class="canvas-container" id="canvas-container">
     <canvas id="canvas" ref="canvas"  @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" style="border: 1px solid #ddd" width="800" height="600"></canvas>
             
             <canvas id="testCanvas" ref="testCanvas" width="800" height="600" style="display: none; border: 1px solid red"></canvas>
         </div>
     <br>
-   
-        <div class="canvas-buttons"><button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button>  <button class="btn-small-gray" style="width: 100px" @click="rotate">rotate</button></div>
+   <div class="canvas-buttons">
+       <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button></div>
 <p v-if="designSaved === true" style="color: #8a52a3">Saved!</p>
 <div class="canvas-info">
            <p>mouse.current: {{ mouse.current }}<br>
@@ -37,7 +38,9 @@
     </div>
 </template>
 <script>
-
+var Matrix = require("transformation-matrix-js").Matrix;
+var m = new Matrix();
+    
 export default {
 data(){
     return {
@@ -66,10 +69,8 @@ data(){
         beadImgArray: [],
         imgArrayNum: 0,
         selectedBead: '',
-        angleInDegrees: 0,
         originX: 0,
         originY: 0,
-        clockwise: '',
         designSaved: false,
         drawn: false,
         localBeads: [],
@@ -80,7 +81,8 @@ data(){
         dragBeadY: 0,
         isTransparent: false,
         pixelData: 0,
-        imgData: ''
+        imgData: '',
+        angleInDegrees: 0
         
     }
 },
@@ -109,39 +111,22 @@ name: 'CanvasComponent',
         
         selectedBeadsImgs(){
                 return this.selectedBeads.map(bead => bead.image);
-            },
-       
-        localIds(){
-           
-           if(this.localBeads.length){
-           return this.localBeads.map(bead => bead.id);
-           }
-        },
-       
-       beadCanvasWidth(){
-           
-           return 800;
-           
-       },
-       
-        beadCanvasHeight(){
-            
-            return 100;
-        }
+            }
+      
        
       },
     
     mounted: function(){
         
-        var self = this;
+      
  
         var c = this.$refs.canvas;
         var ctx = c.getContext("2d");
          var rect = c.getBoundingClientRect();
             var offsetX = rect.left;
             var offsetY = rect.top;
-        
-        
+    
+       
         this.localBeads = this.$store.state.localBeads;
         
 
@@ -209,6 +194,57 @@ name: 'CanvasComponent',
                 }
          },
          
+            
+            
+            drawLocalBeads: function(){
+                
+                var c = this.$refs.canvas;
+                var ctx = c.getContext("2d");
+                var rect = c.getBoundingClientRect();
+                var imgArray = this.imgArray;
+                var canvasWidth = 800;
+                var canvasHeight = 600;
+                
+                var localBeads = this.localBeads;
+                
+                
+                
+                if(localBeads.length){
+                 
+                    ctx.clearRect(0,0, canvasWidth, canvasHeight);
+                        if(this.necklace === true){
+                            this.drawNecklaceTemplate();
+                        }
+                    
+                    localBeads.forEach((bead) => {
+                    
+                      
+                        
+                         imgArray.push(bead);
+               
+                        });
+                      
+                    
+                    if(imgArray.length){
+                        
+    /* if a bead has an id that doesn't appear in the selectedArray of beads, each occurrence of that bead is deleted from the image array */
+                        
+    /* beads whose ids appear in the selectedArray's ids are drawn */
+                        
+                        imgArray.forEach((el) => {
+                            
+                         
+                               ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                          });
+       
+   
+                 
+                    }
+          
+                }
+                
+            },
+         
          copyImg: function(img){
             
              this.selectedBeadId = img.id;
@@ -247,19 +283,65 @@ name: 'CanvasComponent',
                     img.imgY = roundedY;
                     img.id = canvasBead.id;
                     img.canvasId = number;
+                    img.rotationAngle = null;
+                    img.rotationAmount = 0;
+                    img.imgRX = 0;
+                    img.imgRY = 0;
+                    img.isRotated = false;
              
               imgArray.push(img);
                  ctx.drawImage(img, img.imgX, img.imgY, img.width, img.height);
              
-            
-                  
-                  
-                     this.selectedBeadId = '';
+                this.selectedBeadId = '';
                     
            
          },
          
-              addBorder: function(obj){
+         deleteBead: function(){
+             
+               var c = this.$refs.canvas;
+            var ctx = c.getContext("2d");
+             var rect = c.getBoundingClientRect();
+            var offsetX = rect.left;
+            var offsetY = rect.top;
+            var imgArray = this.imgArray;
+             var canvasWidth = 800;
+                var canvasHeight = 600;
+             
+             if(!this.selectedBead){
+                 
+                 return
+             } else {
+                
+                 var beadId = this.selectedBead.canvasId;
+                 var index = imgArray.findIndex(bead => bead.canvasId === beadId);
+                
+                 imgArray.splice(index, 1);
+        
+                  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+                 
+                    if(this.necklace === true){
+                     
+                     this.drawNecklaceTemplate();
+                 }
+                 
+                 if(this.necklace === false){
+                     
+                     this.drawBraceletTemplate();
+                 }
+              
+             
+                imgArray.forEach((el) => {
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                })
+             
+                this.selectedBead = '' 
+             }
+             
+         },
+         
+              drawBorder: function(el){
              
              var c = this.$refs.canvas;
             var ctx = c.getContext("2d");
@@ -267,64 +349,16 @@ name: 'CanvasComponent',
             var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
+                  
+                  if(el === this.selectedBead){
              
-             ctx.clearRect
-               ctx.drawImage(img, img.imgX, img.imgY, img.width, img.height);
                 ctx.lineWidth = 1;
                 ctx.strokeStyle = '#ddd';
-             ctx.strokeRect(img.imgX + 0.5, img.imgY + 0.5, img.width, img.height);
-             
-             
-         },
-         
-         drawBead: function(obj){
-             
-             var c = this.$refs.canvas;
-            var ctx = c.getContext("2d");
-             var imgArray = this.imgArray;
-             var selectedArray = this.selectedArray;
-             
-                this.mouse.current = {
-                 x: event.clientX,
-                y: event.clientY
-                }
-             
-            this.mouseX = this.mouse.current.x - offsetX;
-            this.mouseY = this.mouse.current.y - offsetY;
-             
-             var canvasBead = selectedArray.find(bead => bead.id === obj);
-             
-                var img = new Image();
-             
-                img.src = canvasBead.image;
-                img.width = 110;
-                img.height = 110;
-                img.isDragging = false;
-                img.isSelected = false;
-                img.imgX = 0;
-                img.imgY = i * 80;
-                img.id = canvasBead.id;
-                imgArray.push(img);
-             
-                img.onload = function(){
-                    ctx.drawImage(img)
-                    
-                }
-   
+             ctx.strokeRect(el.imgX + 1, el.imgY + 1, el.width, el.height);
+                  }
              
          },
          
-         
-         generateId: function(){
-            var text = "";
-            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-                for (var i = 0; i < 5; i++)
-                text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-                return text;
-
-         },
             
         saveBeadPositions: function(){
                 var c = this.$refs.canvas;
@@ -397,49 +431,7 @@ name: 'CanvasComponent',
             
                 
         },
-         
-            
-            drawLocalBeads: function(){
-                
-                var c = this.$refs.canvas;
-                var ctx = c.getContext("2d");
-                var rect = c.getBoundingClientRect();
-                var imgArray = this.imgArray;
-                var canvasWidth = 800;
-                var canvasHeight = 600;
-                
-                var localBeads = this.localBeads;
-                var selectedArray = this.selectedArray;
-                
-                
-                if(localBeads.length){
-                 
-                    ctx.clearRect(0,0, canvasWidth, canvasHeight);
-                        if(this.necklace === true){
-                            this.drawNecklaceTemplate();
-                        }
-                    
-                    localBeads.forEach((bead) => {
-                        
-                        imgArray.push(bead);
-                    })
-                    
-                    if(imgArray.length){
-                        
-                        imgArray.forEach((el) => {
-                            
-                            ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height); 
-                            
-                            
-                        })
-                    }
-                        
-
-                        
-                    }
-                    
-                
-            },
+      
          
                 
             drawNecklaceTemplate: function(){
@@ -707,7 +699,8 @@ name: 'CanvasComponent',
                 
                   el.isDragging = true;
                this.selectedBead = el;
-               this.getImageData(el);
+                this.$emit('options', this.selectedBead);
+         
     
                   }
                  
@@ -729,61 +722,9 @@ name: 'CanvasComponent',
              ctx.clearRect(0, 0, el.width, el.height);
              this.imgData = imageData;
              
-         },
-         
-         isTransparent: function(event){
-             
-             
-           
-         
-             
-              var c = this.$refs.canvas;
-            var ctx = c.getContext("2d");
-             var rect = c.getBoundingClientRect();
-            var offsetX = rect.left;
-            var offsetY = rect.top;
-            var imgArray = this.imgArray;
-             
-             var canvasWidth = 800;
-                    var canvasHeight = 600;
-             
-             
-              
-                 this.mouse.current = {
-                 x: event.clientX,
-                y: event.clientY
-                }
-              
-             this.mouseX = this.mouse.current.x - offsetX;
-            this.mouseY = this.mouse.current.y - offsetY;
-             
-             
-              var hitted = imgArray.forEach((el) => {
-             
-                  this.startX >= el.imgX && this.startX <= el.imgX + el.width && this.startY >= el.imgY && this.startY <= el.imgY + el.height
-                  
-                  
-                  
-                
-            });
-             
-             if(hitted === true){
-                 
-                 imgArray.forEach((el) => {
-                     
-                      var pixel = octx.getImageData(x - position.x, y - position.y, 1, 1).data;
 
-                /// set hitted again based on alpha value is 0 or not
-                    hitted = pixel[3] > 0;
-                     
-                 })
-                 /// extract a single pixel at the adjusted position
-           
-             }
-             
-
-             
-             
+         
+        
          },
               
          handleMouseUp: function (event) {
@@ -813,7 +754,7 @@ name: 'CanvasComponent',
                  
                 })
              
-              this.selectedBead = '';
+       
          },
          
          
@@ -866,6 +807,9 @@ name: 'CanvasComponent',
              
                this.dragX = this.mouseX - this.startX;
                 this.dragY = this.mouseY - this.startY;
+             
+             var abx = canvasWidth - this.mouseX; // + rect.left
+                var aby = canvasHeight - this.mouseY; 
 
              
             if(this.mouse.down && this.selectedBead){
@@ -887,24 +831,69 @@ name: 'CanvasComponent',
                
             imgArray.forEach((el) => {
                 
-                if(el.canvasId === selectedId && el.isDragging){
-                    
+                
+                
+                if(el.canvasId === selectedId && el.isDragging && !el.isRotated){
+            
                     
                     el.imgX = roundedX;
                     el.imgY = roundedY;
+         
+          
                 }
                 
-                 ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height)
+                 if(el.canvasId === selectedId && el.isDragging && el.isRotated){
+                     
+                     el.imgX = roundedX;
+                     el.imgY = roundedY;
+                     
+                     ctx.save();
+                         
+                    m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                     m.rotate(el.rotationAngle);
+                     m.translate(-el.width/2, -el.height/2);
+                    m.translate(-el.imgX, -el.imgY);
+                     m.applyToContext(ctx);
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                     m.reset();
+                     ctx.restore();
+                     return;
+                     
+                        
+                    }
+                
+                if(el.canvasId !== selectedId && !el.isDragging && el.isRotated){
+                  ctx.save();
+                         
+                    m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                     m.rotate(el.rotationAngle);
+                     m.translate(-el.width/2, -el.height/2);
+                    m.translate(-el.imgX, -el.imgY);
+                     m.applyToContext(ctx);
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                     m.reset();
+                     ctx.restore();
+                     return;
+                       
+                    
+                }
+                
+                if(el.canvasId !== selectedId && !el.isDragging && !el.isRotated){
+                
+              ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                }
+                
+                ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
 
-            
             });
              
             }
+    
         },
-
          
-                
-                   
+
          rotate: function(){
              
             var to_radians = Math.PI/180;
@@ -917,22 +906,19 @@ name: 'CanvasComponent',
             var imgArray = this.imgArray;
             var canvasWidth = 800;
             var canvasHeight = 600;
-             var cx = canvasWidth / 2;
-             var cy = canvasHeight / 2;
-             var clockwise = this.clockwise;
-             
+   
              
              var selected = this.selectedBead;
             
-             clockwise = this.angleInDegrees += 30;
-             
-             imgArray.forEach((el) => {
-                 if(el === selected){
-                     this.originX = el.imgX;
-                     this.originY = el.imgY;
-                     
+           
+            var clockwise = this.angleInDegrees += 30;
+                 if(this.angleInDegrees >= 360){
+                     this.angleInDegrees = 0;
                  }
-             })
+                 
+             
+             var angle = clockwise * to_radians;
+             
             
             ctx.clearRect(0,0, canvasWidth, canvasHeight);
             this.drawNecklaceTemplate();
@@ -942,31 +928,64 @@ name: 'CanvasComponent',
                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
                 }
             })
-             
+   
             ctx.save();
              
-            ctx.translate(this.originX, this.originY);
-             ctx.translate(60, 60)
+            m.translate(selected.imgX + selected.width/2, selected.imgY + selected.height/2);
              
-              ctx.rotate(clockwise * to_radians);
+            m.rotate(angle);
+            m.translate(-selected.width/2, -selected.height/2);
+             m.translate(-selected.imgX, -selected.imgY);
+         
+            m.applyToContext(ctx);
              
-             ctx.translate(-60, -60);
-             ctx.translate(-this.originX, -this.originY);
-    
+
              imgArray.forEach((el) => {
                 
                  if(el === selected){
+                     el.rotationAngle = angle;
+                     el.rotationAmount = this.angleInDegrees;
+                     el.isRotated = true;
                      
-                    ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height); 
-                 }
+                    ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                    }
                  
              })
+       
+ 
              
-              
-                 
+             m.reset();
             ctx.restore();
-              
-            }
+                  this.getRotatedCoordinates(selected);
+           
+          
+            
+                 
+
+           
+            },
+         
+         getRotatedCoordinates: function(el){
+             
+         
+             
+             var xr = el.imgX * Math.cos(el.rotationAngle);
+             
+             var xy = el.imgY * Math.sin(el.rotationAngle);
+            
+             
+            el.imgRX = xr;
+             el.imgRY = xy;
+             
+             
+             
+        
+         }
+        
+
+         
+                
+        
        } 
              
                 
