@@ -906,17 +906,18 @@ name: 'CanvasComponent',
             var imgArray = this.imgArray;
             var canvasWidth = 800;
             var canvasHeight = 600;
+             var newRotation;
+    
    
              
              var selected = this.selectedBead;
             
            
-            var clockwise = this.angleInDegrees += 30;
-                 if(this.angleInDegrees >= 360){
-                     this.angleInDegrees = 0;
+                var clockwise = selected.rotationAmount += 30;
+                 if(selected.rotationAmount >= 360){
+                     selected.rotationAmount = 0;
                  }
-                 
-             
+           
              var angle = clockwise * to_radians;
              
             
@@ -925,7 +926,26 @@ name: 'CanvasComponent',
              
               imgArray.forEach((el) => {
                 if(el !== selected){
+                    
+                    if(!el.isRotated){
                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                    } else {
+                        
+                        
+                           ctx.save();
+                         
+                    m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                     m.rotate(el.rotationAngle);
+                     m.translate(-el.width/2, -el.height/2);
+                    m.translate(-el.imgX, -el.imgY);
+                     m.applyToContext(ctx);
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                     m.reset();
+                     ctx.restore();
+                  
+    
+                    }
                 }
             })
    
@@ -943,19 +963,22 @@ name: 'CanvasComponent',
              imgArray.forEach((el) => {
                 
                  if(el === selected){
+                     
                      el.rotationAngle = angle;
-                     el.rotationAmount = this.angleInDegrees;
+                     el.rotationAmount = selected.rotationAmount;
                      el.isRotated = true;
                      
                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
-                    }
+                
+                 }
                  
-             })
+             });
        
  
              
              m.reset();
             ctx.restore();
+           
                   this.getRotatedCoordinates(selected);
            
           
