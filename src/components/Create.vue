@@ -9,7 +9,7 @@
               
                <div class="buttons-buttons">
           <span>
-      <router-link to="/" tag="button" class="create-btn">start over</router-link>
+      <button class="create-btn" @click="deleteLocalStorage">start over</button>
           <button class="create-btn">save for later</button>
           </span>
           </div>
@@ -247,7 +247,14 @@ export default {
         
         formatMaterialPrice: function(value){
             return value.toFixed(2) + '' + ' per cm'
+        },
+        
+           
+        deleteLocalStorage: function(){
+            this.$store.commit('deleteLocalBeads');
+            this.$router.push('/');
         }
+        
     },
     
     filters: {

@@ -35,14 +35,15 @@
               <div class="necklace-template-content">
               
            
-        <canvas-component ref="canvasRef" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions"></canvas-component>
+        <canvas-component ref="canvasRef" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions" @added="addTemplateBead"></canvas-component>
                   
          </div>          
       </div>
                        <div class="necklace-beads">
         <div class="beads-title">
             <p>Click a bead once to copy it, then click anywhere in the template box to paste. (You may do this multiple times to copy the same bead).</p>
-            <p>Once you've pasted your beads to the template, drag to position them on your necklace.</p>
+            <p>Drag template beads to position them your necklace.</p>
+            <p>To rotate or delete a template bead, click on it and then click the rotate or delete buttons.</p>
             <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
             </div>
@@ -124,7 +125,8 @@ export default {
             dataURL: '',
             clickSave: false,
             beadSelected: false,
-            selectedBead: ''
+            selectedBead: '',
+            templateBeads: []
         }
     },
   name: 'necklace',
@@ -163,6 +165,18 @@ export default {
     
     methods: {
         
+        addTemplateBead: function(selectedBeadId){
+            
+            var id = Number(selectedBeadId);
+            
+            var templateBead = this.selectedBeads.find(bead => bead._id === id);
+            
+            var copy = Object.assign({}, templateBead);
+            
+            this.templateBeads.push(copy);
+          
+            
+        },
                  
         rotateBead: function(){
             
