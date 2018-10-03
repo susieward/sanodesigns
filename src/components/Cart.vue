@@ -26,7 +26,7 @@
             
               <div class="cart-beads">
           <h3>Beads:</h3> 
-            <div v-for="bead in selectedBeads">
+            <div v-for="bead in templateBeads">
             
                 <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }})</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
             
@@ -95,7 +95,7 @@ data(){
 },
 name: 'Cart',
 
-props: ['necklaceLength', 'braceletLength', 'selectedBeads', 'selectedMaterial', 'necklace', 'bracelet', 'dataURL'],
+props: ['necklaceLength', 'braceletLength', 'templateBeads', 'selectedMaterial', 'necklace', 'bracelet', 'dataURL'],
     
 components: {
     Checkout
@@ -109,7 +109,7 @@ components: {
         
         totalBeadsPrice() {
         
-        return Object.values(this.selectedBeads)
+        return Object.values(this.templateBeads)
         .reduce((acc, el) => acc + el.price, 0);
     
         },
@@ -156,7 +156,7 @@ components: {
         },
         
         backToCanvas: function(){
-            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet}});
+            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, necklace: this.necklace, bracelet: this.bracelet}});
             
         }
     },

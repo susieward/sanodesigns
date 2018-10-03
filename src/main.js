@@ -30,9 +30,20 @@ import Cart from './components/Cart.vue'
 import Admin from './components/Admin.vue'
 import AdminBeads from './components/AdminBeads.vue'
 import AddBead from './components/AddBead.vue'
+import Type from './components/Type.vue'
+import Length from './components/Length.vue'
+import Materials from './components/Materials.vue'
+import Confirm from './components/Confirm.vue'
 import VueSession from 'vue-session'
+import Toasted from 'vue-toasted';
 
-Vue.use(VueSession)
+Vue.use(Toasted)
+
+var options = {
+    persist: true
+}
+
+Vue.use(VueSession, options)
 
 Vue.use(VueRouter)
 
@@ -44,17 +55,45 @@ const routes = [
     },
     
     {
-      path: '/create',
+      path: '/create/session/type',
       name: 'Create',
-      component: Create
+      component: Create,
+        children: [
+        {
+            path: '',
+            name: 'Type',
+            component: Type,
+            props: true
+        },
+            
+        {
+            path: '/session/type/length',
+            name: 'Length',
+            component: Length,
+            props: true
+        },
+        {
+            path: '/session/type/length/material',
+            name: 'Materials',
+            component: Materials,
+            props: true
+            },
+        {
+            path: '/session/type/length/material/confirm',
+            name: 'Confirm',
+            component: Confirm,
+            props: true
+            },
+        ]
     },
+    
 
     { path: '/bracelet',
              name: 'bracelet',
              component: Bracelet,
              props: true
             },
-    { path: '/necklace',
+    { path: '/session/necklace',
              name: 'necklace',
              component: NecklaceSelector,
              props: true

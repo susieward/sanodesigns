@@ -31,19 +31,20 @@
           <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
      <div class="necklace-template">
          
-              
               <div class="necklace-template-content">
               
            
-        <canvas-component ref="canvasRef" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions" @added="addTemplateBead"></canvas-component>
+        <canvas-component ref="canvasRef" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions" @added="addTemplateBead" @deletebead="deleteTemplateBead" @copied="showCopied"></canvas-component>
                   
          </div>          
       </div>
                        <div class="necklace-beads">
         <div class="beads-title">
-            <p>Click a bead once to copy it, then click anywhere in the template box to paste. (You may do this multiple times to copy the same bead).</p>
-            <p>Drag template beads to position them your necklace.</p>
-            <p>To rotate or delete a template bead, click on it and then click the rotate or delete buttons.</p>
+            <p><span class="instruction-number">1.</span> Click a bead once to copy it.<br>(You can do this multiple times to copy the same bead.)</p>
+                
+            <p><span class="instruction-number">2.</span> Click anywhere in the template box to paste. </p>
+            <p><span class="instruction-number">3.</span> Drag template beads to position them your necklace.</p>
+            <p>To rotate or delete a template bead, click on it to select and then click the rotate or delete buttons.</p>
             <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
             </div>
@@ -76,9 +77,9 @@
               
             <div class="your-beads-list">
                 <h3>Beads:</h3> 
-            <div v-for="bead in selectedBeads">
+            <div v-for="bead in templateBeads">
             
-                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }})</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
+                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }}) x {{ bead.quantity }}</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
             
             </div>
               <p>Total: {{ total | usdollar }}</p>
@@ -148,12 +149,13 @@ export default {
         
 
         totalBeads(){
-            return this.selectedBeads;
+            return this.templateBeads;
         },
+   
         
         total() {
-            return Object.values(this.totalBeads)
-            .reduce((acc, el) => acc + el.price, 0)
+            return Object.values(this.templateBeads)
+            .reduce((acc, el) => acc + (el.quantity * el.price), 0)
             .toFixed(2);
         },
         
@@ -165,17 +167,62 @@ export default {
     
     methods: {
         
+        showCopied: function(){
+            
+            this.$toasted.show("Copied!", { 
+	           theme: "primary", 
+	           position: "bottom-left", 
+	           duration : 2000,
+                singleton: true
+            });
+            
+        },
+        
         addTemplateBead: function(selectedBeadId){
             
             var id = Number(selectedBeadId);
             
-            var templateBead = this.selectedBeads.find(bead => bead._id === id);
+            let templateBead = this.selectedBeads.find(bead => bead._id === id);
             
-            var copy = Object.assign({}, templateBead);
-            
-            this.templateBeads.push(copy);
+               var addedBead = this.templateBeads.find(bead => bead._id === id);
+                
+                if(this.templateBeads.includes(addedBead)){
+                    addedBead.quantity++
+                } else {
+                    
+                let copy = Object.assign({}, templateBead, {
+                quantity: 1
+            });
+                 this.templateBeads.push(copy);
+                }
+       
           
             
+        },
+        
+           deleteBead: function(){
+            
+        this.$refs.canvasRef.deleteBead();
+        this.selectedBead = '';
+            this.beadSelected = false;
+            
+        },
+        
+        deleteTemplateBead: function(selectedId){
+            
+           var id = Number(selectedId);
+            
+            var templateBead = this.templateBeads.find(bead => bead._id === id);
+            
+            if(templateBead.quantity > 1){
+                
+                templateBead.quantity--;
+            } else {
+                 var index = this.templateBeads.findIndex(bead => bead._id === id);
+                
+                 this.templateBeads.splice(index, 1);
+            }
+                
         },
                  
         rotateBead: function(){
@@ -230,12 +277,12 @@ export default {
             
         },
         
-        goToCheckout: function(necklaceLength, selectedBeads){
+        goToCheckout: function(necklaceLength, templateBeads){
             this.$refs.canvasRef.saveBeadPositions();
             this.$refs.canvasRef.print();
             if(this.clickSave === true){
             
-            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
+            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
             }
         },
         
@@ -248,13 +295,7 @@ export default {
             
         },
         
-        deleteBead: function(){
-            
-        this.$refs.canvasRef.deleteBead();
-        this.selectedBead = '';
-            this.beadSelected = false;
-            
-        },
+     
         
         
         
@@ -629,6 +670,14 @@ justify-content: center;
     font-size: 16px;
         margin-bottom: 5px;
         line-height: 24px;
+    }
+    
+    
+    .instruction-number {
+    font-family: 'Playfair Display';
+font-weight: 400;
+font-size: 30px;
+line-height: 30px;
     }
   
 </style>

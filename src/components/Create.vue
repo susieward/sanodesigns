@@ -18,102 +18,25 @@
      
       <div class="create-container">
        
-          <div class="breadcrumbs" v-if="typeChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span>jewelry type</span>
-          
-          </div>
-          
-          <div class="breadcrumbs" v-if="typeChosen === true && lengthChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span>sizing</span>
-          
-          </div>
-          
-          <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === false">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span>material</span>
-          
-          </div>
-          
-          <div class="breadcrumbs" v-if="lengthChosen === true && materialChosen === true">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
-          
-          </div>
-      
-        <div class="select-type-container" v-if="typeChosen === false">
-            
-            <h2 style="text-align: center">Select Jewelry Type</h2>
-            
-            <div class="select-type">
-          <div class="column" id="necklace" @click="selectNecklace">
-              <p class="select-text">necklace</p>
-            </div>
-          
-            <div class="column" id="bracelet" @click="selectBracelet">
-                <p class="select-text">bracelet</p>
-            </div>
-            </div>
-          
-          </div>
-          
-          <div class="select-details" v-if="typeChosen === true">
-              
-              <div class="headers">
-             <h2 style="text-align: center" v-if="lengthChosen === false">Select {{ selectedType }} <span v-if="necklace === true">Length</span><span v-if="bracelet === true">Size</span></h2>
-              
-              <h2 style="text-align: center" v-if="lengthChosen === true && materialChosen === false">Select {{ selectedType }} Material</h2>
-                  
-                  <h2 style="text-align: center" v-if="lengthChosen === true && materialChosen === true">Your {{ selectedType }} Details</h2>
-              </div>
+         
              
           
               
+            <router-view></router-view>
               
-            <length v-if="typeChosen === true && lengthChosen === false" :necklace="necklace" :bracelet="bracelet" @nlength="getNecklaceLength" @blength="getBraceletLength"></length>
-                  
-              
-            <materials v-if="lengthChosen === true && materialChosen === false " :necklace="necklace" :bracelet="bracelet" @material="getMaterial"></materials>
             
               
-              
-             <div v-if="lengthChosen === true && materialChosen === true && necklace === true">
-                 
-               <div class="confirm-dtails">
-                   <span class="dtail-text"><strong>Length:</strong></span> <span>{{ formatLength(necklaceLength) }}</span>
-                   <span class="dtail-text"><strong>Material:</strong></span> <span>{{ selectedMaterial.type }}</span>
-                   <span class="dtail-text"><strong>Color:</strong></span> <span>{{ selectedMaterial.color }}</span>
-                 </div>
-         
-                <div style="display: grid; justify-content: center; margin-top: 10px">
-               <button class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
-                 </div>
-              </div>
-          
-          
-          
-                  
-            <div v-if="lengthChosen === true && materialChosen === true && bracelet === true">
-                
-
-                 <div class="confirm-dtails">
-                   <span class="dtail-text"><strong>Size:</strong></span> <span>{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
-                   <span class="dtail-text"><strong>Material:</strong></span> <span>{{ selectedMaterial.type }}</span>
-                   <span class="dtail-text"><strong>Color:</strong></span> <span>{{ selectedMaterial.color }}</span>
-                 </div>
-              
-                <div style="display: grid; justify-content: center; margin-top: 10px">
-           <button class="btn" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">select your beads</button>
-                </div>
-              </div>
+            
               
               
               </div>
           </div>
               
-</div>
+
 </template>
 
 <script>
-import Length from './Length.vue'
-import Materials from './Materials.vue'
+
 export default {
   name: 'Create',
   data () {
@@ -143,10 +66,7 @@ export default {
 
   },
     
-    components: {
-        Length,
-        Materials
-    },
+  
     
     methods: {
         
@@ -179,7 +99,6 @@ export default {
         },
         
         // so weird I never use comments in vue files
-        
        
         selectNecklace: function(){
             this.necklace = true;
@@ -197,6 +116,20 @@ export default {
         },
         
       
+        getNecklace: function(selectedType){
+            this.typeChosen = true;
+            this.neckace = true;
+            this.bracelet = false;
+            this.selectedType = selectedType;
+            
+        },
+        
+        getBracelet: function(selectedType){
+             this.typeChosen = true;
+            this.neckace = false;
+            this.bracelet = true;
+            this.selectedType = selectedType;
+        },
         
         getNecklaceLength: function(necklaceLength){
             this.necklaceLength = necklaceLength;

@@ -4,10 +4,8 @@
 
       <span v-for="img in selectedArray">
        
-        <img :src="img.src" :height="img.height" :width="img.width" class="dragBead dragMe" :id="img.id" @click="copyImg(img)">
+        <img :src="img.src" :height="img.height" :width="img.width" class="selectedArrayBead" :id="img.id" @click="copyImg(img)">
         </span>
-        
-  
 
         <div class="canvas-container" id="canvas-container">
     <canvas id="canvas" ref="canvas"  @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" style="border: 1px solid #ddd" width="800" height="600"></canvas>
@@ -262,6 +260,7 @@ name: 'CanvasComponent',
             
              this.selectedBeadId = img.id;
              this.beadSelected = true;
+             this.$emit('copied');
              
              
          },
@@ -365,8 +364,10 @@ name: 'CanvasComponent',
                     }
                      ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
                 })
-             
+                var selectedId = this.selectedBead.id;
+                  this.$emit('deletebead', selectedId);
                 this.selectedBead = '' 
+                
              }
              
          },
@@ -1148,6 +1149,17 @@ name: 'CanvasComponent',
     .canvas-buttons {
 
     margin-top: 5px;
+    }
+    
+    .selectedArrayBead {
+        cursor: default;
+  
+
+    }
+    
+    .selectedArrayBead:hover {
+        cursor: pointer;
+  
     }
 
 </style>

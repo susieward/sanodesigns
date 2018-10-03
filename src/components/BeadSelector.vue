@@ -24,7 +24,10 @@
               
               <div class="selected-container-content">
               
-              
+              <div v-if="!selectedBeads.length">
+                  <p>To begin, click to select beads from the directory.</p>
+                  <p>You will be able to add more than one of your chosen beads when working on your design.</p>
+                  </div>
           <div v-for="(bead, index) in selectedBeads" class="selected-bead" :key="bead._id">
               
               <div class="bead-container-selector">
