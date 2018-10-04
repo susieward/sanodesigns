@@ -1,7 +1,10 @@
 <template>
 <div class="confirm">
     <div class="create-container">
-  
+         <div class="breadcrumbs">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
+          
+          </div>
 
     <div class="select-type-container">
 
@@ -67,6 +70,26 @@ data(){
         
          chooseNecklaceBeads: function(necklaceLength, selectedMaterial){
             this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
+        },
+        
+           backToType: function(){
+            this.typeChosen = false;
+            this.selectedType = '';
+            this.lengthChosen= false;
+            this.necklaceLength = '';
+            this.braceletLength = ''
+        },
+        
+        backToLength: function(){
+            this.lengthChosen = false
+            this.necklaceLength = '';
+            this.braceletLength = ''
+        },
+        
+        backToMaterial: function(){
+            this.lengthChosen = true;
+            this.materialChosen = false;
+            this.selectedMaterial = {}
         },
         
              

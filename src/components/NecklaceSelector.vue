@@ -30,20 +30,23 @@
 
           <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
      <div class="necklace-template">
-         
+          <p style="color: red" v-show="maximumReached">{{ message }}</p>
               <div class="necklace-template-content">
               
            
-        <canvas-component ref="canvasRef" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions" @added="addTemplateBead" @deletebead="deleteTemplateBead" @copied="showCopied"></canvas-component>
+        <canvas-component ref="canvasRef" :maximum-length="maximumLength" :total-beads-length="totalBeadsLength" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions" @added="addTemplateBead" @deletebead="deleteTemplateBead" @copied="showCopied"></canvas-component>
                   
          </div>          
       </div>
                        <div class="necklace-beads">
         <div class="beads-title">
-            <p><span class="instruction-number">1.</span> Click a bead once to copy it.<br>(You can do this multiple times to copy the same bead.)</p>
+            <p style="margin-bottom: 0"><span class="instruction-number">1.</span> Click a bead once to copy it.</p>
                 
-            <p><span class="instruction-number">2.</span> Click anywhere in the template box to paste. </p>
-            <p><span class="instruction-number">3.</span> Drag template beads to position them your necklace.</p>
+            <p style="margin-bottom: 10; margin-top: 10"><span class="instruction-number">2.</span> Click anywhere in the template box to paste.<br>
+            (You can repeat these steps multiple times for the same bead.)</p>
+          
+            
+            <p style="margin-top: 0"><span class="instruction-number">3.</span> Drag template beads to position them your necklace.</p>
             <p>To rotate or delete a template bead, click on it to select and then click the rotate or delete buttons.</p>
             <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
@@ -63,6 +66,7 @@
                    <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
                  </div>
    
+    
           </div> 
         </div>
           
@@ -78,6 +82,9 @@
             <div class="your-beads-list">
                 <h3>Beads:</h3> 
             <div v-for="bead in templateBeads">
+                <p>Bead sizes: <br>
+                    <span>{{ formatBeadSize(bead.size) }}, </span></p>
+              
             
                 <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }}) x {{ bead.quantity }}</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
             
@@ -127,7 +134,8 @@ export default {
             clickSave: false,
             beadSelected: false,
             selectedBead: '',
-            templateBeads: []
+            templateBeads: [],
+            max: false
         }
     },
   name: 'necklace',
@@ -161,25 +169,60 @@ export default {
         
         localBeads(){
             return this.$store.state.localBeads;
+        },
+        
+               
+        totalBeadsLength() {
+            
+            
+        
+        return Object.values(this.templateBeads)
+        .reduce((acc, el) => acc + (el.quantity * el.size), 0);
+    
+        },
+        
+        maximumLength(){
+            
+            if(this.necklace === true){
+                
+                return this.necklaceLength * 10;
+                
+            }
+            
+            if(this.necklace === false){
+                
+                return this.braceletLength * 10;
+            }
+        },
+        
+        message(){
+            
+              if(this.totalBeadsLength >= this.maximumLength){
+                  
+                  var msg = 'You have reached the maximum amount of beads that will fit on your chosen length! Please continue to checkout or remove beads to proceed.'
+                return msg;
+                
+            }
         }
     },
     
     
     methods: {
-        
-        showCopied: function(){
+     
+        maximumReached: function(){
+            if(this.totalBeadsLength >= this.maximumLength){
+                  this.max = true;
             
-            this.$toasted.show("Copied!", { 
-	           theme: "primary", 
-	           position: "bottom-left", 
-	           duration : 2000,
-                singleton: true
-            });
-            
+                }
         },
         
+               formatBeadSize: function(value){
+            return value + '' + ' mm'
+        },
+
         addTemplateBead: function(selectedBeadId){
             
+         
             var id = Number(selectedBeadId);
             
             let templateBead = this.selectedBeads.find(bead => bead._id === id);
@@ -196,7 +239,7 @@ export default {
                  this.templateBeads.push(copy);
                 }
        
-          
+            
             
         },
         

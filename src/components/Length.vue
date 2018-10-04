@@ -3,7 +3,7 @@
      <div class="create-container">
          
             <div class="breadcrumbs">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span>sizing</span>
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back"><router-link to="/create/session/type">jewelry type</router-link></span><span class="right-arrow">&rsaquo;</span>sizing</span>
           
           </div>
          

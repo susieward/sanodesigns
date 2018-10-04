@@ -1,9 +1,11 @@
 <template>
 <div class="materials">
-    
-    <p>necklace: {{ necklace }}, bracelet: {{ bracelet}}, necklaceLength: {{ necklaceLength }}, braceletLength: {{ braceletLength }}, braceletSize: {{ braceletSize }}, selectedMaterial: {{ selectedMaterial }}</p>
     <div class="create-container">
     
+           <div class="breadcrumbs">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back"><router-link to="/create/session/type">jewelry type</router-link></span><span class="right-arrow">&rsaquo;</span><span class="back"><router-link to="/create/session/type/length">sizing</router-link></span><span class="right-arrow">&rsaquo;</span>material</span>
+          
+          </div>
    
 
     <div class="select-type-container">

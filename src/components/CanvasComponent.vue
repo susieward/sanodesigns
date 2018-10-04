@@ -81,14 +81,15 @@ data(){
         pixelData: 0,
         imgData: '',
         angleInDegrees: 0,
-        templateBeads: []
+        templateBeads: [],
+        max: false
         
     }
 },
 
 name: 'CanvasComponent',
     
-    props: ['selectedBeads', 'necklaceLength', 'braceletLength', 'necklace', 'bracelet'],
+    props: ['selectedBeads', 'necklaceLength', 'braceletLength', 'necklace', 'bracelet', 'maximumLength', 'totalBeadsLength'],
      
    computed: {
         
@@ -160,6 +161,13 @@ name: 'CanvasComponent',
     },
     
      methods: {
+         
+         maxReached: function(){
+           if(this.totalBeadsLength >= this.maximumLength){
+                  this.max = true;
+            
+                }
+         },
          
          loadSelectedArray: function(){
              
@@ -256,12 +264,16 @@ name: 'CanvasComponent',
                 
             },
          
-         copyImg: function(img){
+         copyImg: function(img, e){
+             
+             if(this.totalBeadsLength >= this.maximumLength){
+                e.stopPropagation();
+             } else {
             
              this.selectedBeadId = img.id;
              this.beadSelected = true;
              this.$emit('copied');
-             
+             }
              
          },
          
@@ -777,8 +789,13 @@ name: 'CanvasComponent',
             this.startX = this.mouseX;
             this.startY = this.mouseY;
               
+              if(this.totalBeadsLength >= this.maximumLength){
+                  
+                  event.preventDefault();
+              }
+              
         
-            if(this.selectedBeadId){
+            if(this.selectedBeadId && this.max === false){
                 
                 var x = this.startX;
                 var y = this.startY;
@@ -953,6 +970,24 @@ name: 'CanvasComponent',
                         el.imgX = roundedX;
                         el.imgY = roundedY;
                         
+                        ctx.save();
+                         
+                    m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                     m.rotate(el.rotationAngle);
+                     m.translate(-el.width/2, -el.height/2);
+                    m.translate(-el.imgX, -el.imgY);
+                     m.applyToContext(ctx);
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#ddd';
+                    ctx.strokeRect(el.imgX + 1, el.imgY + 1, el.width, el.height); 
+    
+                     m.reset();
+                     ctx.restore();
+                        
+                        return;
+                        
                     }
                     
                     ctx.save();
@@ -978,10 +1013,17 @@ name: 'CanvasComponent',
                         
                         el.imgX = roundedX;
                         el.imgY = roundedY;
+                        
+                         ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#ddd';
+                    ctx.strokeRect(el.imgX + 1, el.imgY + 1, el.width, el.height); 
+                        return;
                     }
                     
                     
                      ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                  
                 }
                 
                });
