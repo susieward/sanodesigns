@@ -6,7 +6,7 @@
               
                <div class="buttons-buttons">
           <span>
-      <router-link to="/" tag="button" class="create-btn">start over</router-link>
+      <button class="create-btn" @click="deleteLocalStorage">start over</button>
           <button class="create-btn">save for later</button>
           </span>
           </div>
@@ -16,7 +16,7 @@
     
     <div class="cart-container">
         <h2 style="text-align: center; margin-bottom: 15px;">Cart</h2>
-    
+
         <div class="design-and-beads">
         
        <div class="design-img-container">
@@ -28,7 +28,7 @@
           <h3>Beads:</h3> 
             <div v-for="bead in templateBeads">
             
-                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }})</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
+                 <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }}) x {{ bead.quantity }}</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }} per bead</span>
             
             </div>
               <p>Total: {{ formatPrice(totalBeadsPrice) | usdollar }}</p>
@@ -103,14 +103,25 @@ components: {
     
     computed: {
         
+           sessionData(){
+            
+            return this.$session.getAll();
+        },
+        
+           sessionId(){
+            
+            
+            return this.$session.id();
+        },
+        
           localBeads(){
             return this.$store.state.localBeads;
         },
         
         totalBeadsPrice() {
         
-        return Object.values(this.templateBeads)
-        .reduce((acc, el) => acc + el.price, 0);
+         return Object.values(this.templateBeads)
+            .reduce((acc, el) => acc + (el.quantity * el.price), 0)
     
         },
         
@@ -158,6 +169,15 @@ components: {
         backToCanvas: function(){
             this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, necklace: this.necklace, bracelet: this.bracelet}});
             
+        },
+        
+              deleteLocalStorage: function(){
+            this.$store.commit('deleteLocalBeads');
+            this.$session.destroy();
+                if(!this.$session.exists()){
+                     this.$router.push('/');
+                }
+  
         }
     },
     

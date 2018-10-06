@@ -10,18 +10,13 @@
                <div class="buttons-buttons">
           <span>
       <button class="create-btn" @click="deleteLocalStorage">start over</button>
-          <button class="create-btn">save for later</button>
+          <button class="create-btn" @click="saveForLater">save for later</button>
           </span>
           </div>
               </div>
       </div>
      
       <div class="create-container">
-       
-         
-             
-          
-              
             <router-view></router-view>
               
             
@@ -55,20 +50,48 @@ export default {
             type: '',
             color: '',
             price: undefined
-        }        
-            
-            
-            
-            
-            
         }
+       }
+        },
+    
+    computed: {
+        
+        
+        localSession(){
+            return this.$store.state.localSession;
+        }
+
         
 
   },
+ 
+    created(){
+        
+        this.$session.start();
+
+    },
     
-  
+    computed: {
+        
+        sessionId(){
+            
+            
+            return this.$session.id();
+        }
+    },
     
     methods: {
+        
+        saveForLater: function(){
+        
+            let session = this.$session.getAll();
+            
+            this.$store.commit('setLocalSession', {session: session});
+            
+            
+            
+        },
+     
         
        chooseBraceletBeads: function(braceletLength, selectedMaterial){
             this.$router.push({ name: 'bracelet', params: {braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
@@ -182,11 +205,14 @@ export default {
             return value.toFixed(2) + '' + ' per cm'
         },
         
-           
         deleteLocalStorage: function(){
             this.$store.commit('deleteLocalBeads');
-            this.$router.push('/');
-        }
+            this.$session.destroy();
+            if(!this.$session.exists()){
+                     this.$router.push('/');
+                }
+  
+        },
         
     },
     

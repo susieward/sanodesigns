@@ -23,14 +23,14 @@
           <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Necklace</h2>
            
            <h2 v-if="!selectedBeads.length || editingBeads === true">Select Your Beads</h2>
+
            </div>
-          
-      
       <div class="necklace-selector-container">
 
           <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
      <div class="necklace-template">
-          <p style="color: red" v-show="maximumReached">{{ message }}</p>
+
+         <p style="color: red" v-if="maximumReached">{{ message }}</p>
               <div class="necklace-template-content">
               
            
@@ -47,14 +47,16 @@
           
             
             <p style="margin-top: 0"><span class="instruction-number">3.</span> Drag template beads to position them your necklace.</p>
-            <p>To rotate or delete a template bead, click on it to select and then click the rotate or delete buttons.</p>
+            <p>To rotate or delete a bead, select it by clicking on it and then click the rotate R/L or delete buttons.</p>
             <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
             </div>
               
-               <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">edit beads</button>
-                             <button class="btn-small-gray" style="width: 100px" @click="deleteBead">delete</button>
-         <button class="btn-small-gray" style="width: 100px" @click="rotateBead">rotate</button>
+               <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">add/edit beads</button>
+                           <span><button class="btn-small-gray" style="width: auto"@click="rotateLeft">rotate l</button> <button class="btn-small-gray"   style="width: auto" @click="rotateRight">rotate r</button></span>
+                             <button class="btn-small-gray" style="width: 150px" @click="deleteBead">delete</button>
+                           <button class="btn-small-gray" style="width: 150px" @click="resetBeads">reset</button>
+                           
                         
  <div style="margin-top: 40px">
       
@@ -82,11 +84,8 @@
             <div class="your-beads-list">
                 <h3>Beads:</h3> 
             <div v-for="bead in templateBeads">
-                <p>Bead sizes: <br>
-                    <span>{{ formatBeadSize(bead.size) }}, </span></p>
-              
             
-                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }}) x {{ bead.quantity }}</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }}</span>
+                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }}) x {{ bead.quantity }}</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }} per bead</span>
             
             </div>
               <p>Total: {{ total | usdollar }}</p>
@@ -150,6 +149,18 @@ export default {
     
     computed: {
         
+             sessionData(){
+            
+            return this.$session.getAll();
+        },
+
+        
+
+             sessionId(){
+            
+            
+            return this.$session.id();
+        },
        
         computedStyle(){
             return this.style;
@@ -165,10 +176,6 @@ export default {
             return Object.values(this.templateBeads)
             .reduce((acc, el) => acc + (el.quantity * el.price), 0)
             .toFixed(2);
-        },
-        
-        localBeads(){
-            return this.$store.state.localBeads;
         },
         
                
@@ -199,15 +206,22 @@ export default {
             
               if(this.totalBeadsLength >= this.maximumLength){
                   
-                  var msg = 'You have reached the maximum amount of beads that will fit on your chosen length! Please continue to checkout or remove beads to proceed.'
+                  var msg = 'You have reached the maximum amount of beads that will fit on your chosen length! Please delete beads to continue.'
                 return msg;
                 
             }
         }
     },
     
-    
+ 
     methods: {
+    
+        
+        getSessionData: function(){
+            
+            return this.$session.getAll();
+            
+        },
      
         maximumReached: function(){
             if(this.totalBeadsLength >= this.maximumLength){
@@ -231,12 +245,14 @@ export default {
                 
                 if(this.templateBeads.includes(addedBead)){
                     addedBead.quantity++
+               
                 } else {
                     
                 let copy = Object.assign({}, templateBead, {
                 quantity: 1
             });
                  this.templateBeads.push(copy);
+            
                 }
        
             
@@ -267,6 +283,14 @@ export default {
             }
                 
         },
+        
+        resetBeads: function(){
+            
+            this.$refs.canvasRef.resetBeads();
+            this.templateBeads = [];
+            this.deleteLocalBeads();
+            
+        },
                  
         rotateBead: function(){
             
@@ -277,9 +301,37 @@ export default {
             
         },
         
-        deleteLocalStorage: function(){
+        rotateLeft: function(){
+            
+         
+                this.$refs.canvasRef.rotateLeft();
+            
+          
+            
+        },
+        
+        rotateRight: function(){
+            
+         
+                this.$refs.canvasRef.rotateRight();
+            
+          
+            
+        },
+        
+        deleteLocalBeads: function(){
+            
+           this.$store.commit('deleteLocalBeads'); 
+            
+        },
+        
+            deleteLocalStorage: function(){
             this.$store.commit('deleteLocalBeads');
-            this.$router.push('/');
+            this.$session.destroy();
+                if(!this.$session.exists()){
+                     this.$router.push('/');
+                }
+  
         },
         
         
@@ -301,7 +353,8 @@ export default {
         setNecklaceBeads: function(selectedBeads){
             
             this.selectedBeads = selectedBeads;
-        
+            this.$session.set('selectedBeads', this.selectedBeads);
+
         },
         
          
@@ -309,6 +362,8 @@ export default {
            
             this.selectedBeads = beadsEdit;
             this.editingBeads = false;
+            this.$session.set('selectedBeads', this.selectedBeads);
+            
        
         },
         
@@ -324,8 +379,13 @@ export default {
             this.$refs.canvasRef.saveBeadPositions();
             this.$refs.canvasRef.print();
             if(this.clickSave === true){
+                
+            this.$session.set('templateBeads', this.templateBeads);
+            this.$session.set('selectedBeads', this.selectedBeads);
+            this.$session.set('localBeads', this.localBeads);
             
-            this.$router.push({ name: 'Cart', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
+            
+            this.$router.push({ name: 'Cart', params: {sessionId: this.sessionId, necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
             }
         },
         

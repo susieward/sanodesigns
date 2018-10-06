@@ -10,6 +10,7 @@
 
     <div class="select-type-container">
    <h2 style="text-align: center">Select {{ selectedType }} Material</h2>
+
   <div v-if="necklace === true" class="selector">
               
 
@@ -146,6 +147,14 @@ data(){
     
     props: ['necklace', 'bracelet', 'necklaceLength', 'braceletLength', 'braceletSize', 'selectedType'],
     
+     computed: {
+             sessionId(){
+            
+            
+            return this.$session.id();
+        }
+    },
+    
     
     methods: {
         
@@ -175,19 +184,25 @@ data(){
              this.selectedMaterial.color = 'clear';
              this.selectedMaterial.price = 0.05;
              this.colorChosen = true;
+             
+             this.$session.set('selectedMaterial', this.selectedMaterial);
             
-             this.$router.push({ name: 'Confirm', params: {necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+             this.$router.push({ name: 'Confirm', params: { sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
             
         },
         
         setWireColor: function(){
             this.colorChosen = true;
+            
+            this.$session.set('selectedMaterial', this.selectedMaterial);
           
             this.$router.push({ name: 'Confirm', params: {necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
         },
         
         setChainColor: function(){
             this.colorChosen = true;
+            
+            this.$session.set('selectedMaterial', this.selectedMaterial);
            
             this.$router.push({ name: 'Confirm', params: {necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
         }

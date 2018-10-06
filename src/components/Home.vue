@@ -6,9 +6,10 @@
               </div>
       </div>
       <div class="home-container">
+
 <h2>Create Your Own Design</h2>
       <div class="start">
-          <router-link to="/create/session/type" tag="button" class="btn" @click="startSession">get started</router-link>
+          <router-link to="/create/type" tag="button" class="btn">get started</router-link>
           </div>
           
       </div>
@@ -21,6 +22,7 @@ export default {
   name: 'Home',
   data () {
     return {
+
  
     }
  
@@ -31,17 +33,8 @@ export default {
         beads(){
             return this.$store.state.beads;
         }
-    },
-    
-    methods: {
-        
-        startSession: function(){
-                  
-        this.$session.start();
-            
-        }
-
     }
+
 }
 </script>
 

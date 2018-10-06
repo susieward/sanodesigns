@@ -34,6 +34,15 @@ data(){
     }
 },
     name: 'Type',
+    
+    computed: {
+             sessionId(){
+            
+            
+            return this.$session.id();
+        }
+   
+    },
 
     
     methods: {
@@ -43,8 +52,10 @@ data(){
             this.typeChosen = true;
             this.selectedType = 'Necklace';
             this.$emit('ntype', this.selectedType);
+                
+            this.$session.set('selectedType', 'Necklace');
             
-            this.$router.push({ name: 'Length', params: {necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
+            this.$router.push({ name: 'Length', params: { sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
             
         },
         
@@ -54,6 +65,8 @@ data(){
             this.typeChosen = true;
             this.selectedType = 'Bracelet';
             this.$emit('btype', this.selectedType);
+            
+             this.$session.set('selectedType', 'Bracelet');
             
              this.$router.push({ name: 'Length', params: {necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
         },

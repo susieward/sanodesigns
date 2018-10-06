@@ -4,7 +4,7 @@
 
       <span v-for="img in selectedArray">
        
-        <img :src="img.src" :height="img.height" :width="img.width" class="selectedArrayBead" :id="img.id" @click="copyImg(img)">
+        <img :src="img.src" :height="img.height" :width="img.width" class="selectedArrayBead" :class="{ 'selected-array-disabled': showDisabled }" :id="img.id" @click="copyImg(img)">
         </span>
 
         <div class="canvas-container" id="canvas-container">
@@ -12,10 +12,7 @@
             
             <canvas id="testCanvas" ref="testCanvas" width="800" height="600" style="display: none; border: 1px solid red"></canvas>
         </div>
-    <br>
-   <div class="canvas-buttons">
-       <button class="btn-small-gray" style="width: 100px" @click="resetBeads">reset</button></div>
-<p v-if="designSaved === true" style="color: #8a52a3">Saved!</p>
+
 <div class="canvas-info">
            <p>mouse.current: {{ mouse.current }}<br>
             
@@ -64,25 +61,20 @@ data(){
         beadMouseX: 0,
         beadMouseY: 0,
         imgArray: [],
-        beadImgArray: [],
-        imgArrayNum: 0,
         selectedBead: '',
         originX: 0,
         originY: 0,
         designSaved: false,
-        drawn: false,
-        localBeads: [],
         selectedBeadId: '',
         selectedArray: [],
         beadSelected: false,
         dragBeadX: 0,
         dragBeadY: 0,
-        isTransparent: false,
-        pixelData: 0,
         imgData: '',
         angleInDegrees: 0,
         templateBeads: [],
         max: false
+
         
     }
 },
@@ -111,7 +103,17 @@ name: 'CanvasComponent',
         
         selectedBeadsImgs(){
                 return this.selectedBeads.map(bead => bead.image);
-            }
+            },
+       
+        showDisabled(){
+            
+            return this.totalBeadsLength >= this.maximumLength;
+        },
+        
+        sessionData(){
+            
+            return this.$session.getAll();
+        }
       
        
       },
@@ -125,9 +127,10 @@ name: 'CanvasComponent',
          var rect = c.getBoundingClientRect();
             var offsetX = rect.left;
             var offsetY = rect.top;
-    
-       
+        
         this.localBeads = this.$store.state.localBeads;
+        
+        this.getSessionData();
         
 
         if(this.necklace === true){
@@ -146,21 +149,24 @@ name: 'CanvasComponent',
             
             this.loadSelectedArray();
             
-        }
-         
-             
-             
-    
-              
- 
-              
-
-        
-          
+        }     
               
     },
     
      methods: {
+         
+         
+         getSessionData: function(){
+             
+             this.$session.getAll();
+             
+         },
+         
+         
+         clearImgArray: function(){
+             return this.imgArray = [];
+             
+         },
          
          maxReached: function(){
            if(this.totalBeadsLength >= this.maximumLength){
@@ -195,10 +201,9 @@ name: 'CanvasComponent',
          
             });
              
-               if(localBeads.length){
-                    
-                    this.drawLocalBeads();
-                }
+            if(localBeads.length){
+            this.drawLocalBeads();
+            }
          },
          
             
@@ -211,25 +216,20 @@ name: 'CanvasComponent',
                 var imgArray = this.imgArray;
                 var canvasWidth = 800;
                 var canvasHeight = 600;
-                
                 var localBeads = this.localBeads;
                 
-                
-                
                 if(localBeads.length){
-                 
-                    ctx.clearRect(0,0, canvasWidth, canvasHeight);
+
+                ctx.clearRect(0,0, canvasWidth, canvasHeight);
                         if(this.necklace === true){
                             this.drawNecklaceTemplate();
                         }
                     
                     localBeads.forEach((bead) => {
                     
-                      
-                        
-                         imgArray.push(bead);
+                       imgArray.push(bead);
                
-                        });
+                    });
                       
                     
                     if(imgArray.length){
@@ -259,9 +259,8 @@ name: 'CanvasComponent',
    
                  
                     }
-          
                 }
-                
+
             },
          
          copyImg: function(img, e){
@@ -475,8 +474,7 @@ name: 'CanvasComponent',
                 var ctx = c.getContext("2d");
                 var imgArray = this.imgArray;
             
-            
-                this.$store.commit('setLocalBeads', {localBeads: imgArray});
+             this.$store.commit('setLocalBeads', {localBeads: imgArray});
             
                 
             },
@@ -742,21 +740,29 @@ name: 'CanvasComponent',
          
             resetBeads: function(){
              
-                var c = this.$refs.canvas;
-                var ctx = c.getContext('2d');
-              var rect = c.getBoundingClientRect();
-                var offsetX = rect.left;
-                var offsetY = rect.top;
-                 var canvasWidth = 800;
-                var canvasHeight = 600;
-                
-                 this.mouse.current = {
-                 x: event.clientX,
-                y: event.clientY
-                }
+                   var c = this.$refs.canvas;
+                    var ctx = c.getContext("2d");
+                    var rect = c.getBoundingClientRect();
+                    var offsetX = rect.left;
+                    var offsetY = rect.top;
+                    var imgArray = this.imgArray;
+                    var canvasWidth = 800;
+                    var canvasHeight = 600;
                 
                  ctx.clearRect(0,0, canvasWidth, canvasHeight);
-                this.imgArray
+                
+                if(this.necklace === true){
+                this.drawNecklaceTemplate();
+                }
+                
+                if(this.necklace === false){
+                    
+                    this.drawBraceletTemplate();
+                }
+                
+                this.clearImgArray();
+                
+    
             
                     
                 },
@@ -795,7 +801,7 @@ name: 'CanvasComponent',
               }
               
         
-            if(this.selectedBeadId && this.max === false){
+            if(this.selectedBeadId){
                 
                 var x = this.startX;
                 var y = this.startY;
@@ -1033,12 +1039,101 @@ name: 'CanvasComponent',
     
         },
          
-
-         rotate: function(){
+    // ROTATE LEFT
+         
+         rotateLeft: function(){
              
-            var to_radians = Math.PI/180;
-             
+            var to_radians = Math.PI/180; 
             var c = this.$refs.canvas;
+            var ctx = c.getContext("2d");
+            var rect = c.getBoundingClientRect();
+            var offsetX = rect.left;
+            var offsetY = rect.top;
+            var imgArray = this.imgArray;
+            var canvasWidth = 800;
+            var canvasHeight = 600;
+             var newRotation;
+    
+   
+             var selectedId = this.selectedBead.canvasId;
+             
+             var selected = imgArray.find(bead => bead.canvasId === selectedId);
+            
+           
+                var counterclockwise = selected.rotationAmount -= 15;
+                
+             var angle = counterclockwise * to_radians;
+             
+            
+            ctx.clearRect(0,0, canvasWidth, canvasHeight);
+            this.drawNecklaceTemplate();
+             
+              imgArray.forEach((el) => {
+                if(el !== selected){
+                    
+                    if(!el.isRotated){
+                    ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                    } else {
+                        
+                        
+                           ctx.save();
+                         
+                    m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                     m.rotate(el.rotationAngle);
+                     m.translate(-el.width/2, -el.height/2);
+                    m.translate(-el.imgX, -el.imgY);
+                     m.applyToContext(ctx);
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                     m.reset();
+                     ctx.restore();
+                  
+    
+                    }
+                }
+            })
+   
+            ctx.save();
+             
+            m.translate(selected.imgX + selected.width/2, selected.imgY + selected.height/2);
+             
+            m.rotate(angle);
+            m.translate(-selected.width/2, -selected.height/2);
+             m.translate(-selected.imgX, -selected.imgY);
+         
+            m.applyToContext(ctx);
+             
+
+             imgArray.forEach((el) => {
+                
+                 if(el === selected){
+                     
+                     el.rotationAngle = angle;
+                     el.rotationAmount = selected.rotationAmount;
+                     el.isRotated = true;
+                     
+                    ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                
+                 }
+                 
+             });
+       
+ 
+             
+             m.reset();
+            ctx.restore();
+             
+             
+         },
+         
+         
+    // ROTATE RIGHT
+         
+         rotateRight: function(){
+             
+             
+               var to_radians = Math.PI/180;
+              var c = this.$refs.canvas;
             var ctx = c.getContext("2d");
             var rect = c.getBoundingClientRect();
             var offsetX = rect.left;
@@ -1119,34 +1214,10 @@ name: 'CanvasComponent',
              
              m.reset();
             ctx.restore();
-          
-           
-            },
-         
-         getRotatedCoordinates: function(el){
              
-         
-             
-             var xr = el.imgX * Math.cos(el.rotationAngle);
-             
-             var xy = el.imgY * Math.sin(el.rotationAngle);
-            
-             
-            el.imgRX = xr;
-             el.imgRY = xy;
-             
-            
-            
-               
          }
-        
-
-       } 
-             
-         
      }
-          
-
+}
 
 </script>
 <style>
@@ -1195,6 +1266,7 @@ name: 'CanvasComponent',
     
     .selectedArrayBead {
         cursor: default;
+        opacity: 1;
   
 
     }
@@ -1202,6 +1274,16 @@ name: 'CanvasComponent',
     .selectedArrayBead:hover {
         cursor: pointer;
   
+    }
+    
+    .selected-array-disabled {
+    opacity: 0.4;
+    cursor: default;
+    }
+    
+    .selected-array-disabled:hover {
+    opacity: 0.4;
+    cursor: default; 
     }
 
 </style>

@@ -12,8 +12,7 @@
               
                   <h2 style="text-align: center">Confirm {{ selectedType }} Details</h2>
               </div>
-           
-       
+  
              <div v-if="necklace === true">
                  
                <div class="confirm-dtails">
@@ -61,15 +60,31 @@ data(){
     name: 'Confirm',
     
     props: ['necklace', 'bracelet', 'necklaceLength', 'braceletLength', 'braceletSize', 'selectedMaterial', 'selectedType'],
+    
+     computed: {
+             sessionId(){
+            
+            
+            return this.$session.id();
+        }
+    },
+    
+    computed: {
+        
+        sessionData(){
+            
+            return this.$session.getAll();
+        }
+    },
 
     
     methods: {
             chooseBraceletBeads: function(braceletLength, selectedMaterial){
-            this.$router.push({ name: 'bracelet', params: {braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
+            this.$router.push({ name: 'bracelet', params: {sessionId: this.sessionId, braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
         },
         
          chooseNecklaceBeads: function(necklaceLength, selectedMaterial){
-            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
+            this.$router.push({sessionId: this.sessionId, name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
         },
         
            backToType: function(){

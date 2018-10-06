@@ -7,6 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+
 require('./css/main.css');
 require('./js/main.js');
 require('webpack-jquery-ui/draggable');
@@ -55,7 +56,7 @@ const routes = [
     },
     
     {
-      path: '/create/session/type',
+      path: '/create/type',
       name: 'Create',
       component: Create,
         children: [
@@ -67,19 +68,19 @@ const routes = [
         },
             
         {
-            path: '/session/type/length',
+            path: '/:sessionId/type/length',
             name: 'Length',
             component: Length,
             props: true
         },
         {
-            path: '/session/type/length/material',
+            path: '/:sessionId/type/length/material',
             name: 'Materials',
             component: Materials,
             props: true
             },
         {
-            path: '/session/type/length/material/confirm',
+            path: '/:sessionId/type/length/material/confirm',
             name: 'Confirm',
             component: Confirm,
             props: true
@@ -88,12 +89,12 @@ const routes = [
     },
     
 
-    { path: '/bracelet',
+    { path: '/:sessionId/bracelet',
              name: 'bracelet',
              component: Bracelet,
              props: true
             },
-    { path: '/session/necklace',
+    { path: '/:sessionId/necklace',
              name: 'necklace',
              component: NecklaceSelector,
              props: true
@@ -111,7 +112,7 @@ const routes = [
         
     },
     {
-        path: '/cart',
+        path: '/:sessionId/cart',
         name: 'Cart',
         component: Cart,
         props: true

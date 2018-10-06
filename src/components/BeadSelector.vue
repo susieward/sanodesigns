@@ -1,8 +1,9 @@
 <template>
 
 <div class="bead-selector">
-  <p>Click to select beads from the directory below.<br>
-              You<strong> will be able to add more than one of these beads</strong> when working on your design.</p>
+  <span>Click to select beads from the directory below.<br>
+              You <strong>will be able to add more than one</strong> of each bead when working on your design.</span>
+<p style="color: red" v-show="maximumReached">{{ selectedMessage }}</p>
       <div class="select-beads">
           
          
@@ -12,22 +13,19 @@
               <h3 style="margin: 0; padding: 0">You've selected:</h3>
               
                <div v-if="necklace === true" class="continue-btn">
-              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedNecklaceSelection()">continue</button><br>
-              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmNecklaceSelection()">save changes</button>
+              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedNecklaceSelection()" :disabled="showDisabled" :class="{ 'btn-disabled': showDisabled }">continue</button><br>
+              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmNecklaceSelection()" :class="{ 'btn-disabled': showDisabled }">save changes</button>
               </div>
               
               <div v-if="necklace === false" class="continue-btn">
-              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedBraceletSelection()">continue</button><br>
-              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmBraceletSelection()">save changes</button>
+              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedBraceletSelection()" :class="{ 'btn-disabled': showDisabled }">continue</button><br>
+              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmBraceletSelection()" :class="{ 'btn-disabled': showDisabled }">save changes</button>
               </div>
              
      
               
               <div class="selected-container-content">
-              
-              <div v-if="!selectedBeads.length">
-                  
-                  </div>
+             
           <div v-for="(bead, index) in selectedBeads" class="selected-bead" :key="bead._id">
               
               <div class="bead-container-selector">
@@ -58,9 +56,9 @@
           <div class="beads-and-search">
  <span>Search: <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, $0.35, etc"/></span>
 
-      <div class="beads-container-selector">
+      <div class="beads-container-selector" :class="{ 'container-disabled': showDisabled }">
                
-          <div v-for="(bead, index) in filteredList" class="bead" @click="select(bead)" v-bind:key="bead._id">
+          <div v-for="(bead, index) in filteredList" class="bead" :class="{ 'bead-disabled': showDisabled }" @click="select(bead, $event)" v-bind:key="bead._id">
               
           <div class="bead-container">
               <img class="bead-img-small" :src="bead.image"/>
@@ -73,7 +71,7 @@
                   <span class="admin-prop-name">Shape:</span> <span>{{ bead.shape }}</span> 
                   <span class="admin-prop-name">Price:</span> <span>{{ formatPrice(bead.price) | usdollar }}</span> 
               
-              
+ 
               
               
               </div>
@@ -105,8 +103,7 @@ export default {
         selectedColor: undefined,
         selectedShape: undefined,
         selectedProps: [],
-        displayMessage: false,
-        message: ''
+        selectedMax: false
       
     }
   },
@@ -119,10 +116,18 @@ export default {
             return this.$store.state.beads;
         },
         
-        totalBeadsLength() {
+        totalSelectedBeadsLength() {
+            
+            if(this.beadsEdit.length){
+                
+                return Object.values(this.beadsEdit)
+                .reduce((acc, el) => acc + el.size, 0);
+                
+            } else {
         
-        return Object.values(this.selectedBeads)
-        .reduce((acc, el) => acc + el.size, 0);
+            return Object.values(this.selectedBeads)
+            .reduce((acc, el) => acc + el.size, 0);
+            }
     
         },
         
@@ -139,6 +144,22 @@ export default {
                 return this.braceletLength * 10;
             }
         },
+        
+             selectedMessage(){
+            
+              if(this.totalSelectedBeadsLength >= this.maximumLength){
+                  
+                  var msg = 'You have reached the maximum amount of beads that will fit on your chosen length! Please remove beads to continue.'
+                return msg;
+                
+            }
+        },
+        
+        showDisabled(){
+            
+            return this.totalSelectedBeadsLength >= this.maximumLength
+        },
+        
         
     
         
@@ -159,16 +180,21 @@ export default {
     
     methods: {
         
-        tooManyBeads: function(){
-            if(this.totalBeadsLength > this.maximumLength){
-                
-             this.displayMessage = true;
-                this.message = 'You have reached the maximum amount of beads for your selected length!'
-            }
+        maximumReached: function(){
+            if(this.totalSelectedBeadsLength >= this.maximumLength){
+                  this.selectedMax = true;
             
+                }
         },
-        
-        select: function(bead){
+    
+        select: function(bead, event){
+            
+        if(this.totalSelectedBeadsLength >= this.maximumLength){
+            
+            event.preventDefault();
+            
+            
+        } else {
             if(this.beadsEdit.length){
                 
               var addedBead = this.beadsEdit.find(selectedBead => selectedBead._id === bead._id);
@@ -190,6 +216,7 @@ export default {
                  this.selectedBeads.push(bead);
                 }
             }
+         }
         },
         
          remove: function(index){
@@ -202,16 +229,18 @@ export default {
          },
         
         finishedNecklaceSelection: function(){
+            this.$session.set('selectedBeads', this.selectedBeads);
             this.$emit('selected', this.selectedBeads );
            
         },
             
             finishedBraceletSelection: function(){
+                this.$session.set('selectedBeads', this.selectedBeads);
                  this.$emit('selected', this.selectedBeads );
             },
         
         confirmNecklaceSelection: function(){
-            
+            this.$session.remove('selectedBeads');
             this.$emit('edited', this.beadsEdit );
         },
             
@@ -300,7 +329,21 @@ export default {
   
       height: 800px;
         width: 850px;
-       
+       opacity: 1;
+        padding: 20px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+    
+     .container-disabled {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto auto auto;
+        grid-gap: 10px;
+  
+      height: 800px;
+        width: 850px;
+       opacity: 0.4;
         padding: 20px;
         border: 1px solid #ddd;
         overflow: scroll;
@@ -406,6 +449,23 @@ justify-content: center;
         border: 1px solid #C4A8D1;
     }
     
+      .bead-disabled {
+        display: grid;
+    justify-content: center;
+        grid-gap: 2px;
+        padding: 5px;
+        cursor: default;
+         border: 1px solid transparent;
+        
+    }
+    
+    .bead-disabled:hover {
+    border: 1px solid transparent;
+    cursor: default;
+        
+        
+    }
+    
     .selected-bead {
    
 
@@ -434,6 +494,23 @@ justify-content: center;
     display: grid;
     align-content: flex-end;
     width: 100%;
+    }
+    
+    .btn-disabled {
+border: 1px solid #000;
+background-color: #000;
+padding: 14px 22px;
+text-align: center;
+font-family: 'Karla';
+font-size: 18px;
+line-height: 18px;
+text-transform: uppercase;
+color: #d9d9d9;
+font-weight: 400;
+cursor: pointer; 
+height: 50px;
+opacity: 0.3;
+cursor: default;
     }
     
 </style>

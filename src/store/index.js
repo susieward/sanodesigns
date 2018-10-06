@@ -12,8 +12,8 @@ state: {
     beads: [],
     selectedBeads: [],
     beadsEdit: [],
-    localBeads: localStorage.getItem('beads-key') || []
-
+    localBeads: localStorage.getItem('beads-key') || [],
+    localSession: localStorage.getItem('session-key') || []
 },
     
   
@@ -27,6 +27,7 @@ state: {
     },
     
     mutations: {
+  
         
         setBeads: (state, {beads}) => {
             state.beads = beads;
@@ -46,10 +47,19 @@ state: {
             state.beads.splice(index, 1);
         },
         
+        setLocalSession: (state, {session}) => {
+             localStorage.setItem('session-key', session);
+            
+            state.localSession = session;
+        },
+        
         setLocalBeads: (state, {localBeads}) => {
+            
+       
             localStorage.setItem('beads-key', localBeads);
             
             state.localBeads = localBeads;
+           
         },
         
         deleteLocalBeads: (state) => {
@@ -78,6 +88,10 @@ state: {
         
         opalBeadsImgs: (state, getters) => {
             return getters.opalBeads.map(bead => bead.image);
+        },
+        
+        getLocalBeads: state => {
+            return state.localBeads;
         }
         
     }

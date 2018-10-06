@@ -9,7 +9,6 @@
          
     <div class="select-type-container">
      <h2 style="text-align: center" v-if="lengthChosen === false">Select {{ selectedType }} <span v-if="necklace === true">Length</span><span v-if="bracelet === true">Size</span></h2>
-    
      <div v-if="necklace === true" class="selector">
               
    
@@ -115,17 +114,32 @@ name: 'Length',
     
 props: ['necklace', 'bracelet', 'selectedType'],
     
+     computed: {
+             sessionId(){
+            
+            
+            return this.$session.id();
+        }
+    },
+    
     methods: {
          showButton: function(){
             this.lengthChosen = true;
              this.$emit('nlength', this.necklaceLength);
-              this.$router.push({ name: 'Materials', params: {necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedType: this.selectedType}});
+             
+              this.$session.set('necklaceLength', this.necklaceLength);
+             
+              this.$router.push({ name: 'Materials', params: { sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedType: this.selectedType}});
         },
         
         sendBraceletLength: function(braceletLength){
             this.lengthChosen = true;
             this.getBraceletLength(braceletLength);
-             this.$router.push({ name: 'Materials', params: {necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedType: this.selectedType}});
+            
+            this.$session.set('braceletLength', this.braceletLength);
+            this.$session.set('braceletSize', this.braceletSize);
+            
+             this.$router.push({ name: 'Materials', params: { sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedType: this.selectedType}});
         },
         
          getBraceletLength: function(braceletLength){
