@@ -12,7 +12,7 @@ state: {
     beads: [],
     selectedBeads: [],
     beadsEdit: [],
-    localBeads: localStorage.getItem('beads-key') || [],
+    localBeads: JSON.parse(localStorage.getItem('beads-key')) || [],
     localSession: localStorage.getItem('session-key') || []
 },
     
@@ -56,9 +56,9 @@ state: {
         setLocalBeads: (state, {localBeads}) => {
             
        
-            localStorage.setItem('beads-key', localBeads);
+            localStorage.setItem('beads-key', JSON.stringify(localBeads));
             
-            state.localBeads = localBeads;
+            state.localBeads = JSON.parse(localStorage.getItem('beads-key'));
            
         },
         

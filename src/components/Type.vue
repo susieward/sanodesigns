@@ -36,9 +36,8 @@ data(){
     name: 'Type',
     
     computed: {
-             sessionId(){
-            
-            
+        
+        sessionId(){
             return this.$session.id();
         }
    

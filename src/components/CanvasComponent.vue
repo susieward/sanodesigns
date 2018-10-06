@@ -165,6 +165,8 @@ name: 'CanvasComponent',
          
          clearImgArray: function(){
              return this.imgArray = [];
+        
+             
              
          },
          
@@ -177,7 +179,7 @@ name: 'CanvasComponent',
          
          loadSelectedArray: function(){
              
-             var selectedArray = this.selectedArray
+             var selectedArray = this.selectedArray;
              var localBeads = this.localBeads;
              
              
@@ -200,11 +202,11 @@ name: 'CanvasComponent',
             }
          
             });
-             
-            if(localBeads.length){
+            
+             if(localBeads.length){
             this.drawLocalBeads();
-            }
-         },
+             }
+            },
          
             
             
@@ -218,26 +220,38 @@ name: 'CanvasComponent',
                 var canvasHeight = 600;
                 var localBeads = this.localBeads;
                 
-                if(localBeads.length){
-
+    if(localBeads.length){
                 ctx.clearRect(0,0, canvasWidth, canvasHeight);
                         if(this.necklace === true){
                             this.drawNecklaceTemplate();
                         }
-                    
-                    localBeads.forEach((bead) => {
-                    
-                       imgArray.push(bead);
-               
+            
+                localBeads.forEach((bead) => {
+                        
+                    var img = new Image();
+                        img.src = bead.src;
+                        img.height = bead.height;
+                        img.width = bead.width;
+                        img.isDragging = bead.isDragging;
+                        img.imgX = bead.imgX;
+                        img.imgY = bead.imgY;
+                        img.id = bead.id;
+                        img.canvasId = bead.canvasId;
+                        img.rotationAngle = bead.rotationAngle;
+                        img.rotationAmount = bead.rotationAmount;
+                        img.imgRX = bead.imgRX;
+                        img.imgRY = bead.imgRY;
+                        img.isRotated = bead.isRotated;
+                        img.hasBorder = bead.hasBorder;
+                        
+                       imgArray.push(img);
+
                     });
-                      
-                    
-                    if(imgArray.length){
-                        
-    /* if a bead has an id that doesn't appear in the selectedArray of beads, each occurrence of that bead is deleted from the image array */
-                        
-    /* beads whose ids appear in the selectedArray's ids are drawn */
+        
+                if(imgArray.length === localBeads.length){
                  imgArray.forEach((el) => {
+                     
+                    el.onload = function(){ 
                         
                     if(el.isRotated){
                         ctx.save();
@@ -249,18 +263,19 @@ name: 'CanvasComponent',
                         ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
                         m.reset();
                         ctx.restore();
+                        
                         return;
                         
                     }
                          
-                           ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
-                          });
-       
-   
-                 
-                    }
+                    if(!el.isRotated){
+    
+                    ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                                }
+                            }
+                        });
+                    }    
                 }
-
             },
          
          copyImg: function(img, e){
@@ -474,7 +489,32 @@ name: 'CanvasComponent',
                 var ctx = c.getContext("2d");
                 var imgArray = this.imgArray;
             
-             this.$store.commit('setLocalBeads', {localBeads: imgArray});
+           
+            var storageArray = [];
+            
+            imgArray.forEach((el) => {
+                
+                 var storageBead = {};
+                
+                    storageBead.src = el.src;
+                    storageBead.height = el.height;
+                    storageBead.width = el.width;
+                    storageBead.isDragging = el.isDragging;
+                    storageBead.imgX = el.imgX;
+                    storageBead.imgY = el.imgY;
+                    storageBead.id = el.id;
+                    storageBead.canvasId = el.canvasId;
+                    storageBead.rotationAngle = el.rotationAngle;
+                    storageBead.rotationAmount = el.rotationAmount;
+                    storageBead.imgRX = el.imgRX;
+                    storageBead.imgRY = el.imgRY;
+                    storageBead.isRotated = el.isRotated;
+                    storageBead.hasBorder = el.hasBorder;
+                
+                storageArray.push(storageBead);
+             });
+            
+             this.$store.commit('setLocalBeads', {localBeads: storageArray});
             
                 
             },
@@ -748,6 +788,7 @@ name: 'CanvasComponent',
                     var imgArray = this.imgArray;
                     var canvasWidth = 800;
                     var canvasHeight = 600;
+                    var localBeads = this.localBeads;
                 
                  ctx.clearRect(0,0, canvasWidth, canvasHeight);
                 
@@ -760,9 +801,13 @@ name: 'CanvasComponent',
                     this.drawBraceletTemplate();
                 }
                 
-                this.clearImgArray();
+                if(localBeads.length){
+                    
+                    this.$store.commit('deleteLocalBeads');
+                }
                 
-    
+                this.clearImgArray();
+
             
                     
                 },
