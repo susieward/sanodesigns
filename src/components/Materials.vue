@@ -1,12 +1,8 @@
 <template>
 <div class="materials">
-    <div class="create-container">
     
-           <div class="breadcrumbs">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back"><router-link to="/create/session/type">jewelry type</router-link></span><span class="right-arrow">&rsaquo;</span><span class="back"><router-link to="/create/session/type/length">sizing</router-link></span><span class="right-arrow">&rsaquo;</span>material</span>
-          
-          </div>
-   
+
+    <div class="materials-container">
 
     <div class="select-type-container">
    <h2 style="text-align: center">Select {{ selectedType }} Material</h2>
@@ -61,6 +57,8 @@
                       
                      
                      </div>
+        
+    
       </div>
            
                   
@@ -146,8 +144,91 @@ data(){
     name: 'Materials',
     
     props: ['necklace', 'bracelet', 'necklaceLength', 'braceletLength', 'braceletSize', 'selectedType'],
+      mounted: function(){
+        
+        
+         if(this.sessionType){
+             this.selectedType = this.sessionType;
+         }
+             
+                 if(this.sessionNecklace){
+             this.necklace = this.sessionNecklace;
+         }
+        
+        if(this.sessionBracelet){
+             this.bracelet = this.sessionBracelet;
+         }
+          
+          if(this.sessionNecklaceLength){
+             this.necklaceLength = this.sessionNecklaceLength;
+         }
+        
+        if(this.sessionBraceletLength){
+            this.lengthChosen = true;
+             this.braceletLength = this.sessionBraceletLength;
+         }
+          
+          if(this.sessionBraceletSize){
+              this.lengthChosen = true;
+             this.braceletSize = this.sessionBraceletSize;
+         }
+    },
     
      computed: {
+         
+             sessionType(){
+                
+                if(this.$session.has('sessionType')){
+                
+                return this.$session.get('sessionType');
+                }
+                
+            },
+         
+             sessionNecklace(){
+                
+                if(this.$session.has('sessionNecklace')){
+                
+                return this.$session.get('sessionNecklace');
+                }
+                
+            },
+        
+        sessionBracelet(){
+                
+                if(this.$session.has('sessionBracelet')){
+                
+                return this.$session.get('sessionBracelet');
+                }
+                
+            },
+         
+             sessionNecklaceLength(){
+                
+                if(this.$session.has('sessionNecklaceLength')){
+                
+                return this.$session.get('sessionNecklaceLength');
+                }
+                
+            },
+         
+         sessionBraceletLength(){
+                
+                if(this.$session.has('sessionBraceletLength')){
+                
+                return this.$session.get('sessionBraceletLength');
+                }
+                
+            },
+         
+         sessionBraceletSize(){
+                
+                if(this.$session.has('sessionBraceletSize')){
+                
+                return this.$session.get('sessionBraceletSize');
+                }
+                
+            },
              sessionId(){
             
             
@@ -184,27 +265,51 @@ data(){
              this.selectedMaterial.color = 'clear';
              this.selectedMaterial.price = 0.05;
              this.colorChosen = true;
+             this.materialChosen = true;
+             this.$emit('material', this.selectedMaterial);
              
-             this.$session.set('selectedMaterial', this.selectedMaterial);
+              this.$session.set('sessionMaterial', this.selectedMaterial);
             
-             this.$router.push({ name: 'Confirm', params: { sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+            this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+             
             
         },
         
         setWireColor: function(){
             this.colorChosen = true;
+            this.materialChosen = true;
+            this.$emit('material', this.selectedMaterial);
             
-            this.$session.set('selectedMaterial', this.selectedMaterial);
-          
-            this.$router.push({ name: 'Confirm', params: {necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+             this.$session.set('sessionMaterial', this.selectedMaterial);
+            
+            this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+            
         },
         
         setChainColor: function(){
             this.colorChosen = true;
+            this.materialChosen = true;
+            this.$emit('material', this.selectedMaterial);
             
-            this.$session.set('selectedMaterial', this.selectedMaterial);
-           
-            this.$router.push({ name: 'Confirm', params: {necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+             this.$session.set('sessionMaterial', this.selectedMaterial);
+            
+            this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+      
+        },
+        
+                backToType: function(){
+            this.$router.push({name: 'necklace', sessionId: this.sessionId, params: { necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
+        },
+        
+        backToLength: function(){
+           this.$router.push({name: 'Length', sessionId: this.sessionId, params: { necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
+        },
+        
+        toConfirmDetails: function(){
+            
+            this.$session.set('sessionMaterial', this.selectedMaterial);
+            
+            this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
         }
     }
 }
@@ -213,14 +318,14 @@ data(){
 </script>
 <style>
 
-       .create-container {
+       .materials-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
     
     grid-gap: 30px;
   
-    padding-top: 10px;
+    padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
 
@@ -281,42 +386,6 @@ data(){
    width: 50%;
     }
 
-        
-       .back {
- 
-    cursor: pointer;
-   color: #ad81c0;
-        
-    }
     
-    .back:hover {
-        color: #8a52a3;
-    }
-    
-
-    .right-arrow {
-
-        font-size: 20px;
-        color: #444;
-        margin-right: 8px;
-        margin-left: 8px;
-
-    }
-    
-    .breadcrumbs {
-    display: grid;
-    font-size: 14px;
-        line-height: 20px;
-    text-transform: uppercase;
-    color: #474747;
-        text-align: center;
-          margin-bottom: 15px;
-        padding: 5px;
-    }
-    
-    
-    .headers {
-    margin-bottom: 30px;
-    }
 
 </style>

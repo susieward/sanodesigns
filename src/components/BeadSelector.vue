@@ -1,9 +1,11 @@
 <template>
 
 <div class="bead-selector">
-  <span>Click to select beads from the directory below.<br>
-              You <strong>will be able to add more than one</strong> of each bead when working on your design.</span>
+    
+  <p>Click to select beads from the directory below.<br>
+        You <strong>will be able to add more than one</strong> of each bead when working on your design.</p>
 <p style="color: red" v-show="maximumReached">{{ selectedMessage }}</p>
+       
       <div class="select-beads">
           
          
@@ -14,17 +16,18 @@
               
                <div v-if="necklace === true" class="continue-btn">
               <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedNecklaceSelection()" :disabled="showDisabled" :class="{ 'btn-disabled': showDisabled }">continue</button><br>
-              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmNecklaceSelection()" :class="{ 'btn-disabled': showDisabled }">save changes</button>
+              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmNecklaceSelection()" :disabled="showDisabled" :class="{ 'btn-disabled': showDisabled }">save changes</button>
               </div>
               
               <div v-if="necklace === false" class="continue-btn">
-              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedBraceletSelection()" :class="{ 'btn-disabled': showDisabled }">continue</button><br>
-              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmBraceletSelection()" :class="{ 'btn-disabled': showDisabled }">save changes</button>
+              <button class="btn-small" style="width: 140px" v-if="selectedBeads.length && !beadsEdit.length" @click="finishedBraceletSelection()" :disabled="showDisabled" :class="{ 'btn-disabled': showDisabled }">continue</button><br>
+              <button class="btn-small" style="width: 200px" v-if="beadsEdit.length" @click="confirmBraceletSelection()" :disabled="showDisabled" :class="{ 'btn-disabled': showDisabled }">save changes</button>
               </div>
              
      
               
               <div class="selected-container-content">
+          
              
           <div v-for="(bead, index) in selectedBeads" class="selected-bead" :key="bead._id">
               
@@ -50,7 +53,7 @@
               </div>
        
           </div>
-            
+           
           </div>
    
           <div class="beads-and-search">
@@ -229,18 +232,18 @@ export default {
          },
         
         finishedNecklaceSelection: function(){
-            this.$session.set('selectedBeads', this.selectedBeads);
+        this.$session.set('sessionSelected', this.selectedBeads);
             this.$emit('selected', this.selectedBeads );
            
         },
             
             finishedBraceletSelection: function(){
-                this.$session.set('selectedBeads', this.selectedBeads);
+         
                  this.$emit('selected', this.selectedBeads );
             },
         
         confirmNecklaceSelection: function(){
-            this.$session.remove('selectedBeads');
+           this.$session.set('sessionSelected', this.beadsEdit);
             this.$emit('edited', this.beadsEdit );
         },
             

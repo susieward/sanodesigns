@@ -1,40 +1,25 @@
 <template>
   <div class="necklace-selector">
-      
-        <div class="header">
-          <div class="header-container">
-              <router-link to="/"><h1>Sano Designs</h1></router-link>
-              
-               <div class="buttons-buttons">
-          <span>
-      <button class="create-btn" @click="deleteLocalStorage">start over</button>
-          <button class="create-btn">save for later</button>
-          </span>
-          </div>
-              </div>
-      </div>
-      
+
       <div class="container">
-   
-    
- 
-      <div class="buttons-container-title-necklace"> 
+
+        <div class="buttons-container-title-necklace"> 
 
           <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Necklace</h2>
            
            <h2 v-if="!selectedBeads.length || editingBeads === true">Select Your Beads</h2>
 
            </div>
+
       <div class="necklace-selector-container">
 
-          <div class="design-necklace" v-if="selectedBeads.length && editingBeads === false">
+          <div class="design-necklace"  v-if="selectedBeads.length && editingBeads === false">
      <div class="necklace-template">
-
          <p style="color: red" v-if="maximumReached">{{ message }}</p>
               <div class="necklace-template-content">
               
            
-        <canvas-component ref="canvasRef" :maximum-length="maximumLength" :total-beads-length="totalBeadsLength" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions" @added="addTemplateBead" @deletebead="deleteTemplateBead" @copied="showCopied"></canvas-component>
+        <canvas-component ref="canvasRef" :maximum-length="maximumLength" :total-beads-length="totalBeadsLength" :selected-beads="selectedBeads" :necklace-length="necklaceLength" :necklace="necklace" :bracelet="bracelet" @save="saveCanvas" @options="showOptions" @added="addTemplateBead" @deletebead="deleteTemplateBead" @copied="showCopied" @sessionlocal="saveSessionLocal" @quicksave="saveSessionDataURL"></canvas-component>
                   
          </div>          
       </div>
@@ -47,7 +32,7 @@
           
             
             <p style="margin-top: 0"><span class="instruction-number">3.</span> Drag template beads to position them your necklace.</p>
-            <p>To rotate or delete a bead, select it by clicking on it and then click the rotate R/L or delete buttons.</p>
+            <p>To rotate or delete a bead, first click to select it and then click the rotate or delete buttons.</p>
             <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
             </div>
@@ -56,20 +41,7 @@
                            <span><button class="btn-small-gray" style="width: auto"@click="rotateLeft">rotate l</button> <button class="btn-small-gray"   style="width: auto" @click="rotateRight">rotate r</button></span>
                              <button class="btn-small-gray" style="width: 150px" @click="deleteBead">delete</button>
                            <button class="btn-small-gray" style="width: 150px" @click="resetBeads">reset</button>
-                           
-                        
- <div style="margin-top: 40px">
-      
-     
-              <h3>Details:</h3>
-                            <div class="necklace-dtails">
-                   <span class="necklace-dtail-text">Length:</span> <span>{{ formatLength(necklaceLength) }}</span>
-                   <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
-                   <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
-                 </div>
-   
-    
-          </div> 
+ 
         </div>
           
          
@@ -85,12 +57,22 @@
                 <h3>Beads:</h3> 
             <div v-for="bead in templateBeads">
             
-                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }}) x {{ bead.quantity }}</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }} per bead</span>
+                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }}) x {{ bead.quantity }}</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }} ea.</span>
             
             </div>
               <p>Total: {{ total | usdollar }}</p>
            </div>
           
+           <div class="your-details">
+           
+              <h3>Details:</h3>
+             
+                            <div class="necklace-dtails">
+                   <span class="necklace-dtail-text">Length:</span> <span>{{ formatLength(necklaceLength) }}</span>
+                   <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
+                   <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
+                 </div>
+           </div>
   
           
            </div>
@@ -98,16 +80,20 @@
                
               <div class="checkout-button-container">
                   
+                  <p v-if="yes === true && !templateBeads.length" style="color: red">You cannot proceed if your design is blank.</p>
+                  
                   <div style="display: grid; justify-content: flex-end; align-self: flex-end;">
                    <button style="width: 270px; margin-left: auto" class="btn-small" @click="goToCheckout(necklaceLength, selectedBeads)">continue to checkout</button>
                   </div>
            </div>
             
           </div>
-      <bead-selector :necklace="necklace" :necklace-length="necklaceLength" :bracelet="bracelet" :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
+    
    
   
           </div>
+          
+            <bead-selector :necklace="necklace" :necklace-length="necklaceLength" :bracelet="bracelet" :beads-edit="beadsEdit" :selected-type="selectedType" @selected="setNecklaceBeads" @edited="setEditedBeads" v-if="!selectedBeads.length || editingBeads === true"></bead-selector>
       </div>
   </div>
 </template>
@@ -124,9 +110,7 @@ export default {
             editedBeads: [],
             isSelected: false,
             degrees: 0,
-            style: {},
             selected: undefined,
-            draggableState: true,
             top: 0,
             left: 0,
             dataURL: '',
@@ -134,11 +118,14 @@ export default {
             beadSelected: false,
             selectedBead: '',
             templateBeads: [],
-            max: false
+            max: false,
+           yes: false,
+            localBeads: [],
+            s: ''
         }
     },
   name: 'necklace',
-    props: ['necklaceLength', 'selectedMaterial', 'necklace', 'bracelet'],
+    props: ['necklaceLength', 'selectedMaterial', 'necklace', 'bracelet', 'selectedType'],
     components: {
         BeadSelector,
         CanvasComponent
@@ -147,11 +134,68 @@ export default {
     
 
     
+    mounted: function(){
+        
+         this.localBeads = this.$store.state.localBeads;
+   if(this.sessionSelected){
+            
+            this.selectedBeads = this.sessionSelected
+        }
+        
+        if(this.sessionTemplate){
+              
+              this.templateBeads = this.sessionTemplate;
+             }
+        
+        if(this.sessionLocal){
+            
+            this.$store.commit('setLocalBeads', {localBeads: this.sessionLocal});
+        }
+       
+
+        
+    },
+
+    
     computed: {
+        
+     sessionSelected(){
+                
+                if(this.$session.has('sessionSelected')){
+                
+                return this.$session.get('sessionSelected');
+                }
+                
+            },
+        
+        sessionTemplate(){
+                
+                if(this.$session.has('sessionTemplate')){
+                
+                return this.$session.get('sessionTemplate');
+                }
+                
+            },
+        
+        sessionLocal(){
+                
+                if(this.$session.has('sessionLocal')){
+                
+                return this.$session.get('sessionLocal');
+                }
+                
+            },
         
              sessionData(){
             
             return this.$session.getAll();
+        },
+        
+        sessionDataURL(){
+            
+            if(this.$session.has('sessionDataURL')){
+                return this.$session.get('sessionDataURL')
+            }
         },
 
         
@@ -215,7 +259,26 @@ export default {
     
  
     methods: {
-    
+        
+        saveSessionDataURL: function(dataURL){
+             this.s = dataURL;
+            
+            this.$session.set('sessionDataURL', this.s);
+           
+        },
+        
+        saveSessionLocal: function(storageArray){
+            
+            this.$session.set('sessionLocal', storageArray);
+            
+            
+        },
+        
+        backToDetails: function(){
+            this.$router.push({ name: 'Confirm', sessionId: this.sessionId, params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet}});
+            
+        },
+        
         
         getSessionData: function(){
             
@@ -233,6 +296,7 @@ export default {
                formatBeadSize: function(value){
             return value + '' + ' mm'
         },
+        
 
         addTemplateBead: function(selectedBeadId){
             
@@ -245,6 +309,7 @@ export default {
                 
                 if(this.templateBeads.includes(addedBead)){
                     addedBead.quantity++
+                    this.$session.set('sessionTemplate', this.templateBeads);
                
                 } else {
                     
@@ -252,6 +317,7 @@ export default {
                 quantity: 1
             });
                  this.templateBeads.push(copy);
+                    this.$session.set('sessionTemplate', this.templateBeads);
             
                 }
        
@@ -276,10 +342,12 @@ export default {
             if(templateBead.quantity > 1){
                 
                 templateBead.quantity--;
+                this.$session.set('sessionTemplate', this.templateBeads);
             } else {
                  var index = this.templateBeads.findIndex(bead => bead._id === id);
                 
                  this.templateBeads.splice(index, 1);
+                this.$session.set('sessionTemplate', this.templateBeads);
             }
                 
         },
@@ -353,7 +421,7 @@ export default {
         setNecklaceBeads: function(selectedBeads){
             
             this.selectedBeads = selectedBeads;
-            this.$session.set('selectedBeads', this.selectedBeads);
+           
 
         },
         
@@ -362,7 +430,7 @@ export default {
            
             this.selectedBeads = beadsEdit;
             this.editingBeads = false;
-            this.$session.set('selectedBeads', this.selectedBeads);
+           
             
        
         },
@@ -376,17 +444,27 @@ export default {
         },
         
         goToCheckout: function(necklaceLength, templateBeads){
+            
+            if(!this.templateBeads.length){
+                
+                this.yes = true;
+            } else {
+              this.showMessage = false;
             this.$refs.canvasRef.saveBeadPositions();
             this.$refs.canvasRef.print();
             if(this.clickSave === true){
                 
-            this.$session.set('templateBeads', this.templateBeads);
-            this.$session.set('selectedBeads', this.selectedBeads);
-            this.$session.set('localBeads', this.localBeads);
+            this.$session.set('sessionTemplate', this.templateBeads);
+            this.$session.set('sessionSelected', this.selectedBeads);
+            this.$session.set('sessionLocal', this.localBeads);
             
             
-            this.$router.push({ name: 'Cart', params: {sessionId: this.sessionId, necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
-            }
+            this.$router.push({ name: 'Cart', params: {sessionId: this.sessionId, selectedType: this.selectedType, necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
+                }
+
+            } 
+
+
         },
         
         showOptions: function(selectedBead){
@@ -431,7 +509,6 @@ export default {
 
 align-content: flex-start;
 grid-template-areas:
-                    "header header"
                     "content content";
 min-height: 100vh;
 min-width: 100vw;
@@ -444,30 +521,6 @@ padding: 0;
     text-align: center;
     }
     
-          .header {
-grid-area: header;
-display: grid;
-align-content: center;
-width: 100vw;
-background-color: #F4F4F4;
-justify-content: center;
-height: 103px;
-  margin-bottom: 34px;
-
-
-}
-
-   .header-container {
-    display: grid;
-    grid-template-areas: "title buttons";
-        grid-gap: 10px;
-    align-content: center;
-    width: 1060px;
-
-        padding-bottom: 2px;
-
-   
-    }
     
     
     .container {
@@ -677,14 +730,14 @@ justify-content: center;
     }
     
     .necklace-container-bottom {
-
+margin-top: 30px;
 
 }
     
     .necklace-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 25px;
+    grid-gap: 45px;
 
         align-content: center;
 
@@ -692,8 +745,16 @@ justify-content: center;
     
     .your-beads-list {
     padding: 30px;
-
+min-height: 200px;
         background-color: #f4f4f4;
+    }
+    
+    .your-details {
+padding-top: 10px;
+padding-left: 0px;
+
+        
+        
     }
     
     .notes {
@@ -782,5 +843,51 @@ font-weight: 400;
 font-size: 30px;
 line-height: 30px;
     }
+    
+        
+        .back {
+ 
+    cursor: pointer;
+   color: #ad81c0;
+        
+    }
+    
+    .back:hover {
+        color: #8a52a3;
+    }
+    
+
+    .right-arrow {
+
+        font-size: 20px;
+        color: #444;
+        margin-right: 8px;
+        margin-left: 8px;
+
+    }
+    
+    .breadcrumbs {
+    display: grid;
+    font-size: 14px;
+        line-height: 20px;
+    text-transform: uppercase;
+    color: #474747;
+        text-align: center;
+          margin-bottom: 15px;
+        padding: 5px;
+    }
+    
+    
+    .headers {
+    margin-bottom: 30px;
+    }
+    
+      .go-back {
+        font-size: 16px;
+        line-height: 23px;
+    text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+   
   
 </style>

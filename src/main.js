@@ -20,6 +20,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import store from './store/index.js'
+import { sync } from 'vuex-router-sync'
 import App from './App'
 import Home from './components/Home.vue'
 import Create from './components/Create.vue'
@@ -35,16 +36,14 @@ import Type from './components/Type.vue'
 import Length from './components/Length.vue'
 import Materials from './components/Materials.vue'
 import Confirm from './components/Confirm.vue'
+import Designs from './components/Designs.vue'
 import VueSession from 'vue-session'
 import Toasted from 'vue-toasted';
 
 Vue.use(Toasted)
 
-var options = {
-    persist: true
-}
 
-Vue.use(VueSession, options)
+Vue.use(VueSession)
 
 Vue.use(VueRouter)
 
@@ -56,7 +55,7 @@ const routes = [
     },
     
     {
-      path: '/create/type',
+        path: '/create/type',
       name: 'Create',
       component: Create,
         children: [
@@ -68,19 +67,19 @@ const routes = [
         },
             
         {
-            path: '/:sessionId/type/length',
+            path: '/:sessionId/length',
             name: 'Length',
             component: Length,
             props: true
         },
         {
-            path: '/:sessionId/type/length/material',
+            path: '/:sessionId/type/material',
             name: 'Materials',
             component: Materials,
             props: true
             },
         {
-            path: '/:sessionId/type/length/material/confirm',
+            path: '/:sessionId/type/confirm',
             name: 'Confirm',
             component: Confirm,
             props: true
@@ -97,6 +96,11 @@ const routes = [
     { path: '/:sessionId/necklace',
              name: 'necklace',
              component: NecklaceSelector,
+             props: true
+    },
+    { path: '/designs',
+             name: 'Designs',
+             component: Designs,
              props: true
     },
     { path: '/beads',
@@ -143,6 +147,10 @@ scrollBehavior (to, from, savedPosition) {
     }
 });
 
+sync(store, router);
+
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -152,6 +160,7 @@ new Vue({
     store,
     created(){
         this.$store.dispatch('loadBeads');
+        this.$store.dispatch('loadSessions');
     },
   render: h => h(App)
 })

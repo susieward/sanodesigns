@@ -12,21 +12,7 @@
             
             <canvas id="testCanvas" ref="testCanvas" width="800" height="600" style="display: none; border: 1px solid red"></canvas>
         </div>
-
-<div class="canvas-info">
-           <p>mouse.current: {{ mouse.current }}<br>
-            
-        startX: {{ startX }} startY: {{ startY }}<br>
-            mouseX: {{ mouseX }} mouseY: {{ mouseY }}<br>
-            dragX: {{ dragX }} dragY: {{ dragY }}
-        </p>
-               
-<p>{{ imgArray }}</p>
-    </div>
-        
         <div>
-       
-    
         </div>
   
     </div>
@@ -56,10 +42,6 @@ data(){
         mouseY: 0,
         dragX: 0,
         dragY: 0,
-        beadStartX: 0,
-        beadStartY: 0,
-        beadMouseX: 0,
-        beadMouseY: 0,
         imgArray: [],
         selectedBead: '',
         originX: 0,
@@ -68,9 +50,6 @@ data(){
         selectedBeadId: '',
         selectedArray: [],
         beadSelected: false,
-        dragBeadX: 0,
-        dragBeadY: 0,
-        imgData: '',
         angleInDegrees: 0,
         templateBeads: [],
         max: false
@@ -394,6 +373,8 @@ name: 'CanvasComponent',
                   this.$emit('deletebead', selectedId);
                 this.selectedBead = '' 
                 
+                   this.saveBeadPositions();
+                this.quickPrint();
              }
              
          },
@@ -516,10 +497,17 @@ name: 'CanvasComponent',
             
              this.$store.commit('setLocalBeads', {localBeads: storageArray});
             
+            this.$emit('sessionlocal', storageArray);
                 
             },
         
-         
+         quickPrint: function(){
+             
+             var canvas = document.getElementById('canvas');
+                var dataURL = canvas.toDataURL();
+             
+             this.$emit('quicksave', dataURL);
+         },
          
             print: function(){
      
@@ -852,6 +840,8 @@ name: 'CanvasComponent',
                 var y = this.startY;
                 
                 this.pasteImg(x, y);
+                 this.saveBeadPositions();
+                this.quickPrint();
             }
            
               
@@ -1079,7 +1069,8 @@ name: 'CanvasComponent',
                 
                });
           
-             
+             this.saveBeadPositions();
+                this.quickPrint();
             }
     
         },
@@ -1167,7 +1158,8 @@ name: 'CanvasComponent',
              
              m.reset();
             ctx.restore();
-             
+              this.saveBeadPositions();
+             this.quickPrint();
              
          },
          
@@ -1259,7 +1251,8 @@ name: 'CanvasComponent',
              
              m.reset();
             ctx.restore();
-             
+              this.saveBeadPositions();
+             this.quickPrint();
          }
      }
 }

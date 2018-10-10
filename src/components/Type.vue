@@ -1,12 +1,8 @@
 <template>
 <div class="type">
-    <div class="create-container">
-      <div class="breadcrumbs">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span>jewelry type</span>
-          
-          </div>
+    <div class="type-container">
 <div class="select-type-container">
-            
+     
             <h2 style="text-align: center">Select Jewelry Type</h2>
             
             <div class="select-type">
@@ -39,6 +35,11 @@ data(){
         
         sessionId(){
             return this.$session.id();
+        },
+        
+        sessionData(){
+            
+            return this.$session.getAll();
         }
    
     },
@@ -51,8 +52,10 @@ data(){
             this.typeChosen = true;
             this.selectedType = 'Necklace';
             this.$emit('ntype', this.selectedType);
-                
-            this.$session.set('selectedType', 'Necklace');
+            
+            this.$session.set('sessionNecklace', this.necklace);
+            this.$session.set('sessionBracelet', this.bracelet);
+            this.$session.set('sessionType', this.selectedType);
             
             this.$router.push({ name: 'Length', params: { sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
             
@@ -65,7 +68,7 @@ data(){
             this.selectedType = 'Bracelet';
             this.$emit('btype', this.selectedType);
             
-             this.$session.set('selectedType', 'Bracelet');
+             this.$session.set('sessionType', 'Bracelet');
             
              this.$router.push({ name: 'Length', params: {necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
         },
@@ -76,14 +79,14 @@ data(){
 </script>
 <style>
     
-       .create-container {
+       .type-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
     
     grid-gap: 30px;
   
-    padding-top: 10px;
+    padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
 
@@ -134,42 +137,7 @@ font-weight: 400;
     padding: 0;
 }
     
-       .back {
- 
-    cursor: pointer;
-   color: #ad81c0;
-        
-    }
-    
-    .back:hover {
-        color: #8a52a3;
-    }
-    
-
-    .right-arrow {
-
-        font-size: 20px;
-        color: #444;
-        margin-right: 8px;
-        margin-left: 8px;
-
-    }
-    
-    .breadcrumbs {
-    display: grid;
-    font-size: 14px;
-        line-height: 20px;
-    text-transform: uppercase;
-    color: #474747;
-        text-align: center;
-          margin-bottom: 15px;
-        padding: 5px;
-    }
-    
-    
-    .headers {
-    margin-bottom: 30px;
-    }
+  
     
 
 

@@ -1,19 +1,6 @@
 <template>
   <div class="bracelet-selector">
       
-       <div class="header">
-          <div class="header-container">
-              <router-link to="/"><h1>Sano Designs</h1></router-link>
-              
-               <div class="buttons-buttons">
-          <span>
-      <router-link to="/" tag="button" class="create-btn">start over</router-link>
-          <button class="create-btn">save for later</button>
-          </span>
-          </div>
-              </div>
-      </div>
-      
       <div class="container">
           
           <div class="buttons-container-title"> <h2 v-if="selectedBeads.length && editingBeads === false">Design Your Bracelet</h2>
@@ -210,7 +197,6 @@ export default {
 
 align-content: flex-start;
 grid-template-areas:
-                    "header header"
                     "content content";
 min-height: 100vh;
 min-width: 100vw;
@@ -222,31 +208,7 @@ padding: 0;
 .bracelet-selector  h2 {
     text-align: center;
     }
-    
-          .header {
-grid-area: header;
-display: grid;
-align-content: center;
-width: 100vw;
-background-color: #F4F4F4;
-justify-content: center;
-height: 103px;
-  margin-bottom: 34px;
 
-
-}
-
-   .header-container {
-    display: grid;
-    grid-template-areas: "title buttons";
-        grid-gap: 10px;
-    align-content: center;
-    width: 1060px;
-
-        padding-bottom: 2px;
-
-   
-    }
     
     
     .container {

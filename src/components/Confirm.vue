@@ -1,15 +1,13 @@
 <template>
 <div class="confirm">
-    <div class="create-container">
-         <div class="breadcrumbs">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
-          
-          </div>
+    
+    <div class="confirm-container">
+
 
     <div class="select-type-container">
 
              <div class="select-details">
-              
+
                   <h2 style="text-align: center">Confirm {{ selectedType }} Details</h2>
               </div>
   
@@ -22,7 +20,10 @@
                  </div>
          
                 <div style="display: grid; justify-content: center; margin-top: 10px">
-               <button class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
+                    
+               <button v-if="!beadsChosen" class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
+                    
+                    <button v-if="beadsChosen" class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">resume your design</button>
                  </div>
               </div>
           
@@ -39,7 +40,10 @@
                  </div>
               
                 <div style="display: grid; justify-content: center; margin-top: 10px">
-           <button class="btn" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">select your beads</button>
+                    
+           <button v-if="!beadsChosen" class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
+                    
+                    <button v-if="beadsChosen" class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">resume your design</button>
                 </div>
               </div>
               
@@ -51,8 +55,7 @@
 export default {
 data(){
     return {
-         materials: ['chain', 'wire', 'stretch cord']
-        
+         materials: ['chain', 'wire', 'stretch cord'],
 
         
     }
@@ -61,15 +64,56 @@ data(){
     
     props: ['necklace', 'bracelet', 'necklaceLength', 'braceletLength', 'braceletSize', 'selectedMaterial', 'selectedType'],
     
+      mounted: function(){
+          this.getData();
+          
+          if(this.$session.has('sessionType')){
+             this.selectedType = this.$session.get('sessionType')
+         }
+        
+          if(this.$session.has('sessionNecklace')){
+             this.necklace = this.$session.get('sessionNecklace')
+         }
+        
+         if(this.$session.has('sessionBracelet')){
+             this.bracelet = this.$session.get('sessionBracelet')
+         }
+          
+          if(this.$session.has('sessionNecklaceLength')){
+             this.necklaceLength = this.$session.get('sessionNecklaceLength')
+         }
+        
+         if(this.$session.has('sessionBraceletLength')){
+             this.braceletLength = this.$session.get('sessionBraceletLength')
+         }
+          
+          if(this.$session.has('sessionBraceletSize')){
+             this.braceletSize = this.$session.get('sessionBraceletSize')
+         }
+        
+         if(this.$session.has('sessionMaterial')){
+             this.selectedMaterial = this.$session.get('sessionMaterial')
+         }
+        
+        this.localBeads = this.$store.state.localBeads;
+        
+    },
+    
      computed: {
-             sessionId(){
+         
+         beadsChosen(){
+             
+            return this.$session.has('sessionSelected');
+             
+         },
+       
+         
+        sessionId(){
             
             
             return this.$session.id();
-        }
-    },
-    
-    computed: {
+        },
+
         
         sessionData(){
             
@@ -79,32 +123,31 @@ data(){
 
     
     methods: {
+        
+        getData: function(){
+            
+            this.$session.getAll();
+            
+        },
             chooseBraceletBeads: function(braceletLength, selectedMaterial){
             this.$router.push({ name: 'bracelet', params: {sessionId: this.sessionId, braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
         },
         
          chooseNecklaceBeads: function(necklaceLength, selectedMaterial){
-            this.$router.push({sessionId: this.sessionId, name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
+             
+            this.$router.push({name: 'necklace', sessionId: this.sessionId, params: { necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
         },
         
            backToType: function(){
-            this.typeChosen = false;
-            this.selectedType = '';
-            this.lengthChosen= false;
-            this.necklaceLength = '';
-            this.braceletLength = ''
+            this.$router.push({name: 'necklace', sessionId: this.sessionId, params: { necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
         },
         
         backToLength: function(){
-            this.lengthChosen = false
-            this.necklaceLength = '';
-            this.braceletLength = ''
+           this.$router.push({name: 'Length', sessionId: this.sessionId, params: { necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
         },
         
         backToMaterial: function(){
-            this.lengthChosen = true;
-            this.materialChosen = false;
-            this.selectedMaterial = {}
+           this.$router.push({name: 'Materials', sessionId: this.sessionId, params: { necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
         },
         
              
@@ -132,14 +175,14 @@ data(){
 </script>
 <style>
     
-       .create-container {
+       .confirm-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
     
     grid-gap: 30px;
   
-    padding-top: 10px;
+    padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
 
@@ -227,41 +270,4 @@ font-weight: 400;
         line-height: 24px;
     }
 
-    
-       .back {
- 
-    cursor: pointer;
-   color: #ad81c0;
-        
-    }
-    
-    .back:hover {
-        color: #8a52a3;
-    }
-    
-
-    .right-arrow {
-
-        font-size: 20px;
-        color: #444;
-        margin-right: 8px;
-        margin-left: 8px;
-
-    }
-    
-    .breadcrumbs {
-    display: grid;
-    font-size: 14px;
-        line-height: 20px;
-    text-transform: uppercase;
-    color: #474747;
-        text-align: center;
-          margin-bottom: 15px;
-        padding: 5px;
-    }
-    
-    
-    .headers {
-    margin-bottom: 30px;
-    }
 </style>

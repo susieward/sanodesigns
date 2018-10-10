@@ -13,7 +13,8 @@ state: {
     selectedBeads: [],
     beadsEdit: [],
     localBeads: JSON.parse(localStorage.getItem('beads-key')) || [],
-    localSession: localStorage.getItem('session-key') || []
+    savedSessions: JSON.parse(localStorage.getItem('saved-sessions')) || [],
+    sessions: []
 },
     
   
@@ -23,6 +24,17 @@ state: {
       axios.get('https://sanodesigns-server.herokuapp.com/beads').then((response) => {
         commit('setBeads', { beads: response.data})
         })
+        },
+        
+        loadSessions: function({commit}){
+            
+            var saved = window.localStorage.getItem('saved-sessions');
+            
+            if(saved){
+                    commit('setSessions', {saved: JSON.parse(saved)});
+                
+            }
+            
         }
     },
     
@@ -47,10 +59,45 @@ state: {
             state.beads.splice(index, 1);
         },
         
-        setLocalSession: (state, {session}) => {
-             localStorage.setItem('session-key', session);
+     
+        setSessions: (state, {saved}) => {
             
-            state.localSession = session;
+
+            state.sessions = saved;
+            
+        },
+        
+        saveSession: (state, {session}) => {
+            
+            let sessions = state.sessions;
+            sessions.push(session);
+            
+             localStorage.setItem('saved-sessions', JSON.stringify(sessions));
+            
+            state.savedSessions = JSON.parse(localStorage.getItem('saved-sessions'));
+            
+        },
+        
+        deleteSession: (state, id) => {
+            
+           let sessions = state.sessions;
+            
+            let index = sessions.findIndex(session => session.id === id);
+            
+            sessions.splice(index, 1);
+            
+            localStorage.setItem('saved-sessions', JSON.stringify(sessions));
+            
+            state.savedSessions = JSON.parse(localStorage.getItem('saved-sessions'));
+            
+        },
+        
+        deleteSessions: (state) => {
+            
+            localStorage.removeItem('saved-sessions');
+            state.sessions = [];
+            state.savedSessions = [];
+            
         },
         
         setLocalBeads: (state, {localBeads}) => {
@@ -81,6 +128,11 @@ state: {
     
     
     getters: {
+        
+        savedIds: state => {
+            
+            return state.savedSessions.map(session => session.id);
+        },
         
         opalBeads: state => {
             return state.beads.filter(bead => bead.stone === 'Opalite');

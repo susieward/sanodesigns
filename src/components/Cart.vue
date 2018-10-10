@@ -1,28 +1,21 @@
 <template>
 <div class="cart">
-       <div class="header">
-          <div class="header-container">
-              <router-link to="/"><h1>Sano Designs</h1></router-link>
-              
-               <div class="buttons-buttons">
-          <span>
-      <button class="create-btn" @click="deleteLocalStorage">start over</button>
-          <button class="create-btn">save for later</button>
-          </span>
-          </div>
-              </div>
-      </div>
-    
     
     <div class="cart-container">
-        <h2 style="text-align: center; margin-bottom: 15px;">Cart</h2>
 
+        <h2 style="text-align: center; margin-bottom: 15px">Cart</h2>
+
+        <div class="design-beads-container">
+            
+            <span class="go-back"><span><span class="right-arrow">&#8249;</span><span class="back" @click="backToDesign">back to design</span></span></span>
+            
         <div class="design-and-beads">
         
+       
        <div class="design-img-container">
-        <img :src="dataURL" class="design-img" @click="backToCanvas"/>
+        <img :src="dataURL" class="design-img" @click="backToDesign"/>
         </div>
-            
+  
             
               <div class="cart-beads">
           <h3>Beads:</h3> 
@@ -36,13 +29,22 @@
         </div>
             
          
-            
+            </div> 
         </div>
         
  
         <div class="cart-details">
         
-      
+        <div class="your-details">
+           
+              <h3>Details:</h3>
+             
+                            <div class="necklace-dtails">
+                   <span class="necklace-dtail-text">Length:</span> <span>{{ formatLength(necklaceLength) }}</span>
+                   <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
+                   <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
+                 </div>
+           </div>
         
            <div class="cart-notes">
          <h3 style="margin-bottom: 0">Notes:</h3>
@@ -52,14 +54,14 @@
             <textarea v-model="notes" class="notes-textarea"></textarea>
         </div>
         
-        
+       
         
         </div>
 
             <div class="totals-container">
             <div class="cart-totals">
             
-            <span class="total-text">Beads total:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
+            <span class="total-text">Beads:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
 
                 <span class="total-text" v-if="necklace === true">{{ formatLength(necklaceLength) }} length x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }} ({{ selectedMaterial.type }}, {{ selectedMaterial.color }}): </span><span class="total-text" v-if="bracelet === true">{{ formatLength(braceletLength) }} length <span class="multiply">x</span> {{ formatMaterialPrice(selectedMaterial.price) | usdollar }} : </span> <span class="total-price">{{ formatPrice(totalMaterialPrice) | usdollar }} </span>
              
@@ -95,7 +97,7 @@ data(){
 },
 name: 'Cart',
 
-props: ['necklaceLength', 'braceletLength', 'templateBeads', 'selectedMaterial', 'necklace', 'bracelet', 'dataURL'],
+props: ['necklaceLength', 'braceletLength', 'templateBeads', 'selectedBeads', 'selectedMaterial', 'selectedType', 'necklace', 'bracelet', 'dataURL'],
     
 components: {
     Checkout
@@ -150,6 +152,7 @@ components: {
     },
     
     methods: {
+        
             formatPrice: function(value){
             return value.toFixed(2);
         },
@@ -166,8 +169,8 @@ components: {
             return value.toFixed(2) + '' + ' per cm'
         },
         
-        backToCanvas: function(){
-            this.$router.push({ name: 'necklace', params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, necklace: this.necklace, bracelet: this.bracelet}});
+        backToDesign: function(){
+            this.$router.push({ name: 'necklace', sessionId: this.sessionId, params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet}});
             
         },
         
@@ -199,7 +202,6 @@ components: {
 display: grid;
 
 grid-template-areas:
-                    "header header"
                     "content content";
 min-height: 100vh;
 min-width: 100vw;
@@ -207,40 +209,29 @@ min-width: 100vw;
 margin: 0;
 padding: 0;
 }
-    
-      .header {
-grid-area: header;
-display: grid;
-align-content: center;
-width: 100vw;
-background-color: #F4F4F4;
-justify-content: center;
-height: 103px;
-  margin-bottom: 34px;
 
-
-}
-
-   .header-container {
-    display: grid;
-    grid-template-areas: "title buttons";
-        grid-gap: 10px;
-    align-content: center;
-    width: 1060px;
-
-        padding-bottom: 2px;
-
-   
-    }
     
 .cart-container {
 grid-area: content;
 display: grid;
 width: 1050px;
+    padding-top: 20px;
     padding: 30px;
+    padding-top: 20px;
         margin-right: auto;
         margin-left: auto;
+
 }
+    
+    .title-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 100%;
+    border: 1px solid #eee;
+    
+        
+        
+    }
     
      .cart-beads {
     padding: 30px;
@@ -281,7 +272,7 @@ width: 1050px;
   width: 450px;
     align-content: flex-start;
     padding-top: 20px;
-   
+
     
 
     }
@@ -307,7 +298,17 @@ width: 1050px;
     display: grid;
         grid-template-columns: 1fr 1fr;
   margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+
+
+    }
+    
+        .your-details {
+padding-top: 10px;
+padding-left: 0px;
+
+        
+        
     }
     
     .necklace-dtails-container {
@@ -318,7 +319,6 @@ width: 1050px;
     align-content: flex-start;
     padding-top: 20px;
         padding: 30px;
-    
     }
     
      .necklace-dtails {
@@ -355,11 +355,11 @@ width: 1050px;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(3, 1fr);
-    max-width: 600px;
+padding: 30px;
     
         align-content: center;
         justify-content: center;
-        
+         background-color: #f4f4f4;
     
     
     
@@ -412,11 +412,28 @@ line-height: 30px;
     line-height: 24px;
     }
  
+    .design-beads-container{
+    display: grid;
+    grid-template-rows: auto auto;
+
+        margin-top: 30px;
+
+        
+    }
+    
+    .go-back {
+        font-size: 16px;
+        line-height: 23px;
+    text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+    
+    
     .design-and-beads {
     display: grid;
     grid-template-columns: 1fr 1fr;
            grid-gap: 40px;
-        margin-top: 30px;
+        margin-top: 0px;
     }
     
     .design-img-container {
@@ -445,6 +462,42 @@ line-height: 30px;
             margin: auto;
     }
     
+        .back {
+ 
+    cursor: pointer;
+   color: #ad81c0;
+        
+    }
+    
+    .back:hover {
+        color: #8a52a3;
+    }
+    
+
+    .right-arrow {
+
+        font-size: 20px;
+        color: #444;
+        margin-right: 8px;
+        margin-left: 8px;
+
+    }
+    
+    .breadcrumbs {
+    display: grid;
+    font-size: 14px;
+        line-height: 20px;
+    text-transform: uppercase;
+    color: #474747;
+        text-align: center;
+          margin-bottom: 15px;
+        padding: 5px;
+    }
+    
+    
+    .headers {
+    margin-bottom: 30px;
+    }
    
 
 </style>

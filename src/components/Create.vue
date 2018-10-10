@@ -1,23 +1,31 @@
 <template>
   <div class="create">
-        <div class="header">
-          <div class="header-container">
-              
-              <div class="title">
-              <router-link to="/"><h1>Sano Designs</h1></router-link>
-              </div>
-              
-               <div class="buttons-buttons">
-          <span>
-      <button class="create-btn" @click="deleteLocalStorage">start over</button>
-          <button class="create-btn" @click="saveForLater">save for later</button>
-          </span>
-          </div>
-              </div>
-      </div>
+
      
       <div class="create-container">
-            <router-view></router-view>
+    
+              <div class="breadcrumbs" v-if="typeRoute">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span>jewelry type</span>
+          
+          </div>
+          
+          <div class="breadcrumbs" v-if="lengthRoute">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span>sizing</span>
+          
+          </div>
+          
+          <div class="breadcrumbs" v-if="materialsRoute">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span>material</span>
+          
+          </div>
+          
+          <div class="breadcrumbs" v-if="confirmRoute">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
+          
+          </div>
+
+
+            <router-view @ntype="getNecklace" @btype="getBracelet" @nlength="getNecklaceLength" @blength="getBraceletLength" @material="getMaterial"></router-view>
               
             
               
@@ -56,41 +64,62 @@ export default {
     
     computed: {
         
+         
+        sessionId(){
+            
+            
+            return this.$session.id();
+        },
+        
+        sessionData(){
+            
+            
+            return this.$session.getAll();
+        },
         
         localSession(){
             return this.$store.state.localSession;
+        },
+        
+        typeRoute(){
+            
+            return this.$store.state.route.name === 'Type'
+            
+        },
+        
+        lengthRoute(){
+            
+            return this.$store.state.route.name === 'Length'
+            
+        },
+        
+        materialsRoute(){
+            
+            return this.$store.state.route.name === 'Materials'
+        },
+        
+        confirmRoute(){
+            
+            return this.$store.state.route.name === 'Confirm'
+            
         }
 
         
 
   },
  
-    created(){
+    mounted: function(){
         
+        if(!this.$session.exists()){
         this.$session.start();
-
-    },
-    
-    computed: {
-        
-        sessionId(){
-            
-            
-            return this.$session.id();
+           
         }
+        
+        
+        
     },
-    
+   
     methods: {
-        
-        saveForLater: function(){
-        
-            let session = this.$session.getAll();
-            
-            this.$store.commit('setLocalSession', {session: session});
-            
-            
-            
-        },
      
         
        chooseBraceletBeads: function(braceletLength, selectedMaterial){
@@ -102,31 +131,34 @@ export default {
         },
         
         backToType: function(){
-            this.typeChosen = false;
+            this.typeChosen = true;
             this.selectedType = '';
-            this.lengthChosen= false;
-            this.necklaceLength = '';
-            this.braceletLength = ''
+            this.$session.remove('sessionType')
+            this.$router.push({ name: 'Type'});
         },
         
         backToLength: function(){
-            this.lengthChosen = false
+            this.lengthChosen = true;
             this.necklaceLength = '';
-            this.braceletLength = ''
+            this.braceletLength = '';
+            this.braceletSize = '';
+            this.$session.remove('sessionNecklaceLength');
+            this.$session.remove('sessionBraceletLength');
+            this.$session.remove('sessionBraceletSize');
+            this.$router.push({ name: 'Length'});
         },
         
         backToMaterial: function(){
-            this.lengthChosen = true;
-            this.materialChosen = false;
+            this.materialChosen = true;
             this.selectedMaterial = {}
+            this.$session.remove('sessionMaterial');
+            this.$router.push({ name: 'Materials'});
         },
         
-        // so weird I never use comments in vue files
        
         selectNecklace: function(){
             this.necklace = true;
             this.bracelet = false;
-            this.typeChosen = true;
             this.selectedType = 'Necklace';
             
         },
@@ -134,13 +166,11 @@ export default {
         selectBracelet: function(){
             this.bracelet = true;
             this.necklace = false;
-            this.typeChosen = true;
             this.selectedType = 'Bracelet';
         },
         
       
         getNecklace: function(selectedType){
-            this.typeChosen = true;
             this.neckace = true;
             this.bracelet = false;
             this.selectedType = selectedType;
@@ -155,13 +185,13 @@ export default {
         },
         
         getNecklaceLength: function(necklaceLength){
+            
             this.necklaceLength = necklaceLength;
-            this.lengthChosen = true;
+
         },
         
         getBraceletLength: function(braceletLength){
             this.braceletLength = braceletLength;
-            this.lengthChosen = true;
             
             if(this.braceletLength === '14'){
                 this.braceletSize = 'XS';
@@ -190,7 +220,7 @@ export default {
         
         getMaterial: function(selectedMaterial){
             this.selectedMaterial = selectedMaterial;
-            this.materialChosen = true;
+
         },
         
         formatPrice: function(value){
@@ -232,7 +262,7 @@ export default {
     display: grid;
           align-content: flex-start;
    grid-template-areas:
-                    "header header"
+
                     "content content";
 min-height: 100vh;
 min-width: 100vw;
@@ -240,112 +270,8 @@ margin: 0;
 padding: 0;
     }
     
-        
-  .header {
-grid-area: header;
-display: grid;
-align-content: center;
-width: 100vw;
-background-color: #F4F4F4;
-justify-content: center;
-height: 103px;
-  margin-bottom: 34px;
 
-
-}
-    
-   
-    .header-container {
-    display: grid;
-    grid-template-areas: "title buttons";
-        grid-gap: 10px;
-    align-content: center;
-    width: 1060px;
-
-        padding-bottom: 2px;
-
-   
-    }
-    
-    .title {
-    grid-area: title;
-    display: grid;
-  
-    justify-content: flex-start;
-    align-content: center;
-        width: 500px;
-    }
-    
-    .header h1 {
-    font-family: 'Pacifico';
-    font-size: 58px;
-line-height: 64px;
-    font-weight: 400;
-color: #262626;
-margin: 0;
-    }
-    
-    .buttons-buttons {
-    grid-area: buttons;
-    display: grid;
-   grid-gap: 20px;
-      justify-content: flex-end;
-      align-content: center;
-        padding: 0;
-  
-    }
-    
-    
-/* header media queries */
-    
-    
-    @media screen and (max-width: 1200px){
-    
-        .header {
-grid-area: header;
-display: grid;
-align-content: center;
-width: 100vw;
-background-color: #F4F4F4;
-height: 92px;
-justify-content: center;
-
-
-
-
-}
-    
-    .header-container {
-    display: grid;
-        grid-template-columns: 1fr auto;
-        grid-gap: 50px;
-    align-content: center;
-    width: 900px;
-   
-    }
-    
-    .header h1 {
-    font-family: 'Pacifico';
-    font-size: 48px;
-line-height: 53px;
-    font-weight: 400;
-color: #262626;
-margin: 0;
-    }
-
-}
-
-    
-    .buttons-container {
-    display: grid;
-        margin-right: 20px;
-        margin-top: 20px;
-        align-content: center;
-        justify-content: flex-end;
-     
-    }
-    
-    .create-container {
+           .create-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
@@ -357,17 +283,6 @@ margin: 0;
     min-height: 700px;
 
     
-    }
-    
-    .buttons-container-title {
-display: grid;
-  justify-content: center;
-
-       margin-bottom: 30px;
-        padding: 30px;
-    padding-top: 20px;
-        padding-bottom: 20px;
-
     }
 
   

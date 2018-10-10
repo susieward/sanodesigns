@@ -1,15 +1,21 @@
 <template>
   <div class="home">
-         <div class="header">
-          <div class="header-container">
-              <router-link to="/"><h1>Sano Designs</h1></router-link>
-              </div>
-      </div>
+ 
       <div class="home-container">
 
 <h2>Create Your Own Design</h2>
-      <div class="start">
+      <div class="start" v-if="!hasSession">
           <router-link to="/create/type" tag="button" class="btn">get started</router-link>
+          </div>
+          
+          <div class="start" v-if="hasSession">
+          
+              <button class="btn" @click="continueSession">continue</button>
+               <p style="text-align: center">or</p>
+              
+            <button class="btn" @click="newSession">start new design</button>
+          
+          
           </div>
           
       </div>
@@ -21,18 +27,63 @@ import axios from 'axios'
 export default {
   name: 'Home',
   data () {
-    return {
+    return {}
+ },
 
- 
-    }
- 
-    
-    },
     
     computed: {
+        
+        hasSession(){
+            
+            return this.$session.exists();
+        },
+        
         beads(){
             return this.$store.state.beads;
+        },
+        
+        sessionId(){
+            return this.$session.id();
+        },
+        
+   
+        
+          sessionData(){
+            
+            
+            return this.$session.getAll();
         }
+    },
+    
+    methods: {
+        
+        continueSession: function(){
+            
+            if(this.$session.exists()){
+                  this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId}})
+                }
+            
+        },
+        
+        newSession: function(){
+            
+           this.$store.commit('deleteLocalBeads');
+            this.$session.destroy();
+            if(!this.$session.exists()){
+                    this.$router.push('/create/type');
+                }
+            
+        },
+        
+            deleteLocalStorage: function(){
+            this.$store.commit('deleteLocalBeads');
+            this.$session.destroy();
+            if(!this.$session.exists()){
+                    this.$router.push('/');
+                }
+  
+        }
+        
     }
 
 }
