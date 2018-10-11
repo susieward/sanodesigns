@@ -161,9 +161,8 @@ data() {
             this.$session.set('sessionLocal', session.localBeads);
             this.$session.set('sessionDataURL', session.dataURL);
             
-            if(this.$session.exists()){
-                  this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId}})
-                }
+      
+                  this.$router.push('/');
             
             
 
