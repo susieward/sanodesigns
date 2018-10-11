@@ -8,7 +8,7 @@
         </span>
 
         <div class="canvas-container" id="canvas-container">
-    <canvas id="canvas" ref="canvas"  @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" style="border: 1px solid #ddd" width="800" height="600"></canvas>
+    <canvas id="canvas" ref="canvas"  @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" @touchstart="handleTouchStart($event)" @touchend="handleTouchEnd($event)" @touchmove="handleTouchMove($event)" style="border: 1px solid #ddd" width="800" height="600"></canvas>
             
             <canvas id="testCanvas" ref="testCanvas" width="800" height="600" style="display: none; border: 1px solid red"></canvas>
         </div>
@@ -36,16 +36,23 @@ data(){
         },
         down: false
       },
+        
+      touch: {
+        current: {
+            x: 0,
+            y: 0
+            }
+        },
         startX: 0,
         startY: 0,
         mouseX: 0,
         mouseY: 0,
+        touchX: 0,
+        touchY: 0,
         dragX: 0,
         dragY: 0,
         imgArray: [],
         selectedBead: '',
-        originX: 0,
-        originY: 0,
         designSaved: false,
         selectedBeadId: '',
         selectedArray: [],
@@ -156,6 +163,10 @@ name: 'CanvasComponent',
                 }
          },
          
+         
+// LOAD SELECTED BEADS ARRAY TO PAGE
+         
+         
          loadSelectedArray: function(){
              
              var selectedArray = this.selectedArray;
@@ -187,7 +198,7 @@ name: 'CanvasComponent',
              }
             },
          
-            
+// DRAW LOCAL BEADS 
             
             drawLocalBeads: function(){
                 
@@ -261,6 +272,8 @@ name: 'CanvasComponent',
                 }
             },
          
+// COPY & PASTE BEAD TO TEMPLATE
+         
          copyImg: function(img, e){
              
              if(this.totalBeadsLength >= this.maximumLength){
@@ -319,6 +332,8 @@ name: 'CanvasComponent',
                 this.selectedBeadId = '';
            
          },
+         
+// DELETE BEAD
          
          deleteBead: function(){
              
@@ -382,6 +397,8 @@ name: 'CanvasComponent',
              }
              
          },
+         
+// GENERAL DRAW BEADS FUNCTION
          
          drawBeads: function(){
              
@@ -468,6 +485,7 @@ name: 'CanvasComponent',
                
          },
          
+// SAVE LOCAL BEADS
             
         saveBeadPositions: function(){
                 var c = this.$refs.canvas;
@@ -504,6 +522,10 @@ name: 'CanvasComponent',
             this.$emit('sessionlocal', storageArray);
                 
             },
+         
+         
+// GET CANVAS DATA URL
+         
         
          quickPrint: function(){
              
@@ -572,7 +594,8 @@ name: 'CanvasComponent',
                 
         },
       
-         
+       
+    // DRAW NECKLACE TEMPLATE FUNCTIONS
                 
             drawNecklaceTemplate: function(){
                 var c = this.$refs.canvas;
@@ -690,6 +713,8 @@ name: 'CanvasComponent',
 
             },
          
+// DRAW BRACELET TEMPLATE FUNCTIONS
+         
            drawBraceletTemplate: function(){
                 var c = this.$refs.canvas;
                 var ctx = c.getContext("2d");
@@ -768,7 +793,7 @@ name: 'CanvasComponent',
             },
         
             
-
+// RESET BEADS
          
             resetBeads: function(){
              
@@ -804,6 +829,7 @@ name: 'CanvasComponent',
                     
                 },
          
+    // MOUSE EVENTS     
          
           handleMouseDown: function (event) {
            
@@ -877,25 +903,8 @@ name: 'CanvasComponent',
          
           
           },
-         
-         
-         getImageData: function(el){
-             
-          var testCanvas = this.$refs.testCanvas;
-        var ctx = testCanvas.getContext("2d");
-             
-             ctx.drawImage(el, 0, 0);
-             
-             var imageData = ctx.getImageData(0, 0, el.width, el.height);
-             
-             ctx.clearRect(0, 0, el.width, el.height);
-             this.imgData = imageData;
-             
 
          
-        
-         },
-              
          handleMouseUp: function (event) {
          
             var c = this.$refs.canvas;
@@ -1079,7 +1088,172 @@ name: 'CanvasComponent',
     
         },
          
-    // ROTATE LEFT
+// TOUCH EVENTS 
+         
+         handleTouchStart: function(event){
+             
+             event.preventDefault();
+             
+              var c = this.$refs.canvas;
+            var ctx = c.getContext("2d");
+             var rect = c.getBoundingClientRect();
+             var offsetX = rect.left;
+            var offsetY = rect.top;
+            var imgArray = this.imgArray;
+             var canvasWidth = 800;
+             var canvasHeight = 600;
+         
+             
+             if(event.touches.length == 1){
+                 
+                 var touch = event.touches[0];
+                 
+            this.touchX = touch.clientX - offsetX;
+            this.touchY = touch.clientY - offsetY;
+                 
+                 
+                 imgArray.forEach((el) => {
+                    
+                  
+                   if (this.touchX >= el.imgX && this.touchX <= el.imgX + el.width && this.touchY >= el.imgY && this.touchY <= el.imgY + el.height){
+                
+                    el.isDragging = true;
+                    this.selectedBead = el;
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#ddd';
+                    ctx.strokeRect(el.imgX + 1, el.imgY + 1, el.width, el.height); 
+                    this.$emit('options', this.selectedBead);
+                    
+                       
+          
+                  }
+                    
+                });
+             }
+            
+          },
+         
+         handleTouchEnd: function(){
+             
+             if(this.selectedBead){
+                 
+                 this.selectedBead = ''
+             }
+         },
+         
+         handleTouchMove: function(event){
+             
+               event.preventDefault();
+             
+              var c = this.$refs.canvas;
+            var ctx = c.getContext("2d");
+             var rect = c.getBoundingClientRect();
+             var offsetX = rect.left;
+            var offsetY = rect.top;
+            var imgArray = this.imgArray;
+             var canvasWidth = 800;
+             var canvasHeight = 600;
+             
+             
+             if(this.selectedBead){
+                 
+                    var selectedId = this.selectedBead.canvasId;
+                
+                var selected = imgArray.find(bead => bead.canvasId === selectedId);
+                    
+                 
+                    
+                var centeredX =  event.changedTouches[0].clientX - 60;
+                var centeredY = event.changedTouches[0].clientY - 60;
+                
+            var roundedX = (0.5 + centeredX) << 0;
+             var roundedY = (0.5 + centeredY) << 0;
+                
+                ctx.clearRect(0,0, canvasWidth, canvasHeight);
+                
+                if(this.necklace === true){
+                this.drawNecklaceTemplate();
+                }
+                
+                if(this.necklace === false){
+                    
+                    this.drawBraceletTemplate();
+                }
+                 
+                imgArray.forEach((el) => {
+                
+                if(el.isRotated){
+                    
+                    if(el === selected && el.isDragging){
+                        
+                        el.imgX = roundedX;
+                        el.imgY = roundedY;
+                        
+                        ctx.save();
+                         
+                    m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                     m.rotate(el.rotationAngle);
+                     m.translate(-el.width/2, -el.height/2);
+                    m.translate(-el.imgX, -el.imgY);
+                     m.applyToContext(ctx);
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#ddd';
+                    ctx.strokeRect(el.imgX + 1, el.imgY + 1, el.width, el.height); 
+    
+                     m.reset();
+                     ctx.restore();
+                        
+                        return;
+                        
+                    }
+                    
+                    ctx.save();
+                         
+                    m.translate(el.imgX + el.width/2, el.imgY + el.height/2);
+                     m.rotate(el.rotationAngle);
+                     m.translate(-el.width/2, -el.height/2);
+                    m.translate(-el.imgX, -el.imgY);
+                     m.applyToContext(ctx);
+                     
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+    
+                     m.reset();
+                     ctx.restore();
+              
+                    
+                    
+                }
+                
+                if(!el.isRotated){
+                    
+                    if(el === selected && el.isDragging){
+                        
+                        el.imgX = roundedX;
+                        el.imgY = roundedY;
+                        
+                         ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#ddd';
+                    ctx.strokeRect(el.imgX + 1, el.imgY + 1, el.width, el.height); 
+                        return;
+                    }
+                    
+                    
+                     ctx.drawImage(el, el.imgX, el.imgY, el.width, el.height);
+                  
+                }
+                
+               });
+          
+                this.saveBeadPositions();
+                this.quickPrint();
+                }
+    
+             },
+         
+// ROTATE LEFT
          
          rotateLeft: function(){
              
