@@ -4,7 +4,7 @@
     
   <p>Click to select beads from the directory below.<br>
         You <strong>will be able to add more than one</strong> of each bead when working on your design.</p>
-<p style="color: red" v-show="maximumReached">{{ selectedMessage }}</p>
+<span style="color: red" v-show="maximumReached">{{ selectedMessage }}</span>
        
       <div class="select-beads">
           

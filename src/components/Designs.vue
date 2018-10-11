@@ -217,7 +217,7 @@ margin: auto;
 
 grid-gap: 30px;
 margin-bottom: 30px;
-
+justify-content: flex-start;
 }
     
 .session {
