@@ -238,7 +238,7 @@ export default {
         },
             
             finishedBraceletSelection: function(){
-         
+         this.$session.set('sessionSelected', this.selectedBeads);
                  this.$emit('selected', this.selectedBeads );
             },
         
@@ -248,7 +248,7 @@ export default {
         },
             
             confirmBraceletSelection: function(){
-            
+             this.$session.set('sessionSelected', this.beadsEdit);
             this.$emit('edited', this.beadsEdit);
         },
             

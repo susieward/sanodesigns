@@ -89,6 +89,7 @@ data(){
              session.selectedType = this.$session.get('sessionType');
              session.necklaceLength = this.$session.get('sessionNecklaceLength');
              session.braceletLength = this.$session.get('sessionBraceletLength');
+             session.braceletSize = this.$session.get('sessionBraceletSize');
              session.selectedMaterial = this.$session.get('sessionMaterial');
              session.selectedBeads = this.$session.get('sessionSelected');
              session.templateBeads = this.$session.get('sessionTemplate');

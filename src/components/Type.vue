@@ -68,6 +68,8 @@ data(){
             this.selectedType = 'Bracelet';
             this.$emit('btype', this.selectedType);
             
+            this.$session.set('sessionNecklace', this.necklace);
+            this.$session.set('sessionBracelet', this.bracelet);
              this.$session.set('sessionType', 'Bracelet');
             
              this.$router.push({ name: 'Length', params: {necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});

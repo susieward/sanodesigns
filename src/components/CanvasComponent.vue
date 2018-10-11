@@ -204,6 +204,10 @@ name: 'CanvasComponent',
                         if(this.necklace === true){
                             this.drawNecklaceTemplate();
                         }
+        
+                    if(this.necklace == false){
+                        this.drawBraceletTemplate();
+                    }
             
                 localBeads.forEach((bead) => {
                         
@@ -757,7 +761,7 @@ name: 'CanvasComponent',
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                 }
                 
-                
+                ctx.strokeStyle = '#000';
                 ctx.stroke();
 
 
@@ -1102,7 +1106,14 @@ name: 'CanvasComponent',
              
             
             ctx.clearRect(0,0, canvasWidth, canvasHeight);
-            this.drawNecklaceTemplate();
+             if(this.necklace === true){
+                this.drawNecklaceTemplate();
+                }
+                
+                if(this.necklace === false){
+                    
+                    this.drawBraceletTemplate();
+                }
              
               imgArray.forEach((el) => {
                 if(el !== selected){
@@ -1195,7 +1206,14 @@ name: 'CanvasComponent',
              
             
             ctx.clearRect(0,0, canvasWidth, canvasHeight);
-            this.drawNecklaceTemplate();
+              if(this.necklace === true){
+                this.drawNecklaceTemplate();
+                }
+                
+                if(this.necklace === false){
+                    
+                    this.drawBraceletTemplate();
+                }
              
               imgArray.forEach((el) => {
                 if(el !== selected){

@@ -40,7 +40,10 @@
               <h3>Details:</h3>
              
                             <div class="necklace-dtails">
-                   <span class="necklace-dtail-text">Length:</span> <span>{{ formatLength(necklaceLength) }}</span>
+                            
+                                    <span class="necklace-dtail-text" v-if="necklace === true">Length:</span><span class="necklace-dtail-text" v-if="necklace === false">Size:</span> <span v-if="necklace === true">{{ formatLength(necklaceLength) }}</span><span v-if="necklace === false">{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
+                                
+                         
                    <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
                    <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
                  </div>
@@ -97,7 +100,7 @@ data(){
 },
 name: 'Cart',
 
-props: ['necklaceLength', 'braceletLength', 'templateBeads', 'selectedBeads', 'selectedMaterial', 'selectedType', 'necklace', 'bracelet', 'dataURL'],
+props: ['necklaceLength', 'braceletLength', 'braceletSize', 'templateBeads', 'selectedBeads', 'selectedMaterial', 'selectedType', 'necklace', 'bracelet', 'dataURL'],
     
 components: {
     Checkout
@@ -170,10 +173,18 @@ components: {
         },
         
         backToDesign: function(){
+            
+            if(this.necklace === true){
             this.$router.push({ name: 'necklace', sessionId: this.sessionId, params: {necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet}});
+            }
+            
+            if(this.bracelet === true){
+                this.$router.push({ name: 'bracelet', sessionId: this.sessionId, params: {braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet}});
+                
+            }
             
         },
-        
+      
               deleteLocalStorage: function(){
             this.$store.commit('deleteLocalBeads');
             this.$session.destroy();

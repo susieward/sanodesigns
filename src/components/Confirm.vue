@@ -30,7 +30,7 @@
           
           
                   
-            <div v-if="bracelet === true">
+            <div v-if="necklace === false">
                 
 
                  <div class="confirm-dtails">
@@ -41,9 +41,9 @@
               
                 <div style="display: grid; justify-content: center; margin-top: 10px">
                     
-           <button v-if="!beadsChosen" class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">select your beads</button>
+           <button v-if="!beadsChosen" class="btn" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">select your beads</button>
                     
-                    <button v-if="beadsChosen" class="btn" @click="chooseNecklaceBeads(necklaceLength, selectedMaterial)">resume your design</button>
+                    <button v-if="beadsChosen" class="btn" @click="chooseBraceletBeads(braceletLength, selectedMaterial)">resume your design</button>
                 </div>
               </div>
               
@@ -130,7 +130,7 @@ data(){
             
         },
             chooseBraceletBeads: function(braceletLength, selectedMaterial){
-            this.$router.push({ name: 'bracelet', params: {sessionId: this.sessionId, braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
+            this.$router.push({ name: 'bracelet', sessionId: this.$sessionId, params: { braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
         },
         
          chooseNecklaceBeads: function(necklaceLength, selectedMaterial){

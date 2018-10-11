@@ -15,12 +15,15 @@
         </div>
                    <div class="session-details">
                <p>{{ session.selectedType }}<br>
-                   {{ formatLength(session.necklaceLength) || formatLength(session.braceletLength) }}<br>
+                   <span v-if="session.necklace">{{ formatLength(session.necklaceLength) }}</span>
+                   
+                   
+                   <span v-if="session.bracelet">{{ session.braceletSize }} ({{ formatLength(session.braceletLength) }})</span>
+                   
+                   <br>
                    {{ session.selectedMaterial.type }}, {{ session.selectedMaterial.color }}
 
-          
-                   
-                   
+                   {{ session.bracelet }}
                    </p>
                    </div>
                <button class="btn-xsmall-gray" @click="deleteSession(session.id)">delete</button>

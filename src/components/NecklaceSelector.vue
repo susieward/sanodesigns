@@ -456,7 +456,7 @@ export default {
                 
             this.$session.set('sessionTemplate', this.templateBeads);
             this.$session.set('sessionSelected', this.selectedBeads);
-            this.$session.set('sessionLocal', this.localBeads);
+            
             
             
             this.$router.push({ name: 'Cart', params: {sessionId: this.sessionId, selectedType: this.selectedType, necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
