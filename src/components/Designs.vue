@@ -23,7 +23,7 @@
                    <br>
                    {{ session.selectedMaterial.type }}, {{ session.selectedMaterial.color }}
 
-                   {{ session.bracelet }}
+       
                    </p>
                    </div>
                <button class="btn-xsmall-gray" @click="deleteSession(session.id)">delete</button>
