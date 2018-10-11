@@ -210,14 +210,14 @@ margin-left: auto;
     
 .saved-designs {
 display: grid;
-grid-template-columns: auto auto auto auto;
+grid-template-columns: auto auto auto;
 
-width: 900px;
+max-width: 950px;
 margin: auto;
-justify-content: flex-start;
-grid-gap: 25px;
+
+grid-gap: 30px;
 margin-bottom: 30px;
-    
+
 }
     
 .session {
