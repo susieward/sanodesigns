@@ -42,8 +42,11 @@ import Toasted from 'vue-toasted';
 
 Vue.use(Toasted)
 
+var options = {
+    persist: true
+}
 
-Vue.use(VueSession)
+Vue.use(VueSession, options)
 
 Vue.use(VueRouter)
 

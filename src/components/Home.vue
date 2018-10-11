@@ -3,6 +3,7 @@
  
       <div class="home-container">
 
+
 <h2>Create Your Own Design</h2>
       <div class="start" v-if="!hasSession">
           <router-link to="/create/type" tag="button" class="btn">get started</router-link>
@@ -52,7 +53,17 @@ export default {
             
             
             return this.$session.getAll();
-        }
+        },
+        
+            savedSessions(){
+            
+            return this.$store.state.savedSessions;
+        },
+        
+        sessions(){
+            
+            return this.$store.state.sessions;
+        },
     },
     
     methods: {
@@ -82,6 +93,12 @@ export default {
                     this.$router.push('/');
                 }
   
+        },
+        
+        deleteSessions: function(){
+            
+            this.$store.commit('deleteSessions');
+            
         }
         
     }

@@ -17,7 +17,7 @@
           <button class="create-btn" @click="saveForLater">save for later</button>
           </span>
                    
-            <span v-if="savedSessions.length"><button class="create-btn" @click="goToDesigns">my designs</button></span>
+            <span v-if="sessions.length"><button class="create-btn" @click="goToDesigns">my designs</button></span>
                 
                    </span>
           </div>
@@ -59,6 +59,10 @@ data(){
         savedSessions(){
             
             return this.$store.state.savedSessions;
+        },
+        
+        sessions(){
+            return this.$store.state.sessions;
         }
     },
     

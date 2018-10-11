@@ -2,10 +2,10 @@
   <div class="designs">
      
       <div class="designs-container">
-          
+
           <h2 style="text-align: center; margin-bottom: 35px">My Designs</h2>
     
-           <div class="saved-designs" v-if="deleteAllClick === false">
+           <div class="saved-designs">
       
                <div v-for="session in sessions" class="session">
                
@@ -15,14 +15,11 @@
         </div>
                    <div class="session-details">
                <p>{{ session.selectedType }}<br>
-                   <span v-if="session.necklace">{{ formatLength(session.necklaceLength) }}</span>
+                    <span v-if="session.necklace">{{ formatLength(session.necklaceLength) }}</span>
                    
                    
-                   <span v-if="session.bracelet">{{ session.braceletSize }} ({{ formatLength(session.braceletLength) }})</span>
-                   
-                   <br>
-                   {{ session.selectedMaterial.type }}, {{ session.selectedMaterial.color }}
-
+                   <span v-if="session.bracelet">{{ session.braceletSize }} ({{ formatLength(session.braceletLength) }})</span><br>
+                   <span v-if="session.selectedMaterial">{{ session.selectedMaterial.type }}, {{ session.selectedMaterial.color }}</span>
        
                    </p>
                    </div>
@@ -75,7 +72,7 @@ data() {
     
     name: 'Designs',
     
-    props: [],
+
     
    
     
@@ -126,7 +123,7 @@ data() {
             
         },
         
-        deleteAll: function(){
+        deleteSessions: function(){
             
             this.$store.commit('deleteSessions');
             
