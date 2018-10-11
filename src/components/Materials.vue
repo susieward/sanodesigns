@@ -4,10 +4,10 @@
 
     <div class="materials-container">
 
-    <div class="select-type-container">
+    <div class="select-materials-container">
    <h2 style="text-align: center">Select {{ selectedType }} Material</h2>
 
-  <div v-if="necklace === true" class="selector">
+  <div v-if="necklace === true" class="materials-selector">
               
 
               
@@ -332,14 +332,14 @@ data(){
     
     }
     
-      .select-type-container {
+      .select-materials-container {
         display: grid;
         grid-gap: 30px;
 
         justify-content: center;
     }
     
-    .selector {
+    .materials-selector {
     display: grid;
     grid-template-columns: auto auto;
 
@@ -386,6 +386,268 @@ data(){
    width: 50%;
     }
 
+     @media screen and (max-width: 1200px){
+         
+            .materials-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
     
+    grid-gap: 30px;
+  width: 860px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+
+    
+    }
+    
+      .select-materials-container {
+        display: grid;
+        grid-gap: 30px;
+
+        justify-content: center;
+    }
+    
+    .materials-selector {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    padding: 10px;
+    grid-gap: 40px;
+    }
+    
+     .size-template-necklace {
+    height: 400px;
+    width: 400px;
+    border: 1px solid #ddd;
+    }
+    
+    .necklace-length-img {
+ 
+    height: 100%;
+    width: 100%;
+    }
+    
+    .size-template-bracelet {
+    height: 440px;
+    width: 440px;
+    border: 1px solid #ddd;
+    }
+    
+    .bracelet-size-img {
+    height: 100%;
+        width: 100%;
+    }
+    
+    .size {
+       min-height: 400px;
+        width: 400px;
+  
+    }
+
+        .necklace-material-radios {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-gap: 20px;
+    }
+    
+    .selectcolor {
+   width: 50%;
+    }   
+         
+    }
+    
+         @media screen and (max-width: 1000px){
+         
+            .materials-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  width: 640px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+
+    
+    }
+    
+      .select-materials-container {
+        display: grid;
+        grid-gap: 30px;
+
+        justify-content: center;
+    }
+    
+    .materials-selector {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    padding: 10px;
+    grid-gap: 20px;
+    }
+    
+     .size-template-necklace {
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ddd;
+    }
+    
+    .necklace-length-img {
+ 
+    height: 100%;
+    width: 100%;
+    }
+    
+    .size-template-bracelet {
+    height: 440px;
+    width: 440px;
+    border: 1px solid #ddd;
+    }
+    
+    .bracelet-size-img {
+    height: 100%;
+        width: 100%;
+    }
+    
+    .size {
+       min-height: 275px;
+        width: 275px;
+  
+    }
+
+        .necklace-material-radios {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-gap: 20px;
+    }
+    
+    .selectcolor {
+   width: 50%;
+    }   
+         
+    }
+    
+      @media screen and (max-width: 766px){
+          
+                       
+            .materials-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  width: 860px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 600px;
+    
+    }
+          
+          
+            .size {
+       min-height: 275px;
+        width: 200px;
+  
+    }
+          
+    }
+    
+    
+    @media screen and (max-width: 600px){
+        
+        
+                
+            .materials-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  width: 860px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 400px;
+    
+    }
+        
+                .materials-selector {
+    display: grid;
+
+   grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+             justify-content: center;
+    padding: 10px;
+    grid-gap: 20px;
+    }
+        
+    }
+    
+    
+    @media screen and (max-width: 400px){
+        
+                
+            .materials-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  width: 860px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 400px;
+    
+    }
+        
+         .materials-selector {
+    display: grid;
+
+   grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+             justify-content: center;
+    padding: 10px;
+    grid-gap: 20px;
+    }
+        
+        
+                
+       .size-template-necklace {
+    
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ddd;
+    }
+    
+    .necklace-length-img {
+ 
+    height: 100%;
+    width: 100%;
+    }
+    
+    .size-template-bracelet {
+    height: 440px;
+    width: 440px;
+    border: 1px solid #ddd;
+    }
+    
+    .bracelet-size-img {
+    height: 100%;
+        width: 100%;
+    }
+    
+    .size {
+       min-height: 300px;
+ width:auto;
+
+
+    }
+        
+    }
 
 </style>

@@ -4,11 +4,11 @@
 
      <div class="length-container">
          
-    <div class="select-type-container">
+    <div class="select-length-container">
      <h2 style="text-align: center">Select {{ selectedType }} <span v-if="necklace === true">Length</span><span v-if="bracelet === true">Size</span></h2>
         
       
-     <div v-if="necklace === true" class="selector">
+     <div v-if="necklace === true" class="length-selector">
               <div class="size-template-necklace">
                   
                 <img class="necklace-length-img" src="/static/necklace-length-guide.jpg"/>
@@ -50,7 +50,7 @@
     </div>
     
     
-    <div v-if="bracelet === true" class="selector">
+    <div v-if="bracelet === true" class="length-selector">
               
               <div class="size-template-bracelet">
               
@@ -272,11 +272,12 @@ props: ['necklace', 'bracelet', 'selectedType'],
     
     }
  
-     .select-type-container {
+     .select-length-container {
         display: grid;
-        grid-gap: 30px;
 
+grid-gap: 30px;
         justify-content: center;
+
     }
     
     
@@ -297,7 +298,7 @@ justify-content: center;
     
     }
     
-    .selector {
+    .length-selector {
     display: grid;
     grid-template-columns: auto auto;
 
@@ -331,7 +332,7 @@ justify-content: center;
     
     .size {
        min-height: 400px;
-        width: 400px;
+        width: 300px;
   
     }
     
@@ -351,5 +352,335 @@ justify-content: center;
     }
     
     
+/* media queries */
+    
+    
+    @media screen and (max-width: 1200px){
+        
+   .length-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+       width: 860px;
+
+    
+    }
+ 
+     .select-length-container {
+        display: grid;
+
+
+        justify-content: center;
+    }
+    
+    
+    .select-text {
+    font-size: 22px;
+line-height: 25px;
+color: #262626;
+font-family: 'Playfair Display';
+font-weight: 400;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    }
+    
+    .select-length {
+    display: grid;
+justify-content: center;
+    
+    }
+    
+    .length-selector {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    padding: 10px;
+    grid-gap: 40px;
+    }
+    
+    .size-template-necklace {
+    
+    height: 400px;
+    width: 400px;
+    border: 1px solid #ddd;
+    }
+    
+    .necklace-length-img {
+ 
+    height: 100%;
+    width: 100%;
+    }
+    
+    .size-template-bracelet {
+    height: 440px;
+    width: 440px;
+    border: 1px solid #ddd;
+    }
+    
+    .bracelet-size-img {
+    height: 100%;
+        width: 100%;
+    }
+    
+    .size {
+       min-height: 400px;
+        width: 300px;
+  
+    }
+    }
+    
+       @media screen and (max-width: 1000px){
+        
+   .length-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+    width: 640px;
+
+    
+    }
+ 
+     .select-length-container {
+        display: grid;
+         grid-gap: 30px;
+
+
+        justify-content: center;
+    }
+    
+    
+    .select-text {
+    font-size: 22px;
+line-height: 25px;
+color: #262626;
+font-family: 'Playfair Display';
+font-weight: 400;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    }
+    
+    .select-length {
+    display: grid;
+justify-content: center;
+    
+    }
+    
+    .length-selector {
+    display: grid;
+    grid-template-columns: auto auto;
+justify-content: center;
+    padding: 10px;
+    grid-gap: 20px;
+
+    }
+    
+    .size-template-necklace {
+    
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ddd;
+    }
+    
+    .necklace-length-img {
+ 
+    height: 100%;
+    width: 100%;
+    }
+    
+    .size-template-bracelet {
+    height: 440px;
+    width: 440px;
+    border: 1px solid #ddd;
+    }
+    
+    .bracelet-size-img {
+    height: 100%;
+        width: 100%;
+    }
+    
+    .size {
+       min-height: 300px;
+ width:200px;
+
+
+    }
+    }
+    
+    
+       @media screen and (max-width: 766px){
+           
+             .length-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+    width: 600px;
+
+    
+    }
+           
+           
+           
+              .length-selector {
+    display: grid;
+    grid-template-columns: auto auto;
+justify-content: center;
+    padding: 10px;
+    grid-gap: 20px;
+ 
+    }
+           
+       .size-template-necklace {
+    
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ddd;
+    }
+    
+    .necklace-length-img {
+ 
+    height: 100%;
+    width: 100%;
+    }
+    
+    .size-template-bracelet {
+    height: 440px;
+    width: 440px;
+    border: 1px solid #ddd;
+    }
+    
+    .bracelet-size-img {
+    height: 100%;
+        width: 100%;
+    }
+    
+    .size {
+       min-height: 300px;
+ width:200px;
+
+
+    }
+    
+    }
+    
+    
+    
+    
+    @media screen and (max-width: 600px){
+        
+        
+    .length-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+    width: 400px;
+
+    
+    }
+       
+        
+    .length-selector {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+justify-content: center;
+        align-items: center;
+    padding: 10px;
+    grid-gap: 20px;
+ 
+    }
+        
+        
+    }
+    
+    
+       @media screen and (max-width: 400px){
+           
+                  .length-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+    width: 400px;
+
+    
+    }
+           
+           
+           
+              .length-selector {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+justify-content: center;
+    padding: 10px;
+    grid-gap: 20px;
+ 
+    }
+           
+           
+       .size-template-necklace {
+    
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ddd;
+    }
+    
+    .necklace-length-img {
+ 
+    height: 100%;
+    width: 100%;
+    }
+    
+    .size-template-bracelet {
+    height: 440px;
+    width: 440px;
+    border: 1px solid #ddd;
+    }
+    
+    .bracelet-size-img {
+    height: 100%;
+        width: 100%;
+    }
+    
+    .size {
+       min-height: 300px;
+ width:auto;
+   
+
+    }
+           
+    }
+ 
 
 </style>

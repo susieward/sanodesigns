@@ -4,7 +4,7 @@
     <div class="confirm-container">
 
 
-    <div class="select-type-container">
+    <div class="select-confirm-container">
 
              <div class="select-details">
 
@@ -179,33 +179,34 @@ data(){
     grid-area: content;
     display: grid;
     align-content: flex-start;
-    
+    justify-content: center;
     grid-gap: 30px;
   
     padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
 
-    
+    border: 1px solid #eee;
     }
     
-  .selector {
+  .confirm-selector {
     display: grid;
     grid-template-columns: auto auto;
 
     padding: 10px;
     grid-gap: 40px;
+         border: 1px solid #eee;
     }
     
-  .select-type {
-    display: grid;
+    
+      .select-confirm-container {
+        display: grid;
+        grid-gap: 30px;
 
-    grid-template-columns: auto auto;
- 
-    grid-gap: 40px;
-    padding: 10px;
-  
+
+        justify-content: center;
     }
+
     
     .column {
     display: grid;
@@ -268,6 +269,100 @@ font-weight: 400;
     font-size: 16px;
         margin-bottom: 10px;
         line-height: 24px;
+    }
+    
+      @media screen and (max-width: 1200px){
+         
+          .confirm-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+        width: 860px;
+    
+    }   
+         
+    }
+    
+      @media screen and (max-width: 1000px){
+         
+    .confirm-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+        width: 640px;
+    
+    }   
+         
+    }
+    
+      @media screen and (max-width: 766px){
+         
+    .confirm-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+    width: 600px;
+    
+    }    
+         
+    }
+ 
+    
+     @media screen and (max-width: 600px){
+        
+         
+       .confirm-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 400px;
+    
+    }
+        
+        
+    }
+    
+    @media screen and (max-width: 400px){
+        
+        .confirm-container {
+     grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 400px;
+    
+    }
+        
+        
     }
 
 </style>

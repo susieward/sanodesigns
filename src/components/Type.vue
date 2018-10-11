@@ -95,7 +95,16 @@ data(){
     
     }
     
-  .selector {
+    .select-type-container {
+        display: grid;
+        grid-gap: 30px;
+
+
+        justify-content: center;
+     
+    }
+    
+  .type-selector {
     display: grid;
     grid-template-columns: auto auto;
 
@@ -110,7 +119,7 @@ data(){
  
     grid-gap: 40px;
     padding: 10px;
-  
+
     }
     
     .column {
@@ -139,7 +148,112 @@ font-weight: 400;
     padding: 0;
 }
     
+          @media screen and (max-width: 1200px){
+    .type-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
   
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 860px;
+    
+    }    
+    }
+    
+          @media screen and (max-width: 1000px){
+    .type-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 640px;
+    
+    }    
+    }
+    
+       @media screen and (max-width: 766px){
+    .type-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 600px;
+    
+    }    
+    }
+    
+        @media screen and (max-width: 600px){
+                   .type-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 400px;
+    
+    }
+        
+        
+         .select-type {
+    display: grid;
+
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+ 
+    grid-gap: 20px;
+    padding: 10px;
+  
+    }
+    }
+    
+    @media screen and (max-width: 400px){
+        
+        
+       .type-container {
+    grid-area: content;
+    display: grid;
+    align-content: flex-start;
+    
+    grid-gap: 30px;
+  
+    padding-top: 0px;
+    padding-bottom: 10px;
+    min-height: 700px;
+width: 400px;
+    
+    }
+        
+        
+         .select-type {
+    display: grid;
+
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+ 
+    grid-gap: 20px;
+    padding: 10px;
+  
+    }
+        
+    }
     
 
 

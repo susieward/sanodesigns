@@ -11,15 +11,14 @@
               </div>
               
                <div class="buttons-buttons">
-            <span>
-          <span v-show="notHome">
-      <button class="create-btn" @click="deleteLocalStorage">start over</button>
-          <button class="create-btn" @click="saveForLater">save for later</button>
-          </span>
+ <span>
+      <button class="create-btn" @click="deleteLocalStorage" v-show="notHome">start over</button>
+          <button class="create-btn" @click="saveForLater" v-show="notHome">save for later</button>
+         
                    
             <span v-if="sessions.length"><button class="create-btn" @click="goToDesigns">my designs</button></span>
                 
-                   </span>
+                   </span>    
           </div>
               </div>
       </div>
@@ -129,6 +128,7 @@ min-height: 100vh;
 min-width: 100vw;
 margin: 0;
 padding: 0;
+
 }
     
 
@@ -166,7 +166,7 @@ line-height: 25px;
 grid-area: header;
 display: grid;
 align-content: center;
-width: 100vw;
+min-width: 100vw;
 background-color: #F4F4F4;
 justify-content: center;
 height: 103px;
@@ -230,11 +230,73 @@ cursor: pointer;
 }
     
     
+           .create-btn-alt {
+border: 1px solid #f4f4f4;
+background-color: #f4f4f4;
+padding: 10px 14px;
+text-align: center;
+font-family: 'Karla';
+font-size: 18px;
+line-height: 18px;
+text-transform: uppercase;
+color: #474747;
+font-weight: 400;
+cursor: pointer;
+}
+    
+    .create-btn-alt:hover {
+      
+        color: #676767;
+        
+    }
+   
+.content {
+grid-area: content;
+
+}
+    
+    .footer {
+    grid-area: footer;
+width: 100%;
+    height: 300px;
+    background-color: #333333;
+    margin-top: 200px;
+    }
+    
     
 /* header media queries */
     
     
     @media screen and (max-width: 1200px){
+        
+        .banner {
+grid-area: banner;
+ display: grid;
+align-content: center;
+justify-content: center;
+margin: 0;
+width: 100vw;
+background-color: #333;
+height: 50px;
+}
+    
+    .banner-container {
+    display: grid;
+    align-content: center;
+    justify-content: flex-start;
+margin: 0;
+padding: 0;
+    width: 860px;
+    }
+    
+    .banner p {
+      font-family: 'Karla';
+color: #fff;
+font-size: 18px;
+line-height: 25px;
+        padding-bottom: 2px;
+        padding-right: 0px;
+    }
     
         .header {
 grid-area: header;
@@ -252,12 +314,23 @@ justify-content: center;
     
     .header-container {
     display: grid;
+         grid-template-areas: "title buttons";
         grid-template-columns: 1fr auto;
-        grid-gap: 50px;
+        grid-gap: 20px;
     align-content: center;
-    width: 900px;
-   
+    width: 860px;
+   padding-bottom: 2px;
     }
+        
+    .title {
+    grid-area: title;
+    display: grid;
+  
+    justify-content: flex-start;
+    align-content: center;
+        width: 500px;
+    }
+    
     
     .header h1 {
     font-family: 'Pacifico';
@@ -266,60 +339,233 @@ line-height: 53px;
     font-weight: 400;
 color: #262626;
 margin: 0;
+
     }
+        
+          .buttons-buttons {
+    grid-area: buttons;
+    display: grid;
+   grid-gap: 10px;
+      justify-content: flex-end;
+      align-content: center;
+        padding: 0;
+
+    }
+      
 
 }
-
     
-    .buttons-container {
+     @media screen and (max-width: 1000px){
+         
+         .banner {
+grid-area: banner;
+ display: grid;
+align-content: center;
+justify-content: center;
+margin: 0;
+width: 100vw;
+background-color: #333;
+height: 50px;
+}
+    
+    .banner-container {
     display: grid;
-        margin-right: 20px;
-        margin-top: 20px;
+    align-content: center;
+    justify-content: flex-start;
+margin: 0;
+padding: 0;
+    width: 640px;
+    }
+    
+    .banner p {
+      font-family: 'Karla';
+color: #fff;
+font-size: 18px;
+line-height: 25px;
+        padding-bottom: 2px;
+        padding-right: 0px;
+    }
+        
+        .header {
+        grid-area: header;
+        display: grid;
         align-content: center;
-        justify-content: flex-end;
-     
-    }
+        width: 100vw;
+        background-color: #F4F4F4;
+        height: 82px;
+        justify-content: center;
+
+
+         }
     
-    .home-container {
-    grid-area: content;
+    .header-container {
     display: grid;
-    align-content: flex-start;
-    
-    grid-gap: 30px;
+         grid-template-areas: "title buttons";
+        grid-template-columns: 1fr auto;
+        grid-gap: 20px;
+    align-content: center;
+    width: 640px;
+   padding-bottom: 2px;
+
+    }
+         
+                
+    .title {
+    grid-area: title;
+    display: grid;
   
-    padding-top: 10px;
-    padding-bottom: 10px;
-    min-height: 700px;
-
-    
-    }
-    
-    .buttons-container-title {
-display: grid;
-  justify-content: center;
-
-       margin-bottom: 30px;
-        padding: 30px;
-    padding-top: 20px;
-        padding-bottom: 20px;
+    justify-content: flex-start;
+    align-content: center;
+        width: 300px;
+  
 
     }
-
-
     
-.content {
-grid-area: content;
+    
+    .header h1 {
+    font-family: 'Pacifico';
+    font-size: 37px;
+line-height: 41px;
+    font-weight: 400;
+color: #262626;
+margin: 0;
+padding-bottom: 2px;
+    }
+         
+         .create-btn-alt {
+            font-size: 14px;
+            line-height: 20px;
+             padding: 6px 2px;
+         }
+         
+    .buttons-buttons {
+    grid-area: buttons;
+    display: grid;
+   grid-gap: 10px;
+      justify-content: flex-end;
+      align-content: center;
+        padding: 0;
+
+    }
+         
+         
+        
+    }
+    
+    
+        
+     @media screen and (max-width: 766px){
+         
+         .banner {
+grid-area: banner;
+ display: grid;
+align-content: center;
+justify-content: center;
+margin: 0;
+width: 100vw;
+background-color: #333;
+height: 50px;
 }
     
-    .footer {
-    grid-area: footer;
-    width: 100vw;
-    height: 300px;
-    background-color: #333333;
-    margin-top: 200px;
+    .banner-container {
+    display: grid;
+      align-content: center;
+        
+    justify-content: center;
+margin: 0;
+padding: 0;
+    width: 640px;
     }
     
+    .banner p {
+      font-family: 'Karla';
+color: #fff;
+font-size: 18px;
+line-height: 25px;
+        padding-bottom: 2px;
+        padding-right: 0px;
+    }
+        
+        .header {
+        grid-area: header;
+        display: grid;
+        align-content: flex-start;
 
+        width: 100vw;
+        background-color: #F4F4F4;
+
+        height: 200px;
+        justify-content: center;
+
+
+         }
     
+    .header-container {
+    display: grid;
+         grid-template-areas: "title title"
+                                "buttons buttons";
+        grid-template-columns: 1fr;
+        grid-template-rows: 130px auto;
+        grid-gap: 0px;
+        width: 100vw;
+    align-content: center;
+
+
+   padding-bottom: 2px;
+
+        justify-content: center;
+    }
+         
+                
+    .title {
+    grid-area: title;
+    display: grid;
+  
+    justify-content: center;
+    align-content: center;
+        width: auto;
+        text-align: center;
+
+
+    }
+    
+    
+    .header h1 {
+    font-family: 'Pacifico';
+    font-size: 48px;
+line-height: 53px;
+    font-weight: 400;
+color: #262626;
+margin: 0;
+padding-bottom: 2px;
+    }
+         
+         .create-btn-alt {
+            font-size: 14px;
+            line-height: 20px;
+             padding: 6px 2px;
+         }
+         
+    .buttons-buttons {
+    grid-area: buttons;
+     
+    display: grid;
+   grid-gap: 10px;
+      justify-content: center;
+      align-content: center;
+        padding: 10px;
+
+    }
+         
+         
+        
+    }
+    
+    
+       @media screen and (max-width: 400px){
+           
+    }
+
+
  
 </style>
