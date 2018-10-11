@@ -161,7 +161,9 @@ data() {
             this.$session.set('sessionLocal', session.localBeads);
             this.$session.set('sessionDataURL', session.dataURL);
             
-            this.$router.push('/')
+            if(this.$session.exists()){
+                  this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId}})
+                }
             
             
 
@@ -212,7 +214,7 @@ margin-left: auto;
 display: grid;
 grid-template-columns: auto auto auto;
 
-max-width: 950px;
+width: 950px;
 margin: auto;
 
 grid-gap: 30px;

@@ -17,7 +17,7 @@
           <button class="create-btn" @click="saveForLater">save for later</button>
           </span>
                    
-            <span v-if="savedSessions.length"><button class="create-btn" @click="goToDesigns">saved designs</button></span>
+            <span v-if="savedSessions.length"><button class="create-btn" @click="goToDesigns">my designs</button></span>
                 
                    </span>
           </div>
@@ -47,12 +47,11 @@ data(){
   name: 'App',
     
     computed: {
-        
+ 
         
         notHome(){
-            
-                      
-            return this.$store.state.route.name !== 'Home'
+    
+            return this.$store.state.route.name !== 'Home' && this.$store.state.route.name !== 'Designs'
   
         },
         
