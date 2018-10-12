@@ -799,7 +799,7 @@ border: 1px solid #ddd;
         }
           
           .bead-selector-container {
-              border: 1px solid #eee;
+    
                width: 400px;
           }
           
