@@ -863,7 +863,7 @@ display: grid;
     grid-template-columns: auto auto;
         grid-gap: 10px;
   
-      height: 600px;
+      height: 400px;
         width: 400px;
        opacity: 1;
         padding: 10px;
@@ -877,7 +877,7 @@ display: grid;
     grid-template-columns: auto auto;
         grid-gap: 10px;
   
-      height: 600px;
+      height: 400px;
         width: 400px;
        opacity: 0.4;
         padding: 10px;
@@ -887,7 +887,7 @@ display: grid;
           
             .selected-container-beads {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(2, auto);
     grid-gap: 0px;
     width: auto;
     justify-content: flex-start;
@@ -917,7 +917,7 @@ display: grid;
         
                 
           .bead-selector-container {
-              border: 1px solid #eee;
+        
                width: 390px;
           }
           
@@ -1002,7 +1002,7 @@ display: grid;
           
     .selected-container-beads {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(2, auto);
     grid-gap: 0px;
     width: auto;
     justify-content: flex-start;
