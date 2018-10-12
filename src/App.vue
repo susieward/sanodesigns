@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+      <div class="app-container">
      
       <div class="banner"><div class="banner-container"><p>self-care through creativity</p></div></div>
       
@@ -31,7 +32,7 @@
       
       
       </div>
-      
+      </div>
   </div>
 </template>
 
@@ -117,19 +118,28 @@ data(){
 
 <style>
 #app {
-display: grid;
+
+margin: 0;
+padding: 0;
+
+
+}
+    
+    .app-container {
+      display: grid;
 align-content: flex-start;
 grid-template-areas:
                     "banner banner"
                     "header header"
                     "content content"
                     "footer footer";
-min-height: 100vh;
-min-width: 100vw;
-margin: 0;
-padding: 0;
 
-}
+margin: 0;
+padding: 0;  
+min-width: 100vw;
+min-height: 100vh;
+        
+    }
     
 
 
@@ -137,9 +147,9 @@ padding: 0;
 grid-area: banner;
  display: grid;
 align-content: center;
-justify-content: center;
+
 margin: 0;
-width: 100vw;
+min-width: 100vw;
 background-color: #333;
 height: 50px;
 }
@@ -166,9 +176,9 @@ line-height: 25px;
 grid-area: header;
 display: grid;
 align-content: center;
-min-width: 100vw;
+
 background-color: #F4F4F4;
-justify-content: center;
+min-width: 100vw;
 height: 103px;
   margin-bottom: 34px;
 
@@ -252,12 +262,13 @@ cursor: pointer;
    
 .content {
 grid-area: content;
+    min-width: 100vw;
 
 }
     
     .footer {
     grid-area: footer;
-width: 100%;
+min-width: 100vw;
     height: 300px;
     background-color: #333333;
     margin-top: 200px;
@@ -275,7 +286,7 @@ grid-area: banner;
 align-content: center;
 justify-content: center;
 margin: 0;
-width: 100vw;
+min-width: 100vw;
 background-color: #333;
 height: 50px;
 }
@@ -302,7 +313,7 @@ line-height: 25px;
 grid-area: header;
 display: grid;
 align-content: center;
-width: 100vw;
+min-width: 100vw;
 background-color: #F4F4F4;
 height: 92px;
 justify-content: center;
@@ -363,7 +374,7 @@ grid-area: banner;
 align-content: center;
 justify-content: center;
 margin: 0;
-width: 100vw;
+min-width: 100vw;
 background-color: #333;
 height: 50px;
 }
@@ -390,7 +401,7 @@ line-height: 25px;
         grid-area: header;
         display: grid;
         align-content: center;
-        width: 100vw;
+        min-width: 100vw;
         background-color: #F4F4F4;
         height: 82px;
         justify-content: center;
@@ -462,7 +473,7 @@ grid-area: banner;
 align-content: center;
 justify-content: center;
 margin: 0;
-width: 100vw;
+min-width: 100vw;
 background-color: #333;
 height: 50px;
 }
@@ -491,8 +502,8 @@ line-height: 25px;
         display: grid;
         align-content: flex-start;
 
-        width: 100vw;
-        background-color: #F4F4F4;
+min-width: 100vw;
+            background-color: #F4F4F4;
 
         height: 200px;
         justify-content: center;
@@ -507,7 +518,7 @@ line-height: 25px;
         grid-template-columns: 1fr;
         grid-template-rows: 130px auto;
         grid-gap: 0px;
-        width: 100vw;
+        width: 640px;
     align-content: center;
 
 
@@ -561,8 +572,213 @@ padding-bottom: 2px;
         
     }
     
+      @media screen and (max-width: 600px){
+          
+                   .banner {
+grid-area: banner;
+ display: grid;
+align-content: center;
+
+margin: 0;
+min-width: 100vw;
+background-color: #333;
+height: 50px;
+}
+    
+    .banner-container {
+    display: grid;
+      align-content: center;
+        
+    justify-content: center;
+margin: 0;
+padding: 0;
+    width: 640px;
+    }
+    
+    .banner p {
+      font-family: 'Karla';
+color: #fff;
+font-size: 18px;
+line-height: 25px;
+        padding-bottom: 2px;
+        padding-right: 0px;
+    }
+        
+        .header {
+        grid-area: header;
+        display: grid;
+        align-content: flex-start;
+
+min-width: 100vw;
+            background-color: #F4F4F4;
+
+        height: 200px;
+   
+
+
+         }
+    
+    .header-container {
+    display: grid;
+         grid-template-areas: "title title"
+                                "buttons buttons";
+        grid-template-columns: 1fr;
+        grid-template-rows: 130px auto;
+        grid-gap: 0px;
+        width: 640px;
+    align-content: center;
+
+
+   padding-bottom: 2px;
+
+        justify-content: center;
+    }
+         
+                
+    .title {
+    grid-area: title;
+    display: grid;
+  
+    justify-content: center;
+    align-content: center;
+        width: auto;
+        text-align: center;
+
+
+    }
+    
+    
+    .header h1 {
+    font-family: 'Pacifico';
+    font-size: 48px;
+line-height: 53px;
+    font-weight: 400;
+color: #262626;
+margin: 0;
+padding-bottom: 2px;
+    }
+         
+         .create-btn-alt {
+            font-size: 14px;
+            line-height: 20px;
+             padding: 6px 2px;
+         }
+         
+    .buttons-buttons {
+    grid-area: buttons;
+     
+    display: grid;
+   grid-gap: 10px;
+      justify-content: center;
+      align-content: center;
+        padding: 10px;
+
+    }
+           
+    }
     
        @media screen and (max-width: 400px){
+           
+.banner {
+grid-area: banner;
+ display: grid;
+align-content: center;
+
+margin: 0;
+min-width: 100vw;
+background-color: #333;
+height: 50px;
+}
+    
+    .banner-container {
+    display: grid;
+      align-content: center;
+        
+    justify-content: center;
+margin: 0;
+padding: 0;
+    width: 640px;
+    }
+    
+    .banner p {
+      font-family: 'Karla';
+color: #fff;
+font-size: 18px;
+line-height: 25px;
+        padding-bottom: 2px;
+        padding-right: 0px;
+    }
+        
+        .header {
+        grid-area: header;
+        display: grid;
+        align-content: flex-start;
+min-width: 100vw;
+
+            background-color: #F4F4F4;
+
+        height: 200px;
+
+
+
+         }
+    
+    .header-container {
+    display: grid;
+         grid-template-areas: "title"
+                                "buttons";
+        grid-template-columns: 1fr;
+        grid-template-rows: 130px auto;
+        grid-gap: 0px;
+        width: 640px;
+    align-content: center;
+
+
+   padding-bottom: 2px;
+
+        justify-content: center;
+    }
+         
+                
+    .title {
+    grid-area: title;
+    display: grid;
+  
+    justify-content: center;
+    align-content: center;
+        width: auto;
+        text-align: center;
+
+
+    }
+    
+    
+    .header h1 {
+    font-family: 'Pacifico';
+    font-size: 48px;
+line-height: 53px;
+    font-weight: 400;
+color: #262626;
+margin: 0;
+padding-bottom: 2px;
+    }
+         
+         .create-btn-alt {
+            font-size: 14px;
+            line-height: 20px;
+             padding: 6px 2px;
+         }
+         
+    .buttons-buttons {
+    grid-area: buttons;
+     
+    display: grid;
+   grid-gap: 10px;
+      justify-content: center;
+      align-content: center;
+        padding: 10px;
+
+    }
            
     }
 

@@ -261,12 +261,12 @@ export default {
       .create {
     display: grid;
     align-content: flex-start;
-   grid-template-areas: "content content";
+   grid-template-areas: "content";
 min-height: 100vh;
 min-width: 100vw;
 margin: 0;
 padding: 0;
-        justify-content: center;
+justify-content: center;
 
 
     }
@@ -415,7 +415,7 @@ width: 400px;
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
-width: 400px;
+width: 390px;
             
     
     }  

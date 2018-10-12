@@ -115,13 +115,12 @@ export default {
     
 .home {
 display: grid;
-width: 100vw;
+
     align-content: flex-start;
 justify-content: center;
 grid-template-areas:
 
                     "content content";
-min-height: 100vh;
 min-width: 100vw;
 margin: 0;
 padding: 0;
@@ -140,7 +139,7 @@ padding: 0;
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
-
+ 
     
     }
     
@@ -253,8 +252,8 @@ width: 400px;
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
-width: 400px;
-    
+width: 390px;
+ 
     }
         
     }

@@ -186,7 +186,7 @@ data(){
     padding-bottom: 10px;
     min-height: 700px;
 
-    border: 1px solid #eee;
+   
     }
     
   .confirm-selector {
@@ -195,7 +195,7 @@ data(){
 
     padding: 10px;
     grid-gap: 40px;
-         border: 1px solid #eee;
+       
     }
     
     
@@ -253,7 +253,7 @@ font-weight: 400;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(3, 1fr);
-    max-width: 600px;
+max-width: 600px;
     margin: auto;
     padding: 20px;
          padding-top: 5px;
@@ -358,9 +358,14 @@ width: 400px;
     padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
-width: 400px;
+width: 390px;
     
     }
+        
+        .confirm-dtails {
+        max-width: 300px;
+        
+        }
         
         
     }

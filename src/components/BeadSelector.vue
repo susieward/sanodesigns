@@ -1,10 +1,11 @@
 <template>
 
 <div class="bead-selector">
-    
+<div class="top-text">
   <p>Click to select beads from the directory below.<br>
         You <strong>will be able to add more than one</strong> of each bead when working on your design.</p>
 <span style="color: red" v-show="maximumReached">{{ selectedMessage }}</span>
+    </div>
        
       <div class="select-beads">
           
@@ -283,11 +284,15 @@ export default {
 <style>
     
     
- 
+    .top-text {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
  
     .bead-selector {
     display: grid;
     align-content: flex-start;
+
     grid-gap: 20px;
 
     }
@@ -514,6 +519,346 @@ cursor: pointer;
 height: 50px;
 opacity: 0.3;
 cursor: default;
+    }
+    
+    
+    
+    @media screen and (max-width: 1200px){
+        
+        .top-text {
+            width: 860px;
+          }
+        
+        .bead-selector {
+            
+        width: 860px;
+        }
+        
+         .select-beads {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 1fr;
+        min-height: 400px;
+        justify-content: center;
+        grid-gap: 20px;
+   
+ 
+        }
+        
+           .continue-btn {
+    display: grid;
+    align-content: flex-end;
+    width: 100%
+    }
+    
+        
+       
+     .selected-container-content {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+         grid-gap: 10px;
+width: auto;
+        justify-content: flex-start;
+border: 1px solid #ddd;
+  padding: 10px;
+   
+ 
+    }
+        
+           .beads-container-selector {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto auto auto;
+        grid-gap: 10px;
+  
+      height: 700px;
+        width: 800px;
+       opacity: 1;
+        padding: 20px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+    
+     .container-disabled {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto auto auto;
+        grid-gap: 10px;
+  
+      height: 800px;
+        width: 800px;
+       opacity: 0.4;
+        padding: 20px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+    
+    
+    .bead-container {
+        width: 140px;
+       height: 140px;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+    }
+        
+    }
+    
+      @media screen and (max-width: 1000px){
+          
+          .top-text {
+            width: 640px;
+          }
+          
+         .bead-selector {
+            
+        width: 640px;
+        }
+          
+    .selected-container-content {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-gap: 10px;
+    width: auto;
+    justify-content: flex-start;
+    border: 1px solid #ddd;
+    padding: 10px;
+   
+ 
+    }
+     
+          
+    .beads-container-selector {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+  
+      height: 600px;
+        width: 600px;
+       opacity: 1;
+        padding: 20px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+    
+     .container-disabled {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+  
+      height: 600px;
+        width: 600px;
+       opacity: 0.4;
+        padding: 20px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+        
+        
+    }
+    
+      @media screen and (max-width: 766px){
+          
+          
+          .top-text {
+            width: 600px;
+            text-align: center;
+              padding-left: 15px;
+              padding-right: 15px;
+          }
+          
+         .bead-selector {
+            
+        width: 600px;
+        }
+          
+            .beads-container-selector {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+  
+      height: 600px;
+        width: 600px;
+       opacity: 1;
+        padding: 20px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+    
+     .container-disabled {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+  
+      height: 600px;
+        width: 600px;
+       opacity: 0.4;
+        padding: 20px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+          
+    .selected-container-content {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 0px;
+    width: auto;
+    justify-content: flex-start;
+    border: 1px solid #ddd;
+    padding: 10px;
+   
+ 
+    }
+        
+        
+    }
+    
+      @media screen and (max-width: 600px){
+          
+          
+          .top-text {
+            width: 400px;
+          }
+        .bead-selector {
+            
+        width: 400px;
+        }
+          
+               .search-container {
+
+    display: grid;
+   align-content: center;
+       justify-content: center;
+    padding: 20px;
+           align-items: center;
+  border: 1px solid #ddd;
+    }
+    
+    
+    .searchbar {
+    height: 40px;
+    width: 400px;
+    padding: 10px 12px;
+    font-size: 18px;
+    border: 1px solid #aaa;
+        margin-bottom: 20px;
+    }
+    
+          
+            .beads-container-selector {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto;
+        grid-gap: 10px;
+  
+      height: 600px;
+        width: 400px;
+       opacity: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+    
+     .container-disabled {
+    display: grid;
+        margin: auto;
+    grid-template-columns: auto auto;
+        grid-gap: 10px;
+  
+      height: 600px;
+        width: 400px;
+       opacity: 0.4;
+        padding: 10px;
+        border: 1px solid #ddd;
+        overflow: scroll;
+    }
+          
+            .selected-container-content {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 0px;
+    width: auto;
+    justify-content: flex-start;
+    border: 1px solid #ddd;
+    padding: 10px;
+   
+ 
+    }
+         
+        
+    }
+    
+    @media screen and (max-width: 400px){
+          
+    .top-text {
+    width: 390px;
+    }
+        
+    .bead-selector {
+    width: 390px;
+    }
+          
+   .search-container {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    padding: 20px;
+    align-items: center;
+    border: 1px solid #ddd;
+    }
+    
+    
+    .searchbar {
+    height: 40px;
+    width: 390px;
+    padding: 10px 12px;
+    font-size: 18px;
+    border: 1px solid #aaa;
+    margin-bottom: 20px;
+    }
+          
+    .beads-container-selector {
+    display: grid;
+    margin: auto;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    height: 600px;
+    width: 390px;
+    opacity: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    overflow: scroll;
+    }
+    
+    .container-disabled {
+    display: grid;
+    margin: auto;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    height: 600px;
+    width: 390px;
+    opacity: 0.4;
+    padding: 10px;
+    border: 1px solid #ddd;
+    overflow: scroll;
+    }
+          
+    .selected-container-content {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 0px;
+    width: auto;
+    justify-content: flex-start;
+    border: 1px solid #ddd;
+    padding: 10px;
+   
+ 
+    }
+    
+         
     }
     
 </style>

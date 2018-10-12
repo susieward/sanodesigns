@@ -563,8 +563,8 @@ justify-content: center;
     }
     
     .size-template-bracelet {
-    height: 440px;
-    width: 440px;
+    height: 340px;
+    width: 340px;
     border: 1px solid #ddd;
     }
     
@@ -663,8 +663,8 @@ justify-content: center;
     }
     
     .size-template-bracelet {
-    height: 440px;
-    width: 440px;
+    height: 340px;
+    width: 340px;
     border: 1px solid #ddd;
     }
     
@@ -674,7 +674,7 @@ justify-content: center;
     }
     
     .size {
-       min-height: 300px;
+min-height: 300px;
  width:auto;
    
 

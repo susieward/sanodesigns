@@ -329,6 +329,7 @@ data(){
     padding-bottom: 10px;
     min-height: 700px;
 
+
     
     }
     
@@ -502,8 +503,8 @@ data(){
     }
     
     .size-template-bracelet {
-    height: 440px;
-    width: 440px;
+     height: 340px;
+    width: 340px;
     border: 1px solid #ddd;
     }
     
@@ -575,7 +576,7 @@ width: 400px;
     
     }
         
-                .materials-selector {
+    .materials-selector {
     display: grid;
 
    grid-template-rows: auto auto;
@@ -631,8 +632,8 @@ width: 400px;
     }
     
     .size-template-bracelet {
-    height: 440px;
-    width: 440px;
+     height: 340px;
+    width: 340px;
     border: 1px solid #ddd;
     }
     
