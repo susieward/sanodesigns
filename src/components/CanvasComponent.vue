@@ -49,6 +49,8 @@ data(){
         mouseY: 0,
         touchX: 0,
         touchY: 0,
+        startTouchX: 0,
+        startTouchY: 0,
         dragX: 0,
         dragY: 0,
         imgArray: [],
@@ -1110,6 +1112,17 @@ name: 'CanvasComponent',
                  
             this.touchX = touch.clientX - offsetX;
             this.touchY = touch.clientY - offsetY;
+                 
+                
+            if(this.selectedBeadId){
+                
+                var x = this.touchX;
+                var y = this.touchY;
+                
+                this.pasteImg(x, y);
+                 this.saveBeadPositions();
+                this.quickPrint();
+            }
                  
                  
                  imgArray.forEach((el) => {
