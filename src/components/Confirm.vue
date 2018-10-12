@@ -208,21 +208,6 @@ data(){
     }
 
     
-    .column {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 250px;
-    height: 250px;
-    background-color: #F4F4F4;
-    transition: transform .3s;
-    cursor: pointer;
-    }
-    
-    .column:hover {
-    transform: scale(1.05);
-    }
-    
     .select-text {
     font-size: 22px;
 line-height: 25px;
@@ -274,15 +259,7 @@ max-width: 600px;
       @media screen and (max-width: 1200px){
          
           .confirm-container {
-    grid-area: content;
-    display: grid;
-    align-content: flex-start;
-    
-    grid-gap: 30px;
-  
-    padding-top: 0px;
-    padding-bottom: 10px;
-    min-height: 700px;
+
         width: 860px;
     
     }   
@@ -292,15 +269,7 @@ max-width: 600px;
       @media screen and (max-width: 1000px){
          
     .confirm-container {
-    grid-area: content;
-    display: grid;
-    align-content: flex-start;
-    
-    grid-gap: 30px;
-  
-    padding-top: 0px;
-    padding-bottom: 10px;
-    min-height: 700px;
+ 
         width: 640px;
     
     }   
@@ -310,15 +279,7 @@ max-width: 600px;
       @media screen and (max-width: 766px){
          
     .confirm-container {
-    grid-area: content;
-    display: grid;
-    align-content: flex-start;
-    
-    grid-gap: 30px;
-  
-    padding-top: 0px;
-    padding-bottom: 10px;
-    min-height: 700px;
+ 
     width: 600px;
     
     }    
@@ -330,15 +291,7 @@ max-width: 600px;
         
          
        .confirm-container {
-    grid-area: content;
-    display: grid;
-    align-content: flex-start;
-    
-    grid-gap: 30px;
   
-    padding-top: 0px;
-    padding-bottom: 10px;
-    min-height: 700px;
 width: 400px;
     
     }
@@ -349,23 +302,19 @@ width: 400px;
     @media screen and (max-width: 400px){
         
         .confirm-container {
-     grid-area: content;
-    display: grid;
-    align-content: flex-start;
+        width: 390px;
     
-    grid-gap: 30px;
-  
-    padding-top: 0px;
-    padding-bottom: 10px;
-    min-height: 700px;
-width: 390px;
-    
-    }
+        }
         
         .confirm-dtails {
         max-width: 300px;
         
         }
+        
+        .confirm h2 {
+        font-size: 30px;
+        }
+        
         
         
     }

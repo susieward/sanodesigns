@@ -41,7 +41,7 @@
                 
               
               <span><input type="radio" id="wire" name="material" value="Wire" @change="selectedWire" v-model="selectedMaterial.type"/>
-                  <label for="wire">Wire - $0.10 per cm</label></span>
+                  <label for="wire">Nylon-wrapped beading wire - $0.10 per cm</label></span>
                       
                       
                     <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
@@ -69,16 +69,10 @@
     
        
    
-  <div v-if="bracelet === true" class="selector">
-              
-
-              
-           
-                <div class="size-template-bracelet">
-              
-                  <img class="bracelet-size-img" src="/static/bracelet-size-guide.png"/>
-              
-              </div>
+  <div v-if="bracelet === true" class="materials-selector">
+        <div class="size-template-bracelet">
+            <img class="bracelet-size-img" src="/static/bracelet-size-guide.png"/>
+         </div>
                    
                  
              <div class="size">
@@ -86,22 +80,18 @@
                      
        <span><input type="radio" :id="chain" value="Chain" @change="selectedChain" v-model="selectedMaterial.type"/>
               <label for="chain">Chain - $0.20 per cm</label></span>
-                      
-                
-         
-                <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Chain'" @change="setChainColor">
+              
+            <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Chain'" @change="setChainColor">
                     <option disabled value="">Select color</option>
                     <option value="Gold">Gold</option>
                     <option value="Silver">Silver</option>
                     <option value="Copper">Copper</option>
                 </select>
-                
-              
+                 
               <span><input type="radio" :id="wire" value="Wire" @change="selectedWire" v-model="selectedMaterial.type"/>
-                  <label for="wire">Wire - $0.10 per cm</label></span>
-                      
-                      
-                    <select v-model="selectedMaterial.color" class="colorselect" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
+                  <label for="wire">Nylon-wrapped beading wire - $0.10 per cm</label></span>
+            
+              <select v-model="selectedMaterial.color" class="colorselect" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
                     <option disabled value="">Select color</option>
                     <option value="gold">Gold</option>
                     <option value="silver">Silver</option>

@@ -37,11 +37,11 @@
         
         <div class="your-details">
            
-              <h3>Details:</h3>
+        <h3>Details:</h3>
              
-                            <div class="necklace-dtails">
+          <div class="necklace-dtails">
                             
-                                    <span class="necklace-dtail-text" v-if="necklace === true">Length:</span><span class="necklace-dtail-text" v-if="necklace === false">Size:</span> <span v-if="necklace === true">{{ formatLength(necklaceLength) }}</span><span v-if="necklace === false">{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
+         <span class="necklace-dtail-text" v-if="necklace === true">Length:</span><span class="necklace-dtail-text" v-if="necklace === false">Size:</span> <span v-if="necklace === true">{{ formatLength(necklaceLength) }}</span><span v-if="necklace === false">{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
                                 
                          
                    <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
@@ -82,7 +82,7 @@
         
         </div>
         </div>
-    <checkout></checkout>
+ 
         
     </div>
     </div>
@@ -211,14 +211,13 @@ components: {
 
 .cart {
 display: grid;
-
 grid-template-areas:
-                    "content content";
-min-height: 100vh;
-min-width: 100vw;
-    align-content: flex-start;
+        "content content";
+width: 100vw;
+align-content: flex-start;
 margin: 0;
 padding: 0;
+justify-content: center;
 }
 
     
@@ -226,11 +225,11 @@ padding: 0;
 grid-area: content;
 display: grid;
 width: 1050px;
-    padding-top: 20px;
-    padding: 30px;
-    padding-top: 20px;
-        margin-right: auto;
-        margin-left: auto;
+padding-top: 20px;
+padding: 30px;
+padding-top: 20px;
+
+justify-content: center;
 
 }
     
@@ -238,7 +237,7 @@ width: 1050px;
     display: grid;
     grid-template-columns: auto auto auto;
     width: 100%;
-    border: 1px solid #eee;
+
     
         
         
@@ -247,26 +246,12 @@ width: 1050px;
      .cart-beads {
     padding: 30px;
      background-color: #f4f4f4;
-   
-         min-height: 300px;
+   min-height: 300px;
     
     }
     
-          .bead-img-small-selector {
-    width: 100%;
-         height: 100%;
-         margin: auto;
-  object-fit: cover;
-     
-   
-    }
-    
-    .bead-container-selector {
-        width: 120px;
-       height: 120px;
-    
-  border-radius: 50%;
-    }
+
+ 
     
     .cart-bead {
     display: grid;
@@ -280,7 +265,7 @@ width: 1050px;
       display: grid;
  
     height: 300px;
-  width: 450px;
+
     align-content: flex-start;
     padding-top: 20px;
 
@@ -310,12 +295,13 @@ width: 1050px;
         grid-template-columns: 1fr 1fr;
   margin-top: 30px;
     margin-bottom: 50px;
-
+ 
+justify-content: center;
 
     }
     
         .your-details {
-padding-top: 10px;
+padding-top: 20px;
 padding-left: 0px;
 
         
@@ -330,6 +316,7 @@ padding-left: 0px;
     align-content: flex-start;
     padding-top: 20px;
         padding: 30px;
+        
     }
     
      .necklace-dtails {
@@ -445,7 +432,9 @@ line-height: 30px;
     grid-template-columns: 1fr 1fr;
            grid-gap: 40px;
         margin-top: 0px;
+
     }
+    
     
     .design-img-container {
 
@@ -509,6 +498,316 @@ line-height: 30px;
     .headers {
     margin-bottom: 30px;
     }
+    
+@media screen and (max-width: 1200px){
+        
+    .cart-container {
+    width: 860px;
+    }
+    
+     .design-and-beads {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+           grid-gap: 40px;
+        margin-top: 0px;
+    }
+    
+    .design-img-container {
+
+        height: 350px;
+        width: auto;
+        
+    }
+    
+    .cart-beads {
+    padding: 30px;
+    background-color: #f4f4f4;
+    min-height: 300px;
+    
+    }
+    
+    .cart-notes{
+    display: grid;
+    height: 300px;
+    width: 400px;
+    align-content: flex-start;
+    padding-top: 20px;
+    }
+    
+    
+        
+}
+    
+@media screen and (max-width: 1000px){
+
+    .cart-container {
+    width: 640px;
+
+    }
+    
+      .design-beads-container{
+    display: grid;
+    grid-template-rows: auto auto;
+
+    margin-top: 30px;
+width: 640px;
+        
+    }
+    
+      .design-and-beads {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 20px;
+    margin-top: 0px;
+ 
+    
+    }
+    
+    .design-img-container {
+
+        height: 350px;
+        width: auto;
+        
+    }
+    
+    .cart-beads {
+        
+    }
+    
+         .cart-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  margin-top: 30px;
+    margin-bottom: 50px;
+width: 640px;
+             justify-content: center;
+          margin: auto;
+
+             padding: 10px;
+    }
+    
+    .cart-notes{
+    display: grid;
+
+    width: 300px;
+    align-content: flex-start;
+    padding-top: 20px;
+    }
+    
+        .your-details {
+
+    height: 300px;
+  width: 300px;
+padding: 30px;
+            padding-top: 20px;
+
+    }
+    
+
+}
+    
+@media screen and (max-width: 766px){
+        
+    .cart-container {
+    width: 600px;
+    } 
+    
+    .cart-beads {
+        
+    }
+    
+    .design-beads-container{
+    display: grid;
+    grid-template-rows: auto auto;
+
+    margin-top: 30px;
+width: 600px;
+        margin: auto;
+        
+    }
+    
+    .design-and-beads {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 20px;
+    margin-top: 0px;
+
+    
+    }
+    
+      .cart-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  margin-top: 30px;
+    margin-bottom: 50px;
+width: 600px;
+          margin: auto;
+          justify-content: center;
+      
+          align-items: center;
+
+    }
+    
+    .cart-notes{
+    display: grid;
+    height: 300px;
+    width: 600px;
+    align-content: flex-start;
+    padding-top: 20px;
+                padding: 30px;
+        margin: auto;
+    }
+    
+        .your-details {
+
+ 
+    height: 300px;
+  width: 600px;
+ 
+    padding-top: 20px;
+        padding: 30px;
+            
+            margin: auto;
+            
+    
+    }
+    
+}
+    
+@media screen and (max-width: 600px){
+        
+    .cart-container {
+    width: 400px;
+    } 
+    
+      .design-beads-container{
+    display: grid;
+    grid-template-rows: auto auto;
+
+    margin-top: 30px;
+width: 400px;
+        
+    }
+    
+    .design-and-beads {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 20px;
+    margin-top: 0px;
+
+    }
+    
+    .cart-beads {
+        
+    }
+    
+      .cart-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  margin-top: 30px;
+    margin-bottom: 50px;
+          justify-content: center;
+          align-items: center;
+      
+width: 400px;
+
+    }
+    
+    .cart-notes{
+    display: grid;
+    height: 300px;
+    width: 400px;
+    align-content: flex-start;
+    padding-top: 20px;
+        padding: 30px;
+        margin: auto;
+    }
+    
+        .your-details {
+
+ 
+    height: 300px;
+  width: 400px;
+
+    padding-top: 20px;
+            margin: auto;
+  
+    }
+    
+    
+}
+    
+@media screen and (max-width: 400px){
+        
+    .cart-container {
+    width: 400px;
+    } 
+    
+      .design-beads-container{
+    display: grid;
+    grid-template-rows: auto auto;
+
+    margin-top: 30px;
+width: 400px;
+
+        
+    }
+    
+   
+    
+    .design-and-beads {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 20px;
+    margin-top: 0px;
+    }
+    
+    .cart-beads {
+        
+    }
+    
+       
+      .cart-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  margin-top: 30px;
+    margin-bottom: 50px;
+width: 390px;
+          margin: auto;
+
+    }
+    
+    .cart-notes{
+    display: grid;
+
+  width: 390px;
+    align-content: flex-start;
+    padding-top: 20px;
+
+        margin: auto;
+    }
+    
+        .your-details {
+   
+ 
+
+  width: 390px;
+
+    padding-top: 20px;
+        padding: 30px;
+
+            margin: auto;
+    }
+    
+    
+}
    
 
 </style>

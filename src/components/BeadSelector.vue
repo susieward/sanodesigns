@@ -7,7 +7,7 @@
 <span style="color: red" v-show="maximumReached">{{ selectedMessage }}</span>
     </div>
        
-      <div class="select-beads">
+      <div class="bead-selector-container">
           
          
         
@@ -27,7 +27,7 @@
              
      
               
-              <div class="selected-container-content">
+              <div class="selected-container-beads">
           
              
           <div v-for="(bead, index) in selectedBeads" class="selected-bead" :key="bead._id">
@@ -58,9 +58,11 @@
           </div>
    
           <div class="beads-and-search">
- <span>Search: <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, $0.35, etc"/></span>
+              <div class="search-container">
+                  <span class="search"><span class="search-text">Search:</span> <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, etc"/></span>
+          </div>
 
-      <div class="beads-container-selector" :class="{ 'container-disabled': showDisabled }">
+      <div class="beads-directory" :class="{ 'container-disabled': showDisabled }">
                
           <div v-for="(bead, index) in filteredList" class="bead" :class="{ 'bead-disabled': showDisabled }" @click="select(bead, $event)" v-bind:key="bead._id">
               
@@ -284,10 +286,7 @@ export default {
 <style>
     
     
-    .top-text {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
+   
  
     .bead-selector {
     display: grid;
@@ -297,39 +296,78 @@ export default {
 
     }
     
-       .search-container {
-
-    display: grid;
-   align-content: center;
-       justify-content: center;
-    padding: 20px;
-           align-items: center;
-  border: 1px solid #ddd;
-    }
     
-    
-    .searchbar {
-    height: 40px;
-    width: 440px;
-    padding: 10px 12px;
-    font-size: 18px;
-    border: 1px solid #aaa;
-        margin-bottom: 20px;
-    }
-    
-   
-    
-    .select-beads {
+    .bead-selector-container {
 
     display: grid;
     grid-template-columns: auto 850px;
     min-height: 400px;
     justify-content: center;
-        grid-gap: 20px;
+    grid-gap: 20px;
+
+      
  
     }
+    
+     .top-text {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    
+    
+/* SEARCH */
+    
 
-    .beads-container-selector {
+       .search-container {
+
+    display: grid;
+   align-content: center;
+       justify-content: flex-start;
+    padding: 20px;
+    padding-left: 0;
+    
+        margin-bottom: 10px;
+
+    }
+    
+    .search {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 10px;
+         align-content: flex-end;
+
+        padding: 0;
+        margin: 0;
+    }
+    
+    .search-text {
+    
+  font-size: 23px;
+line-height: 26px;
+        font-family: 'Playfair Display';
+        margin: 0;
+        padding: 0;
+display: grid;
+
+         align-content: center;
+       
+   
+    }
+    .searchbar {
+    height: 40px;
+    width:440px;
+    padding: 10px 12px;
+    font-size: 18px;
+    border: 1px solid #aaa;
+
+    }
+
+
+   
+    
+
+    .beads-directory {
     display: grid;
         margin: auto;
     grid-template-columns: auto auto auto auto;
@@ -394,12 +432,13 @@ export default {
     display: grid;
    align-content: flex-start;
 grid-gap: 15px;
-    padding: 0px;
+    padding-top: 20px;
+  
 
 
     }
     
-     .selected-container-content {
+     .selected-container-beads {
     display: grid;
     grid-template-columns: auto auto;
          grid-gap: 10px;
@@ -474,11 +513,6 @@ justify-content: center;
         
     }
     
-    .selected-bead {
-   
-
-    }
-    
     .selected-bead p {
     margin: 0;
     padding: 0;
@@ -534,7 +568,7 @@ cursor: default;
         width: 860px;
         }
         
-         .select-beads {
+         .bead-selector-container {
         display: grid;
         grid-template-rows: auto auto;
         grid-template-columns: 1fr;
@@ -553,7 +587,7 @@ cursor: default;
     
         
        
-     .selected-container-content {
+     .selected-container-beads {
     display: grid;
     grid-template-columns: repeat(6, auto);
          grid-gap: 10px;
@@ -565,7 +599,7 @@ border: 1px solid #ddd;
  
     }
         
-           .beads-container-selector {
+           .beads-directory {
     display: grid;
         margin: auto;
     grid-template-columns: auto auto auto auto;
@@ -614,7 +648,7 @@ border: 1px solid #ddd;
         width: 640px;
         }
           
-    .selected-container-content {
+    .selected-container-beads {
     display: grid;
     grid-template-columns: repeat(5, auto);
     grid-gap: 10px;
@@ -627,7 +661,7 @@ border: 1px solid #ddd;
     }
      
           
-    .beads-container-selector {
+    .beads-directory {
     display: grid;
         margin: auto;
     grid-template-columns: auto auto auto;
@@ -673,7 +707,7 @@ border: 1px solid #ddd;
         width: 600px;
         }
           
-            .beads-container-selector {
+            .beads-directory {
     display: grid;
         margin: auto;
     grid-template-columns: auto auto auto;
@@ -701,7 +735,7 @@ border: 1px solid #ddd;
         overflow: scroll;
     }
           
-    .selected-container-content {
+    .selected-container-beads {
     display: grid;
     grid-template-columns: repeat(4, auto);
     grid-gap: 0px;
@@ -748,7 +782,7 @@ border: 1px solid #ddd;
     }
     
           
-            .beads-container-selector {
+            .youve-selected {
     display: grid;
         margin: auto;
     grid-template-columns: auto auto;
@@ -776,7 +810,7 @@ border: 1px solid #ddd;
         overflow: scroll;
     }
           
-            .selected-container-content {
+            .selected-container-beads {
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-gap: 0px;
@@ -808,19 +842,23 @@ border: 1px solid #ddd;
     padding: 20px;
     align-items: center;
     border: 1px solid #ddd;
+    margin-left: auto;
+    margin-right: auto;
     }
     
     
     .searchbar {
     height: 40px;
-    width: 390px;
+    width: 350px;
     padding: 10px 12px;
     font-size: 18px;
     border: 1px solid #aaa;
     margin-bottom: 20px;
+     margin-left: auto;
+    margin-right: auto;
     }
           
-    .beads-container-selector {
+    .beads-directory {
     display: grid;
     margin: auto;
     grid-template-columns: auto auto;
@@ -846,7 +884,7 @@ border: 1px solid #ddd;
     overflow: scroll;
     }
           
-    .selected-container-content {
+    .selected-container-beads {
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-gap: 0px;
