@@ -651,6 +651,17 @@ border: 1px solid #ddd;
         width: 640px;
         }
           
+              .bead-selector-container {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 1fr;
+        min-height: 400px;
+        justify-content: center;
+        grid-gap: 20px;
+   
+ 
+        }
+          
     .selected-container-beads {
     display: grid;
     grid-template-columns: repeat(5, auto);
@@ -710,14 +721,27 @@ border: 1px solid #ddd;
         width: 600px;
         }
           
+              .bead-selector-container {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 1fr;
+        min-height: 400px;
+        justify-content: center;
+        grid-gap: 20px;
+     width: 600px;
+                  border: 1px solid #444;
+ 
+        }
+
+          
             .beads-directory {
     display: grid;
         margin: auto;
     grid-template-columns: auto auto auto;
         grid-gap: 10px;
   
-      height: 600px;
-        width: 600px;
+      height:6500px;
+        width: 560px;
        opacity: 1;
         padding: 20px;
         border: 1px solid #ddd;
@@ -764,17 +788,40 @@ border: 1px solid #ddd;
         width: 400px;
         }
           
-               .search-container {
+              .bead-selector-container {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 1fr;
+        min-height: 400px;
+        justify-content: center;
+        grid-gap: 20px;
+   
+ 
+        }
+          
+          .bead-selector-container {
+              border: 1px solid #eee;
+               width: 400px;
+          }
+          
+          .selected-container {
+ margin: auto;
+              border: 1px solid #444;
+               width: 400px;
+          }
+          
+     .search-container {
 
     display: grid;
    align-content: center;
 
     padding: 20px;
            align-items: center;
+  
 
     }
           
-                   .search {
+       .search {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
@@ -869,6 +916,18 @@ display: grid;
     .bead-selector {
     width: 390px;
     }
+        
+                
+          .bead-selector-container {
+              border: 1px solid #eee;
+               width: 390px;
+          }
+          
+          .selected-container {
+ margin: auto;
+              border: 1px solid #444;
+               width: 390px;
+          }
           
    .search-container {
     display: grid;
@@ -924,7 +983,7 @@ display: grid;
     grid-template-columns: auto auto;
     grid-gap: 10px;
     height: 600px;
-    width: 390px;
+    width: 360px;
     opacity: 1;
     padding: 10px;
     border: 1px solid #ddd;
@@ -937,7 +996,7 @@ display: grid;
     grid-template-columns: auto auto;
     grid-gap: 10px;
     height: 600px;
-    width: 390px;
+    width: 360px;
     opacity: 0.4;
     padding: 10px;
     border: 1px solid #ddd;

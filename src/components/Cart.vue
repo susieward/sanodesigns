@@ -817,7 +817,7 @@ display: grid;
     padding-top: 20px;
         padding: 30px;
 
-            margin: auto;
+     
     }
     
 
