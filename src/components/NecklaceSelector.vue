@@ -63,7 +63,7 @@
               <p>Total: {{ total | usdollar }}</p>
            </div>
           
-           <div class="your-details">
+           <div class="your-necklace-details">
            
               <h3>Details:</h3>
              
@@ -749,7 +749,7 @@ min-height: 200px;
         background-color: #f4f4f4;
     }
     
-    .your-details {
+    .your-necklace-details {
 padding-top: 10px;
 padding-left: 0px;
 

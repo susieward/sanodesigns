@@ -291,7 +291,6 @@ export default {
     .bead-selector {
     display: grid;
     align-content: flex-start;
-
     grid-gap: 20px;
 
     }
@@ -304,7 +303,6 @@ export default {
     min-height: 400px;
     justify-content: center;
     grid-gap: 20px;
-
       
  
     }
@@ -326,7 +324,6 @@ export default {
        justify-content: flex-start;
     padding: 20px;
     padding-left: 0;
-    
         margin-bottom: 10px;
 
     }
@@ -336,7 +333,6 @@ export default {
         grid-template-columns: auto auto;
         grid-gap: 10px;
          align-content: flex-end;
-
         padding: 0;
         margin: 0;
     }
@@ -433,6 +429,7 @@ display: grid;
    align-content: flex-start;
 grid-gap: 15px;
     padding-top: 20px;
+   
   
 
 
@@ -585,6 +582,12 @@ cursor: default;
     width: 100%
     }
     
+        .search-container {
+
+            display: grid;
+            margin-left: auto;
+            margin-right: auto;
+        }
         
        
      .selected-container-beads {
@@ -765,11 +768,37 @@ border: 1px solid #ddd;
 
     display: grid;
    align-content: center;
-       justify-content: center;
+
     padding: 20px;
            align-items: center;
-  border: 1px solid #ddd;
+
     }
+          
+                   .search {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-gap: 10px;
+         align-content: center;
+
+        padding: 0;
+        margin: 0;
+    }
+    
+    .search-text {
+    
+  font-size: 23px;
+line-height: 26px;
+        font-family: 'Playfair Display';
+        margin: 0;
+        padding: 0;
+display: grid;
+
+         align-content: center;
+       
+   
+    }
+    
     
     
     .searchbar {
@@ -780,9 +809,10 @@ border: 1px solid #ddd;
     border: 1px solid #aaa;
         margin-bottom: 20px;
     }
+          
     
           
-            .youve-selected {
+            .beads-directory {
     display: grid;
         margin: auto;
     grid-template-columns: auto auto;
@@ -831,6 +861,11 @@ border: 1px solid #ddd;
     width: 390px;
     }
         
+        .selected-container {
+        padding-left: 20px;
+        padding-right: 20px;
+        }
+        
     .bead-selector {
     width: 390px;
     }
@@ -841,9 +876,34 @@ border: 1px solid #ddd;
     justify-content: center;
     padding: 20px;
     align-items: center;
-    border: 1px solid #ddd;
     margin-left: auto;
     margin-right: auto;
+    
+    }
+        
+           .search {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-gap: 10px;
+         align-content: center;
+
+        padding: 0;
+        margin: 0;
+    }
+    
+    .search-text {
+    
+  font-size: 23px;
+line-height: 26px;
+        font-family: 'Playfair Display';
+        margin: 0;
+        padding: 0;
+display: grid;
+
+         align-content: center;
+       
+   
     }
     
     

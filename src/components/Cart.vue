@@ -39,13 +39,13 @@
            
         <h3>Details:</h3>
              
-          <div class="necklace-dtails">
-                            
-         <span class="necklace-dtail-text" v-if="necklace === true">Length:</span><span class="necklace-dtail-text" v-if="necklace === false">Size:</span> <span v-if="necklace === true">{{ formatLength(necklaceLength) }}</span><span v-if="necklace === false">{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
+          <div class="cart-necklace-dtails">
+                   
+     <span class="cart-dtail-text" v-if="necklace === true">Length:</span><span class="cart-dtail-text" v-if="necklace === false">Size:</span> <span v-if="necklace === true" >{{ formatLength(necklaceLength) }}</span><span v-if="necklace === false">{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
                                 
                          
-                   <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
-                   <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
+                   <span class="cart-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
+                   <span class="cart-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
                  </div>
            </div>
         
@@ -319,20 +319,18 @@ padding-left: 0px;
         
     }
     
-     .necklace-dtails {
+     .cart-necklace-dtails {
     display: grid;
-    grid-template-columns: auto auto;
+justify-content: flex-start;
     grid-template-rows: repeat(3, 1fr);
-    justify-content: flex-start;
-        align-content: center;
+  grid-template-columns: auto auto;
+        align-content: flex-start;
+  
 
-    
-    
-    
     }
     
-    .necklace-dtail-text {
-    margin-right: 30px;
+    .cart-dtail-text {
+    margin-right: 60px;
     font-size: 16px;
         margin-bottom: 5px;
         line-height: 24px;
@@ -444,7 +442,7 @@ line-height: 30px;
     }
     
     .design-img {
-                padding: 10px;
+    padding: 10px;
     height: 100%;
         width: 100%;
         border: 1px solid #eee;
@@ -593,15 +591,36 @@ width: 640px;
     width: 300px;
     align-content: flex-start;
     padding-top: 20px;
+        margin: auto;
     }
     
         .your-details {
 
-    height: 300px;
-  width: 300px;
-padding: 30px;
-            padding-top: 20px;
 
+  width: 300px;
+padding: 0px;
+padding-top: 20px;
+          
+
+    }
+    
+       .cart-necklace-dtails {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(3, 1fr);
+ 
+        
+
+           margin: auto;
+     
+
+    }
+    
+     .cart-dtail-text {
+    margin-right: 30px;
+    font-size: 16px;
+        margin-bottom: 5px;
+        line-height: 24px;
     }
     
 
@@ -664,7 +683,7 @@ width: 600px;
         .your-details {
 
  
-    height: 300px;
+
   width: 600px;
  
     padding-top: 20px;
@@ -731,7 +750,7 @@ width: 400px;
         .your-details {
 
  
-    height: 300px;
+
   width: 400px;
 
     padding-top: 20px;
@@ -768,10 +787,7 @@ width: 400px;
     margin-top: 0px;
     }
     
-    .cart-beads {
-        
-    }
-    
+
        
       .cart-details {
     display: grid;
@@ -790,22 +806,21 @@ width: 390px;
   width: 390px;
     align-content: flex-start;
     padding-top: 20px;
-
+  
         margin: auto;
     }
     
         .your-details {
-   
- 
-
   width: 390px;
-
+display: grid;
+  
     padding-top: 20px;
         padding: 30px;
 
             margin: auto;
     }
     
+
     
 }
    
