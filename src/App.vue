@@ -147,7 +147,7 @@ min-height: 100vh;
 grid-area: banner;
  display: grid;
 align-content: center;
-
+justify-content: center;
 margin: 0;
 min-width: 100vw;
 background-color: #333;
@@ -176,7 +176,7 @@ line-height: 25px;
 grid-area: header;
 display: grid;
 align-content: center;
-
+justify-content: center;
 background-color: #F4F4F4;
 min-width: 100vw;
 height: 103px;

@@ -31,7 +31,7 @@
             (You can repeat these steps multiple times for the same bead.)</p>
           
             
-            <p style="margin-top: 0"><span class="instruction-number">3.</span> Drag template beads to position them on your design.</p>
+            <p style="margin-top: 0"><span class="instruction-number">3.</span> Drag template beads to position them on your bracelet.</p>
             <p>To rotate or delete a bead, first click to select it and then click the rotate or delete buttons.</p>
             <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
