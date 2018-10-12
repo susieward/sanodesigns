@@ -117,13 +117,15 @@ export default {
 display: grid;
 
     align-content: flex-start;
-justify-content: center;
+
 grid-template-areas:
 
                     "content content";
-min-width: 100vw;
+
 margin: 0;
 padding: 0;
+border: 1px solid #eee;
+    justify-content: center;
 
     }
     
@@ -133,7 +135,7 @@ padding: 0;
     grid-area: content;
     display: grid;
     align-content: flex-start;
-    
+    justify-content: center;
     grid-gap: 30px;
   
     padding-top: 10px;

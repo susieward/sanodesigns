@@ -118,9 +118,9 @@ data(){
 
 <style>
 #app {
-
-margin: 0;
-padding: 0;
+display: grid;
+min-width: 100vw;
+min-height: 100vh;
 
 
 }
@@ -136,10 +136,9 @@ grid-template-areas:
 
 margin: 0;
 padding: 0;  
-min-width: 100vw;
-min-height: 100vh;
-        
-    }
+width: 100vw;
+height: 100vh;
+ }
     
 
 
@@ -149,7 +148,7 @@ grid-area: banner;
 align-content: center;
 justify-content: center;
 margin: 0;
-min-width: 100vw;
+width: 100vw;
 background-color: #333;
 height: 50px;
 }
@@ -268,7 +267,7 @@ grid-area: content;
     
     .footer {
     grid-area: footer;
-min-width: 100vw;
+width: 100vw;
     height: 300px;
     background-color: #333333;
     margin-top: 200px;
@@ -281,13 +280,7 @@ min-width: 100vw;
     @media screen and (max-width: 1200px){
         
         .banner {
-grid-area: banner;
- display: grid;
-align-content: center;
-justify-content: center;
-margin: 0;
-min-width: 100vw;
-background-color: #333;
+
 height: 50px;
 }
     
@@ -313,7 +306,7 @@ line-height: 25px;
 grid-area: header;
 display: grid;
 align-content: center;
-min-width: 100vw;
+width: 100vw;
 background-color: #F4F4F4;
 height: 92px;
 justify-content: center;
@@ -368,23 +361,10 @@ margin: 0;
     
      @media screen and (max-width: 1000px){
          
-         .banner {
-grid-area: banner;
- display: grid;
-align-content: center;
-justify-content: center;
-margin: 0;
-min-width: 100vw;
-background-color: #333;
-height: 50px;
-}
+
     
     .banner-container {
-    display: grid;
-    align-content: center;
-    justify-content: flex-start;
-margin: 0;
-padding: 0;
+
     width: 640px;
     }
     
@@ -398,11 +378,7 @@ line-height: 25px;
     }
         
         .header {
-        grid-area: header;
-        display: grid;
-        align-content: center;
-        min-width: 100vw;
-        background-color: #F4F4F4;
+      
         height: 82px;
         justify-content: center;
 
@@ -467,24 +443,9 @@ padding-bottom: 2px;
         
      @media screen and (max-width: 766px){
          
-         .banner {
-grid-area: banner;
- display: grid;
-align-content: center;
-justify-content: center;
-margin: 0;
-min-width: 100vw;
-background-color: #333;
-height: 50px;
-}
-    
+
     .banner-container {
-    display: grid;
-      align-content: center;
-        
-    justify-content: center;
-margin: 0;
-padding: 0;
+justify-content: center;
     width: 640px;
     }
     
@@ -498,13 +459,7 @@ line-height: 25px;
     }
         
         .header {
-        grid-area: header;
-        display: grid;
-        align-content: flex-start;
-
-min-width: 100vw;
-            background-color: #F4F4F4;
-
+   
         height: 200px;
         justify-content: center;
 
@@ -574,16 +529,7 @@ padding-bottom: 2px;
     
       @media screen and (max-width: 600px){
           
-                   .banner {
-grid-area: banner;
- display: grid;
-align-content: center;
 
-margin: 0;
-min-width: 100vw;
-background-color: #333;
-height: 50px;
-}
     
     .banner-container {
     display: grid;
@@ -592,7 +538,7 @@ height: 50px;
     justify-content: center;
 margin: 0;
 padding: 0;
-    width: 640px;
+    width: 400px;
     }
     
     .banner p {
@@ -605,14 +551,9 @@ line-height: 25px;
     }
         
         .header {
-        grid-area: header;
-        display: grid;
-        align-content: flex-start;
 
-min-width: 100vw;
-            background-color: #F4F4F4;
-
-        height: 200px;
+background-color: #F4F4F4;
+ height: 200px;
    
 
 
@@ -625,7 +566,7 @@ min-width: 100vw;
         grid-template-columns: 1fr;
         grid-template-rows: 130px auto;
         grid-gap: 0px;
-        width: 640px;
+        width: 400px;
     align-content: center;
 
 
@@ -680,12 +621,8 @@ padding-bottom: 2px;
        @media screen and (max-width: 400px){
            
 .banner {
-grid-area: banner;
- display: grid;
-align-content: center;
 
-margin: 0;
-min-width: 100vw;
+
 background-color: #333;
 height: 50px;
 }
@@ -697,7 +634,7 @@ height: 50px;
     justify-content: center;
 margin: 0;
 padding: 0;
-    width: 640px;
+    width: 400px;
     }
     
     .banner p {
@@ -710,12 +647,8 @@ line-height: 25px;
     }
         
         .header {
-        grid-area: header;
-        display: grid;
-        align-content: flex-start;
-min-width: 100vw;
-
-            background-color: #F4F4F4;
+     
+background-color: #F4F4F4;
 
         height: 200px;
 
@@ -730,7 +663,7 @@ min-width: 100vw;
         grid-template-columns: 1fr;
         grid-template-rows: 130px auto;
         grid-gap: 0px;
-        width: 640px;
+        width: 400px;
     align-content: center;
 
 

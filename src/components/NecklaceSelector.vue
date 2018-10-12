@@ -511,7 +511,7 @@ align-content: flex-start;
 grid-template-areas:
                     "content content";
 min-height: 100vh;
-min-width: 100vw;
+width: 100vw;
 margin: 0;
 padding: 0;
 
