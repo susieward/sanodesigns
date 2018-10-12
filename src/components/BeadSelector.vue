@@ -729,7 +729,6 @@ border: 1px solid #ddd;
         justify-content: center;
         grid-gap: 20px;
      width: 600px;
-                  border: 1px solid #444;
  
         }
 
@@ -805,8 +804,7 @@ border: 1px solid #ddd;
           }
           
           .selected-container {
- margin: auto;
-              border: 1px solid #444;
+            margin: auto;
                width: 400px;
           }
           
@@ -924,8 +922,7 @@ display: grid;
           }
           
           .selected-container {
- margin: auto;
-              border: 1px solid #444;
+            margin: auto;
                width: 390px;
           }
           
