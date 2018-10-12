@@ -10,7 +10,6 @@
         <div class="canvas-container" id="canvas-container">
     <canvas id="canvas" ref="canvas"  @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" @touchstart="handleTouchStart($event)" @touchend="handleTouchEnd($event)" @touchmove="handleTouchMove($event)" style="border: 1px solid #ddd" width="800" height="600"></canvas>
             
-            <canvas id="testCanvas" ref="testCanvas" width="800" height="600" style="display: none; border: 1px solid red"></canvas>
         </div>
         <div>
         </div>
