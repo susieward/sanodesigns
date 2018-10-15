@@ -72,6 +72,7 @@
                    <span class="necklace-dtail-text">Length:</span> <span>{{ formatLength(necklaceLength) }}</span>
                    <span class="necklace-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
                    <span class="necklace-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
+                   <span class="necklace-dtail-text">Clasp:</span> <span>{{ selectedClasp }}</span>
                  </div>
            </div>
   
@@ -126,7 +127,7 @@ export default {
         }
     },
   name: 'necklace',
-    props: ['necklaceLength', 'selectedMaterial', 'necklace', 'bracelet', 'selectedType'],
+    props: ['necklaceLength', 'selectedMaterial', 'necklace', 'bracelet', 'selectedType', 'selectedClasp'],
     components: {
         BeadSelector,
         CanvasComponent
@@ -460,7 +461,7 @@ export default {
             
             
             
-            this.$router.push({ name: 'Cart', params: {sessionId: this.sessionId, selectedType: this.selectedType, necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
+            this.$router.push({ name: 'Cart', params: {sessionId: this.sessionId, selectedType: this.selectedType, necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, selectedClasp: this.selectedClasp, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
                 }
 
             } 

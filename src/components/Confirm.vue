@@ -17,6 +17,7 @@
                    <span class="dtail-text"><strong>Length:</strong></span> <span>{{ formatLength(necklaceLength) }}</span>
                    <span class="dtail-text"><strong>Material:</strong></span> <span>{{ selectedMaterial.type }}</span>
                    <span class="dtail-text"><strong>Color:</strong></span> <span>{{ selectedMaterial.color }}</span>
+                   <span class="dtail-text"><strong>Clasp:</strong></span> <span>{{ selectedClasp }}</span>
                  </div>
          
                 <div style="display: grid; justify-content: center; margin-top: 10px">
@@ -37,6 +38,7 @@
                    <span class="dtail-text"><strong>Size:</strong></span> <span>{{ braceletSize }} ({{ formatLength(braceletLength) }})</span>
                    <span class="dtail-text"><strong>Material:</strong></span> <span>{{ selectedMaterial.type }}</span>
                    <span class="dtail-text"><strong>Color:</strong></span> <span>{{ selectedMaterial.color }}</span>
+                     <span class="dtail-text"><strong>Clasp:</strong></span> <span>{{ selectedClasp }}</span>
                  </div>
               
                 <div style="display: grid; justify-content: center; margin-top: 10px">
@@ -62,7 +64,7 @@ data(){
 },
     name: 'Confirm',
     
-    props: ['necklace', 'bracelet', 'necklaceLength', 'braceletLength', 'braceletSize', 'selectedMaterial', 'selectedType'],
+    props: ['necklace', 'bracelet', 'necklaceLength', 'braceletLength', 'braceletSize', 'selectedMaterial', 'selectedClasp', 'selectedType'],
     
       mounted: function(){
           this.getData();
@@ -94,6 +96,11 @@ data(){
          if(this.$session.has('sessionMaterial')){
              this.selectedMaterial = this.$session.get('sessionMaterial')
          }
+             
+             if(this.$session.has('sessionClasp')){
+             this.selectedClasp = this.$session.get('sessionClasp')
+         }
+        
         
         this.localBeads = this.$store.state.localBeads;
         
@@ -130,12 +137,12 @@ data(){
             
         },
             chooseBraceletBeads: function(braceletLength, selectedMaterial){
-            this.$router.push({ name: 'bracelet', sessionId: this.$sessionId, params: { braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet}});
+            this.$router.push({ name: 'bracelet', sessionId: this.$sessionId, params: { braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedClasp: this.selectedClasp}});
         },
         
          chooseNecklaceBeads: function(necklaceLength, selectedMaterial){
              
-            this.$router.push({name: 'necklace', sessionId: this.sessionId, params: { necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType}});
+            this.$router.push({name: 'necklace', sessionId: this.sessionId, params: { necklaceLength: this.necklaceLength, selectedMaterial: this.selectedMaterial, necklace: this.necklace, bracelet: this.bracelet, selectedType: this.selectedType, selectedClasp: this.selectedClasp}});
         },
         
            backToType: function(){

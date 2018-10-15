@@ -126,7 +126,7 @@ export default {
         }
     },
   name: 'necklace',
-    props: ['braceletLength', 'braceletSize', 'selectedMaterial', 'necklace', 'bracelet', 'selectedType'],
+    props: ['braceletLength', 'braceletSize', 'selectedMaterial', 'necklace', 'bracelet', 'selectedType', 'selectedClasp'],
     components: {
         BeadSelector,
         CanvasComponent
@@ -460,7 +460,7 @@ export default {
           
             
             
-            this.$router.push({ name: 'Cart', params: {sessionId: this.sessionId, selectedType: this.selectedType, braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
+            this.$router.push({ name: 'Cart', params: {sessionId: this.sessionId, selectedType: this.selectedType, braceletLength: this.braceletLength, braceletSize: this.braceletSize, selectedMaterial: this.selectedMaterial, selectedClasp: this.selectedClasp, templateBeads: this.templateBeads, selectedBeads: this.selectedBeads, necklace: this.necklace, bracelet: this.bracelet, dataURL: this.dataURL}});
                 }
 
             } 

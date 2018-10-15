@@ -20,6 +20,7 @@
                    
                    <span v-if="session.bracelet">{{ session.braceletSize }} ({{ formatLength(session.braceletLength) }})</span><br>
                    <span v-if="session.selectedMaterial">{{ session.selectedMaterial.type }}, {{ session.selectedMaterial.color }}</span>
+                   <span v-if="session.selectedClasp">{{ selectedClasp }}</span>
        
                    </p>
                    </div>
@@ -153,6 +154,7 @@ data() {
             this.$session.set('sessionBraceletLength', session.braceletLength);
             this.$session.set('sessionBraceletSize', session.braceletSize);
             this.$session.set('sessionMaterial', session.selectedMaterial);
+            this.$session.set('sessionClasp', session.selectedClasp);
             this.$session.set('sessionSelected', session.selectedBeads);
             this.$session.set('sessionTemplate', session.templateBeads);
             this.$session.set('sessionLocal', session.localBeads);

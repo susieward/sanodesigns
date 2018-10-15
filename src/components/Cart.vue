@@ -46,6 +46,7 @@
                          
                    <span class="cart-dtail-text">Material:</span> <span>{{ selectedMaterial.type }}</span>
                    <span class="cart-dtail-text">Color:</span> <span>{{ selectedMaterial.color }}</span>
+               <span class="cart-dtail-text">Clasp:</span> <span>{{ selectedClasp }}</span>
                  </div>
            </div>
         
@@ -100,7 +101,7 @@ data(){
 },
 name: 'Cart',
 
-props: ['necklaceLength', 'braceletLength', 'braceletSize', 'templateBeads', 'selectedBeads', 'selectedMaterial', 'selectedType', 'necklace', 'bracelet', 'dataURL'],
+props: ['necklaceLength', 'braceletLength', 'braceletSize', 'templateBeads', 'selectedBeads', 'selectedMaterial', 'selectedClasp', 'selectedType', 'necklace', 'bracelet', 'dataURL'],
     
 components: {
     Checkout

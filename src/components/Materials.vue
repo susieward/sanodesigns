@@ -260,7 +260,7 @@ data(){
              
               this.$session.set('sessionMaterial', this.selectedMaterial);
             
-            this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+            this.$router.push({ name: 'ClaspComponent', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
              
             
         },
@@ -272,7 +272,7 @@ data(){
             
              this.$session.set('sessionMaterial', this.selectedMaterial);
             
-            this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+            this.$router.push({ name: 'ClaspComponent', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
             
         },
         
@@ -283,7 +283,7 @@ data(){
             
              this.$session.set('sessionMaterial', this.selectedMaterial);
             
-            this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
+            this.$router.push({ name: 'ClaspComponent', params: {sessionId: this.sessionId, necklace: this.necklace, bracelet: this.bracelet, necklaceLength: this.necklaceLength, braceletLength: this.braceletLength, selectedMaterial: this.selectedMaterial, selectedType: this.selectedType}});
       
         },
         
@@ -336,11 +336,12 @@ data(){
 
     padding: 10px;
     grid-gap: 40px;
+ 
     }
     
      .size-template-necklace {
-    height: 400px;
-    width: 400px;
+    height: 500px;
+    width: 500px;
     border: 1px solid #ddd;
     }
     
@@ -566,9 +567,8 @@ width: 600px;
     grid-area: content;
     display: grid;
     align-content: flex-start;
-    
     grid-gap: 30px;
-  width: 860px;
+
     padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
@@ -578,7 +578,6 @@ width: 400px;
         
     .materials-selector {
     display: grid;
-
    grid-template-rows: auto auto;
     grid-template-columns: 1fr;
              justify-content: center;
@@ -587,8 +586,23 @@ width: 400px;
     }
         
     }
+     .size-template-necklace {
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ddd;
     
+    }
     
+  
+    .size-template-bracelet {
+     height: 340px;
+    width: 340px;
+    border: 1px solid #ddd;
+    }
+    
+    .size {
+        width: auto;
+    }
     @media screen and (max-width: 400px){
         
                 

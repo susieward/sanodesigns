@@ -19,10 +19,16 @@
           
           </div>
           
-          <div class="breadcrumbs" v-if="confirmRoute">
-              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
+          <div class="breadcrumbs" v-if="claspRoute">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span>clasp</span>
           
           </div>
+          
+          <div class="breadcrumbs" v-if="confirmRoute">
+              <span><span class="back">start</span> <span class="right-arrow">&rsaquo;</span> <span class="back" @click="backToType">jewelry type</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToLength">sizing</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToMaterial">material</span><span class="right-arrow">&rsaquo;</span><span class="back" @click="backToClasp">clasp</span><span class="right-arrow">&rsaquo;</span>confirm details</span>
+          
+          </div>
+          
 
 
             <router-view @ntype="getNecklace" @btype="getBracelet" @nlength="getNecklaceLength" @blength="getBraceletLength" @material="getMaterial"></router-view>
@@ -48,6 +54,7 @@ export default {
         bracelet: false,
         typeChosen: false,
         lengthChosen: false,
+        claspChosen: false,
         selectedType: '',
         necklaceLength: '',
         braceletLength: '',
@@ -102,6 +109,11 @@ export default {
             
             return this.$store.state.route.name === 'Confirm'
             
+        },
+        
+        claspRoute(){
+            
+            return this.$store.state.route.name === 'ClaspComponent'
         }
 
         
@@ -153,6 +165,12 @@ export default {
             this.selectedMaterial = {}
             this.$session.remove('sessionMaterial');
             this.$router.push({ name: 'Materials'});
+        },
+        
+        backToClasp: function(){
+            this.claspChosen = true;
+            this.$session.remove('sessionClasp');
+            this.$router.push({ name: 'ClaspComponent'});
         },
         
        

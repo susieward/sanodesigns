@@ -94,6 +94,7 @@ data(){
              session.braceletLength = this.$session.get('sessionBraceletLength');
              session.braceletSize = this.$session.get('sessionBraceletSize');
              session.selectedMaterial = this.$session.get('sessionMaterial');
+             session.selectedClasp = this.$session.get('sessionClasp');
              session.selectedBeads = this.$session.get('sessionSelected');
              session.templateBeads = this.$session.get('sessionTemplate');
              session.localBeads = this.$session.get('sessionLocal');

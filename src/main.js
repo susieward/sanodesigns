@@ -35,6 +35,7 @@ import AddBead from './components/AddBead.vue'
 import Type from './components/Type.vue'
 import Length from './components/Length.vue'
 import Materials from './components/Materials.vue'
+import ClaspComponent from './components/ClaspComponent.vue'
 import Confirm from './components/Confirm.vue'
 import Designs from './components/Designs.vue'
 import VueSession from 'vue-session'
@@ -79,6 +80,12 @@ const routes = [
             path: '/:sessionId/type/material',
             name: 'Materials',
             component: Materials,
+            props: true
+            },
+            {
+            path: '/:sessionId/type/clasp',
+            name: 'ClaspComponent',
+            component: ClaspComponent,
             props: true
             },
         {
