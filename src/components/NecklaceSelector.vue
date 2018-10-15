@@ -36,11 +36,12 @@
             <span style="font-size: 12px; line-height: normal; color: #7c7c7c; margin-bottom: 20px">(*Color of template line doesn't reflect your actual material color!)</span>
             
             </div>
-              
+              <div class="canvas-buttons">
                <button class="btn-small-gray" @click="openBeads(selectedBeads)" style="width: 200px">add/edit beads</button>
                            <span><button class="btn-small-gray" style="width: auto"@click="rotateLeft">rotate l</button> <button class="btn-small-gray"   style="width: auto" @click="rotateRight">rotate r</button></span>
                              <button class="btn-small-gray" style="width: 150px" @click="deleteBead">delete</button>
                            <button class="btn-small-gray" style="width: 150px" @click="resetBeads">reset</button>
+                           </div>
  
         </div>
           
@@ -510,7 +511,6 @@ export default {
 align-content: flex-start;
 grid-template-areas:
                     "content content";
-min-height: 100vh;
 width: 100vw;
 margin: 0;
 padding: 0;
@@ -545,21 +545,7 @@ display: grid;
 
     }
   
-    
-    .drag {
-      color: #000;
-   margin-bottom: 0px;
-    cursor: pointer;
-     width: 30px;
-   height:30px;
-        font-size: 20px;
-        position: absolute;
-        top: 25%;
-        left: 45%;
-
-        padding: 20px;
-    }
-    
+  
        .bead-img-small-selected {
     width: 100%;
          height: 100%;
@@ -592,29 +578,43 @@ display: grid;
         border-radius: 50%;
     }
     
-
+.edit-btn-container {
+    width: 100%;
+    }
     
     .necklace-beads {
     display: grid;
-   
-       
+   grid-template-areas: "text text"
+                        "btns btns";
     align-content: flex-start;
      grid-gap: 15px;
    
         width: 300px;
    
-        
+
     }
     
-    .edit-btn-container {
-    width: 100%;
-    }
+    
     
     .beads-title {
     display: grid;
-
+grid-area: text;
         padding: 0;
         margin: 0;
+ 
+    }
+    
+    .canvas-buttons {
+    display: grid;
+    grid-area: btns;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+      
+        grid-gap: 15px;
+    }
+    
+    .canvas-buttons button {
+        height: 50px;
     }
    
     
@@ -630,11 +630,11 @@ display: grid;
     
     .design-necklace {
         display: grid;
-        grid-template-columns: minmax(auto, 800px) auto;
+        grid-template-columns: auto auto;
         
       
         grid-gap: 30px;
-     
+
     
  
 
@@ -677,7 +677,7 @@ min-height: 700px;
     
     .template-copy {
     max-height: 700px;
-    border: 1px solid blue;
+   
     min-height: 200px;
     }
     
@@ -730,6 +730,7 @@ justify-content: center;
     }
     
     .necklace-container-bottom {
+
 margin-top: 30px;
 
 }
@@ -887,6 +888,449 @@ line-height: 30px;
         line-height: 23px;
     text-transform: uppercase;
         margin-bottom: 15px;
+    }
+
+    
+@media screen and (max-width: 1200px){
+    
+    
+    .container {
+    display: grid;
+    grid-area: content;
+    width: 860px;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    }
+    
+      
+    .necklace-selector-container {
+    display: grid;
+    padding: 10px;
+    grid-gap: 20px;
+    justify-content: center;
+           
+    }
+    
+    
+        .design-necklace {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-gap: 30px;
+    
+    }
+    
+       
+    .necklace-beads {
+    display: grid;
+        grid-template-areas: "btns btns"
+                            "text text";
+   align-content: flex-start;
+     grid-gap: 15px;
+   justify-content: center;
+    width: 860px;
+
+
+        
+    }
+    
+       .canvas-buttons {
+    display: grid;
+    grid-area: btns;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto;
+      
+        grid-gap: 15px;
+    }
+    
+ 
+  
+     
+    .necklace-container-bottom {
+margin-top: 30px;
+
+}
+    
+    .necklace-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 45px;
+
+        align-content: center;
+
+    }
+    
+    .your-beads-list {
+    padding: 30px;
+min-height: 200px;
+        background-color: #f4f4f4;
+    }
+    
+    .your-necklace-details {
+padding-top: 10px;
+padding-left: 0px;
+
+        
+        
+    }
+        
+    }
+    
+@media screen and (max-width: 1000px){
+         
+
+    .container {
+    display: grid;
+    grid-area: content;
+    width: 640px;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    }
+         
+          .design-necklace {
+        display: grid;
+        grid-template-columns: 1fr;
+            
+        grid-template-rows: auto auto;
+        grid-gap: 30px;
+       
+     
+    }
+    
+    
+    
+       .necklace-selector-container {
+    display: grid;
+    padding: 10px;
+    grid-gap: 20px;
+           justify-content: center;
+           width: 640px;
+      
+           
+    }
+    
+          .canvas-buttons {
+    display: grid;
+    grid-area: btns;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+      
+        grid-gap: 15px;
+    }
+    
+        
+
+    
+     .necklace-beads {
+    display: grid;
+   align-content: flex-start;
+     grid-gap: 15px;
+   justify-content: center;
+    width: 640px;
+  
+        margin: auto;
+    }
+         
+          
+    .necklace-container-bottom {
+                display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 1fr;
+        
+        margin-top: 30px;
+
+}
+    
+    .necklace-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 15px;
+
+        align-content: center;
+
+    }
+    
+    .your-beads-list {
+    padding: 30px;
+min-height: 200px;
+        background-color: #f4f4f4;
+    }
+    
+    .your-necklace-details {
+    padding: 30px;
+
+        
+        
+    }
+    
+     .checkout-button-container {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-gap: 30px;
+    padding: 30px;
+    }
+        
+    }
+    
+     @media screen and (max-width: 766px){
+         
+ 
+    .container {
+    display: grid;
+    grid-area: content;
+    width: 600px;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    } 
+         
+     
+       .necklace-selector-container {
+    display: grid;
+    padding: 10px;
+    grid-gap: 20px;
+    justify-content: center;
+      width: 600px;
+           
+    }
+      
+         
+          .design-necklace {
+        display: grid;
+       grid-template-columns: 1fr;
+            
+        grid-template-rows: auto auto;
+        grid-gap: 30px;
+     
+    }
+         
+          .necklace-beads {
+    display: grid;
+   align-content: flex-start;
+     grid-gap: 15px;
+   justify-content: center;
+    width: 600px;
+   padding: 15px;
+        
+    }
+    
+     .canvas-buttons {
+    display: grid;
+    grid-area: btns;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+   justify-content: center;
+        grid-gap: 15px;
+    }
+         
+             
+         .canvas-buttons button {
+            margin: auto;
+         }
+
+         
+          
+    .necklace-container-bottom {
+margin-top: 30px;
+}
+    
+    .necklace-details {
+    display: grid;
+     grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 15px;
+
+        align-content: center;
+        width: 600px;
+    
+        margin: auto;
+
+    }
+    
+    .your-beads-list {
+    padding: 30px;
+min-height: 200px;
+        background-color: #f4f4f4;
+    }
+    
+    .your-necklace-details {
+padding: 30px;
+
+
+        
+        
+    }
+        
+    }
+    
+     @media screen and (max-width: 600px){
+         
+
+    
+    .container {
+    display: grid;
+    grid-area: content;
+    width: 400px;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    }
+         
+        .necklace-selector-container {
+    display: grid;
+    padding: 10px;
+    grid-gap: 20px;
+           justify-content: center;
+      
+           
+    }  
+     
+    
+         .design-necklace {
+        display: grid;
+        grid-template-columns: 1fr;
+            
+        grid-template-rows: auto auto;
+        grid-gap: 30px;
+     
+    }
+         
+          .necklace-beads {
+    display: grid;
+   align-content: flex-start;
+     grid-gap: 15px;
+   justify-content: center;
+    width: 400px;
+ padding: 15px;
+              margin: auto;
+        
+    }
+    
+      .canvas-buttons {
+    display: grid;
+    grid-area: btns;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+   justify-content: center;
+          margin: auto;
+        grid-gap: 15px;
+    }
+         
+         .canvas-buttons button {
+            margin: auto;
+         }
+     
+    .necklace-container-bottom {
+margin-top: 30px;
+         width: 400px;
+        margin: auto;
+
+
+}
+         
+         
+    
+    .necklace-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 15px;
+        width: 400px;
+align-content: center;
+
+    }
+    
+    .your-beads-list {
+    padding: 30px;
+min-height: 200px;
+        background-color: #f4f4f4;
+    }
+    
+    .your-necklace-details {
+padding: 30px;
+
+        
+        
+    }
+        
+    }
+    
+     @media screen and (max-width: 400px){
+         
+
+    
+    .container {
+    display: grid;
+    grid-area: content;
+    width: 390px;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    }
+         
+        .necklace-selector-container {
+    display: grid;
+    padding: 10px;
+    grid-gap: 20px;
+           justify-content: center;
+      
+           
+    }  
+    
+        .design-necklace {
+        display: grid;
+        grid-template-columns: 1fr;
+            
+        grid-template-rows: auto auto;
+        grid-gap: 30px;
+     
+    }
+         
+          .necklace-beads {
+    display: grid;
+   align-content: flex-start;
+     grid-gap: 15px;
+   justify-content: center;
+    width: 390px;
+ padding: 15px;
+        
+    }
+    
+    
+     
+    .necklace-container-bottom {
+margin-top: 30px;
+ width: 390px;
+}
+    
+    .necklace-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 15px;
+align-content: center;
+
+ width: 390px;
+    }
+    
+    .your-beads-list {
+    padding: 30px;
+min-height: 200px;
+        background-color: #f4f4f4;
+
+    }
+    
+    .your-necklace-details {
+padding: 30px;
+
+        
+        
+    }
+        
     }
    
   

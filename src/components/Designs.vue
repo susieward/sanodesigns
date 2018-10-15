@@ -33,7 +33,7 @@
           
           </div>
           
-          <div>
+          <div class="delete-all">
           <button class="btn-small" @click="showDeleteAll" v-if="deleteAllClick === false">delete all designs</button>
           </div>
           
@@ -184,10 +184,11 @@ display: grid;
 align-content: flex-start;
 grid-template-areas:
                     "content content";
-min-height: 100vh;
-min-width: 100vw;
+
+width: 100vw;
 margin: 0;
 padding: 0;
+        justify-content: center;
     }
     
     
@@ -202,6 +203,7 @@ grid-gap: 30px;
 padding-top: 20px;
 margin-right: auto;
 margin-left: auto;
+        justify-content: center;
 
     }
     
@@ -246,6 +248,97 @@ width: 250px;
            
     }
     
+    @media screen and (max-width: 1200px){
+       
+        
+        .designs-container {
+        width: 860px;
+        }
+    
+    
+.saved-designs {
+display: grid;
+grid-template-columns: auto auto auto;
+width: 750px;
+margin: auto;
+grid-gap: 20px;
+margin-bottom: 30px;
+justify-content: center;
+}
+    
+.session {
+width: 250px;
+   border: 1px solid #ddd;
+        
+}
+    }
+    
+  @media screen and (max-width: 1000px){
+      
+    .designs-container {
+    width: 640px;
+        }
+      
+.saved-designs {
+display: grid;
+grid-template-columns: auto auto;
+width: 560px;
+margin: auto;
+grid-gap: 20px;
+margin-bottom: 30px;
+justify-content: center;
+}
+    
+.session {
+width: 250px;
+   border: 1px solid #ddd;
+        
+}
+    }
+    
+  @media screen and (max-width: 766px){
+
+       
+        .designs-container {
+        width: 600px;
+        }
+      
+      .delete-all {
+        margin: auto;
+      }
+    }
+    
+  @media screen and (max-width: 600px){
+      
+ 
+        .designs-container {
+        width: 400px;
+        }
+      
+      .saved-designs {
+display: grid;
+grid-template-columns: auto;
+width: 360px;
+margin: auto;
+grid-gap: 20px;
+margin-bottom: 30px;
+justify-content: center;
+}
+    
+.session {
+width: 250px;
+   border: 1px solid #ddd;
+        
+}
+    }
+    
+  @media screen and (max-width: 400px){
+   
+       
+        .designs-container {
+        width: 390px;
+        }
+    }
 
 
 

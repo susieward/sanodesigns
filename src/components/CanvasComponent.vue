@@ -2,13 +2,15 @@
 <div class="canvas-component">
     <div class="canvas-component-container">
 
+        <div class="canvas-beads">
       <span v-for="img in selectedArray">
        
         <img :src="img.src" :height="img.height" :width="img.width" class="selectedArrayBead" :class="{ 'selected-array-disabled': showDisabled }" :id="img.id" @click="copyImg(img)">
         </span>
+        </div>
 
         <div class="canvas-container" id="canvas-container">
-    <canvas id="canvas" ref="canvas"  @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" @touchstart="handleTouchStart($event)" @touchend="handleTouchEnd($event)" @touchmove="handleTouchMove($event)" style="border: 1px solid #ddd" width="800" height="600"></canvas>
+    <canvas id="canvas" ref="canvas"  @mousedown="handleMouseDown($event)" @mouseup="handleMouseUp($event)" @mousemove="handleMouseMove($event)" @mouseout="handleMouseOut($event)" @touchstart="handleTouchStart($event)" @touchend="handleTouchEnd($event)" @touchmove="handleTouchMove($event)" style="border: 1px solid #ddd" width="700" height="600"></canvas>
             
         </div>
         <div>
@@ -207,8 +209,8 @@ name: 'CanvasComponent',
                 var ctx = c.getContext("2d");
                 var rect = c.getBoundingClientRect();
                 var imgArray = this.imgArray;
-                var canvasWidth = 800;
-                var canvasHeight = 600;
+                var canvasWidth = c.width;
+                var canvasHeight = c.height;
                 var localBeads = this.localBeads;
                 
     if(localBeads.length){
@@ -344,8 +346,8 @@ name: 'CanvasComponent',
             var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
-             var canvasWidth = 800;
-                var canvasHeight = 600;
+             var canvasWidth = c.width;
+                var canvasHeight = c.height;
              
              if(!this.selectedBead){
                  
@@ -409,8 +411,8 @@ name: 'CanvasComponent',
             var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
-             var canvasWidth = 800;
-                var canvasHeight = 600;
+             var canvasWidth = c.width;
+                var canvasHeight = c.height;
              
              var beadId = this.selectedBead.canvasId;
              var selected = imgArray.find(bead => bead.canvasId === beadId);
@@ -467,8 +469,8 @@ name: 'CanvasComponent',
             var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
-                   var canvasWidth = 800;
-                var canvasHeight = 600;
+                   var canvasWidth = c.width;
+                var canvasHeight = c.height;
                 
                     var beadId = this.selectedBead.canvasId;
                     var selected = imgArray.find(bead => bead.canvasId === beadId);
@@ -551,8 +553,8 @@ name: 'CanvasComponent',
                 
                 var c = this.$refs.canvas;
                 var ctx = c.getContext("2d");
-                var canvasWidth = 800;
-                var canvasHeight = 600;
+                var canvasWidth = c.width;
+                var canvasHeight = c.height;
                 var imgArray = this.imgArray;
                 var localBeads = this.localBeads;
               
@@ -606,8 +608,8 @@ name: 'CanvasComponent',
                 
                 if(this.necklaceLength === '40'){
                     var radius = 175;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = canvasWidth / 2;
                     var centerY = canvasHeight / 2;
                     
@@ -620,8 +622,8 @@ name: 'CanvasComponent',
                 
                 if(this.necklaceLength === '42'){
                     var radius = 100;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -638,8 +640,8 @@ name: 'CanvasComponent',
                 
                 if(this.necklaceLength === '45'){
                     var radius = 100;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -657,8 +659,8 @@ name: 'CanvasComponent',
                 
                 if(this.necklaceLength === '50'){
                     var radius = 100;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -676,8 +678,8 @@ name: 'CanvasComponent',
                 
                 if(this.necklaceLength === '60'){
                     var radius = 100;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -695,8 +697,8 @@ name: 'CanvasComponent',
                 
                 if(this.necklaceLength === '80'){
                     var radius = 150;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = 0;
                     var centerY = 0;
             
@@ -723,8 +725,8 @@ name: 'CanvasComponent',
                 
                 if(this.braceletLength === '14'){
                   var radius = 140;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = canvasWidth / 2;
                     var centerY = canvasHeight / 2;
                     
@@ -734,8 +736,8 @@ name: 'CanvasComponent',
                 
                 if(this.braceletLength === '15'){
                  var radius = 150;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = canvasWidth / 2;
                     var centerY = canvasHeight / 2;
                     
@@ -745,8 +747,8 @@ name: 'CanvasComponent',
                 
                 if(this.braceletLength === '16'){
                  var radius = 160;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = canvasWidth / 2;
                     var centerY = canvasHeight / 2;
                     
@@ -756,8 +758,8 @@ name: 'CanvasComponent',
                 
                 if(this.braceletLength === '17'){
                  var radius = 170;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = canvasWidth / 2;
                     var centerY = canvasHeight / 2;
                     
@@ -767,8 +769,8 @@ name: 'CanvasComponent',
                 
                 if(this.braceletLength === '18'){
                  var radius = 180;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = canvasWidth / 2;
                     var centerY = canvasHeight / 2;
                     
@@ -778,8 +780,8 @@ name: 'CanvasComponent',
                 
                 if(this.braceletLength === '19'){
                  var radius = 190;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var centerX = canvasWidth / 2;
                     var centerY = canvasHeight / 2;
                     
@@ -804,8 +806,8 @@ name: 'CanvasComponent',
                     var offsetX = rect.left;
                     var offsetY = rect.top;
                     var imgArray = this.imgArray;
-                    var canvasWidth = 800;
-                    var canvasHeight = 600;
+                    var canvasWidth = c.width;
+                    var canvasHeight = c.height;
                     var localBeads = this.localBeads;
                 
                  ctx.clearRect(0,0, canvasWidth, canvasHeight);
@@ -972,8 +974,8 @@ name: 'CanvasComponent',
              var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
-             var canvasWidth = 800;
-             var canvasHeight = 600;
+             var canvasWidth = c.width;
+             var canvasHeight = c.height;
          
           
             this.mouse.current = {
@@ -1101,8 +1103,8 @@ name: 'CanvasComponent',
              var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
-             var canvasWidth = 800;
-             var canvasHeight = 600;
+             var canvasWidth = c.width;
+             var canvasHeight = c.height;
          
              
              if(event.touches.length == 1){
@@ -1163,8 +1165,8 @@ name: 'CanvasComponent',
              var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
-             var canvasWidth = 800;
-             var canvasHeight = 600;
+             var canvasWidth = c.width;
+             var canvasHeight = c.height;
              
              
              if(this.selectedBead){
@@ -1276,8 +1278,8 @@ name: 'CanvasComponent',
             var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
-            var canvasWidth = 800;
-            var canvasHeight = 600;
+            var canvasWidth = c.width;
+            var canvasHeight = c.height;
              var newRotation;
     
    
@@ -1373,8 +1375,8 @@ name: 'CanvasComponent',
             var offsetX = rect.left;
             var offsetY = rect.top;
             var imgArray = this.imgArray;
-            var canvasWidth = 800;
-            var canvasHeight = 600;
+            var canvasWidth = c.width;
+            var canvasHeight = c.height;
              var newRotation;
     
    
@@ -1463,16 +1465,34 @@ name: 'CanvasComponent',
 
 </script>
 <style>
+    
+ 
+   .canvas-component {
+ display: grid;
+margin: 0;
+padding: 0;
 
-    .canvas-component {
-    display: grid;
-    justify-content: center;
 
     }
     
-    .canvas-component-container{
+.canvas-container {
 
     
+}
+
+
+ 
+    
+    .canvas-component-container{
+
+display: grid;
+grid-template-rows: auto auto;
+min-width: auto;
+        margin: auto;
+        max-width: 700px;
+    }
+    
+    .canvas-beads {
 
     }
     

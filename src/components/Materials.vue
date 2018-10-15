@@ -40,11 +40,11 @@
                 </select>
                 
               
-              <span><input type="radio" id="wire" name="material" value="Wire" @change="selectedWire" v-model="selectedMaterial.type"/>
+              <span><input type="radio" id="wire" name="material" value="Nylon-wrapped beading wire" @change="selectedWire" v-model="selectedMaterial.type"/>
                   <label for="wire">Nylon-wrapped beading wire - $0.10 per cm</label></span>
                       
                       
-                    <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
+                    <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Nylon-wrapped beading wire'" @change="setWireColor">
                     <option disabled value="">Select color</option>
                     <option value="Gold">Gold</option>
                     <option value="Silver">Silver</option>
@@ -88,10 +88,10 @@
                     <option value="Copper">Copper</option>
                 </select>
                  
-              <span><input type="radio" :id="wire" value="Wire" @change="selectedWire" v-model="selectedMaterial.type"/>
+              <span><input type="radio" :id="wire" value="Nylon-wrapped beading wire" @change="selectedWire" v-model="selectedMaterial.type"/>
                   <label for="wire">Nylon-wrapped beading wire - $0.10 per cm</label></span>
             
-              <select v-model="selectedMaterial.color" class="colorselect" v-if="selectedMaterial.type === 'Wire'" @change="setWireColor">
+              <select v-model="selectedMaterial.color" class="colorselect" v-if="selectedMaterial.type === 'Nylon-wrapped beading wire'" @change="setWireColor">
                     <option disabled value="">Select color</option>
                     <option value="gold">Gold</option>
                     <option value="silver">Silver</option>
@@ -244,7 +244,7 @@ data(){
         
          selectedWire: function(){
             
-   
+        
              this.selectedMaterial.price = 0.10;
             
         },

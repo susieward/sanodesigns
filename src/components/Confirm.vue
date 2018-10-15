@@ -238,19 +238,19 @@ font-weight: 400;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(3, 1fr);
-max-width: 600px;
+
     margin: auto;
     padding: 20px;
+      max-width: 600px;
          padding-top: 5px;
         align-content: center;
         justify-content: center;
-    
-    
+
     
     }
     
     .dtail-text {
-    margin-right: 60px;
+margin-right: 30px;
     font-size: 16px;
         margin-bottom: 10px;
         line-height: 24px;
