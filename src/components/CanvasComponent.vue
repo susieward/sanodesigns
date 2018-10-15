@@ -3,7 +3,7 @@
     <div class="canvas-component-container">
 
         <div class="canvas-beads">
-      <span v-for="img in selectedArray">
+      <span v-for="img in selectedArray" class="canvas-bead">
        
         <img :src="img.src" :height="img.height" :width="img.width" class="selectedArrayBead" :class="{ 'selected-array-disabled': showDisabled }" :id="img.id" @click="copyImg(img)">
         </span>
@@ -1495,6 +1495,37 @@ min-width: auto;
     .canvas-beads {
 
     }
+    
+       @media screen and (max-width: 766px){
+        .canvas-beads {
+display: grid;
+            grid-template-columns: auto auto auto auto;
+            
+        margin: auto;
+    } 
+        
+    }
+    
+    @media screen and (max-width: 600px){
+        .canvas-beads {
+display: grid;
+            grid-template-columns: auto auto auto;
+            
+        margin: auto;
+    } 
+        
+    }
+    
+        @media screen and (max-width: 400px){
+        .canvas-beads {
+display: grid;
+            grid-template-columns: auto auto;
+            
+        margin: auto;
+    } 
+        
+    }
+   
     
           .bead-img-small-selected {
     width: 100px;

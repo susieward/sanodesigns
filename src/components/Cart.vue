@@ -66,7 +66,7 @@
             
             <span class="total-text">Beads:</span> <span>{{ formatPrice(totalBeadsPrice) | usdollar }}</span>
 
-                <span class="total-text" v-if="necklace === true">{{ formatLength(necklaceLength) }} length x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }} ({{ selectedMaterial.type }}, {{ selectedMaterial.color }}): </span><span class="total-text" v-if="bracelet === true">{{ formatLength(braceletLength) }} length <span class="multiply">x</span> {{ formatMaterialPrice(selectedMaterial.price) | usdollar }} : </span> <span class="total-price">{{ formatPrice(totalMaterialPrice) | usdollar }} </span>
+                <span class="total-text" v-if="necklace === true">{{ formatLength(necklaceLength) }} length x {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span><span class="total-text" v-if="bracelet === true">{{ formatLength(braceletLength) }} length <span class="multiply">x</span> {{ formatMaterialPrice(selectedMaterial.price) | usdollar }}: </span> <span class="total-price">{{ formatPrice(totalMaterialPrice) | usdollar }} </span>
              
              
             <span class="total-text">Flat labor fee:</span> <span class="total-price">{{ formatPrice(laborFee) | usdollar }}</span>
@@ -342,7 +342,6 @@ justify-content: flex-start;
         max-width: 600px;
         margin: auto;
     padding: 30px;
-  
         margin-bottom: 30px;
         align-content: center;
     }
@@ -352,17 +351,17 @@ justify-content: flex-start;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(3, 1fr);
 padding: 30px;
-    
         align-content: center;
         justify-content: center;
          background-color: #f4f4f4;
+
     
     
     
     }
     
     .total-text {
-    margin-right: 40px;
+    margin-right: 60px;
     font-size: 16px;
         margin-bottom: 10px;
     
