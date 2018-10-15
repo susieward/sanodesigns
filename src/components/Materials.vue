@@ -41,7 +41,7 @@
                 
               
               <span><input type="radio" id="wire" name="material" value="Nylon-wrapped beading wire" @change="selectedWire" v-model="selectedMaterial.type"/>
-                  <label for="wire">Nylon-wrapped beading wire - $0.10 per cm</label></span>
+                  <label for="wire">Nylon-wrapped beading wire - $0.10 per cm <br>(recommended)</label></span>
                       
                       
                     <select v-model="selectedMaterial.color" v-if="selectedMaterial.type === 'Nylon-wrapped beading wire'" @change="setWireColor">
@@ -371,6 +371,16 @@ data(){
     display: grid;
     grid-template-rows: repeat(3, auto);
     grid-gap: 20px;
+ 
+    }
+    
+    .radio-button {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: flex-start;
+             border: 1px solid #eee;
+        align-content: flex-start;
+        grid-gap: 10px;
     }
     
     .selectcolor {
