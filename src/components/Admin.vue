@@ -1,30 +1,53 @@
 <template>
 <div class="admin">
-    
+
     <div class="admin-container">
-        
+
     <div class="admin-header">
-    <h2>Admin Panel</h2>
-        <div class="admin-links">
+    <router-link to="/admin"><h2>Admin Panel</h2></router-link>
+        <div class="admin-links" v-if="isAuthenticated">
             <router-link class="admin-link" to="/admin">all beads</router-link>
             <router-link class="admin-link" to="/admin/add">add new bead</router-link>
+
+
+               <span class="logout-link" @click='logout()'>logout</span>
+
         </div>
     </div>
-        <span><p style="margin: 30px;">Click on a bead to make changes.</p></span>
+
        <router-view></router-view>
-    
+
     </div>
-    
-    
-    
-    
+
+
+
+
     </div>
 </template>
 <script>
-
 export default {
-   
-    name: 'Admin'
+data(){
+  return {
+
+  }
+},
+
+    name: 'Admin',
+
+
+    computed: {
+        isAuthenticated(){
+            return this.$store.getters.isAuthenticated;
+        }
+    },
+
+    methods: {
+
+      logout: function(){
+          this.$store.commit('AUTH_LOGOUT')
+          this.$router.push('/admin')
+      }
+    }
 }
 
 
@@ -37,19 +60,19 @@ export default {
     justify-content: center;
     margin-bottom: 100px;
     }
-    
+
     .admin h2 {
     margin: 0;
     padding: 0;
     }
-    
+
     .admin-container {
     width: 975px;
     border: 1px solid #ddd;
     min-height: 500px;
 
     }
-    
+
     .admin-header {
     display: grid;
     grid-template-columns: auto auto;
@@ -62,7 +85,7 @@ export default {
     border-right: none;
     border-left: none;
     }
-    
+
     .admin-links {
     display: grid;
    grid-auto-flow: column;
@@ -71,13 +94,25 @@ export default {
     grid-gap: 20px;
     margin: 0;
     padding: 0;
-    
+
     }
-    
+
     .admin-link{
     font-size: 16px;
-    border-bottom: 1px solid #8a52a3;
+    border-bottom: 1px solid #ad81c0;
     padding-bottom: 0px;
+    }
+
+    .logout-link {
+      color: #ad81c0;
+      font-size: 16px;
+      border-bottom: 1px solid #ad81c0;
+      padding-bottom: 0px;
+      cursor: pointer;
+    }
+
+    .logout-link:hover {
+      color: #8a52a3;
     }
 
 </style>

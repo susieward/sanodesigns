@@ -1,6 +1,6 @@
 <template>
   <div class="home">
- 
+
       <div class="home-container">
 
 
@@ -8,17 +8,17 @@
       <div class="start" v-if="!hasSession">
           <router-link to="/create/type" tag="button" class="btn">get started</router-link>
           </div>
-          
+
           <div class="start" v-if="hasSession">
-          
+
               <button class="btn" @click="continueSession">continue</button>
                <p style="text-align: center">or</p>
-              
+
             <button class="btn" @click="newSession">start new design</button>
-          
-          
+
+
           </div>
-          
+
       </div>
   </div>
 </template>
@@ -31,88 +31,128 @@ export default {
     return {}
  },
 
-    
+
     computed: {
-        
-        hasSession(){
-            
-            return this.$session.exists();
-        },
-        
+
+
         beads(){
             return this.$store.state.beads;
         },
-        
+
         sessionId(){
             return this.$session.id();
         },
-        
-   
-        
+
+        hasSession(){
+
+          return this.$session.exists() && this.$session.has('sessionType');
+        },
+
+
+
           sessionData(){
-            
-            
+
+
             return this.$session.getAll();
         },
-        
+
             savedSessions(){
-            
+
             return this.$store.state.savedSessions;
         },
-        
+
         sessions(){
-            
+
             return this.$store.state.sessions;
         },
     },
-    
+
     methods: {
-        
+
+
         continueSession: function(){
-            
-            if(this.$session.exists()){
-                  this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId}})
+
+            if(this.$session.exists() && this.$session.has('sessionType') && this.$session.get('sessionNecklace') === true){
+
+              if(this.$session.has('sessionType') && !this.$session.has('sessionNecklaceLength') && !this.$session.has('sessionMaterial') && !this.$session.has('sessionClasp') ){
+                this.$router.push({ name: 'Length', params: {sessionId: this.sessionId}});
+              }
+
+              if(this.$session.has('sessionType') && this.$session.has('sessionNecklaceLength') && !this.$session.has('sessionMaterial') && !this.$session.has('sessionClasp') ){
+                this.$router.push({ name: 'Materials', params: {sessionId: this.sessionId}});
+              }
+
+              if(this.$session.has('sessionType') && this.$session.has('sessionNecklaceLength') && this.$session.has('sessionMaterial') && !this.$session.has('sessionClasp') ){
+                this.$router.push({ name: 'ClaspComponent', params: {sessionId: this.sessionId}});
+              }
+
+              if(this.$session.has('sessionType') && this.$session.has('sessionNecklaceLength') && this.$session.has('sessionMaterial') && this.$session.has('sessionClasp') ){
+                this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId}});
+              }
+
+            }
+
+
+              if(this.$session.exists() && this.$session.has('sessionType') && this.$session.get('sessionNecklace') === false){
+
+                if(this.$session.has('sessionType') && !this.$session.has('sessionBraceletLength') && !this.$session.has('sessionMaterial') && !this.$session.has('sessionClasp') ){
+                  this.$router.push({ name: 'Length', params: {sessionId: this.sessionId}});
                 }
-            
+
+                if(this.$session.has('sessionType') && this.$session.has('sessionBraceletLength') && !this.$session.has('sessionMaterial') && !this.$session.has('sessionClasp') ){
+                  this.$router.push({ name: 'Materials', params: {sessionId: this.sessionId}});
+                }
+
+                if(this.$session.has('sessionType') && this.$session.has('sessionBraceletLength') && this.$session.has('sessionMaterial') && !this.$session.has('sessionClasp') ){
+                  this.$router.push({ name: 'ClaspComponent', params: {sessionId: this.sessionId}});
+                }
+
+                if(this.$session.has('sessionType') && this.$session.has('sessionBraceletLength') && this.$session.has('sessionMaterial') && this.$session.has('sessionClasp') ){
+                  this.$router.push({ name: 'Confirm', params: {sessionId: this.sessionId}});
+                }
+              }
+
+            return
+
         },
-        
+
         newSession: function(){
-            
+
            this.$store.commit('deleteLocalBeads');
             this.$session.destroy();
             if(!this.$session.exists()){
                     this.$router.push('/create/type');
                 }
-            
+
         },
-        
+
             deleteLocalStorage: function(){
             this.$store.commit('deleteLocalBeads');
             this.$session.destroy();
             if(!this.$session.exists()){
                     this.$router.push('/');
                 }
-  
+
         },
-        
+
         deleteSessions: function(){
-            
+
             this.$store.commit('deleteSessions');
-            
+
         }
-        
+
     }
 
 }
 </script>
 
 <style>
-    
+
     .bead-img {
     width: 100px;
     object-fit: cover;
     }
-    
+
 .home {
 display: grid;
 
@@ -128,23 +168,23 @@ padding: 0;
     justify-content: center;
 
     }
-    
 
-    
+
+
     .home-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
     justify-content: center;
     grid-gap: 30px;
-  
+
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
- 
-    
+
+
     }
-    
+
     .buttons-container-title {
 display: grid;
   justify-content: center;
@@ -160,104 +200,104 @@ display: grid;
     .home-container h2 {
     text-align: center;
     }
-    
+
     .start {
     display: grid;
     justify-content: center;
     padding: 10px;
     }
-    
+
      @media screen and (max-width: 1200px){
      .home-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
-    
+
     grid-gap: 30px;
-  
+
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
 width: 860px;
-    
-    }     
-         
-         
+
     }
-    
+
+
+    }
+
      @media screen and (max-width: 1000px){
      .home-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
-    
+
     grid-gap: 30px;
-  
+
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
 width: 640px;
-    
-    }     
-         
-         
+
     }
-    
-    
+
+
+    }
+
+
      @media screen and (max-width: 766px){
      .home-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
-    
+
     grid-gap: 30px;
-  
+
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
 width: 600px;
-    
-    }     
-         
-         
-    }
-    
-        @media screen and (max-width: 600px){
-            
 
-            
+    }
+
+
+    }
+
+        @media screen and (max-width: 600px){
+
+
+
     .home-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
-    
+
     grid-gap: 30px;
-  
+
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
 width: 400px;
-    
+
     }
     }
-     
+
     @media screen and (max-width: 400px){
-        
-        
+
+
            .home-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
-    
+
     grid-gap: 30px;
-  
+
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 700px;
 width: 390px;
- 
+
     }
-        
+
     }
 
 </style>

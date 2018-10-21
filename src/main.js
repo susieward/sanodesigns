@@ -1,3 +1,4 @@
+
 if (process.env.NODE_ENV === 'production') {
     window.endpoint = 'https://sanodesigns-server.herokuapp.com';
 } else {
@@ -7,14 +8,14 @@ if (process.env.NODE_ENV === 'production') {
 window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+const token = localStorage.getItem('user-token')
+if (token) {
+  window.axios.defaults.headers.common['Authorization'] = token;
+}
+
 
 require('./css/main.css');
 require('./js/main.js');
-require('webpack-jquery-ui/draggable');
-require('webpack-jquery-ui/droppable');
-const interact = require('interactjs');
-
-
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -57,7 +58,7 @@ const routes = [
       name: 'Home',
       component: Home
     },
-    
+
     {
         path: '/create/type',
       name: 'Create',
@@ -69,7 +70,7 @@ const routes = [
             component: Type,
             props: true
         },
-            
+
         {
             path: '/:sessionId/length',
             name: 'Length',
@@ -96,7 +97,7 @@ const routes = [
             },
         ]
     },
-    
+
 
     { path: '/:sessionId/bracelet',
              name: 'bracelet',
@@ -113,24 +114,19 @@ const routes = [
              component: Designs,
              props: true
     },
-    { path: '/beads',
-             name: 'BeadSelector',
-             component: BeadSelector,
-             props: true
-    },
-   
+
     {
         path: '/catalog',
         name: 'Catalog',
         component: Catalog
-        
+
     },
     {
         path: '/:sessionId/cart',
         name: 'Cart',
         component: Cart,
         props: true
-        
+
     },
     {
         path: '/admin',

@@ -163,7 +163,7 @@ data() {
 
             this.$store.commit('deleteSession', id);
             this.$store.dispatch('loadSessions');
-
+            this.$router.push('/designs');
 
         },
 
