@@ -504,7 +504,7 @@ methods: {
               this.submitted = true;
               console.log(data.token);
 
-              axios.post('http://localhost:3000/charge', {
+              axios.post('https://sanodesigns-server.herokuapp.com/charge', {
                 stripeEmail: this.stripeEmail,
                 stripeToken: data.token.id,
                 stripeAmt: Math.round(this.totalPrice * 100),
@@ -565,7 +565,7 @@ methods: {
               designImage: this.dataURL
             };
 
-            axios.post('http://localhost:3000/send', data).then((response) => {
+            axios.post('https://sanodesigns-server.herokuapp.com/send', data).then((response) => {
               if(response){
                 this.$emit('emailYes');
                 this.emailSent = true;
