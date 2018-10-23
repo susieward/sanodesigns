@@ -88,14 +88,23 @@
 
         <checkout :total-price="totalPrice" :necklaceLength="necklaceLength" :braceletLength="braceletLength" :braceletSize="braceletSize" :selectedMaterial="selectedMaterial" :selectedClasp="selectedClasp" :selectedType="selectedType" :templateBeads="templateBeads" :dataURL="dataURL"
         :notes="notes"
-         @successSubmit="purchaseSuccessful"></checkout>
+         @successSubmit="purchaseSuccessful" @emailYes="emailConfirm" @emailNo="emailError"></checkout>
   </div>
         <div v-if="success === true && purchased === true" class="thanks">
             <success @restartBag="success == false"></success>
       <h2>Success!</h2>
             <p>Your order has been received and will be processed shortly.<br>
             Thanks!</p>
+            <div v-if="emailSent === true && emailSuccess === true" class="sent-success">
+                <p>Your email has been sent, thanks!</p>
 
+
+             </div>
+
+            <div v-if="emailSent === true && emailSuccess === false">
+            <p>Oh no, something went wrong!</p>
+
+            </div>
     </div>
     </div>
     </div>
@@ -111,7 +120,9 @@ data(){
     return {
         notes: '',
         success: false,
-        purchased: false
+        purchased: false,
+        emailSent: false,
+        emailSuccess: false
     }
 },
 name: 'Cart',
@@ -172,6 +183,16 @@ components: {
     },
 
     methods: {
+
+      emailConfirm: function(){
+        this.emailSent = true;
+        this.emailSuccess = true;
+      },
+
+      emailError: function(){
+        this.emailSent = true;
+        this.emailSuccess = false;
+      },
 
       purchaseSuccessful: function(){
           this.success = true;
@@ -364,7 +385,7 @@ justify-content: flex-start;
 
     .totals-container {
         display: grid;
-
+justify-content: center;
         max-width: 600px;
         margin: auto;
     padding: 30px;
@@ -377,6 +398,7 @@ justify-content: flex-start;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(3, 1fr);
 padding: 30px;
+max-width: 500px;
         align-content: center;
         justify-content: center;
          background-color: #f4f4f4;

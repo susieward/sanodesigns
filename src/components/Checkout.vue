@@ -1,5 +1,9 @@
 <template>
 <div class="checkout">
+
+
+
+
     <div class="checkout-container">
 
 
@@ -12,7 +16,7 @@
    <div class="top-row">
 
 
-       <input name="email" type="text" v-model="stripeEmail" placeholder="Email Address"/>
+       <input name="email" type="text" :class="{ 'required-field' : showErr }" v-model="stripeEmail" placeholder="Email Address*"/>
 
 
 
@@ -27,14 +31,14 @@
      <div class="top-row">
 
 
-         <input name="first" type="text" v-model="name.first" placeholder="First Name"/>
-         <input name="last" type="text" v-model="name.last" placeholder="Last Name"/>
+         <input name="first" type="text"  required v-model="name.first" placeholder="First Name*"/>
+         <input name="last" type="text" required v-model="name.last" placeholder="Last Name*"/>
 
         </div>
 
 <div class="row">
-  <select name="country" v-model="address.country" id="country">
-<option value="">Select Country</option>
+  <select name="country" required v-model="address.country" id="country">
+<option value="">Select Country*</option>
 <option value="United States">United States</option>
 <option value="United Kingdom">United Kingdom</option>
 <option value="Afghanistan">Afghanistan</option>
@@ -283,17 +287,17 @@
 <div class="top-row">
 
 
-         <input name="address.street" type="text" v-model="address.street" placeholder="Street address"/>
+         <input name="address.street" type="text" required v-model="address.street" placeholder="Street address*"/>
 
           <input name="address.street" type="text" v-model="address.apt" placeholder="Apt, Unit, Suite, etc (optional)"/>
 </div>
 
 <div class="row">
-    <input name="address.zip" type="text" v-model="address.zip" placeholder="Postal / Zip"/>
-         <input name="address.city" type="text" v-model="address.city" placeholder="City"/>
+    <input name="address.zip" type="text" required v-model="address.zip" placeholder="Postal / Zip*"/>
+         <input name="address.city" type="text" required v-model="address.city" placeholder="City*"/>
 
-         <select name="state" id="state" v-model="address.state">
-   <option value="" selected="selected">Select a State</option>
+         <select name="state" id="state" required v-model="address.state">
+   <option value="" selected="selected">Select a State*</option>
    <option value="AL">Alabama</option>
    <option value="AK">Alaska</option>
    <option value="AZ">Arizona</option>
@@ -362,7 +366,7 @@
   />
 
  <button class='pay-with-stripe' @click='pay'>pay with credit card</button>
-
+<span style="color:red; margin-top: 10px;" v-show="error"> {{ error }}</span>
        </div>
 
        <div v-else class="statussubmit">
@@ -392,6 +396,8 @@ import axios from 'axios'
 export default {
 data(){
     return {
+      error: '',
+      err: false,
       submitted: false,
       complete: false,
       status: '',
@@ -401,7 +407,7 @@ data(){
           first: '',
           last: ''
         },
-        phone: '',
+        phone: '' || null,
         stripeEmail: '',
         address: {
           country: '',
@@ -463,21 +469,36 @@ computed: {
         let cartBead = {};
 
         cartBead.stone = bead.stone;
-        cartBead.size = bead.size;
+        cartBead.size = bead.size + 'mm';
         cartBead.quantity = bead.quantity;
-        cartBead.price = bead.price;
 
         arr.push(cartBead);
 
     })
 
     return arr;
-  }
+  },
+
+
 
 },
 
 methods: {
+
+  formatPrice: function(value){
+  return value.toFixed(2);
+},
+
+  showErr(){
+    return this.err = true;
+  },
       pay () {
+
+        if(this.stripeEmail === '' || this.name.first === '' || this.name.last === '' || this.address.country === '' || this.address.street === '' || this.address.city === '' || this.address.state === '' || this.address.zip === ''){
+
+        this.showErr();
+          this.error = 'Please fill out all fields marked with *'
+        } else {
 
           createToken().then(data => {
               this.submitted = true;
@@ -517,32 +538,51 @@ methods: {
               this.status = 'failure';
             });
           });
-        },
 
+        }
+      },
 
         sendEmail: function(){
 
+          let cartBeads = this.cartBeads;
+          var beadsString = JSON.stringify(cartBeads);
+
             var data = {
-              beads: this.cartBeads,
+              stripeAmt: this.totalPrice,
+              name: this.name,
+              address: this.address,
+              phone: this.phone,
+              email: this.stripeEmail,
+
+                type: this.selectedType,
+                length: this.necklaceLength || this.braceletLength,
+                size: this.braceletSize,
+                clasp: this.selectedClasp,
+                notes: this.notes,
+                material: this.selectedMaterial.type,
+                color: this.selectedMaterial.color,
+              beads: beadsString,
               designImage: this.dataURL
-            }
+            };
 
             axios.post('http://localhost:3000/send', data).then((response) => {
               if(response){
+                this.$emit('emailYes');
                 this.emailSent = true;
                 this.emailSuccess = true;
               }
             }).catch((error) => {
+              console.log(error);
               if(error){
+                this.$emit('emailNo');
                 this.emailSent = true;
                 this.emailSuccess = false;
               }
             })
 
-
+          }
         }
 
-      }
 }
 
 
@@ -550,6 +590,7 @@ methods: {
 
 </script>
 <style>
+
 
 .checkout {
 display: grid;
@@ -595,11 +636,20 @@ display: grid;
     border-radius: 6px;
     }
 
+.required-field {
+    border: 1px solid red;
+}
+
+
     .payment input::placeholder {
       color:#676767;
       font-size: 14px;
       line-height: 21px;
     }
+
+  .required-field {
+    border: 1px solid red;
+  }
 
     .payment label {
 color: #ad81c0;
