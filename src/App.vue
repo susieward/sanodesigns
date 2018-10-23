@@ -2,7 +2,7 @@
   <div id="app">
       <div class="app-container">
 
-      <div class="banner"><div class="banner-container"><p>self-care through creativity</p></div></div>
+      <div class="banner" ref="banner"><div class="banner-container"><p>self-care through creativity</p></div></div>
 
           <div class="header">
           <div class="header-container">
@@ -25,7 +25,7 @@
       </div>
 
       <div class="content">
-      <router-view></router-view>
+      <router-view @scroll="scrollToTop"></router-view>
       </div>
 
       <div class="footer">
@@ -74,6 +74,9 @@ data(){
 
     methods: {
 
+        scrollToTop: function(){
+          this.$refs.banner.scrollTop = 0;
+        },
 
 
          deleteLocalStorage: function(){
@@ -233,11 +236,12 @@ margin: 0;
        .create-btn {
 border: 1px solid #000;
 background-color: #000;
-padding: 10px 14px;
+border-radius: 2px;
+padding: 8px 14px;
 text-align: center;
 font-family: 'Karla';
-font-size: 18px;
-line-height: 18px;
+font-size: 16px;
+line-height: 23px;
 text-transform: uppercase;
 color: #d9d9d9;
 font-weight: 400;

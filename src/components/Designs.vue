@@ -50,7 +50,7 @@
           </div>
 
           <div class="delete-all">
-          <button class="btn-small" @click="showDeleteAll" v-if="deleteAllClick === false">delete all designs</button>
+          <button class="btn" @click="showDeleteAll" v-if="deleteAllClick === false">delete all designs</button>
           </div>
 
           <div v-if="deleteAllClick === true">

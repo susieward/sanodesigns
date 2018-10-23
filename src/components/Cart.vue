@@ -1,7 +1,9 @@
 <template>
-<div class="cart">
+<div class="cart" ref="cart">
 
     <div class="cart-container">
+      <div v-if="purchased === false">
+
 
         <h2 style="text-align: center; margin-bottom: 15px">Cart</h2>
 
@@ -84,7 +86,17 @@
         </div>
         </div>
 
-        <checkout></checkout>
+        <checkout :total-price="totalPrice" :necklaceLength="necklaceLength" :braceletLength="braceletLength" :braceletSize="braceletSize" :selectedMaterial="selectedMaterial" :selectedClasp="selectedClasp" :selectedType="selectedType" :templateBeads="templateBeads" :dataURL="dataURL"
+        :notes="notes"
+         @successSubmit="purchaseSuccessful"></checkout>
+  </div>
+        <div v-if="success === true && purchased === true" class="thanks">
+            <success @restartBag="success == false"></success>
+      <h2>Success!</h2>
+            <p>Your order has been received and will be processed shortly.<br>
+            Thanks!</p>
+
+    </div>
     </div>
     </div>
 
@@ -93,10 +105,13 @@
 </template>
 <script>
 import Checkout from './Checkout.vue'
+import Success from './Success.vue'
 export default {
 data(){
     return {
-        notes: ''
+        notes: '',
+        success: false,
+        purchased: false
     }
 },
 name: 'Cart',
@@ -104,7 +119,8 @@ name: 'Cart',
 props: ['necklaceLength', 'braceletLength', 'braceletSize', 'templateBeads', 'selectedBeads', 'selectedMaterial', 'selectedClasp', 'selectedType', 'necklace', 'bracelet', 'dataURL'],
 
 components: {
-    Checkout
+    Checkout,
+    Success
 },
 
     computed: {
@@ -156,6 +172,15 @@ components: {
     },
 
     methods: {
+
+      purchaseSuccessful: function(){
+          this.success = true;
+          this.purchased = true;
+          this.$nextTick(() => {
+            this.$refs.cart.scrollTop = 0;
+          });
+
+      },
 
             formatPrice: function(value){
             return value.toFixed(2);
@@ -818,6 +843,11 @@ display: grid;
         padding: 30px;
 
 
+    }
+
+    .thanks {
+    text-align: center;
+padding-bottom: 20px;
     }
 
 

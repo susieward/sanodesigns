@@ -31,7 +31,7 @@ font-size: 32px;
 line-height: 35px;
 margin: 0;
 color: #262626;
-    
+
 }
 
 h3 {
@@ -42,7 +42,7 @@ line-height: 30px;
 margin-bottom: 15px;
 margin-top: 0;
 color: #262626;
-    
+
 }
 
 a {
@@ -57,6 +57,7 @@ color: #8a52a3;
 .btn {
 border: 1px solid #000;
 background-color: #000;
+border-radius: 2px;
 padding: 20px 34px;
 text-align: center;
 font-family: 'Karla';
@@ -71,6 +72,7 @@ cursor: pointer;
 .btn-small {
 border: 1px solid #000;
 background-color: #000;
+border-radius: 2px;
 padding: 14px 22px;
 text-align: center;
 font-family: 'Karla';
@@ -79,7 +81,7 @@ line-height: 18px;
 text-transform: uppercase;
 color: #d9d9d9;
 font-weight: 400;
-cursor: pointer; 
+cursor: pointer;
 height: 50px;
 opacity: 1;
 }
@@ -87,6 +89,7 @@ opacity: 1;
 .btn-small-gray {
 border: 1px solid #ddd;
 background-color: #ddd;
+border-radius: 2px;
 padding: 14px 22px;
 text-align: center;
 font-family: 'Karla';
@@ -95,7 +98,7 @@ line-height: 18px;
 text-transform: uppercase;
 color: #727272;
 font-weight: 400;
-cursor: pointer; 
+cursor: pointer;
 }
 
 .btn-small-gray:hover {
@@ -107,15 +110,16 @@ color: #d9d9d9;
 .btn-xsmall-gray {
 border: 1px solid #ddd;
 background-color: #ddd;
+border-radius: 2px;
 padding: 14px 18px;
 text-align: center;
 font-family: 'Karla';
 font-size: 16px;
-line-height: 16px;
+line-height: 23px;
 text-transform: uppercase;
 color: #727272;
 font-weight: 400;
-cursor: pointer; 
+cursor: pointer;
 }
 
 .btn-xsmall-gray:hover {
@@ -139,8 +143,3 @@ color: #d9d9d9;
 
 
 /* header media queries */
-
-
-
-
-
