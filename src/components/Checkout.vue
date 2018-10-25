@@ -485,10 +485,6 @@ computed: {
 
 methods: {
 
-  formatPrice: function(value){
-  return value.toFixed(2);
-},
-
   showErr(){
     return this.err = true;
   },
