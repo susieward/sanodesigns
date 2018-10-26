@@ -35,7 +35,7 @@ methods: {
 
     login: function () {
 
-        axios.post('http://localhost:3000/login', {
+        axios.post('https://sanodesigns-server.herokuapp.com/login', {
             username: this.username,
             password: this.password
         },
