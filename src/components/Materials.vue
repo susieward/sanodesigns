@@ -492,8 +492,8 @@ data(){
     }
 
      .size-template-necklace {
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
     border: 1px solid #ddd;
     }
 
