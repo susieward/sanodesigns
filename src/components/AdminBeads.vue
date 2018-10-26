@@ -159,7 +159,7 @@ justify-content: center;
     display: grid;
     justify-content: center;
         padding: 5px;
-         border: 1px solid #eee;
+  border: 1px solid transparent;
         cursor: pointer;
     }
 
@@ -177,12 +177,13 @@ justify-content: center;
 
     }
 
-
     .searchbar {
-    height: 50px;
-    width: 500px;
+    height: 40px;
+    width: 400px;
     padding: 10px 12px;
-    font-size: 20px;
+    font-size: 18px;
     border: 1px solid #aaa;
+        margin-bottom: 20px;
     }
+
 </style>
