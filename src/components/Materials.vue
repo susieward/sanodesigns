@@ -8,14 +8,9 @@
    <h2 style="text-align: center">Select {{ selectedType }} Material</h2>
 
   <div v-if="necklace === true" class="materials-selector">
+              <div class="size-template-necklace-materials">
 
-
-
-
-
-              <div class="size-template-necklace">
-
-                <img class="necklace-length-img" src="/static/necklace-length-guide.jpg"/>
+                <img class="necklace-length-img-materials" src="/static/necklace-length-guide.jpg"/>
 
               </div>
 
@@ -24,7 +19,7 @@
 
 
 
-    <div class="size">
+    <div class="size-materials">
      <div class="necklace-material-radios">
 
        <span><input type="radio" id="Chain" name="material" value="Chain" @change="selectedChain" v-model="selectedMaterial.type"/>
@@ -70,12 +65,12 @@
 
 
   <div v-if="bracelet === true" class="materials-selector">
-        <div class="size-template-bracelet">
-            <img class="bracelet-size-img" src="/static/bracelet-size-guide.png"/>
+        <div class="size-template-bracelet-materials">
+            <img class="bracelet-size-img-materials" src="/static/bracelet-size-guide.png"/>
          </div>
 
 
-             <div class="size">
+             <div class="size-materials">
         <div class="necklace-material-radios">
 
        <span><input type="radio" :id="chain" value="Chain" @change="selectedChain" v-model="selectedMaterial.type"/>
@@ -312,14 +307,12 @@ data(){
     grid-area: content;
     display: grid;
     align-content: flex-start;
-
+justify-content: center;
     grid-gap: 30px;
 
     padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
-
-
 
     }
 
@@ -336,36 +329,34 @@ data(){
 
     padding: 10px;
     grid-gap: 40px;
-
     }
 
-     .size-template-necklace {
+     .size-template-necklace-materials {
     height: 400px;
     width: 400px;
-    border: 1px solid #ddd;
+border: 1px solid #ddd;
     }
 
-    .necklace-length-img {
+    .necklace-length-img-materials {
 
-    height: 100%;
-    width: 100%;
+      height: 100%;
+      width: 100%;
     }
 
-    .size-template-bracelet {
+    .size-template-bracelet-materials {
     height: 440px;
     width: 440px;
     border: 1px solid #ddd;
     }
 
-    .bracelet-size-img {
+    .bracelet-size-img-materials {
     height: 100%;
         width: 100%;
     }
 
-    .size {
+    .size-materials {
        min-height: 400px;
-        width: 400px;
-
+        width: 350px;
     }
 
         .necklace-material-radios {
@@ -386,6 +377,20 @@ data(){
 
     .selectcolor {
    width: 50%;
+    }
+
+    select {
+
+
+  padding: 8px 12px;
+      font-family: 'Karla';
+
+  font-size: 14px;
+  line-height: 21px;
+  border: 1px solid #ccc;
+height: 40px;
+  background-color: #fff;
+
     }
 
      @media screen and (max-width: 1200px){
@@ -419,32 +424,34 @@ data(){
     grid-gap: 40px;
     }
 
-     .size-template-necklace {
-    height: 400px;
-    width: 400px;
-    border: 1px solid #ddd;
+     .size-template-necklace-materials {
+       height: 400px;
+       width: 400px;
+
+
     }
 
-    .necklace-length-img {
+    .necklace-length-img-materials {
 
     height: 100%;
     width: 100%;
+
     }
 
-    .size-template-bracelet {
+    .size-template-bracelet-materials {
     height: 440px;
     width: 440px;
-    border: 1px solid #ddd;
+
     }
 
-    .bracelet-size-img {
+    .bracelet-size-img-materials {
     height: 100%;
         width: 100%;
     }
 
-    .size {
+    .size-materials {
        min-height: 400px;
-        width: 400px;
+        width: 350px;
 
     }
 
@@ -462,7 +469,7 @@ data(){
 
          @media screen and (max-width: 1000px){
 
-            .materials-container {
+    .materials-container {
     grid-area: content;
     display: grid;
     align-content: flex-start;
@@ -491,32 +498,33 @@ data(){
     grid-gap: 20px;
     }
 
-     .size-template-necklace {
-    height: 400px;
-    width: 400px;
-    border: 1px solid #ddd;
+     .size-template-necklace-materials {
+
+       height: 300px;
+       width: 300px;
+
     }
 
-    .necklace-length-img {
+    .necklace-length-img-materials {
 
     height: 100%;
     width: 100%;
     }
 
-    .size-template-bracelet {
+    .size-template-bracelet-materials {
      height: 340px;
     width: 340px;
-    border: 1px solid #ddd;
+
     }
 
-    .bracelet-size-img {
+    .bracelet-size-img-materials {
     height: 100%;
         width: 100%;
     }
 
-    .size {
-       min-height: 275px;
-        width: 275px;
+    .size-materials {
+       min-height: 300px;
+        width: 300px;
 
     }
 
@@ -541,7 +549,6 @@ data(){
     align-content: flex-start;
 
     grid-gap: 30px;
-  width: 860px;
     padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
@@ -549,10 +556,32 @@ width: 600px;
 
     }
 
+    .size-template-necklace-materials {
 
-            .size {
+
+
+
+ }
+
+ .necklace-length-img-materials {
+
+   height: 100%;
+   width: 100%;
+ }
+
+ .materials-selector {
+ display: grid;
+ grid-template-rows: auto auto;
+ grid-template-columns: 1fr;
+
+ padding: 10px;
+ grid-gap: 20px;
+ }
+
+
+            .size-materials {
        min-height: 275px;
-        width: 200px;
+        width: 300px;
 
     }
 
@@ -586,22 +615,22 @@ width: 400px;
     }
 
     }
-     .size-template-necklace {
-    height: 300px;
-    width: 300px;
-    border: 1px solid #ddd;
+     .size-template-necklace-materials {
+
+
+
 
     }
 
 
-    .size-template-bracelet {
+    .size-template-bracelet-materials {
      height: 340px;
     width: 340px;
-    border: 1px solid #ddd;
+
     }
 
-    .size {
-        width: auto;
+    .size-materials {
+        width: 300px;
     }
     @media screen and (max-width: 400px){
 
@@ -612,7 +641,6 @@ width: 400px;
     align-content: flex-start;
 
     grid-gap: 30px;
-  width: 860px;
     padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
@@ -632,33 +660,31 @@ width: 400px;
 
 
 
-       .size-template-necklace {
+       .size-template-necklace-materials {
 
     height: 300px;
-    width: 300px;
-    border: 1px solid #ddd;
+
     }
 
-    .necklace-length-img {
+    .necklace-length-img-materials {
 
     height: 100%;
     width: 100%;
     }
 
-    .size-template-bracelet {
+    .size-template-bracelet-materials {
      height: 340px;
     width: 340px;
-    border: 1px solid #ddd;
     }
 
-    .bracelet-size-img {
+    .bracelet-size-img-materials {
     height: 100%;
         width: 100%;
     }
 
-    .size {
+    .size-materials {
        min-height: 300px;
- width:auto;
+ width:300px;
 
 
     }

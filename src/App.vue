@@ -12,14 +12,14 @@
               </div>
 
                <div class="buttons-buttons">
- <span>
+
       <button class="create-btn" @click="deleteLocalStorage" v-show="notHome">start over</button>
           <button class="create-btn" @click="saveForLater" v-show="typeChosen">save for later</button>
 
 
             <span v-if="sessions.length"><button class="create-btn" @click="goToDesigns">my designs</button></span>
 
-                   </span>
+
           </div>
               </div>
       </div>
@@ -226,11 +226,11 @@ margin: 0;
     .buttons-buttons {
     grid-area: buttons;
     display: grid;
-   grid-gap: 20px;
+   grid-gap: 10px;
       justify-content: flex-end;
       align-content: center;
         padding: 0;
-
+grid-auto-flow: column;
     }
 
        .create-btn {
@@ -246,6 +246,7 @@ text-transform: uppercase;
 color: #d9d9d9;
 font-weight: 400;
 cursor: pointer;
+
 }
 
 
@@ -366,6 +367,13 @@ margin: 0;
 
     }
 
+    .create-btn {
+      font-size: 12px;
+      line-height: 20px;
+      padding: 6px 12px;
+
+    }
+
 
 }
 
@@ -442,6 +450,13 @@ padding-bottom: 2px;
       justify-content: flex-end;
       align-content: center;
         padding: 0;
+
+    }
+
+    .create-btn {
+      font-size: 12px;
+      line-height: 20px;
+      padding: 6px 12px;
 
     }
 
@@ -531,6 +546,11 @@ padding-bottom: 2px;
       align-content: center;
         padding: 10px;
 
+    }
+
+    .create-btn {
+      font-size: 14px;
+        line-height: 23px;
     }
 
 
@@ -623,6 +643,12 @@ padding-bottom: 2px;
       justify-content: center;
       align-content: center;
         padding: 10px;
+
+    }
+
+    .create-btn {
+      font-size: 14px;
+      line-height: 23px;
 
     }
 
@@ -722,6 +748,22 @@ padding-bottom: 2px;
         padding: 10px;
 
     }
+
+    .create-btn {
+border: 1px solid #000;
+background-color: #000;
+border-radius: 2px;
+
+text-align: center;
+font-family: 'Karla';
+font-size: 14px;
+line-height: 23px;
+text-transform: uppercase;
+color: #d9d9d9;
+font-weight: 400;
+cursor: pointer;
+
+}
 
     }
 

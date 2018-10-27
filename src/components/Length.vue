@@ -262,13 +262,12 @@ props: ['necklace', 'bracelet', 'selectedType'],
     grid-area: content;
     display: grid;
     align-content: flex-start;
-
+justify-content: center;
     grid-gap: 30px;
 
     padding-top: 0px;
     padding-bottom: 10px;
     min-height: 700px;
-
 
     }
 
@@ -277,7 +276,6 @@ props: ['necklace', 'bracelet', 'selectedType'],
 
 grid-gap: 30px;
         justify-content: center;
-
     }
 
 
@@ -332,8 +330,7 @@ justify-content: center;
 
     .size {
        min-height: 400px;
-        width: 300px;
-
+        width: 350px;
     }
 
     .radio-buttons-container {
@@ -409,7 +406,6 @@ justify-content: center;
 
     height: 400px;
     width: 400px;
-    border: 1px solid #ddd;
     }
 
     .necklace-length-img {
@@ -421,7 +417,7 @@ justify-content: center;
     .size-template-bracelet {
     height: 440px;
     width: 440px;
-    border: 1px solid #ddd;
+
     }
 
     .bracelet-size-img {
@@ -431,7 +427,7 @@ justify-content: center;
 
     .size {
        min-height: 400px;
-        width: 300px;
+        width: 350px;
 
     }
     }
@@ -455,10 +451,8 @@ justify-content: center;
 
      .select-length-container {
         display: grid;
-         grid-gap: 30px;
+  justify-content: center;
 
-
-        justify-content: center;
     }
 
 
@@ -492,7 +486,7 @@ justify-content: center;
 
     height: 300px;
     width: 300px;
-    border: 1px solid #ddd;
+
     }
 
     .necklace-length-img {
@@ -502,9 +496,9 @@ justify-content: center;
     }
 
     .size-template-bracelet {
-    height: 440px;
-    width: 440px;
-    border: 1px solid #ddd;
+    height: 340px;
+    width: 340px;
+
     }
 
     .bracelet-size-img {
@@ -514,7 +508,7 @@ justify-content: center;
 
     .size {
        min-height: 300px;
- width:200px;
+ width:300px;
 
 
     }
@@ -542,7 +536,8 @@ justify-content: center;
 
               .length-selector {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
 justify-content: center;
     padding: 10px;
     grid-gap: 20px;
@@ -553,19 +548,20 @@ justify-content: center;
 
     height: 300px;
     width: 300px;
-    border: 1px solid #ddd;
+
     }
 
     .necklace-length-img {
 
-    height: 100%;
-    width: 100%;
+      height: 100%;
+      width: 100%;
+
     }
 
     .size-template-bracelet {
     height: 340px;
     width: 340px;
-    border: 1px solid #ddd;
+
     }
 
     .bracelet-size-img {
@@ -575,7 +571,7 @@ justify-content: center;
 
     .size {
        min-height: 300px;
- width:200px;
+ width:300px;
 
 
     }
@@ -653,19 +649,19 @@ justify-content: center;
 
     height: 300px;
     width: 300px;
-    border: 1px solid #ddd;
+
     }
 
     .necklace-length-img {
 
-    height: 100%;
-    width: 100%;
+      height: 100%;
+      width: 100%;
     }
 
     .size-template-bracelet {
     height: 340px;
     width: 340px;
-    border: 1px solid #ddd;
+
     }
 
     .bracelet-size-img {

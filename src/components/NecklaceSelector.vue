@@ -690,19 +690,6 @@ min-height: 700px;
 
 
 
-        .create-btn {
-border: 1px solid #000;
-background-color: #000;
-padding: 10px 14px;
-text-align: center;
-font-family: 'Karla';
-font-size: 18px;
-line-height: 18px;
-text-transform: uppercase;
-color: #d9d9d9;
-font-weight: 400;
-cursor: pointer;
-}
 
 
      .admin-bead-details {
