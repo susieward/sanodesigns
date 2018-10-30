@@ -15,6 +15,7 @@
         </div>
     </div>
 
+
        <router-view></router-view>
 
     </div>
@@ -38,6 +39,10 @@ data(){
     computed: {
         isAuthenticated(){
             return this.$store.getters.isAuthenticated;
+        },
+
+        beads(){
+            return this.$store.state.beads;
         }
     },
 

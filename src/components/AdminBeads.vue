@@ -70,6 +70,10 @@ export default {
 
             var lowSearch = this.search.toLowerCase();
 
+          if(!lowSearch || lowSearch === ''){
+            return this.beads;
+          }
+
             return this.beads.filter(bead => {
                 return this.searchProps.some( key =>
 

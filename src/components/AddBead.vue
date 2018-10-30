@@ -66,23 +66,25 @@ name: 'AddBead',
 
         addBead: function(){
 
-          if (this.newBead.stone=== "" || this.newBead.size === "" || this.newBead.cut === "" || this.newBead.color === "" || this.newBead.price === "" || this.newBead.shape === "" || this.newBead.image === "") {
+          if (this.newBead.stone=== "" || this.newBead.size === "" || this.newBead.cut === "" || this.newBead.color === "" || this.newBead.price === "" || this.newBead.shape === "") {
         this.error = 'All fields (including image) are required.'
     } else {
 
-            axios.post('http://localhost:3000/beads', {
+            axios.post('https://sanodesigns-server.herokuapp.com/beads', {
             stone: this.newBead.stone,
             size: this.newBead.size,
             cut: this.newBead.cut,
             color: this.newBead.color,
             price: this.newBead.price,
             shape: this.newBead.shape,
-            image: this.newBead.image
+
         }).then((response) => {
                 this.$store.commit('addBead', {bead: response.data});
+                this.$store.dispatch('loadBeads');
                 this.newBead = {};
                 this.error = '';
-                this.newBead.image = ''
+                this.newBead.image = '';
+                this.$router.push('/admin');
             }).catch((error) => {
               this.imgerror = error.response.data;
             })
