@@ -302,7 +302,7 @@ export default {
         addTemplateBead: function(selectedBeadId){
 
 
-            var id = Number(selectedBeadId);
+            var id = selectedBeadId;
 
             let templateBead = this.selectedBeads.find(bead => bead._id === id);
 
@@ -336,7 +336,7 @@ export default {
 
         deleteTemplateBead: function(selectedId){
 
-           var id = Number(selectedId);
+           var id = selectedId;
 
             var templateBead = this.templateBeads.find(bead => bead._id === id);
 
