@@ -34,12 +34,12 @@
 
                 <p>Are you sure you want to delete this design? You can't undo this action!</p>
 
-                    <p><span>
+                    <p>
 
-                        <button class="btn-small-gray" @click="deleteSession(selectedSession.id)">yes, delete</button>
+                        <button class="btn-small" @click="deleteSession(selectedSession.id)">yes, delete</button><br /><br />
                       <button class="btn-small-gray" @click="cancelDelete">no, cancel</button>
 
-                        </span></p>
+                        </p>
 
                 </div>
                </div>
