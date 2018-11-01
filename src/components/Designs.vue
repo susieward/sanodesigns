@@ -161,9 +161,18 @@ data() {
 
         deleteSession: function(id){
 
-            this.$store.commit('deleteSession', id);
-            this.$store.dispatch('loadSessions');
-            this.$router.push('/designs');
+          if(this.sessions.length === 1){
+
+            this.deleteSessions();
+            this.$router.push('/');
+
+          } else {
+
+          this.$store.commit('deleteSession', id);
+          this.$store.dispatch('loadSessions');
+          this.$router.push('/designs');
+
+}
 
         },
 
