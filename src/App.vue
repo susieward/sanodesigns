@@ -29,7 +29,10 @@
       </div>
 
       <div class="footer">
+        <div class="footer-container">
+          <p>Copyright &copy; 2018 Sano Designs</p>
 
+        </div>
 
       </div>
       </div>
@@ -277,11 +280,29 @@ grid-area: content;
 }
 
     .footer {
+      display: grid;
+      align-content: flex-end;
     grid-area: footer;
-width: 100vw;
+    width: 100vw;
     height: 300px;
     background-color: #333333;
     margin-top: 200px;
+    padding: 10px;
+    }
+
+
+    .footer-container {
+      display: grid;
+      justify-content: flex-start;
+      padding: 10px;
+      padding-left: 85px;
+    }
+
+    .footer-container p {
+      font-family: 'Karla';
+      font-size: 14px;
+      line-height: 24px;
+      color: #b8b8b8;
     }
 
 

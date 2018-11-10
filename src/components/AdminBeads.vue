@@ -14,7 +14,7 @@
 
  <div class="admin-beads-container">
 
-        <div v-for="bead in filteredList" class="admin-bead" @click="openModal(bead)">
+        <div v-for="bead in filteredList" class="admin-bead" @click="openModal(bead)" :key="bead._id">
               <img class="admin-bead-img" :src="bead.image" @click="openModal(bead)"/>
               <div class="admin-bead-details">
 
@@ -70,9 +70,6 @@ export default {
 
             var lowSearch = this.search.toLowerCase();
 
-          if(!lowSearch || lowSearch === ''){
-            return this.beads;
-          }
 
             return this.beads.filter(bead => {
                 return this.searchProps.some( key =>

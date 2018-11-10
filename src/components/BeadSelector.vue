@@ -64,7 +64,7 @@
 
       <div class="beads-directory" :class="{ 'container-disabled': showDisabled }">
 
-          <div v-for="(bead, index) in filteredList" class="bead" :class="{ 'bead-disabled': showDisabled }" @click="select(bead, $event)" v-bind:key="bead._id">
+          <div v-for="(bead, index) in filteredList" class="bead" :class="{ 'bead-disabled': showDisabled }" @click="select(bead, $event)" :key="bead._id">
 
           <div class="bead-container">
               <img class="bead-img-small" :src="bead.image"/>

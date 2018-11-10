@@ -80,7 +80,6 @@ name: 'AddBead',
 
         }).then((response) => {
                 this.$store.commit('addBead', {bead: response.data});
-                this.$store.dispatch('loadBeads');
                 this.newBead = {};
                 this.error = '';
                 this.newBead.image = '';
