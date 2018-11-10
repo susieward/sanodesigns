@@ -360,7 +360,7 @@
   <card class='stripe-card'
   id="card"
     :class='{ complete }'
-    stripe='pk_test_VB3mC0nMjlNv8DTZYGMoo7A8'
+    stripe='pk_live_KRoao3HQiiGM5hQqKEDMfius'
     :options='stripeOptions'
     @change='complete = $event.complete'
   />
@@ -402,7 +402,7 @@ data(){
       complete: false,
       status: '',
           response: '',
-          stripeKey: 'pk_test_VB3mC0nMjlNv8DTZYGMoo7A8',
+          stripeKey: 'pk_live_KRoao3HQiiGM5hQqKEDMfius',
         name: {
           first: '',
           last: ''
