@@ -77,6 +77,7 @@ name: 'AddBead',
             color: this.newBead.color,
             price: this.newBead.price,
             shape: this.newBead.shape,
+            image: this.newBead.image
 
         }).then((response) => {
                 this.$store.commit('addBead', {bead: response.data});

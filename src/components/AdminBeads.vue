@@ -12,23 +12,23 @@
                 <input type="text" class="searchbar" v-model="search"  placeholder="blue, round, Obsidian, 10 mm, smooth, $0.35, etc"/>
     </div>
 
- <div class="admin-beads-container">
 
-        <div v-for="bead in filteredList" class="admin-bead" @click="openModal(bead)" :key="bead._id">
-              <img class="admin-bead-img" :src="bead.image" @click="openModal(bead)"/>
-              <div class="admin-bead-details">
+     <div class="admin-beads-container">
+<div v-for="bead in filteredList" class="admin-bead" @click="openModal(bead)" :key="bead._id">
+   <img class="admin-bead-img" :src="bead.image" @click="openModal(bead)"/>
+   <div class="admin-bead-details">
 
-                  <span class="admin-prop-name">Stone:</span> <span>{{ bead.stone }}</span>
-                  <span class="admin-prop-name">Size:</span> <span>{{ formatBeadSize(bead.size) }}</span>
-                  <span class="admin-prop-name">Cut:</span> <span>{{ bead.cut }}</span>
-                  <span class="admin-prop-name">Color:</span> <span>{{ bead.color }}</span>
-                  <span class="admin-prop-name">Shape:</span> <span>{{ bead.shape }}</span>
-                  <span class="admin-prop-name">Price:</span> <span>{{ formatPrice(bead.price) | usdollar }}</span>
-                  <span class="admin-prop-name">Id:</span> <span>{{ bead._id }}</span>
+       <span class="admin-prop-name">Stone:</span> <span>{{ bead.stone }}</span>
+       <span class="admin-prop-name">Size:</span> <span>{{ formatBeadSize(bead.size) }}</span>
+       <span class="admin-prop-name">Cut:</span> <span>{{ bead.cut }}</span>
+       <span class="admin-prop-name">Color:</span> <span>{{ bead.color }}</span>
+       <span class="admin-prop-name">Shape:</span> <span>{{ bead.shape }}</span>
+       <span class="admin-prop-name">Price:</span> <span>{{ formatPrice(bead.price) | usdollar }}</span>
+       <span class="admin-prop-name">Id:</span> <span>{{ bead._id }}</span>
 
-              </div>
+   </div>
+</div>
 
-            </div>
           </div>
 
         <bead-modal v-if="showModal === true" :bead="bead" @close="closeModal"></bead-modal>

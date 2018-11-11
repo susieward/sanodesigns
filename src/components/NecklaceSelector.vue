@@ -58,7 +58,7 @@
                 <h3>Beads:</h3>
             <div v-for="bead in templateBeads">
 
-                <span>{{ bead.stone }} ({{ formatBeadSize(bead.size) }}) x {{ bead.quantity }}</span> <span style="float: right">{{ formatPrice(bead.price) | usdollar }} ea.</span>
+                <span>{{ bead.stone }} ({{ bead.size }}) x {{ bead.quantity }}</span> <span style="float: right">{{ bead.price | usdollar }} ea.</span>
 
             </div>
               <p>Total: {{ total | usdollar }}</p>
