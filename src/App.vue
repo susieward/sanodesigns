@@ -30,9 +30,16 @@
 
       <div class="footer">
         <div class="footer-container">
-          <p>Copyright &copy; 2018 Sano Designs</p>
 
-        </div>
+          <div class="footer-item1">
+            <p>Copyright &copy; 2018 Sano Designs</p>
+          </div>
+
+          <div class="footer-item2">
+            <p>Coded by <a href="https://susieward.io" target="_blank">Susie Ward</a></p>
+          </div>
+          </div>
+
 
       </div>
       </div>
@@ -293,15 +300,35 @@ grid-area: content;
 
     .footer-container {
       display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-item1 {
+      display: grid;
       justify-content: flex-start;
       padding: 10px;
       padding-left: 85px;
+    }
+
+    .footer-item2 {
+      display: grid;
+      justify-content: flex-end;
+      padding: 10px;
+      padding-right: 85px;
     }
 
     .footer-container p {
       font-family: 'Karla';
       font-size: 14px;
       line-height: 24px;
+      color: #b8b8b8;
+    }
+
+    .footer-container a {
+      color: #fff;
+    }
+
+    .footer-container a:hover {
       color: #b8b8b8;
     }
 
@@ -584,31 +611,26 @@ padding-bottom: 2px;
 
     .banner-container {
     display: grid;
-      align-content: center;
-
+    align-content: center;
     justify-content: center;
-margin: 0;
-padding: 0;
+    margin: 0;
+    padding: 0;
     width: 400px;
     }
 
     .banner p {
       font-family: 'Karla';
-color: #fff;
-font-size: 18px;
-line-height: 25px;
-        padding-bottom: 2px;
-        padding-right: 0px;
+      color: #fff;
+      font-size: 18px;
+      line-height: 25px;
+      padding-bottom: 2px;
+      padding-right: 0px;
     }
 
-        .header {
-
-background-color: #F4F4F4;
- height: 200px;
-
-
-
-         }
+      .header {
+      background-color: #F4F4F4;
+      height: 200px;
+    }
 
     .header-container {
     display: grid;
