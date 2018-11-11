@@ -66,7 +66,7 @@ name: 'AddBead',
 
         addBead: function(){
 
-          if (this.newBead.stone=== "" || this.newBead.size === "" || this.newBead.cut === "" || this.newBead.color === "" || this.newBead.price === "" || this.newBead.shape === "") {
+          if (this.newBead.stone=== "" || this.newBead.size === "" || this.newBead.cut === "" || this.newBead.color === "" || this.newBead.price === "" || this.newBead.shape === "" || this.newBead.image === "") {
         this.error = 'All fields (including image) are required.'
     } else {
 
