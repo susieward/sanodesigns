@@ -56,13 +56,11 @@
 
        <label for="shape">Shape:</label> <input id="shape" type="text" name="shape" v-model="beadEdit.shape" :placeholder="bead.shape"/>
 
-       <label for="image" style="margin-top: 15px;">Image:</label> <div class="imgupload">
+       <label for="image" style="margin-top: 15px;">Image:</label>
 
 
-     <input type="file" class="fil" @change="onFileChange">
+     <span class="imgupload"><input type="file" @change="onFileChange"></span>
 
-           <span style="color:red" v-show="imgerror"> {{ imgerror }}</span>
-             </div>
 
 
 
