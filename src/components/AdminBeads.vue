@@ -92,7 +92,7 @@ export default {
 
         closeModal: function(){
             this.showModal = false;
-
+            this.$router.push('/admin');
         },
 
         formatPrice: function(value){
