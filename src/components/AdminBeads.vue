@@ -92,6 +92,7 @@ export default {
 
         closeModal: function(){
             this.showModal = false;
+
         },
 
         formatPrice: function(value){

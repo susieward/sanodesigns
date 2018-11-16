@@ -165,7 +165,6 @@ created(){
             let path = 'https://sanodesigns-server.herokuapp.com/beads/' + bead._id;
 
             axios.put(path, {
-                image: bead.image,
                 stone: this.beadEdit.stone,
                 size: this.beadEdit.size,
                 cut: this.beadEdit.cut,
