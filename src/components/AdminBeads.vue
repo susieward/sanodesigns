@@ -83,16 +83,15 @@ export default {
     methods: {
 
 
-
-
         openModal: function(bead){
             this.showModal = true;
             this.bead = bead;
         },
 
         closeModal: function(){
-            this.showModal = false;
-            this.$router.push('/admin');
+
+              this.showModal = false;
+
         },
 
         formatPrice: function(value){

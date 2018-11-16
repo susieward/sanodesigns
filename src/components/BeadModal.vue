@@ -175,9 +175,9 @@ created(){
                 _id: bead._id
             }).then((response) => {
                 this.$store.commit('editBead', {bead: response.data});
+                this.$store.dispatch('loadBeads');
             });
-            this.$emit('close');
-            this.$store.dispatch('loadBeads');
+              this.$emit('close');
 
         },
 

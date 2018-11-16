@@ -75,7 +75,8 @@ state: {
         },
 
         editBead: (state, {bead}) =>{
-        let index = state.beads.findIndex(bead => bead._id === id);
+          var id = bead._id;
+        let index = state.beads.findIndex(b => b._id === id);
             state.beads.splice(index, 1, bead);
         },
 
