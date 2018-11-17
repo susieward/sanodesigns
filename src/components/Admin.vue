@@ -102,6 +102,10 @@ data(){
 
     }
 
+    .admin-links .router-link-exact-active  {
+      border-bottom: 1px solid transparent;
+    }
+
     .admin-link{
     font-size: 16px;
     border-bottom: 1px solid #ad81c0;
