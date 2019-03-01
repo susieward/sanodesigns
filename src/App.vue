@@ -32,7 +32,7 @@
         <div class="footer-container">
 
           <div class="footer-item1">
-            <p>Copyright &copy; 2018 Sano Designs</p>
+            <p>Copyright &copy; 2019 Sano Designs</p>
           </div>
 
           <div class="footer-item2">
