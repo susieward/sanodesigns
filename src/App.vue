@@ -122,7 +122,7 @@ data(){
             this.$store.commit('saveSession', {session: session});
            this.$session.destroy();
              this.$store.commit('deleteLocalBeads');
-             this.$router.push('/');
+             this.$router.push('/designs');
 
         },
 
